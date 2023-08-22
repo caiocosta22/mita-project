@@ -1,0 +1,58 @@
+{
+  "name": "rodapfv",
+  "version": "1.0.5",
+  "private": true,
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "lint": "eslint --ext .js,. ./",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@quasar/extras": "^1.0.0",
+    "axios": "^1.1.2",
+    "date-fns": "^2.29.3",
+    "highcharts": "^10.2.1",
+    "highcharts-vue": "^1.4.0",
+    "mixpanel-browser": "^2.45.0",
+    "moment-timezone": "^0.5.38",
+    "pinia": "^2.0.11",
+    "pug": "^3.0.2",
+    "quasar": "^2.6.0",
+    "tiny-emitter": "^2.1.0",
+    "underscore": "^1.13.6",
+    "v-money": "^0.8.1",
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.0.0",
+    "vue-router": "^4.1.5",
+    "vue-the-mask": "^0.11.1",
+    "vue3-carousel": "^0.3.1"
+  },
+  "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+    "@quasar/app-vite": "^1.0.0",
+    "@types/underscore": "^1.11.5",
+    "@volar/vue-language-plugin-pug": "^1.0.7",
+    "@vue/language-plugin-pug": "^1.8.4",
+    "autoprefixer": "^10.4.2",
+    "eslint": "^8.10.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "eslint-plugin-vue-pug": "^0.5.4",
+    "postcss": "^8.4.14",
+    "vue-driver.js": "^1.0.3",
+    "vue-pug-plugin": "^2.0.2"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4"
+  }
+}
