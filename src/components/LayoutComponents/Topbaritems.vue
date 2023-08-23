@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 const fretes = [
-  "Frete grátis para Fortaleza, Maracanaú e Caucaia a partir de R$100,00",
-  "Frete grátis para todo o Brasil a partir de R$200,00"
+  "Prazo de Retirada / Envio 7 dias úteis",
+  "Enviamos para todo país!"
 ];
 const padrao = ref(fretes[0]);
 let contador = 0;
@@ -23,15 +23,9 @@ setInterval(() => {
 
 <template lang = "pug">
 q-toolbar.justify-center(style="background-color: #000;")
-  a.text-center {{ padrao }}
+  a.text-center.text-white(style="font-family:Catamaran") {{ padrao }}
 </template>
 
 <style scoped>
-a{
-  font-family: 'Outfit';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  color: #fbea2b
-}
+
 </style>
