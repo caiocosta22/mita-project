@@ -26,7 +26,7 @@ $light-gray: #f8f8f8;
 .card-carousel {
   display: flex;
   justify-content: center;
-  width:860px;
+  width: 1270px;
   &--overflow-container {
     overflow: hidden;
   }
@@ -34,9 +34,9 @@ $light-gray: #f8f8f8;
   &--nav__left,
   &--nav__right {
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    padding: 10px;
+    width: 22.5px;
+    height: 22.5px;
+    padding: 15px;
     box-sizing: border-box;
     border-top: 2px solid $vue-teal;
     border-right: 2px solid $vue-teal;

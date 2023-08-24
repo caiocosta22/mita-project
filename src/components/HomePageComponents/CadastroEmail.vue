@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-div.q-pa-lg.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: wrap;")
+div.q-pa-xl.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: wrap;")
   div.col-3
     p.text-black.texto1 Cadastre-se em nossa Lista Vip
     p.text-black.texto2 Fique por dentro de tudo que acontece e receba<br>novidades e ofertas exclusivas!
