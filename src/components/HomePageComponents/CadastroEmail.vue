@@ -2,8 +2,8 @@
 </script>
 
 <template lang="pug">
-div.q-pa-lg.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: wrap;")
-  div.q-mr-xl
+div.q-pa-lg.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: nowrap;")
+  div.q-mr-xl(width="449px")
     p.text-black.texto1 Cadastre-se em nossa Lista Vip
     p.text-black.texto2 Fique por dentro de tudo que acontece e receba<br>novidades e ofertas exclusivas!
   q-input(standout v-model="text" label="Digite seu nome" bg-color="white" color="black" label-color="black" text="black" outlined style="width:323px; heigth:28px"  )
