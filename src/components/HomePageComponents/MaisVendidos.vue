@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 
 const currentOffset = ref(0);
 const windowSize = 4;
-const paginationFactor = 320;
+const paginationFactor = 310;
 const items = ref([
   {
     name: "Case para Iphone",
@@ -60,10 +60,10 @@ const moveCarousel = (direction) => {
 </script>
 
 <template lang="pug">
-.card-carousel-wrapper
-  q-icon.cursor-pointer.q-mr-md(
+.card-carousel-wrapper.col
+  q-icon.cursor-pointer.q-mr-sm(
     name="chevron_left"
-    size="3.5em"
+    size="2.5em"
     color="black"
     @click="moveCarousel(-1)"
   )
@@ -75,9 +75,9 @@ const moveCarousel = (direction) => {
           .card-carousel--card--footer.q-pa-sm.text-black
             p {{ item.name }}
             p.tag.text-bold(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
-  q-icon.cursor-pointer.q-mr-md(
+  q-icon.cursor-pointer.q-ml-md(
     name="chevron_right"
-    size="3.5em"
+    size="2.5em"
     color="black"
     @click="moveCarousel(1)"
   )
@@ -91,7 +91,7 @@ img {
   transition: opacity 150ms linear;
   user-select: none;
   height: 300px;
-  width: 300px
+  width: 290px
   }
   *{
   color: black;

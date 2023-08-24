@@ -8,7 +8,7 @@ import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
 const currentOffset = ref(0);
 const windowSize = 6;
-const paginationFactor = 180;
+const paginationFactor = 200;
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -67,9 +67,9 @@ const moveCarousel = (direction) => {
 
 <template lang="pug">
 .card-carousel-wrapper2
-  q-icon.cursor-pointer.q-mr-md(
+  q-icon.cursor-pointer.q-mr-sm(
     name="chevron_left"
-    size="3.5em"
+    size="2.5em"
     color="black"
     @click="moveCarousel(-1)"
   )
@@ -78,15 +78,14 @@ const moveCarousel = (direction) => {
       .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
         .card-carousel--card(v-for="item in items" :key="item" style=" box-shadow:none")
           img(
-            style="width: 160px; height: 160px;"
             :src="item.image"
           )
           .card-carousel--card--footer.text-bold.text-black.text-center
             p.q-pa-sm {{ item.name }}
             p.tag(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
-  q-icon.cursor-pointer.q-mr-md(
+  q-icon.cursor-pointer.q-ml-sm(
     name="chevron_right"
-    size="3.5em"
+    size="2.5em"
     color="black"
     @click="moveCarousel(1)"
   )
@@ -99,8 +98,8 @@ img {
   border-top-right-radius: 4px;
   transition: opacity 150ms linear;
   user-select: none;
-  height: 160px;
-  width: 160px;
+  height: 210px;
+  width: 180px;
 }
 *{
   color: black;
