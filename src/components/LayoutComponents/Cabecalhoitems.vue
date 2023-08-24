@@ -3,9 +3,9 @@
 
 <template lang = "pug">
 q-toolbar.q-pa-md.row.justify-between.q-gutter-xl
-  img.cursor-pointer.col-1.q-pl-xl(
+  img.cursor-pointer.col-2.q-pl-xl(
     src="../../../src/assets/imgs/logo.png"
-      width="140px")
+      style="width:180px;height:49px")
   div.q-gutter-sm.col-2.q-pr-lg.row(style="flex-wrap:nowrap")
     q-icon.q-pr-xl
       img(src="../../assets/svgs/usericon.svg" style="width: 18px; height: 18px;")
@@ -16,4 +16,7 @@ q-toolbar.q-pa-md.row.justify-between.q-gutter-xl
 </template>
 
 <style scoped>
+*{
+  color:black
+}
 </style>

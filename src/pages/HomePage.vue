@@ -4,6 +4,7 @@ import Promocional from "../components/HomePageComponents/Promocional.vue";
 import Categorias from "../components/HomePageComponents/Categorias.vue";
 import Vendidos from "../components/HomePageComponents/MaisVendidos.vue";
 import CadastroEmail from "../components/HomePageComponents/CadastroEmail.vue";
+import Marketing from "../components/HomePageComponents/Marketing.vue";
 </script>
 
 <template lang="pug">
@@ -17,6 +18,7 @@ q-page-container
     p.titulo MAIS VENDIDOS
   Vendidos
   div
+  Marketing
   CadastroEmail
 
 </template>

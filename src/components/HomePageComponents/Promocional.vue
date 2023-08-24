@@ -3,12 +3,12 @@
 </script>
 
 <template lang="pug">
-div.row.q-gutter-md.q-pa-lg.justify-center.cursor-pointer
-  div
-    img(src="../../assets/imgs/BOLSAS.png")
+div.q-gutter-md.q-pa-lg.justify-center.row
   div.column
-    img(src="../../assets/imgs/CHAVEIROS.png")
-    img.q-pt-lg(src="../../assets/imgs/NECESSAIRES.png")
-  div.justify-center
-    img(src="../../assets/imgs/VALENTINES.png")
+    img.cursor-pointer(src="../../assets/imgs/BOLSAS.png")
+  div.column
+    img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png")
+    img.q-pt-lg.cursor-pointer(src="../../assets/imgs/NECESSAIRES.png")
+div.row.col.justify-center
+    img.cursor-pointer(src="../../assets/imgs/VALENTINES.png")
 </template>
