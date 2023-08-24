@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 
 const currentOffset = ref(0);
 const windowSize = 4;
-const paginationFactor = 310;
+const paginationFactor = 340;
 const items = ref([
   {
     name: "Case para Iphone",
@@ -90,8 +90,8 @@ img {
   border-top-right-radius: 4px;
   transition: opacity 150ms linear;
   user-select: none;
-  height: 300px;
-  width: 290px
+  height: 320px;
+  width: 320px
   }
   *{
   color: black;

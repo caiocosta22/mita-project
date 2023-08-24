@@ -5,10 +5,10 @@
 <template lang="pug">
 div.justify-center.row.q-gutter-md.q-pt-md
   div.column
-    img.cursor-pointer(src="../../assets/imgs/BOLSAS.png" style="max-width:684px; height:800px" )
+    img.cursor-pointer(src="../../assets/imgs/BOLSAS.png" style="max-width:649px; height:747px" )
   div.column
-    img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png" style="max-width:500px; height:400px")
-    img.q-pt-lg.cursor-pointer(src="../../assets/imgs/NECESSAIRES.png" style="max-width:500px; height:400px")
-div.row.col.justify-center.q-pb-md.q-pt-md
-  img.cursor-pointer(src="../../assets/imgs/VALENTINES.png" style="max-width:1200px")
+    img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png" style="max-width:646px; height:362.11px")
+    img.cursor-pointer.q-mt-lg(src="../../assets/imgs/NECESSAIRES.png" style="max-width:646px;")
+div.row.col.justify-center.q-mt-md.q-mb-md
+  img.cursor-pointer(src="../../assets/imgs/VALENTINES.png" style="max-width:1320px; height:372")
 </template>

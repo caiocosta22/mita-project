@@ -2,14 +2,14 @@
 </script>
 
 <template lang="pug">
-div.q-pa-xl.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: wrap;")
-  div.col-3
+div.q-pa-lg.row.justify-center.q-gutter-md(style="background-color: white; display:flex;align-items: center; flex-wrap: wrap;")
+  div.q-mr-xl
     p.text-black.texto1 Cadastre-se em nossa Lista Vip
     p.text-black.texto2 Fique por dentro de tudo que acontece e receba<br>novidades e ofertas exclusivas!
-  q-input(standout v-model="text" label="Digite seu nome" bg-color="white" color="black" label-color="black" text="black" outlined ).col-3
-  q-input(standout v-model="text" label="Digite seu e-mail" bg-color="white" color="black" label-color="black" outlined).col-3
+  q-input(standout v-model="text" label="Digite seu nome" bg-color="white" color="black" label-color="black" text="black" outlined style="width:323px; heigth:28px"  )
+  q-input(standout v-model="text" label="Digite seu e-mail" bg-color="white" color="black" label-color="black" outlined style="width:323px; heigth:28px" )
   q-btn.botao.q-pa-md(
-    color="black" label="Cadastrar" style="width: 180px").col-3
+    color="black" label="Cadastrar" style="width: 225.2px; height:56px")
 </template>
 
 <style scoped>

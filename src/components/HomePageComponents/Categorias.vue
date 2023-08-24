@@ -8,7 +8,7 @@ import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
 const currentOffset = ref(0);
 const windowSize = 6;
-const paginationFactor = 200;
+const paginationFactor = 220;
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -98,8 +98,8 @@ img {
   border-top-right-radius: 4px;
   transition: opacity 150ms linear;
   user-select: none;
-  height: 210px;
-  width: 180px;
+  height: 200px;
+  width: 200px;
 }
 *{
   color: black;
