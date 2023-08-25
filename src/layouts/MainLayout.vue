@@ -2,7 +2,3 @@
 q-layout(view="lHh Lpr lFf")
   router-view
 </template>
-
-<style scoped>
-
-</style>
