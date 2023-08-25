@@ -1,28 +1,12 @@
 <script setup>
-// import { ref } from "vue";
-// const links = ref([
-//   "VIAGENS",
-//   "NECESSAIRES",
-//   "CARTEIRAS",
-//   "HOME",
-//   "OFFICE",
-//   "MASCULINO",
-//   "FEMININO",
-//   "PET",
-//   "UTILITÁRIOS",
-//   "PACCO",
-//   "BOLSAS"
-// ]);
-// a.text-black.text-bold.cursor-pointer.col.justify-between-q-pa-md(
-//       v-for="link in links"
-//       :key="link"
-//     ) {{ link }}
+import { ref } from "vue";
+const backgroundMenu = ref("rgba(0,0,0,0)");
 </script>
 
 <template lang="pug">
 div.row.q-pa-sm
-  q-toolbar.bg-white.col-12.q-gutter-sm.justify-evenly
-    q-btn(color="primary" label="Viagens" unelevated  style="font-weight:bolder" text-color="black")
+  q-toolbar.col-12.q-gutter-sm.justify-evenly
+    q-btn.menu(label="Viagens" unelevated  :style="{ backgroundcolor: backgroundMenu }")
       q-menu
         q-list(text-color="primary" style="min-width: 100px" )
           q-item(clickable v-close-popup)
@@ -41,7 +25,7 @@ div.row.q-pa-sm
     a NECESSAIRES
     a CARTEIRAS
     a HOME
-    q-btn(color="primary" text-color="black" label="OFFICE" unelevated style="font-weight:bolder")
+    q-btn.menu(text-color="black" label="OFFICE" unelevated :style="{ backgroundcolor: backgroundMenu }")
       q-menu
         q-list(text-color="black" style="min-width: 100px" )
           q-item(clickable v-close-popup)
@@ -81,5 +65,9 @@ a{
 }
 *{
   color: black;
+}
+.menu{
+  font-weight:bolder;
+  color:black;
 }
 </style>

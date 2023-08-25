@@ -5,7 +5,7 @@ const autoplay = ref(true);
 </script>
 
 <template lang="pug">
-q-carousel.cursor-pointer(
+q-carousel.banner.cursor-pointer(
   animated
   v-model="slide"
   infinite
@@ -23,4 +23,5 @@ q-carousel.cursor-pointer(
 </template>
 
 <style scoped>
+
 </style>

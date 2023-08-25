@@ -19,4 +19,7 @@ q-toolbar.q-pa-md.row.justify-between.q-gutter-xl
 *{
   color:black
 }
+q-toolbar{
+  background-color: rgba(0,0,0,0);
+}
 </style>
