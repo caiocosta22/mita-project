@@ -1,12 +1,10 @@
 <script setup>
-import { ref } from "vue";
-const backgroundMenu = ref("rgba(0,0,0,0)");
 </script>
 
 <template lang="pug">
-div.row.q-pa-sm
+div.row.q-pa-sm.q-mt-mb-xl
   q-toolbar.col-12.q-gutter-sm.justify-evenly
-    q-btn.menu(label="Viagens" unelevated  :style="{ backgroundcolor: backgroundMenu }")
+    q-btn.menu( label="Viagens" unelevated)
       q-menu
         q-list(text-color="primary" style="min-width: 100px" )
           q-item(clickable v-close-popup)
@@ -25,7 +23,7 @@ div.row.q-pa-sm
     a NECESSAIRES
     a CARTEIRAS
     a HOME
-    q-btn.menu(text-color="black" label="OFFICE" unelevated :style="{ backgroundcolor: backgroundMenu }")
+    q-btn.menu( label="OFFICE" unelevated )
       q-menu
         q-list(text-color="black" style="min-width: 100px" )
           q-item(clickable v-close-popup)
@@ -59,15 +57,10 @@ div.row.q-pa-sm
 </template>
 <style scoped>
 a{
-  color: black;
   cursor: pointer;
   font-weight: bold;
 }
-*{
-  color: black;
-}
 .menu{
   font-weight:bolder;
-  color:black;
 }
 </style>

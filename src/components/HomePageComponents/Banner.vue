@@ -15,7 +15,7 @@ q-carousel.banner.cursor-pointer(
   transition-next="slide-left"
   @mouseenter="autoplay = false"
   @mouseleave="autoplay = true"
-  style="height:630px"
+  style="height:789px;"
   ).col
     q-carousel-slide(:name="1" img-src="../../assets/imgs/MITA-EXPERIENCE.png").col
     q-carousel-slide(:name="2" img-src="../../assets/imgs/MITA-EXPERIENCE.png").col
@@ -23,5 +23,7 @@ q-carousel.banner.cursor-pointer(
 </template>
 
 <style scoped>
-
+.banner{
+  z-index:10
+}
 </style>

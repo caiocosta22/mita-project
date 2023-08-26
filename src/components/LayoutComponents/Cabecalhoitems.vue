@@ -16,10 +16,7 @@ q-toolbar.q-pa-md.row.justify-between.q-gutter-xl
 </template>
 
 <style scoped>
-*{
-  color:black
-}
-q-toolbar{
-  background-color: rgba(0,0,0,0);
+a{
+  color: black
 }
 </style>
