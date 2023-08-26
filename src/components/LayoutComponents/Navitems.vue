@@ -7,38 +7,17 @@ div.row.q-pa-sm.q-mt-mb-xl
     q-btn.menu( label="Viagens" unelevated)
       q-menu
         q-list(text-color="primary" style="min-width: 100px" )
-          q-item(clickable v-close-popup)
-            q-item-section VIAGEM
-          q-item(clickable v-close-popup)
-            q-item-section VIAGEM
-          q-separator
-          q-item(clickable v-close-popup)
-            q-item-section VIAGEM
-          q-item(clickable v-close-popup)
-            q-item-section VIAGEM
-          q-separator
-          q-item(clickable v-close-popup)
-            q-item-section VIAGEM
-          q-separator
+          template(v-for="item in 5" :key='item')
+            q-item(clickable v-close-popup)
+              q-item-section VIAGEM
+            q-separator(v-if="!item % 2 === 0")
     a NECESSAIRES
     a CARTEIRAS
     a HOME
     q-btn.menu( label="OFFICE" unelevated )
       q-menu
         q-list(text-color="black" style="min-width: 100px" )
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
-            q-item-section MATERIAL
-          q-item(clickable v-close-popup)
+          q-item(v-for="item in 7" :key='item' clickable v-close-popup)
             q-item-section MATERIAL
     a MASCULINO
     a FEMININO
@@ -47,10 +26,10 @@ div.row.q-pa-sm.q-mt-mb-xl
     a PACCO
     a BOLSAS
     q-input.col-3.q-pa(
-    v-model="Text"
-    label="O QUE ESTÁ BUSCANDO?"
-    label-color="black"
-    color="black"
+      v-model="Text"
+      label="O QUE ESTÁ BUSCANDO?"
+      label-color="black"
+      color="black"
     ).col.q-pl-xl
       template(v-slot:append)
         q-icon(name="search")

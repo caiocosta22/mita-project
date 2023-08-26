@@ -11,6 +11,7 @@
 const { configure } = require("quasar/wrappers");
 const path = require("path");
 const vuePugPlugin = require("vue-pug-plugin");
+const envFile = require("dotenv").config();
 
 module.exports = configure(function (ctx) {
   return {
@@ -30,7 +31,8 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
-      "axios"
+      "axios",
+      "configsGlobais"
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -54,6 +56,8 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      env: { ...envFile.parsed },
+
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16"
@@ -101,6 +105,14 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        "/api": {
+          target: process.env.TENANT ? `https://${process.env.TENANT}.${process.env.BASE_URL}` : `https://${process.env.BASE_URL}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
+        }
+      },
       port: 8080,
       // https: true
       open: false
@@ -130,6 +142,7 @@ module.exports = configure(function (ctx) {
       plugins: [
         "Notify",
         "LocalStorage",
+        "SessionStorage",
         "Loading",
         "Cookies",
         "Dialog"
@@ -159,7 +172,6 @@ module.exports = configure(function (ctx) {
 
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
-
       pwa: false,
 
       // manualStoreHydration: true,
