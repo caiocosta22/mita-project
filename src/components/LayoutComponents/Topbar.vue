@@ -22,8 +22,8 @@ setInterval(() => {
 </script>
 
 <template lang = "pug">
-q-toolbar.justify-center(style="background-color: #000;")
-  a.text-center.text-white(style="font-family:Catamaran") {{ padrao }}
+q-toolbar.justify-center(style="background-color: #000; transition:1s; box-shadow:none")
+  a.text-center.text-white(style="font-family:Catamaran; transition:1s") {{ padrao }}
 </template>
 
 <style scoped>

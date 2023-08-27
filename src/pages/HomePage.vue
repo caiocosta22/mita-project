@@ -5,15 +5,16 @@ import Vendidos from "../components/HomePageComponents/MaisVendidos.vue";
 import CadastroEmail from "../components/HomePageComponents/CadastroEmail.vue";
 import Marketing from "../components/HomePageComponents/Marketing.vue";
 import Banner from "../components/HomePageComponents/Banner.vue";
-import Topbar from "../components/LayoutComponents/Topbaritems.vue";
-import Cabecalho from "../components/LayoutComponents/Cabecalhoitems.vue";
-import Navbar from "../components/LayoutComponents/Navitems.vue";
-import Footer from "../components/LayoutComponents/Footeritems.vue";
+import Topbar from "../components/LayoutComponents/Topbar.vue";
+import Cabecalho from "../components/LayoutComponents/Cabecalho.vue";
+import Navbar from "../components/LayoutComponents/Nav.vue";
+import Rodape from "../components/LayoutComponents/Rodape.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const headerBackgroundColor = ref("rgba(0, 0, 0, 0)"); // Inicialmente opaco
 const navBackGroundColor = ref("rgba(0,0,0,0)"); // Nav
 const navTextColor = ref("rgba(255,255,255,1)");
+const cabecalhoTextColor = ref("rgba(255,255,255,1)");
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
@@ -23,10 +24,12 @@ const handleScroll = () => {
     headerBackgroundColor.value = "rgba(255,255,255,1)"; // Opaco
     navBackGroundColor.value = "rgba(255,255,255,1)";
     navTextColor.value = "rgba(0,0,0,1)";
+    cabecalhoTextColor.value = "rgba(0,0,0,1)";
   } else {
     headerBackgroundColor.value = "rgba(0, 0, 0, 0)"; // Transparente
     navBackGroundColor.value = "rgba(0,0,0,0)";
     navTextColor.value = "rgba(255,255,255,1)";
+    cabecalhoTextColor.value = "rgba(255,255,255,1)";
   }
 };
 
@@ -52,18 +55,14 @@ q-page-container
   div
   Marketing
   CadastroEmail
-  Footer
-  q-header.header(elevated :style="{ backgroundColor: headerBackgroundColor }")
+  Rodape
+  q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
-    Cabecalho.cabecalho1(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
+    Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
     Navbar.nav(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
 </template>
 
 <style scoped>
-  q-page-container{
-    display: flex;
-    flex-direction: column;
-  }
   .titulo{
   color: #000;
   text-align: center;
@@ -75,20 +74,14 @@ q-page-container
   }
   .header{
   transition: background-color 1s;
-  z-index: 10;
-  box-shadow: none;
+  z-index: 20;
 }
 .nav {
-  transition: color 0,5s;
-  box-shadow: none;
+  transition: color 0.5s;
 }
 .banner{
   z-index: 1;
   margin-top: -155px;
-}
-.cabecalho1{
-  box-shadow: none;
-  color: black;
 }
 
 </style>

@@ -48,7 +48,7 @@ div.row.q-pa-sm.q-mt-mb-xl
     a BOLSAS
     q-input.col-3.q-pa(
     v-model="Text"
-    label="O QUE ESTÁ BUSCANDO?"
+    label=""
     label-color="black"
     color="black"
     ).col.q-pl-xl
@@ -63,4 +63,5 @@ a{
 .menu{
   font-weight:bolder;
 }
+
 </style>
