@@ -53,7 +53,7 @@ q-page-container
   Marketing
   CadastroEmail
   Footer
-  q-header.header(elevated :style="{ backgroundColor: headerBackgroundColor }")
+  q-header.header(:style="{ backgroundColor: headerBackgroundColor }")
     Topbar
     Cabecalho.cabecalho1(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
     Navbar.nav(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")

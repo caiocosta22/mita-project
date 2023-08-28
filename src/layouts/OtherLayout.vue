@@ -1,6 +1,6 @@
 <template lang="pug">
 q-layout(view="lHh Lpr lFf")
-  q-header(elevated header)
+  q-header(header)
     Topbar
     Cabecalho
     Navbar(nav)

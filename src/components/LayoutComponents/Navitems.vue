@@ -4,14 +4,14 @@
 <template lang="pug">
 div.row.q-pa-sm.q-mt-mb-xl
   q-toolbar.col-12.q-gutter-sm.justify-evenly
-    q-btn.menu( label="Viagens" unelevated)
+    q-btn.menu(label="Viagens" unelevated)
       q-menu
         q-list(text-color="primary" style="min-width: 100px" )
           template(v-for="item in 5" :key='item')
             q-item(clickable v-close-popup)
               q-item-section VIAGEM
-            q-separator(v-if="!item % 2 === 0")
-    a NECESSAIRES
+            q-separator(v-if="item % 2 !== 0")
+    a NECESSAIRE
     a CARTEIRAS
     a HOME
     q-btn.menu( label="OFFICE" unelevated )
