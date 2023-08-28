@@ -6,7 +6,7 @@ import CadastroEmail from "../components/HomePageComponents/CadastroEmail.vue";
 import Marketing from "../components/HomePageComponents/Marketing.vue";
 import Banner from "../components/HomePageComponents/Banner.vue";
 import Topbar from "../components/LayoutComponents/Topbaritems.vue";
-import Cabecalho from "../components/LayoutComponents/Cabecalho.vue";
+import Cabecalho from "../components/LayoutComponents/Cabecalhoitems.vue";
 import Navbar from "../components/LayoutComponents/Navitems.vue";
 import Footer from "../components/LayoutComponents/Footeritems.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -53,7 +53,7 @@ q-page-container
   Marketing
   CadastroEmail
   Footer
-  q-header.header(:style="{ backgroundColor: headerBackgroundColor }")
+  q-header.header(elevated :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
     Cabecalho.cabecalho1(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
     Navbar.nav(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
