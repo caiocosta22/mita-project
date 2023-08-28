@@ -1,14 +1,14 @@
 <script setup>
-import Promocional from "../components/HomePageComponents/Promocional.vue";
-import Categorias from "../components/HomePageComponents/Categorias.vue";
-import Vendidos from "../components/HomePageComponents/MaisVendidos.vue";
-import CadastroEmail from "../components/HomePageComponents/CadastroEmail.vue";
-import Marketing from "../components/HomePageComponents/Marketing.vue";
-import Banner from "../components/HomePageComponents/Banner.vue";
-import Topbar from "../components/LayoutComponents/Topbaritems.vue";
-import Cabecalho from "../components/LayoutComponents/Cabecalhoitems.vue";
-import Navbar from "../components/LayoutComponents/Navitems.vue";
-import Footer from "../components/LayoutComponents/Footeritems.vue";
+import Promocional from "../components/PaginaInicial/Promocional.vue";
+import Categorias from "../components/PaginaInicial/Categorias.vue";
+import Vendidos from "../components/PaginaInicial/MaisVendidos.vue";
+import CadastroEmail from "../components/PaginaInicial/CadastroEmail.vue";
+import Marketing from "../components/PaginaInicial/Marketing.vue";
+import Banner from "../components/PaginaInicial/Banner.vue";
+import Topbar from "../components/Layout/Topbaritems.vue";
+import Cabecalho from "../components/Layout/Cabecalhoitems.vue";
+import Navbar from "../components/Layout/Navitems.vue";
+import Footer from "../components/Layout/Footeritems.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const headerBackgroundColor = ref("rgba(0, 0, 0, 0)"); // Inicialmente opaco
