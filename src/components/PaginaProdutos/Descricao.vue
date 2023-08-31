@@ -14,9 +14,16 @@ div.column.q-gutter-sm
         img(src="../../assets/svgs/like.svg" style="width:24px; height:24px")
   p COD: 0001
   p.destaque COR
+    q-icon.cursor-pointer.q-pl-md
+      img(src="../../assets/svgs/elipsecinza.svg" style="width:24px; height:24px")
+    q-icon.cursor-pointer.q-pl-md
+      img(src="../../assets/svgs/elipsecreme.svg" style="width:24px; height:24px")
+    q-icon.cursor-pointer.q-pl-md
+      img(src="../../assets/svgs/elipsemarrom.svg" style="width:24px; height:24px")
   .row.justify-between
     p.destaque VALOR
     p.destaque R$279,00
+  q-separator(color="black")
   .row.justify-between
     p.destaque.col-6 FORMAS DE PAGAMENTO
     q-select(bordeless v-model="model" :options="options" label-color="black" label="A VISTA" color="black").col-5
@@ -52,6 +59,8 @@ div.column.q-gutter-sm
   font-style: normal;
   font-weight: bold;
   line-height: normal;
+  align-items: center;
+  display: flex;
 }
 .cep{
   color: #939598;
