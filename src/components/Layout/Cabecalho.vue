@@ -3,9 +3,10 @@
 
 <template lang = "pug">
 q-toolbar.cabecalho.q-pa-md.row.justify-between.q-gutter-xl
-  img.cursor-pointer.col-2.q-pl-xl(
-    src="../../../src/assets/imgs/logo.png"
-      style="width:180px;height:49px")
+  a(href="https://mita-projeto.vercel.app" style="background-color:rgba(0,0,0,0)")
+    img.cursor-pointer.col-2.q-pl-xl(
+      src="../../../src/assets/imgs/logo.png"
+      style="width:180px;height:44px")
   div.q-gutter-sm.col-2.q-pr-lg.row(style="flex-wrap:nowrap; box-shadow:none")
     q-icon.q-pr-xl
       img(src="../../assets/svgs/usericon.svg" style="width: 18px; height: 18px;")
