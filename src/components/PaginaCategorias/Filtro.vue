@@ -4,7 +4,7 @@ const marcas = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 const modelos = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 </script>
 <template lang="pug">
-.justify-center.q-gutter-sm.flex
+.justify-evenly.q-gutter-sm.flex.row
   .column
     div.marcas.column(style="width: 257px;height: 228px;")
       q-select(bordeless v-model="model" :options="marcas" label-color="black" label="Marcas" color="black")
