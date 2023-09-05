@@ -1,23 +1,17 @@
 const routes = [
   {
-    path: "/",
+    path: "/produtos",
     component: () => import("layouts/LayoutLimpo.vue"),
     children: [
       { path: "", component: () => import("pages/PaginaInicial.vue") }
     ]
   },
   {
-    path: "/produtos",
+    path: "/",
     component: () => import("layouts/LayoutPadrao.vue"),
     children: [
       { path: "", component: () => import("pages/PaginaProdutos.vue") }
     ]
-  },
-  // Always leave this as last one,
-  // but you can also remove it
-  {
-    path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue")
   },
   {
     path: "/categorias",
@@ -25,12 +19,6 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/PaginaCategorias.vue") }
     ]
-  },
-  // Always leave this as last one,
-  // but you can also remove it
-  {
-    path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue")
   }
 ];
 
