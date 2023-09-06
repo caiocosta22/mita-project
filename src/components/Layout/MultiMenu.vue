@@ -1,36 +1,52 @@
 <script setup>
 import { ref } from "vue";
-
 const menuList = [
   {
-    icon: "inbox",
-    label: "Inbox",
+    label: "Minha conta",
+    separator: false
+  },
+  {
+    label: "Meus pedidos",
     separator: true
   },
   {
-    icon: "delete",
-    label: "Trash",
+    label: "Viagens",
     separator: false
   },
   {
-    icon: "error",
-    label: "Spam",
-    separator: true
-  },
-  {
-    icon: "settings",
-    label: "Settings",
+    label: "Necessaires",
     separator: false
   },
   {
-    icon: "feedback",
-    label: "Send Feedback",
+    label: "Carteiras",
     separator: false
   },
   {
-    icon: "help",
-    iconColor: "primary",
-    label: "Help",
+    label: "Home",
+    separator: false
+  },
+  {
+    label: "Office",
+    separator: false
+  },
+  {
+    label: "Masculino",
+    separator: false
+  },
+  {
+    label: "Feminino",
+    separator: false
+  },
+  {
+    label: "Utilitários",
+    separator: false
+  },
+  {
+    label: "Pacco",
+    separator: false
+  },
+  {
+    label: "Bolsas",
     separator: false
   }
 ];
@@ -41,21 +57,19 @@ const drawer = ref(false);
 q-btn(flat @click="drawer = !drawer" round dense icon="menu")
   .multimenu
     q-drawer(
-      overlay
-      v-model="drawer"
-      show-if-above
-      :width="200"
-      height="400px"
-      :breakpoint="200"
-      bordered
-      side="right"
-      )
+    overlay
+    v-model="drawer"
+    :width="200"
+    :breakpoint="500"
+    elevated
+    side="right"
+    behavior="default"
+    toggle
+    )
       q-scroll-area(class="fit")
         q-list
           template(v-for="(menuItem, index) in menuList" :key="index")
-            q-item(clickable :active="menuItem.label === 'Outbox'" v-ripple)
-              q-item-section(avatar)
-                q-icon(:name="menuItem.icon")
+            q-item(clickable :active="menuItem.label === 'Outbox'" v-ripple color="black")
               q-item-section {{ menuItem.label }}
             q-separator(:key="'sep' + index"  v-if="menuItem.separator")
 </template>
