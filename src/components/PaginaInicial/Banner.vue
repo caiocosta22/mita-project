@@ -5,21 +5,22 @@ const autoplay = ref(true);
 </script>
 
 <template lang="pug">
-q-carousel.cursor-pointer(
-  animated
-  v-model="slide"
-  infinite
-  :autoplay="autoplay"
-  arrows
-  transition-prev="slide-right"
-  transition-next="slide-left"
-  @mouseenter="autoplay = false"
-  @mouseleave="autoplay = true"
-  style="height:789px;"
-  ).col
-    q-carousel-slide(:name="1" img-src="../../assets/imgs/MITA-EXPERIENCE.png").col
-    q-carousel-slide(:name="2" img-src="../../assets/imgs/MITA-EXPERIENCE.png").col
-    q-carousel-slide(:name="3" img-src="../../assets/imgs/MITA-EXPERIENCE.png").col
+div.column.flex
+  q-carousel.cursor-pointer(
+    animated
+    v-model="slide"
+    infinite
+    :autoplay="autoplay"
+    arrows
+    transition-prev="slide-right"
+    transition-next="slide-left"
+    @mouseenter="autoplay = false"
+    @mouseleave="autoplay = true"
+    style="height:789px; width:100%"
+  )
+    q-carousel-slide(:name="1" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
+    q-carousel-slide(:name="2" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
+    q-carousel-slide(:name="3" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
 </template>
 
 <style scoped>

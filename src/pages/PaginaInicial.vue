@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-q-page-container
+q-page-container.column
   Banner.banner
   Promocional
   div
@@ -55,7 +55,7 @@ q-page-container
   div
   Marketing
   CadastroEmail
-  Rodape
+  Rodape.flex
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
     Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
@@ -80,8 +80,11 @@ q-page-container
   transition: color 0.5s;
 }
 .banner{
-  z-index: 1;
+  z-index: 2;
   margin-top: -155px;
+  width:100%;
+  display:flex;
+  height: 789px
 }
 
 </style>
