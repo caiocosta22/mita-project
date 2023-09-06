@@ -13,6 +13,7 @@ const headerBackgroundColor = ref("rgba(0, 0, 0, 0)"); // Inicialmente opaco
 const navBackGroundColor = ref("rgba(0,0,0,0)"); // Nav
 const navTextColor = ref("rgba(255,255,255,1)");
 const cabecalhoTextColor = ref("rgba(255,255,255,1)");
+const multimenuTextColor = ref("rgba(0,0,0,1)");
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
@@ -23,11 +24,13 @@ const handleScroll = () => {
     navBackGroundColor.value = "rgba(255,255,255,1)";
     navTextColor.value = "rgba(0,0,0,1)";
     cabecalhoTextColor.value = "rgba(0,0,0,1)";
+    multimenuTextColor.value = "rgba(0,0,0,1)";
   } else {
     headerBackgroundColor.value = "rgba(0, 0, 0, 0)"; // Transparente
     navBackGroundColor.value = "rgba(0,0,0,0)";
     navTextColor.value = "rgba(255,255,255,1)";
     cabecalhoTextColor.value = "rgba(255,255,255,1)";
+    multimenuTextColor.value = "rgba(0,0,0,1)";
   }
 };
 
@@ -54,7 +57,7 @@ q-page-container.column
   Marketing
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
-    Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
+    Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: multimenuTextColor }")
     Navbar.nav(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
 </template>
 
