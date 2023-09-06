@@ -82,5 +82,12 @@ q-page-container.column
   display:flex;
   height: 789px
 }
+@media screen and (max-width: 1025px) {
+  .nav{
+    display: none;
+  }
+}
+@media screen and (min-width: 1026px) {
 
+}
 </style>
