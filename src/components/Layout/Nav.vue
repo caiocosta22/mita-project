@@ -28,7 +28,7 @@ function closeMenu (menuName) {
 div.row.q-pa-sm.q-mt-mb-xl
   q-toolbar.col-12.q-gutter-sm.justify-evenly
     q-btn.menu( label="Viagens" unelevated @mouseover="openMenu('viagens')")
-      q-menu(ref="viagensMenu" v-model="viagensMenuOpen")
+      q-menu(ref="viagensMenu" v-model="viagensMenuOpen" @mouseleave="closeMenu('viagens')")
         q-list(style="min-width: 100px")
           q-item(clickable @click="closeMenu('viagens')")
             q-item-section VIAGEM
@@ -47,7 +47,7 @@ div.row.q-pa-sm.q-mt-mb-xl
     a CARTEIRAS
     a HOME
     q-btn.menu( label="OFFICE" unelevated @mouseover="openMenu('office')")
-      q-menu(ref="officeMenu" v-model="officeMenuOpen")
+      q-menu(ref="officeMenu" v-model="officeMenuOpen" @mouseleave="closeMenu('office')")
         q-list(style="min-width: 100px")
           q-item(clickable @click="closeMenu('office')")
             q-item-section MATERIAL

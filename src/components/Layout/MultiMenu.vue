@@ -38,25 +38,26 @@ const drawer = ref(false);
 </script>
 
 <template lang="pug">
-.multimenu
-  q-drawer(
-    overlay
-    v-model="drawer"
-    show-if-above
-    :width="200"
-    height="400px"
-    :breakpoint="200"
-    bordered
-    side="right"
-    )
-    q-scroll-area(class="fit")
-      q-list
-        template(v-for="(menuItem, index) in menuList" :key="index")
-          q-item(clickable :active="menuItem.label === 'Outbox'" v-ripple)
-            q-item-section(avatar)
-              q-icon(:name="menuItem.icon")
-            q-item-section {{ menuItem.label }}
-          q-separator(:key="'sep' + index"  v-if="menuItem.separator")
+q-btn(flat @click="drawer = !drawer" round dense icon="menu")
+  .multimenu
+    q-drawer(
+      overlay
+      v-model="drawer"
+      show-if-above
+      :width="200"
+      height="400px"
+      :breakpoint="200"
+      bordered
+      side="right"
+      )
+      q-scroll-area(class="fit")
+        q-list
+          template(v-for="(menuItem, index) in menuList" :key="index")
+            q-item(clickable :active="menuItem.label === 'Outbox'" v-ripple)
+              q-item-section(avatar)
+                q-icon(:name="menuItem.icon")
+              q-item-section {{ menuItem.label }}
+            q-separator(:key="'sep' + index"  v-if="menuItem.separator")
 </template>
 
 <style scoped>
