@@ -47,8 +47,6 @@ onBeforeUnmount(() => {
 q-page-container.column
   Banner.banner
   Promocional
-  div
-    p.titulo CATEGORIAS
   Categorias
   div
     p.titulo MAIS VENDIDOS

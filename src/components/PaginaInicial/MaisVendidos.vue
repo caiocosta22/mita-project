@@ -7,6 +7,7 @@ import Carteira from "../../assets/imgs/CARTEIRA.png";
 import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
 
 const currentOffset = ref(0);
+const itemsOfApi = ref([]);
 const windowSize = 4;
 const paginationFactor = 340;
 const items = ref([
@@ -47,8 +48,23 @@ const items = ref([
   }
 ]);
 
+const productsApiLength = computed(() => {
+  let countProducts = 0;
+  itemsOfApi.value.forEach(item => {
+    if (item.subsecoesEcommerce) {
+      item.subsecoesEcommerce.forEach(sub => {
+        if (sub.produtos) {
+          countProducts += sub.produtos.length;
+        }
+      });
+    }
+  });
+  return countProducts;
+});
+
 const atEndOfList = computed(() => {
-  return currentOffset.value <= (paginationFactor * -1) * (items.value.length - windowSize);
+  if (!itemsOfApi.value.length) return currentOffset.value <= (paginationFactor * -1) * (items.value.length - windowSize);
+  return currentOffset.value <= (paginationFactor * -1) * (productsApiLength.value - windowSize);
 });
 
 const atHeadOfList = computed(() => {
@@ -66,15 +82,11 @@ const moveCarousel = (direction) => {
 // eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
-    const data = await axios.get("/api/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    const data = await axios.get("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
-      items.value = data.map(_categorie => {
-        return {
-          name: "????",
-          image: "????",
-          tag: "????"
-        };
-      });
+      // * Trocar "DESTAQUE" para  "Mais Vendidos"
+      const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
+      itemsOfApi.value = bestSellers;
     }
   } catch (e) {
     console.error(e);
@@ -83,7 +95,7 @@ async function searchBestSellers () {
 
 onBeforeMount(async () => {
   //! A Definir
-  // await searchBestSellers();
+  await searchBestSellers();
 });
 </script>
 
@@ -95,7 +107,9 @@ onBeforeMount(async () => {
     color="black"
     @click="moveCarousel(-1)"
   )
-  .card-carousel
+  .card-carousel(
+    v-if="!itemsOfApi.length"
+  )
     .card-carousel--overflow-container
       .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
         .card-carousel--card(v-for="item in items" :key="item")
@@ -103,6 +117,49 @@ onBeforeMount(async () => {
           .card-carousel--card--footer.q-pa-sm.text-black
             p {{ item.name }}
             p.tag.text-bold(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
+  .card-carousel(
+    v-else
+  )
+    .card-carousel--overflow-container
+      .card-carousel-cards(
+        :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
+      )
+        template(
+          v-for="(item, index) in itemsOfApi"
+          :key="index"
+        )
+          template(v-if="item.orientacao === 'horizontal'")
+            template(
+              v-if="item.subsecoesEcommerce"
+            )
+              template(
+                v-for="subsec in item.subsecoesEcommerce"
+                :key="subsec"
+              )
+                template(
+                  v-if="subsec.produtos"
+                )
+                  template(
+                    v-for="produto in subsec.produtos"
+                    :key="produto"
+                  )
+                    .card-carousel--card--footer.q-pa-sm.text-black.text-bold
+                      q-img.image(
+                        v-if="produto.fotosServico[0].urlMWebp"
+                        :src="produto.fotosServico[0].urlMWebp"
+                      )
+                      p.q-py-md {{ produto.titulo }}
+                      template(
+                        v-if="produto.promocao"
+                      )
+                        p.tag.text-black De R$:  &nbsp; {{ produto.valor }}
+                        p.tag.text-black Por R$:  &nbsp; {{ produto.precoPromocional }}
+                      template(
+                        v-else
+                      )
+                        p.tag.text-black De R$:  &nbsp; {{ produto.valor }}
+            template(v-if="item.orientacao === 'vertical'")
+              p Lógica para vertical aqui!!!
   q-icon.cursor-pointer.q-ml-md(
     name="chevron_right"
     size="2.5em"
@@ -112,16 +169,16 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
-img {
-  vertical-align: bottom;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  transition: opacity 150ms linear;
-  user-select: none;
-  height: 320px;
-  width: 320px
-  }
-  *{
+.image {
+  vertical-align: bottom !important;
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+  transition: opacity 150ms linear !important;
+  user-select: none !important;
+  height: 32px !important;
+  width: 320px !important
+}
+* {
   color: black;
 }
 </style>
