@@ -1,4 +1,20 @@
 <script setup>
+import axios from "axios";
+import { ref, onBeforeMount } from "vue";
+
+const infos = ref({});
+
+async function searchBestSellers () {
+  try {
+    infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  await searchBestSellers();
+});
 </script>
 
 <template lang="pug">
@@ -30,8 +46,15 @@ div.row.justify-center.text-bold.q-pa-md(style="flex-wrap:nowrap")
         img(src="../../assets/svgs/facebook.svg" style="width: 18px; height: 18px;")
       q-icon.q-pr-lg
         img(src="../../assets/svgs/youtube.svg" style="width: 18px; height: 18px;")
-div.text-black.justify-center.text-center.text-bold
-  p MITA C V A DE C LTDA. | Av. Dom Luis, 685, Meireles, Fortaleza, Ceará, CEP 60.160-230 | CNPJ: 28.463.426/0001-09
+div.text-black.justify-center.text-center.text-bold.row
+  p MITA C V A DE C LTDA.
+  p(v-if="infos.street") &nbsp; | {{ infos.street }}
+  p(v-if="infos.number") , {{ infos.number }}
+  p(v-if="infos.district") , {{ infos.district }}
+  p(v-if="infos.city") , {{ infos.city }}
+  p(v-if="infos.state") , {{ infos.state }}
+  p(v-if="infos.zipcode") &nbsp; | CEP: &nbsp; {{ infos.zipcode }}
+  p(v-if="infos.cnpj") &nbsp; | CNPJ: &nbsp; {{ infos.cnpj }}
 </template>
 
 <style scoped>

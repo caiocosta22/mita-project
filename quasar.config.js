@@ -9,9 +9,9 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require("quasar/wrappers");
-const path = require("path");
 const vuePugPlugin = require("vue-pug-plugin");
-
+const envFile = require("dotenv").config();
+console.log("🚀 ~", process.env.TENANT, process.env.BASE_URL);
 module.exports = configure(function (ctx) {
   return {
     eslint: {
@@ -30,6 +30,7 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
+      "axios"
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -53,6 +54,7 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      env: { ...envFile.parsed },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16"
@@ -67,7 +69,7 @@ module.exports = configure(function (ctx) {
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
-
+      publicPath: "/",
       // analyze: true,
       // env: {},
       // rawDefine: {}
@@ -87,13 +89,6 @@ module.exports = configure(function (ctx) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ["@intlify/vite-plugin-vue-i18n", {
-          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-          // compositionOnly: false,
-
-          // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, "./src/i18n/**")
-        }],
         vuePugPlugin
       ]
     },
@@ -101,6 +96,13 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       port: 8080,
+      proxy: {
+        "/api": {
+          target: `https://${process.env.TENANT}.${process.env.BASE_URL}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
+        }
+      },
       // https: true
       open: false
     },
@@ -114,7 +116,6 @@ module.exports = configure(function (ctx) {
           actions: [{ icon: "close", color: "white" }]
         }
       },
-
       // iconSet: 'material-icons', // Quasar icon set
       lang: "pt-BR", // Quasar language pack
 

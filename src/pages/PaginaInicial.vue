@@ -58,7 +58,10 @@ q-page-container.column
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
     Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: multimenuTextColor }")
-    Navbar.nav(:style="{ backgroundcolor: navBackGroundColor, color: navTextColor }")
+    Navbar.nav(
+      :style="{ backgroundcolor: navBackGroundColor, color: navTextColor }"
+      :dynamicStyle="{ backgroundcolor: navBackGroundColor, color: navTextColor }"
+    )
 </template>
 
 <style scoped>

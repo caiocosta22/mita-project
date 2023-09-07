@@ -1,21 +1,48 @@
 <script setup>
-// import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
+import axios from "axios";
 import MultiMenu from "./MultiMenu.vue";
+
+const srcLogo = ref("/images/logo.png");
+// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
+
+async function searchLogo () {
+  try {
+    const logo = await axios.get("/api/configuracaoService/getLogoWeb").then(e => e.data);
+    if (logo.parametro) srcLogo.value = logo.parametro;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  await searchLogo();
+});
+
 </script>
 
-<template lang = "pug">
-q-toolbar.cabecalho.q-pa-md.row.justify-between.q-gutter-xl
-  a(href="https://mita-projeto.vercel.app" style="background-color:rgba(0,0,0,0)")
-    img.cursor-pointer.col-2.q-pl-xl(
-      src="../../../src/assets/imgs/logo.png"
-      style="width:180px;height:44px")
-  div.q-gutter-sm.col-2.q-pr-xl.row.minimenu(style="flex-wrap:nowrap; box-shadow:none")
-    q-icon.q-pr-xl
-      img(src="../../assets/svgs/usericon.svg" style="width: 18px; height: 18px;")
-      a.text-bold(href="#") Minha conta
-    q-icon.q-pl-xl
-      img(src="../../assets/svgs/carticon.svg" style="width: 18px; height: 18px;")
-      a.text-bold(href="#") Meu carrinho
+<template lang="pug">
+q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
+  q-img.cursor-pointer.col-2(
+    :src="srcLogo"
+    spinner-color="white"
+    style="width:180px; height: 60px"
+  )
+  div.row.q-mr-xl
+    div.q-mr-xl.cursor-pointer
+      q-icon(
+        color="black"
+        size="sm"
+        name="fa-solid fa-regular fa-user"
+      )
+      a.q-ml-sm.text-bold Minha conta
+    div.cursor-pointer
+      q-icon(
+        color="black"
+        size="sm"
+        name="fa-solid fa-cart-shopping"
+      )
+      a.q-ml-md.text-bold Meu carrinho
   MultiMenu.multimenu
 </template>
 

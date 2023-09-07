@@ -15,7 +15,7 @@ function transicao () {
     contador++;
   }
 }
-const interval = 5 * 1000;
+const interval = 7 * 1000;
 setInterval(() => {
   transicao();
 }, interval);
@@ -23,7 +23,7 @@ setInterval(() => {
 
 <template lang = "pug">
 q-toolbar.justify-center(style="background-color: #000; transition:1s; box-shadow:none")
-  a.text-center.text-white(style="font-family:Catamaran; transition:1s") {{ padrao }}
+  span.text-center.text-white.text-h6(style="font-family:Catamaran; transition:1s") {{ padrao }}
 </template>
 
 <style scoped>

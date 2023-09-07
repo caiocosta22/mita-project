@@ -2,20 +2,29 @@
 <html>
   <head>
     <title><%= productName %></title>
-
     <meta charset="utf-8">
-    <meta name="description" content="<%= productDescription %>">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
-
-    <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="icon" type="image/ico" href="favicon.ico">
+    <!-- Enquanto ainda não definirem onde estará hospeadado o favicon está utilizando o padrão (https://www.mitaoficial.com.br) -->
+    <link id="favicon" rel="icon" type="image/ico" href="https://static.wixstatic.com/media/7cf56b_8642f442596d453d9fb3ab3ecd5055bb~mv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/7cf56b_8642f442596d453d9fb3ab3ecd5055bb~mv2.png">
   </head>
   <body>
     <!-- quasar:entry-point -->
+    <script>
+      // Função para fazer uma requisição HTTP GET
+      function fetchIcon() {
+        fetch('https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/configuracaoService/getFavicon')
+          .then(data => {
+            // Define o atributo href do elemento link com o URL da imagem retornado pela API
+            if(data.parametro) document.getElementById('favicon').href = data.parametro;
+          })
+          .catch(error => {
+            console.error('Erro ao buscar o ícone:', error);
+          });
+      }
+
+      // Chama a função para buscar o ícone quando a página carrega
+      document.addEventListener('DOMContentLoaded', fetchIcon());
+    </script>
   </body>
 </html>
+
+

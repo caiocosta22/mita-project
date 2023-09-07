@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
+import axios from "axios";
 import Capaiphone from "../../assets/imgs/CAPAIPHONE.png";
 import Bolsa from "../../assets/imgs/BOLSA.png";
 import Carteira from "../../assets/imgs/CARTEIRA.png";
@@ -61,6 +62,29 @@ const moveCarousel = (direction) => {
     currentOffset.value += paginationFactor;
   }
 };
+
+// eslint-disable-next-line no-unused-vars
+async function searchBestSellers () {
+  try {
+    const data = await axios.get("/api/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    if (data.length) {
+      items.value = data.map(_categorie => {
+        return {
+          name: "????",
+          image: "????",
+          tag: "????"
+        };
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  //! A Definir
+  // await searchBestSellers();
+});
 </script>
 
 <template lang="pug">

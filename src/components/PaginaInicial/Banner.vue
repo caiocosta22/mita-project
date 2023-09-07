@@ -1,7 +1,46 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
+import axios from "axios";
+
 const slide = ref(1);
 const autoplay = ref(true);
+const bannersCarousel = ref([
+  {
+    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  },
+  {
+    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  },
+  {
+    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  }
+]);
+
+async function searchTopBanners () {
+  try {
+    const banners = await axios.get("/api/bannerService/allEcommerce").then(e => e.data);
+    if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  await searchTopBanners();
+});
+
 </script>
 
 <template lang="pug">
@@ -18,9 +57,14 @@ div.column.flex
     @mouseleave="autoplay = true"
     style="height:789px; width:100%"
   )
-    q-carousel-slide(:name="1" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
-    q-carousel-slide(:name="2" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
-    q-carousel-slide(:name="3" img-src="../../assets/imgs/MITA-EXPERIENCE.png")
+    template(
+      v-for="banner in bannersCarousel"
+      :key="banner.fotoWebp"
+    )
+      q-carousel-slide(
+        :name="banner.fotoWebp"
+        :img-src="banner.fotoWebp"
+      )
 </template>
 
 <style scoped>

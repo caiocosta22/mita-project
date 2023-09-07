@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
+import axios from "axios";
 import necessaire from "../../assets/imgs/1.png";
 import capa from "../../assets/imgs/2.png";
 import chaveiro from "../../assets/imgs/3.png";
@@ -63,6 +64,27 @@ const moveCarousel = (direction) => {
     currentOffset.value += paginationFactor;
   }
 };
+
+async function searchCategories () {
+  try {
+    const data = await axios.get("/api/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
+    if (data.length) {
+      items.value = data.map(categorie => {
+        return {
+          name: categorie.descricao,
+          image: categorie.fotoUrl || ""
+        };
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  await searchCategories();
+});
+
 </script>
 
 <template lang="pug">
