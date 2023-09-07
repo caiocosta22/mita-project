@@ -58,11 +58,11 @@ div.column.flex
     style="height:789px; width:100%"
   )
     template(
-      v-for="banner in bannersCarousel"
-      :key="banner.fotoWebp"
+      v-for="(banner, index) in bannersCarousel"
+      :key="index"
     )
       q-carousel-slide(
-        :name="banner.fotoWebp"
+        :name="index"
         :img-src="banner.fotoWebp"
       )
 </template>

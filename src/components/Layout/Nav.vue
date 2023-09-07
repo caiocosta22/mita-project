@@ -71,7 +71,7 @@ async function searchProducts () {
     }
     if (data.content && data.content.length) productsSearched.value = data.content;
   } catch (e) {
-    // ?  Caso queira mostrar um erro para o usuario utilizar o quasar notify ($q.notify)
+    // ? Caso queira mostrar um erro para o usuario utilizar o quasar notify ($q.notify)
     // ? exemplo -> import { useQuasar } from "quasar"; const $q = useQuasar(); $q.notify() -> pesquisar sobre!
     console.error(e);
   }
@@ -81,7 +81,9 @@ async function searchCategories () {
   try {
     const data = await axios.get("/api/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     if (data.length) {
-      categoriesBase.value = data;
+      categoriesBase.value = data.map(row => {
+        return { name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
+      });
     }
   } catch (e) {
     console.error(e);
@@ -103,7 +105,7 @@ div.row.q-pa-sm.q-mt-mb-xl
       template(
         v-if="categorie.children?.length"
       )
-        q-btn.menu(
+        p.text-bold.text-h6.menu(
           :label="categorie.name"
           unelevated
           @mouseover="openMenu(categorie.name)"
@@ -126,12 +128,12 @@ div.row.q-pa-sm.q-mt-mb-xl
       template(
         v-else
       )
-        a {{ categorie.name }}
+        p.text-bold.text-h6 {{ categorie.name }}
     q-input.col-3.text-black(
       v-model="productTyped"
       type="search"
       label
-      debounce="1000"
+      debounce="500"
       color="black"
       @update:model-value="searchProducts()"
     )

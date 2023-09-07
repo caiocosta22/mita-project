@@ -38,14 +38,32 @@ div.row.justify-center.text-bold.q-pa-md(style="flex-wrap:nowrap")
     p SAC(00)0000-0000
     p Atendimento:<br>Segunda à sexta, de 9h as 17h.
   div.Redes.column(style="width:264px")
-    p(style="font-size:17px") Siga-nos nas redes sociais
+    p(style="font-size:17px") Nossas redes sociais
     div.row.cursor-pointer
-      q-icon.q-pr-lg
-        img(src="../../assets/svgs/instagram.svg" style="width: 18px; height: 18px;")
-      q-icon.q-pr-lg
-        img(src="../../assets/svgs/facebook.svg" style="width: 18px; height: 18px;")
-      q-icon.q-pr-lg
-        img(src="../../assets/svgs/youtube.svg" style="width: 18px; height: 18px;")
+      a(
+        target="_blank"
+        href="https://www.instagram.com/mita.oficial/"
+      )
+        q-icon(
+          size="md"
+          name="fa-brands fa-square-facebook"
+        )
+      a(
+        target="_blank"
+        href="https://www.instagram.com/mita.oficial/"
+      )
+        q-icon.q-mx-lg(
+          size="md"
+          name="fa-brands fa-instagram"
+        )
+      a(
+        target="_blank"
+        href="https://api.whatsapp.com/send?phone=5585991896604"
+      )
+        q-icon(
+          size="md"
+          name="fa-brands fa-whatsapp"
+        )
 div.text-black.justify-center.text-center.text-bold.row
   p MITA C V A DE C LTDA.
   p(v-if="infos.street") &nbsp; | {{ infos.street }}
