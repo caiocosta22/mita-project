@@ -175,7 +175,7 @@ onBeforeMount(async () => {
   border-top-right-radius: 4px !important;
   transition: opacity 150ms linear !important;
   user-select: none !important;
-  height: 32px !important;
+  height: 320px !important;
   width: 320px !important
 }
 * {

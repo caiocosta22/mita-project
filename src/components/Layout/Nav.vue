@@ -3,13 +3,13 @@ import { ref, computed, onBeforeMount } from "vue";
 import axios from "axios";
 
 const showMenu = ref(false);
-const showThisMenu = ref("Viagens");
+const showThisMenu = ref("VIAGENS");
 
 const productTyped = ref("");
 const productsSearched = ref([]);
 const categoriesBase = ref([
   {
-    name: "Viagens",
+    name: "VIAGENS",
     children: [
       { name: "VIAGEM 1", children: [] },
       { name: "VIAGEM 2", children: [] },
@@ -52,8 +52,10 @@ const correctStyle = computed(() => {
 });
 
 function openMenu (name) {
-  showMenu.value = true;
-  showThisMenu.value = name;
+  if (name === "VIAGENS") {
+    showMenu.value = true;
+    showThisMenu.value = name;
+  }
 }
 
 function closeMenu (name) {
@@ -103,7 +105,7 @@ div.row.q-pa-sm.q-mt-mb-xl
       :key="categorie.name"
     )
       template(
-        v-if="categorie.children?.length"
+        v-if="categorie.children>1"
       )
         p.text-bold.text-h6.menu(
           :label="categorie.name"
@@ -111,7 +113,7 @@ div.row.q-pa-sm.q-mt-mb-xl
           @mouseover="openMenu(categorie.name)"
         )
           template(
-            v-if="categorie.name === showThisMenu"
+            v-if="categorie.name == showThisMenu"
           )
             q-menu(
               v-model="showMenu"
@@ -128,7 +130,7 @@ div.row.q-pa-sm.q-mt-mb-xl
       template(
         v-else
       )
-        p.text-bold.text-h6 {{ categorie.name }}
+        p.text-bold {{ categorie.name }}
     q-input.col-3.text-black(
       v-model="productTyped"
       type="search"

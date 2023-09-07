@@ -81,7 +81,7 @@ q-page-container.column
 }
 .banner{
   z-index: 2;
-  margin-top: -155px;
+  margin-top: -165px;
   width:100%;
   display:flex;
   height: 789px
