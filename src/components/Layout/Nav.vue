@@ -52,10 +52,8 @@ const correctStyle = computed(() => {
 });
 
 function openMenu (name) {
-  if (name === "VIAGENS") {
-    showMenu.value = true;
-    showThisMenu.value = name;
-  }
+  showMenu.value = true;
+  showThisMenu.value = name;
 }
 
 function closeMenu (name) {
@@ -105,13 +103,12 @@ div.row.q-pa-sm.q-mt-mb-xl
       :key="categorie.name"
     )
       template(
-        v-if="categorie.children>1"
+        v-if="categorie.children?.length"
       )
-        p.text-bold.text-h6.menu(
-          :label="categorie.name"
+        p.text-bold(
           unelevated
           @mouseover="openMenu(categorie.name)"
-        )
+        ) {{ categorie.name }}
           template(
             v-if="categorie.name == showThisMenu"
           )
