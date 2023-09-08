@@ -20,25 +20,25 @@ onBeforeMount(async () => {
 <template lang="pug">
 div.row.justify-center.text-bold.q-pa-md(style="flex-wrap:nowrap")
   div.Institucional.column.cursor-pointer(style="width:264px")
-    p(style="font-size:17px") Institucional
-    p.cursor-pointer(href="#") A empresa
-    p Sustentatabilidade
+    p.principal Institucional
+    p.cursor-pointer.secundario(href="#") A empresa
+    p.secundario Sustentatabilidade
   div.MeusDados.column.cursor-pointer(style="width:264px")
-    p(style="font-size:17px") Minha conta
-    p Meus pedidos
-    p Minha Sacola
+    p.principal Minha conta
+    p.secundario Meus pedidos
+    p.secundario Minha Sacola
   div.Suporte.column.cursor-pointer(style="width:264px")
-    p(style="font-size:17px") Ajuda e Suporte
-    p Política de Entrega
-    p Trocas e Devoluções
+    p.principal Ajuda e Suporte
+    p.secundario Política de Entrega
+    p.secundario Trocas e Devoluções
   div.Contato.column.cursor-pointer(style="width:264px")
-    p(style="font-size:17px") Contato
-    p Fale Conosco
-    p atendimento@mita.com.br
-    p SAC(00)0000-0000
-    p Atendimento:<br>Segunda à sexta, de 9h as 17h.
+    p.principal Contato
+    p.secundario Fale Conosco
+    p.secundario atendimento@mita.com.br
+    p.secundario SAC(00)0000-0000
+    p.secundario Atendimento:<br>Segunda à sexta, de 9h as 17h.
   div.Redes.column(style="width:264px")
-    p(style="font-size:17px") Nossas redes sociais
+    p.principal Nossas redes sociais
     div.row.cursor-pointer
       a(
         target="_blank"
@@ -78,5 +78,11 @@ div.text-black.justify-center.text-center.text-bold.row
 <style scoped>
 *{
   color:black
+}
+.principal{
+  font-size:22px
+}
+.secundario{
+  font-size:20px
 }
 </style>

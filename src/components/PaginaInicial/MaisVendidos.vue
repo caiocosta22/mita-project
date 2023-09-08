@@ -148,16 +148,18 @@ onBeforeMount(async () => {
                         v-if="produto.fotosServico[0].urlMWebp"
                         :src="produto.fotosServico[0].urlMWebp"
                       )
-                      p.q-py-md {{ produto.titulo }}
-                      template(
+                      .row.justify-between
+                        .q-py-lg(style="font-size:22px") {{ produto.titulo }}
+                        template(
                         v-if="produto.promocao"
                       )
-                        p.tag.text-black De R$:  &nbsp; {{ produto.valor }}
-                        p.tag.text-black Por R$:  &nbsp; {{ produto.precoPromocional }}
-                      template(
+                          .column.q-pa-md.q-pr-md
+                            .tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
+                            p.tag.text-black(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
+                        template(
                         v-else
                       )
-                        p.tag.text-black De R$:  &nbsp; {{ produto.valor }}
+                            p.tag.text-black.q-py-lg.q-pr-md(style="font-size: 20px;") R$: {{ produto.valor }}
             template(v-if="item.orientacao === 'vertical'")
               p Lógica para vertical aqui!!!
   q-icon.cursor-pointer.q-ml-md(
@@ -176,7 +178,7 @@ onBeforeMount(async () => {
   transition: opacity 150ms linear !important;
   user-select: none !important;
   height: 320px !important;
-  width: 320px !important
+  width: 320px !important;
 }
 * {
   color: black;

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount, onMounted, onUnmounted } from "vue";
 import axios from "axios";
 
 const showMenu = ref(false);
@@ -76,6 +76,27 @@ async function searchProducts () {
     console.error(e);
   }
 }
+const backgroundsearchColor = ref("rgba(0,0,0,0)");
+const changeBackgroundColor = () => {
+  // Alterar a cor de fundo para branco quando clicado
+  backgroundsearchColor.value = "white";
+};
+const inputRef = ref(null);
+onMounted(() => {
+  // Adicionar um ouvinte de evento de clique global
+  document.addEventListener("click", handleGlobalClick);
+});
+const handleGlobalClick = (event) => {
+  // Verificar se o clique foi fora do componente
+  if (!inputRef.value.contains(event.target)) {
+    // Clique fora do componente, restaurar a cor de fundo original
+    backgroundsearchColor.value = "rgba(0,0,0,0)";
+  }
+};
+// Remover o ouvinte de evento quando o componente for destruído
+onUnmounted(() => {
+  document.removeEventListener("click", handleGlobalClick);
+});
 
 async function searchCategories () {
   try {
@@ -105,14 +126,14 @@ div.row.q-pa-sm.q-mt-mb-xl
       template(
         v-if="categorie.children?.length"
       )
-        p.text-bold(
+        p.text-bold.cursor-pointer(
           unelevated
           @mouseover="openMenu(categorie.name)"
         ) {{ categorie.name }}
           template(
             v-if="categorie.name == showThisMenu"
           )
-            q-menu(
+            q-menu.cursor-pointer(
               v-model="showMenu"
               @mouseleave="closeMenu(categorie.name)"
             )
@@ -134,10 +155,13 @@ div.row.q-pa-sm.q-mt-mb-xl
       label
       debounce="500"
       color="black"
+      :bg-color="backgroundsearchColor"
       @update:model-value="searchProducts()"
+      @click="changeBackgroundColor"
+      ref="inputRef"
     )
       template(v-slot:label)
-        p.text-bold(
+        p.text-bold.oquebusca(
           :style="correctStyle"
         ) O QUE ESTÁ BUSCANDO
       template(v-slot:append)
@@ -145,6 +169,7 @@ div.row.q-pa-sm.q-mt-mb-xl
           size="md"
           :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'grey'"
           name="search"
+          style="transition: 1s;"
         )
 </template>
 <style scoped>
@@ -155,5 +180,7 @@ a{
 .menu{
   font-weight:bolder;
 }
-
+.oquebusca{
+  transition: 1s;
+}
 </style>
