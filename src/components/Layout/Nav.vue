@@ -43,12 +43,13 @@ const props = defineProps({
   dynamicStyle: {
     type: Object,
     // eslint-disable-next-line no-labels, no-unused-expressions
-    default: () => { color: ""; }
+    default: () => {}
   }
 });
 
 const correctStyle = computed(() => {
-  return props.dynamicStyle;
+  if (props.dynamicStyle) return props.dynamicStyle;
+  return { color: "" };
 });
 
 function openMenu (name) {
