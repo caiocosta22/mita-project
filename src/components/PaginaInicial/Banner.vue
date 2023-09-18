@@ -44,28 +44,39 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.column.flex
-  q-carousel.cursor-pointer(
-    animated
-    v-model="slide"
-    infinite
-    :autoplay="autoplay"
-    arrows
-    transition-prev="slide-right"
-    transition-next="slide-left"
-    @mouseenter="autoplay = false"
-    @mouseleave="autoplay = true"
-    style="height:789px; width:100%"
+q-carousel.cursor-pointer.banner.col(
+  animated
+  v-model="slide"
+  infinite
+  :autoplay="autoplay"
+  arrows
+  transition-prev="slide-right"
+  transition-next="slide-left"
+  @mouseenter="autoplay = false"
+  @mouseleave="autoplay = true"
+)
+  template(
+    v-for="(banner, index) in bannersCarousel"
+    :key="index"
   )
-    template(
-      v-for="(banner, index) in bannersCarousel"
-      :key="index"
+    q-carousel-slide.slide.col(
+      :name="index"
+      :img-src="banner.fotoWebp"
     )
-      q-carousel-slide(
-        :name="index"
-        :img-src="banner.fotoWebp"
-      )
 </template>
 
 <style scoped>
+.banner{
+  display:flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  aspect-ratio: auto 1920/860;
+  position: relative;
+  height: auto
+}
+.slide{
+  max-width: 100%;
+  display:block;
+}
 </style>
