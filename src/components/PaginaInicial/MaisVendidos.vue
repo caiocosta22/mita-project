@@ -106,6 +106,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
+.titulo MAIS VENDIDOS
 .card-carousel-wrapper.col
   q-icon.cursor-pointer.q-mr-sm(
     name="chevron_left"
@@ -184,6 +185,15 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
+  .titulo{
+  color: #000;
+  text-align: center;
+  font-family: Catamaran;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+  }
 .image {
   vertical-align: bottom !important;
   border-top-left-radius: 4px !important;

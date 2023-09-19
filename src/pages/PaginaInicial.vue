@@ -48,10 +48,7 @@ q-page-container.column
   Banner
   Promocional
   Categorias
-  div
-    p.titulo MAIS VENDIDOS
   Vendidos
-  div
   Marketing
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
@@ -63,15 +60,6 @@ q-page-container.column
 </template>
 
 <style scoped>
-  .titulo{
-  color: #000;
-  text-align: center;
-  font-family: Catamaran;
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-  }
   .header{
   transition: background-color 1s;
   z-index: 20;
