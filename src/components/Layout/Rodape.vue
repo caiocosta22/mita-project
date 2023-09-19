@@ -6,7 +6,7 @@ const infos = ref({});
 
 async function searchBestSellers () {
   try {
-    infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
+    // infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
   } catch (e) {
     console.error(e);
   }

@@ -11,7 +11,7 @@
 const { configure } = require("quasar/wrappers");
 const vuePugPlugin = require("vue-pug-plugin");
 const envFile = require("dotenv").config();
-console.log("🚀 ~", process.env.TENANT, process.env.BASE_URL);
+
 module.exports = configure(function (ctx) {
   return {
     eslint: {
