@@ -2,6 +2,11 @@
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
+function openInicialPage (logo) {
+  const url = process.env.HOST_URL + "/";
+  window.location.replace(url, "_blank");
+}
+
 const srcLogo = ref("/images/logo.png");
 // ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
 
@@ -72,6 +77,7 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
   q-img.cursor-pointer.col-2.logo(
     :src="srcLogo"
     spinner-color="white"
+    @click="openInicialPage"
   )
   div.row.q-mr-xl.minimenu(style="flex-wrap: nowrap;")
     a.q-mr-sm.cursor-pointer.usuario

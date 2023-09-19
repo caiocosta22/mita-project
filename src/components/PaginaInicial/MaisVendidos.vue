@@ -96,7 +96,7 @@ async function searchBestSellers () {
 
 function openProductPage (product) {
   const url = process.env.HOST_URL + "/produtos/" + product.slug;
-  window.open(url, "_blank");
+  window.location.replace(url, "_blank");
 }
 
 onBeforeMount(async () => {
