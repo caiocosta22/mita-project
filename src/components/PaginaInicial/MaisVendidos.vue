@@ -95,7 +95,7 @@ async function searchBestSellers () {
 }
 
 function openProductPage (product) {
-  const url = process.env.HOST_URL + "/produtos/" + product.slug;
+  const url = process.env.VERCEL_URL + "/produtos/" + product.slug;
   window.location.replace(url, "_blank");
 }
 
