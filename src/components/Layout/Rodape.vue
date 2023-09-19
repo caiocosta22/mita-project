@@ -1,5 +1,4 @@
 <script setup>
-import axios from "axios";
 import { ref, onBeforeMount } from "vue";
 
 const infos = ref({});
@@ -18,7 +17,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-.rodape.row.q-gutter-sm.justify-evenly.q-pa-lg(style="flex-wrap:nowrap")
+.rodape.row.justify-center.q-pa-lg(style="flex-wrap:nowrap")
   div.Institucional.column.cursor-pointer(style="width:264px")
     p.principal Institucional
     p.cursor-pointer.secundario(href="#") A empresa
