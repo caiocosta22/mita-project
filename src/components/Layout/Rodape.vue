@@ -18,7 +18,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.row.justify-center.text-bold.q-pa-md(style="flex-wrap:nowrap")
+.rodape.row.q-gutter-sm.justify-evenly.q-pa-lg(style="flex-wrap:nowrap")
   div.Institucional.column.cursor-pointer(style="width:264px")
     p.principal Institucional
     p.cursor-pointer.secundario(href="#") A empresa
@@ -64,6 +64,49 @@ div.row.justify-center.text-bold.q-pa-md(style="flex-wrap:nowrap")
           size="md"
           name="fa-brands fa-whatsapp"
         )
+.rodape2
+  q-expansion-item.listas.text-bold(
+    expand-separator
+    label="Institucional"
+  )
+    q-card.listas
+      q-card-section
+        a(href="#") A empresa
+      q-card-section
+        a(href="#") Política de Entrega
+      q-card-section
+        a(href="#") Privacidade e Segurança
+      q-card-section
+        a(href="#") Trocas e Devoluções
+  q-expansion-item.listas.text-bold(
+    expand-separator
+    label="Minha Conta"
+  )
+    q-card.listas
+      q-card-section
+        a(href="#") Perfil
+      q-card-section
+        a(href="#") Meus pedidos
+      q-card-section
+        a(href="#") Meu carrinho
+  q-expansion-item.listas.text-bold(
+    expand-separator
+    label="Ajuda e suporte"
+  )
+    q-card.listas
+      q-card-section
+        a(href="#") Nosso chat
+  q-expansion-item.listas.text-bold(
+    expand-separator
+    label="Contato"
+  )
+    q-card.listas
+      q-card-section
+        p atendimento@mita.com.br
+      q-card-section
+        p (00)00000-0000
+      q-card-section
+        p Atendimento: <br> Segunda à sexta, de 9h as 17h.
 div.text-black.justify-center.text-center.text-bold.row
   p MITA C V A DE C LTDA.
   p(v-if="infos.street") &nbsp; | {{ infos.street }}
@@ -76,13 +119,41 @@ div.text-black.justify-center.text-center.text-bold.row
 </template>
 
 <style scoped>
+a{
+  cursor: pointer;
+  text-decoration: none;
+}
 *{
   color:black
 }
 .principal{
-  font-size:22px
+  font-size:18px;
+  font-weight: bold;
 }
 .secundario{
-  font-size:20px
+  font-size:16px
+}
+.listas{
+  box-shadow:none
+}
+@media screen and (min-width: 1025px) {
+  .rodape2{
+    display:none;
+    padding: 20px;
+  }
+}
+@media screen and (max-width: 1025px) {
+  .rodape{
+    display:none;
+    flex-direction: column;
+  }
+  .secundario{
+    font-weight: bold;
+    font-size: 17px;
+  }
+  .primario{
+    font-weight: bolder;
+    font-size: 20px;
+  }
 }
 </style>
