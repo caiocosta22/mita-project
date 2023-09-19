@@ -3,9 +3,23 @@ import { ref, watch } from "vue";
 const options = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 const text1 = ref(""); // Referência para o texto digitado no q-input
 const textOnImage = ref(""); // Referência para exibir o texto na imagem
+
+const props = defineProps({
+  produto: {
+    type: Object,
+    required: true,
+    // ! Dentro desse objeto monte um exemplo de como receberá o produto
+    // ? Produto dever possuir a KEY id, se preferir pode transformar
+    // * Dicas: Nessa tela não vai ser preciso se utilizar de v-for
+    // * Se quiser ver como vem um produto é só dar console.log()
+    default: () => {}
+  }
+});
+
 watch(text1, (newText) => {
   textOnImage.value = newText;
 });
+
 </script>
 
 <template lang="pug">

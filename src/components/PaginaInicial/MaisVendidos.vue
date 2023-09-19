@@ -83,14 +83,20 @@ const moveCarousel = (direction) => {
 async function searchBestSellers () {
   try {
     const data = await axios.get("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    // const data = await axios.get("/api/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
-      // * Trocar "DESTAQUE" para  "Mais Vendidos"
+      // * Trocar de "DESTAQUE" para  "Mais Vendidos"
       const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
       itemsOfApi.value = bestSellers;
     }
   } catch (e) {
     console.error(e);
   }
+}
+
+function openProductPage (product) {
+  const url = process.env.HOST_URL + "/produtos/" + product.slug;
+  window.location.replace(url, "_blank");
 }
 
 onBeforeMount(async () => {
@@ -100,6 +106,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
+.titulo MAIS VENDIDOS
 .card-carousel-wrapper.col
   q-icon.cursor-pointer.q-mr-sm(
     name="chevron_left"
@@ -116,7 +123,12 @@ onBeforeMount(async () => {
           img(:src="item.image")
           .card-carousel--card--footer.q-pa-sm.text-black
             p {{ item.name }}
-            p.tag.text-bold(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
+            p.tag.text-bold(
+              v-for="(tag, index) in item.tag"
+              :key="index"
+              :class="index > 0 ? 'secondary' : ''"
+              @click="openProductPage(tag)"
+            ) {{ tag }}
   .card-carousel(
     v-else
   )
@@ -143,12 +155,14 @@ onBeforeMount(async () => {
                     v-for="produto in subsec.produtos"
                     :key="produto"
                   )
-                    .card-carousel--card--footer.q-pa-sm.text-black.text-bold
-                      q-img.image(
+                    .card-carousel--card--footer.q-pa-sm.text-black.text-bold(
+                      @click="openProductPage(produto)"
+                    )
+                      q-img.image.cursor-pointer(
                         v-if="produto.fotosServico[0].urlMWebp"
                         :src="produto.fotosServico[0].urlMWebp"
                       )
-                      .row.justify-between
+                      .row.justify-between.cursor-pointer
                         .q-py-lg(style="font-size:22px") {{ produto.titulo }}
                         template(
                         v-if="produto.promocao"
@@ -171,6 +185,15 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
+  .titulo{
+  color: #000;
+  text-align: center;
+  font-family: Catamaran;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+  }
 .image {
   vertical-align: bottom !important;
   border-top-left-radius: 4px !important;

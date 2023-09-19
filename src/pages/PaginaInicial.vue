@@ -45,13 +45,10 @@ onBeforeUnmount(() => {
 
 <template lang="pug">
 q-page-container.column
-  Banner.banner
+  Banner
   Promocional
   Categorias
-  div
-    p.titulo MAIS VENDIDOS
   Vendidos
-  div
   Marketing
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
@@ -63,35 +60,11 @@ q-page-container.column
 </template>
 
 <style scoped>
-  .titulo{
-  color: #000;
-  text-align: center;
-  font-family: Catamaran;
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-  }
   .header{
   transition: background-color 1s;
   z-index: 20;
 }
 .nav {
   transition: color 0.5s;
-}
-.banner{
-  z-index: 2;
-  margin-top: -165px;
-  width:100%;
-  display:flex;
-  height: 789px
-}
-@media screen and (max-width: 1025px) {
-  .nav{
-    display: none;
-  }
-}
-@media screen and (min-width: 1026px) {
-
 }
 </style>

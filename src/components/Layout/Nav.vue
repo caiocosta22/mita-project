@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onBeforeMount, onMounted, onUnmounted } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import axios from "axios";
 
 const showMenu = ref(false);
@@ -66,38 +66,14 @@ async function searchProducts () {
   try {
     let data = [];
     if (productTyped.value) {
-      // ? Aqui é o local para implementar uma lógica de loading (para criar um loading caso queira mostrar uma tabelinha para o cliente enquanto retorna os produtos)
-      // ? Recomendo utilizar uma ref e setar como true e no final da função setar como false (dica: utilizar o finally do try catch finally, pesquisar sobre!)
       data = await axios.get(`/api/servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
     }
     if (data.content && data.content.length) productsSearched.value = data.content;
   } catch (e) {
-    // ? Caso queira mostrar um erro para o usuario utilizar o quasar notify ($q.notify)
-    // ? exemplo -> import { useQuasar } from "quasar"; const $q = useQuasar(); $q.notify() -> pesquisar sobre!
     console.error(e);
   }
 }
 const backgroundsearchColor = ref("rgba(0,0,0,0)");
-const changeBackgroundColor = () => {
-  // Alterar a cor de fundo para branco quando clicado
-  backgroundsearchColor.value = "white";
-};
-const inputRef = ref(null);
-onMounted(() => {
-  // Adicionar um ouvinte de evento de clique global
-  document.addEventListener("click", handleGlobalClick);
-});
-const handleGlobalClick = (event) => {
-  // Verificar se o clique foi fora do componente
-  if (!inputRef.value.contains(event.target)) {
-    // Clique fora do componente, restaurar a cor de fundo original
-    backgroundsearchColor.value = "rgba(0,0,0,0)";
-  }
-};
-// Remover o ouvinte de evento quando o componente for destruído
-onUnmounted(() => {
-  document.removeEventListener("click", handleGlobalClick);
-});
 
 async function searchCategories () {
   try {
@@ -118,7 +94,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.row.q-pa-sm.q-mt-mb-xl
+.nav.row.q-pa-sm.q-mt-mb-xl
   q-toolbar.col-12.q-gutter-sm.justify-evenly
     template(
       v-for="categorie in categoriesBase"
@@ -150,7 +126,7 @@ div.row.q-pa-sm.q-mt-mb-xl
         v-else
       )
         p.text-bold {{ categorie.name }}
-    q-input.col-3.text-black(
+    q-input.col-3.text-black.busca(
       v-model="productTyped"
       type="search"
       label
@@ -158,17 +134,16 @@ div.row.q-pa-sm.q-mt-mb-xl
       color="black"
       :bg-color="backgroundsearchColor"
       @update:model-value="searchProducts()"
-      @click="changeBackgroundColor"
       ref="inputRef"
     )
       template(v-slot:label)
-        p.text-bold.oquebusca(
+        p.text-bold.textobusca(
           :style="correctStyle"
         ) O QUE ESTÁ BUSCANDO
       template(v-slot:append)
         q-icon(
           size="md"
-          :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'grey'"
+          :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
           name="search"
           style="transition: 1s;"
         )
@@ -181,7 +156,12 @@ a{
 .menu{
   font-weight:bolder;
 }
-.oquebusca{
+.textobusca{
   transition: 1s;
+}
+@media screen and (max-width: 1150px) {
+  .nav{
+    display: none;
+  }
 }
 </style>

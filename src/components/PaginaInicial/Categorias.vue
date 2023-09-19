@@ -73,6 +73,7 @@ async function searchCategories () {
     if (data.length) {
       itemsForItems = data.map(categorie => {
         return {
+          ...categorie,
           name: categorie.descricao,
           image: categorie.fotoUrl
         };
@@ -86,6 +87,11 @@ async function searchCategories () {
   } catch (e) {
     console.error(e);
   }
+}
+function openCategoryPage (product) {
+  console.log("🚀 ~ openCategoryPage ~ product:", product);
+  // const url = process.env.HOST_URL + "/categoria/" + product.slug;
+  // window.open(url, "_blank");
 }
 
 onBeforeMount(async () => {
@@ -111,7 +117,8 @@ div(
       .card-carousel--overflow-container
         .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
           .card-carousel--card(v-for="item in items" :key="item" style=" box-shadow:none")
-            img(
+            img.cursor-pointer(
+              @click="openCategoryPage(item)"
               v-if="item.image"
               :src="item.image"
             )
