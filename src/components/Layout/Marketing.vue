@@ -2,9 +2,9 @@
 </script>
 
 <template lang="pug">
-.row.q-gutter-lg.justify-center.cursor-pointer.marketing.col
-  q-img(src="../../assets/imgs/marketing1.png").col-4
-  q-img(src="../../assets/imgs/marketing2.png").col-4
+.row.justify-center.cursor-pointer.marketing.col.q-gutter-sm.q-pl-sm
+  q-img(src="../../assets/imgs/marketing1.png").col-5
+  q-img(src="../../assets/imgs/marketing2.png").col-5
 </template>
 
 <style scoped>

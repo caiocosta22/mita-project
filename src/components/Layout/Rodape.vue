@@ -17,26 +17,26 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-.rodape.row.justify-center.q-pa-lg(style="flex-wrap:nowrap")
-  div.Institucional.column.cursor-pointer(style="width:264px")
+.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap")
+  div.Institucional.column.cursor-pointer.col-2(style="padding-left: 4px;")
     p.principal Institucional
     p.cursor-pointer.secundario(href="#") A empresa
     p.secundario Sustentatabilidade
-  div.MeusDados.column.cursor-pointer(style="width:264px")
+  div.MeusDados.column.cursor-pointer.col-2
     p.principal Minha conta
     p.secundario Meus pedidos
     p.secundario Minha Sacola
-  div.Suporte.column.cursor-pointer(style="width:264px")
+  div.Suporte.column.cursor-pointer.col-2
     p.principal Ajuda e Suporte
     p.secundario Política de Entrega
     p.secundario Trocas e Devoluções
-  div.Contato.column.cursor-pointer(style="width:264px")
+  div.Contato.column.cursor-pointer.col-2
     p.principal Contato
     p.secundario Fale Conosco
     p.secundario atendimento@mita.com.br
     p.secundario SAC(00)0000-0000
     p.secundario Atendimento:<br>Segunda à sexta, de 9h as 17h.
-  div.Redes.column(style="width:264px")
+  div.Redes.column.col-2
     p.principal Nossas redes sociais
     div.row.cursor-pointer
       a(
@@ -126,7 +126,7 @@ a{
   color:black
 }
 .principal{
-  font-size:18px;
+  font-size:16px;
   font-weight: bold;
 }
 .secundario{

@@ -2,13 +2,13 @@
 </script>
 
 <template lang="pug">
-.row.promocional.q-gutter-sm.q-pt-md.col
-  q-img.cursor-pointer.col-4(src="../../assets/imgs/BOLSAS.png")
-  .column.col-4
+.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
+  q-img.cursor-pointer.col-5(src="../../assets/imgs/BOLSAS.png")
+  .column.col-5
     q-img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png")
     q-img.cursor-pointer.q-mt-lg(src="../../assets/imgs/NECESSAIRES.png")
 .valentines.row.col
-  q-img.cursor-pointer.col-8(src="../../assets/imgs/VALENTINES.png")
+  q-img.cursor-pointer.col-10.q-pa-lg(src="../../assets/imgs/VALENTINES.png" )
 </template>
 
 <style scoped>
@@ -23,10 +23,12 @@
 .valentines {
   display:flex;
   flex-wrap:nowrap;
-  justify-content: center;
+  justify-content:center;
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  aspect-ratio: auto 1920/373;
 }
 </style>
