@@ -73,10 +73,18 @@ q-carousel.cursor-pointer.banner.col(
   justify-content: center;
   aspect-ratio: auto 1920/860;
   position: relative;
-  height: auto
+  height: auto;
+  z-index: 2;
+  margin-top: -165px;
+  width:100%;
 }
 .slide{
   max-width: 100%;
   display:block;
+}
+@media screen and (max-width: 1150px) {
+  .banner{
+    margin-top: -70px;
+  }
 }
 </style>

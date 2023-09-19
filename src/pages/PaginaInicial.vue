@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
 
 <template lang="pug">
 q-page-container.column
-  Banner.banner
+  Banner
   Promocional
   Categorias
   div
@@ -78,20 +78,5 @@ q-page-container.column
 }
 .nav {
   transition: color 0.5s;
-}
-.banner{
-  z-index: 2;
-  margin-top: -165px;
-  width:100%;
-  display:flex;
-  height: 789px
-}
-@media screen and (max-width: 1025px) {
-  .nav{
-    display: none;
-  }
-}
-@media screen and (min-width: 1026px) {
-
 }
 </style>
