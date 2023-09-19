@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-.row.promocional.q-gutter-md.q-pt-md.col
+.row.promocional.q-gutter-sm.q-pt-md.col
   q-img.cursor-pointer.col-4(src="../../assets/imgs/BOLSAS.png")
   .column.col-4
     q-img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png")
@@ -27,7 +27,6 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  padding-top: 20px;
-  padding-right: 15px ;
+  padding: 20px;
 }
 </style>
