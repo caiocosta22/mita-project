@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
+const model = ref([]);
+const val = ref([]);
+const isChecked = ref(false);
+
 const marcas = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 const modelos = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
-const isChecked = ref(false);
 </script>
 <template lang="pug">
 .justify-evenly.q-gutter-sm.flex.row
@@ -11,7 +14,8 @@ const isChecked = ref(false);
       img(style="width:15px;height:15px" src="../../assets/imgs/casaicon.png")
       p /CASE SMARTPHONE
     div.marcas.column(style="width: 257px;height: 257px;")
-      q-select(bordeless v-model="model" :options="marcas" label-color="black" label="Marcas" color="black" blocked)
+      //- Procure por multiplas checkbox no quasar e NÃO ESQUEÇA DE CRIAR AS REFS
+      q-select(bordeless v-model="model" :options="marcas" label-color="black" label="Categorias" color="black" blocked)
       q-separator(color="black")
       q-checkbox(v-model="isChecked" label="iPhone" color="black")
       q-checkbox(v-model="val" label="Samsung" text-color="black" color="black")

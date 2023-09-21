@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import Topo from "./Topo.vue";
+import axios from "axios";
 const items = ref([
   {
     name: "Case para Iphone",
@@ -33,13 +35,77 @@ const items = ref([
     tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
   }
 ]);
+
+const page = ref(1);
+const route = useRoute();
+const router = useRouter();
+
+const pickedCategories = ref([
+  { id: route.params.categoria }
+]);
+
+async function findProductsByCategory () {
+  try {
+    const products = await axios.post("/api/servicoService/filtro-produtoV2/-1", {
+      tiposServico: [],
+      gruposServico: pickedCategories.value,
+      marcas: [],
+      palavraChave: "",
+      page: page.value
+    }).then(e => e.data);
+    if (products.content.length) {
+      items.value = products.content.map(product => {
+        return {
+          ...product,
+          name: product.descricao,
+          image: product.fotosServico[0].foto,
+          tag: product.promocao
+            ? [
+              `De R$ ${product.valor}`,
+              `Por R$ ${product.precoPromocional}`
+            ] : [
+              `R$ ${product.valor}`
+            ]
+        };
+      }); ;
+    }
+  } catch (e) {
+    console.error("Erro ao buscar produtos da categoria: ", e);
+  }
+}
+
+function openProductPage (product) {
+  if (product.slug) {
+    const url = "/produtos/" + product.slug;
+    router.push(url);
+  }
+}
+
+watch(() => page.value, async () => {
+  page.value = 1;
+  await findProductsByCategory();
+});
+
+onMounted(async () => {
+  await findProductsByCategory();
+});
+
 </script>
 
 <template lang="pug">
 .container
   Topo
-  .foto(v-for="item in items" :key="item" style="width:200px")
-    img(:src="item.image" style="width:300px; height:300px")
+  //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
+  div.foto.cursor-pointer(
+    v-for="item in items"
+    :key="item"
+    style="width:200px"
+    @click="openProductPage(item)"
+  )
+    img(
+      :src="item.image"
+      style="width:300px; height:300px"
+    )
     .texto
       p {{ item.name }}
       p.texto2(v-for="(tag,index) in item.tag" :key="index") {{ tag }}

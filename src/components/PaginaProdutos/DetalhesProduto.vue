@@ -1,8 +1,7 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 const options = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 const text1 = ref(""); // Referência para o texto digitado no q-input
-const textOnImage = ref(""); // Referência para exibir o texto na imagem
 
 const props = defineProps({
   produto: {
@@ -16,10 +15,6 @@ const props = defineProps({
   }
 });
 
-watch(text1, (newText) => {
-  textOnImage.value = newText;
-});
-
 </script>
 
 <template lang="pug">
@@ -30,7 +25,7 @@ watch(text1, (newText) => {
     img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
   q-img.foto(src="../../assets/imgs/paginaprodutos/carteiragrande.png" no-native-menu)
     q-icon(class="absolute all-pointer-events cursor-pointer" size="24px" name="fullscreen" color="black" style="top:8px;right:8px")
-    .text-on-image {{ textOnImage }}
+    .text-on-image {{ text1 }}
   div.column.q-gutter-sm
     .row.justify-between
       p.tituloprod Carteira Feminina
@@ -50,7 +45,14 @@ watch(text1, (newText) => {
         img(src="../../assets/svgs/elipsemarrom.svg" style="width:24px; height:24px")
     .column
       p.destaque Adicione seu nome no produto!
-      q-input(outlined v-model="text1" placeholder="Digite aqui" color="black" label-color="black" maxlength="10")
+      q-input(
+        v-model="text1"
+        outlined
+        placeholder="Digite aqui"
+        color="black"
+        label-color="black"
+        maxlength="10"
+      )
     .row.justify-between
       p.destaque VALOR
       p.destaque R$279,00

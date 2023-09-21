@@ -16,8 +16,7 @@ const $q = useQuasar();
 async function searchProductById (productId) {
   try {
     // ! Essa é a correta
-    // product.value = await axios.get(`/api/servicoService/productBySlugEcommerceV2/${productId}/-1`);
-    product.value = await axios.get("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/productBySlugEcommerceV2/vestido-euphoria-011/-1");
+    product.value = await axios.get(`/api/servicoService/productBySlugEcommerceV2/${productId}/-1`);
   } catch (e) {
     //! Buscar uma ideia melhor pra esse notify (a cargo do dev-frontend)
     $q.notify({
