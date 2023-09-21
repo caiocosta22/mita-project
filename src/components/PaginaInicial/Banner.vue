@@ -30,7 +30,7 @@ const bannersCarousel = ref([
 
 async function searchTopBanners () {
   try {
-    const banners = await axios.get("api/bannerService/allEcommerce").then(e => e.data);
+    const banners = await axios.get("/api/bannerService/allEcommerce").then(e => e.data);
     if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
   } catch (e) {
     console.error(e);
