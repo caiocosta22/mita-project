@@ -96,15 +96,15 @@ onMounted(async () => {
 .container
   Topo
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
-  div.foto.cursor-pointer(
+  div.foto(
     v-for="item in items"
     :key="item"
     style="width:200px"
-    @click="openProductPage(item)"
   )
-    img(
+    q-img.cursor-pointer(
       :src="item.image"
-      style="width:300px; height:300px"
+      style="width: 300px; height: 350px;"
+      @click="openProductPage(item)"
     )
     .texto
       p {{ item.name }}

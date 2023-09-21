@@ -12,8 +12,8 @@ import carteira from "../../assets/imgs/6.png";
 const router = useRouter();
 const currentOffset = ref(0);
 const hasItems = ref(true);
-const windowSize = 6;
-const paginationFactor = 220;
+const windowSize = 4;
+const paginationFactor = 340;
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -106,7 +106,7 @@ onBeforeMount(async () => {
 div(
   v-if="hasItems"
 )
-  div
+  div.q-pt-lg
     p.titulo CATEGORIAS
   div.card-carousel-wrapper2
     q-icon.cursor-pointer.q-mr-sm(
@@ -126,14 +126,15 @@ div(
             style="box-shadow:none"
           )
             img.cursor-pointer(
+              spinner-color="white"
               @click="openCategoryPage(item)"
               v-if="item.image"
               :src="item.image"
             )
             div.card-carousel--card--footer.text-bold.text-black.text-center
-              p.q-pa-sm {{ item.name }}
+              p.q-pa-sm(style="font-size:20px") {{ item.name }}
               p.tag(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
-    q-icon.cursor-pointer.q-ml-sm(
+    q-icon.cursor-pointer.q-ml-md(
       name="chevron_right"
       size="2.5em"
       color="black"
@@ -157,8 +158,9 @@ img {
   border-top-right-radius: 4px;
   transition: opacity 150ms linear;
   user-select: none;
-  height: 200px;
-  width: 200px;
+  height: 320px;
+  width: 320px;
+  aspect-ratio: auto 1920/320 ;
 }
 *{
   color: black;
