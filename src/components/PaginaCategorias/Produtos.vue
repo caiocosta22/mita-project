@@ -35,7 +35,6 @@ const items = ref([
     tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
   }
 ]);
-
 const page = ref(1);
 const route = useRoute();
 const router = useRouter();

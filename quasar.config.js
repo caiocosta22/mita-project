@@ -103,7 +103,7 @@ module.exports = configure(function (ctx) {
           rewrite: (path) => path.replace(/^\/api/, "")
         }
       },
-      https: true,
+      // https: true,
       open: false
     },
 
