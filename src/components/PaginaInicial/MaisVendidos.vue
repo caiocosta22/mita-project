@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import Capaiphone from "../../assets/imgs/CAPAIPHONE.png";
 import Bolsa from "../../assets/imgs/BOLSA.png";
@@ -7,6 +8,7 @@ import Carteira from "../../assets/imgs/CARTEIRA.png";
 import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
 
 const currentOffset = ref(0);
+const router = useRouter();
 const itemsOfApi = ref([]);
 const windowSize = 4;
 const paginationFactor = 340;
@@ -82,8 +84,7 @@ const moveCarousel = (direction) => {
 // eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
-    const data = await axios.get("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
-    // const data = await axios.get("/api/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    const data = await axios.get("/api/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
       const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
@@ -95,8 +96,10 @@ async function searchBestSellers () {
 }
 
 function openProductPage (product) {
-  const url = process.env.VERCEL_URL + "/produtos/" + product.slug;
-  window.location.replace(url, "_blank");
+  if (product.slug) {
+    const url = "/produtos/" + product.slug;
+    router.push(url);
+  }
 }
 
 onBeforeMount(async () => {
@@ -127,7 +130,7 @@ onBeforeMount(async () => {
               v-for="(tag, index) in item.tag"
               :key="index"
               :class="index > 0 ? 'secondary' : ''"
-              @click="openProductPage(tag)"
+              @click="openProductPage(item)"
             ) {{ tag }}
   .card-carousel(
     v-else
@@ -159,8 +162,8 @@ onBeforeMount(async () => {
                       @click="openProductPage(produto)"
                     )
                       q-img.image.cursor-pointer(
-                        v-if="produto.fotosServico[0].urlMWebp"
-                        :src="produto.fotosServico[0].urlMWebp"
+                        v-if="produto.fotosServico[0].foto"
+                        :src="produto.fotosServico[0].foto"
                       )
                       .row.justify-between.cursor-pointer
                         .q-py-lg(style="font-size:22px") {{ produto.titulo }}

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import necessaire from "../../assets/imgs/1.png";
 import capa from "../../assets/imgs/2.png";
@@ -7,10 +8,12 @@ import chaveiro from "../../assets/imgs/3.png";
 import bolsa from "../../assets/imgs/4.png";
 import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
+
+const router = useRouter();
 const currentOffset = ref(0);
 const hasItems = ref(true);
-const windowSize = 6;
-const paginationFactor = 220;
+const windowSize = 4;
+const paginationFactor = 340;
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -75,23 +78,22 @@ async function searchCategories () {
         return {
           ...categorie,
           name: categorie.descricao,
-          image: categorie.fotoUrl
+          image: categorie.bannerUrl
         };
       });
     }
-    let hasItem = false;
-    itemsForItems.forEach(item => {
-      item.image ? hasItem = true : hasItem = false;
-    });
-    if (hasItem) items.value = itemsForItems;
+    const finalItems = itemsForItems.filter(item => item.image);
+    if (finalItems.length) items.value = finalItems;
   } catch (e) {
     console.error(e);
   }
 }
-function openCategoryPage (product) {
-  console.log("🚀 ~ openCategoryPage ~ product:", product);
-  // const url = process.env.HOST_URL + "/categoria/" + product.slug;
-  // window.open(url, "_blank");
+
+function openCategoryPage (category) {
+  if (category.id) {
+    const url = "/categorias/" + category.id;
+    router.push(url);
+  }
 }
 
 onBeforeMount(async () => {
@@ -104,28 +106,35 @@ onBeforeMount(async () => {
 div(
   v-if="hasItems"
 )
-  div
+  div.q-pt-lg
     p.titulo CATEGORIAS
-  .card-carousel-wrapper2
+  div.card-carousel-wrapper2
     q-icon.cursor-pointer.q-mr-sm(
       name="chevron_left"
       size="2.5em"
       color="black"
       @click="moveCarousel(-1)"
     )
-    .card-carousel2
-      .card-carousel--overflow-container
-        .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
-          .card-carousel--card(v-for="item in items" :key="item" style=" box-shadow:none")
+    div.card-carousel2
+      div.card-carousel--overflow-container
+        div.card-carousel-cards(
+          :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
+        )
+          div.card-carousel--card(
+            v-for="item in items"
+            :key="item"
+            style="box-shadow:none"
+          )
             img.cursor-pointer(
+              spinner-color="white"
               @click="openCategoryPage(item)"
               v-if="item.image"
               :src="item.image"
             )
-            .card-carousel--card--footer.text-bold.text-black.text-center
-              p.q-pa-sm {{ item.name }}
+            div.card-carousel--card--footer.text-bold.text-black.text-center
+              p.q-pa-sm(style="font-size:20px") {{ item.name }}
               p.tag(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
-    q-icon.cursor-pointer.q-ml-sm(
+    q-icon.cursor-pointer.q-ml-md(
       name="chevron_right"
       size="2.5em"
       color="black"
@@ -149,8 +158,9 @@ img {
   border-top-right-radius: 4px;
   transition: opacity 150ms linear;
   user-select: none;
-  height: 200px;
-  width: 200px;
+  height: 320px;
+  width: 320px;
+  aspect-ratio: auto 1920/320 ;
 }
 *{
   color: black;
