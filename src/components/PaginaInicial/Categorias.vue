@@ -8,7 +8,6 @@ import chaveiro from "../../assets/imgs/3.png";
 import bolsa from "../../assets/imgs/4.png";
 import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const router = useRouter();
 const currentOffset = ref(0);
 const hasItems = ref(true);
@@ -71,7 +70,7 @@ const moveCarousel = (direction) => {
 
 async function searchCategories () {
   try {
-    const data = await axios.get(`${api}ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
+    const data = await axios.get("/mita/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     let itemsForItems = [];
     if (data.length) {
       itemsForItems = data.map(categorie => {

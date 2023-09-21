@@ -6,7 +6,7 @@ import Capaiphone from "../../assets/imgs/CAPAIPHONE.png";
 import Bolsa from "../../assets/imgs/BOLSA.png";
 import Carteira from "../../assets/imgs/CARTEIRA.png";
 import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+
 const currentOffset = ref(0);
 const router = useRouter();
 const itemsOfApi = ref([]);
@@ -84,7 +84,7 @@ const moveCarousel = (direction) => {
 // eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
-    const data = await axios.get(`${api}ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE`).then(e => e.data);
+    const data = await axios.get("/mita/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
       const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
@@ -109,22 +109,22 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-.titulo MAIS VENDIDOS
-.card-carousel-wrapper.col
+div.titulo MAIS VENDIDOS
+div.card-carousel-wrapper.col
   q-icon.cursor-pointer.q-mr-sm(
     name="chevron_left"
     size="2.5em"
     color="black"
     @click="moveCarousel(-1)"
   )
-  .card-carousel(
+  div.card-carousel(
     v-if="!itemsOfApi.length"
   )
-    .card-carousel--overflow-container
-      .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
-        .card-carousel--card(v-for="item in items" :key="item")
+    div.card-carousel--overflow-container
+      div.card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
+        div.card-carousel--card(v-for="item in items" :key="item")
           img(:src="item.image")
-          .card-carousel--card--footer.q-pa-sm.text-black
+          div.card-carousel--card--footer.q-pa-sm.text-black
             p {{ item.name }}
             p.tag.text-bold(
               v-for="(tag, index) in item.tag"
@@ -132,11 +132,11 @@ onBeforeMount(async () => {
               :class="index > 0 ? 'secondary' : ''"
               @click="openProductPage(item)"
             ) {{ tag }}
-  .card-carousel(
+  div.card-carousel(
     v-else
   )
-    .card-carousel--overflow-container
-      .card-carousel-cards(
+    div.card-carousel--overflow-container
+      div.card-carousel-cards(
         :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
       )
         template(
@@ -158,20 +158,20 @@ onBeforeMount(async () => {
                     v-for="produto in subsec.produtos"
                     :key="produto"
                   )
-                    .card-carousel--card--footer.q-pa-sm.text-black.text-bold(
+                    div.card-carousel--card--footer.q-pa-sm.text-black.text-bold(
                       @click="openProductPage(produto)"
                     )
                       q-img.image.cursor-pointer(
                         v-if="produto.fotosServico[0].foto"
                         :src="produto.fotosServico[0].foto"
                       )
-                      .row.justify-between.cursor-pointer
+                      div.row.justify-between.cursor-pointer
                         .q-py-lg(style="font-size:22px") {{ produto.titulo }}
                         template(
                         v-if="produto.promocao"
                       )
-                          .column.q-pa-md.q-pr-md
-                            .tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
+                          div.column.q-pa-md.q-pr-md
+                            div.tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
                             p.tag.text-black(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
                         template(
                         v-else

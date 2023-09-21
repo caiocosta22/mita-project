@@ -18,8 +18,8 @@ const props = defineProps({
 </script>
 
 <template lang="pug">
-.row.justify-center.q-gutter-sm
-  .column.q-gutter-md
+div.row.justify-center.q-gutter-sm
+  div.column.q-gutter-md
     img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
     img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
     img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
@@ -27,9 +27,9 @@ const props = defineProps({
     q-icon(class="absolute all-pointer-events cursor-pointer" size="24px" name="fullscreen" color="black" style="top:8px;right:8px")
     .text-on-image {{ text1 }}
   div.column.q-gutter-sm
-    .row.justify-between
+    div.row.justify-between
       p.tituloprod Carteira Feminina
-      .row.q-gutter-md.align-center.q-pt-md
+      div.row.q-gutter-md.align-center.q-pt-md
         q-icon.cursor-pointer
           img(src="../../assets/svgs/share.svg" style="width:24px; height:24px")
         q-icon.cursor-pointer
@@ -43,7 +43,7 @@ const props = defineProps({
         img(src="../../assets/svgs/elipsecreme.svg" style="width:24px; height:24px")
       q-icon.cursor-pointer.q-pl-md
         img(src="../../assets/svgs/elipsemarrom.svg" style="width:24px; height:24px")
-    .column
+    div.column
       p.destaque Adicione seu nome no produto!
       q-input(
         v-model="text1"
@@ -53,17 +53,17 @@ const props = defineProps({
         label-color="black"
         maxlength="10"
       )
-    .row.justify-between
+    div.row.justify-between
       p.destaque VALOR
       p.destaque R$279,00
     q-separator(color="black")
-    .row.justify-between
+    div.row.justify-between
       p.destaque.col-6 FORMAS DE PAGAMENTO
       q-select(bordeless v-model="model" :options="options" label-color="black" label="A VISTA" color="black").col-5
-    .row.justify-between
+    div.row.justify-between
       p.destaque(style="width:45%") CUPOM DE DESCONTO
       q-input(v-model="text" label="CUPOM" color="black" style="width:55%")
-    .row.justify-between
+    div.row.justify-between
       p.destaque(style="width:45%") CALCULAR FRETE
       q-input(v-model="text" label="CEP" color="black" style="width:55%")
         template(v-slot:append)
@@ -71,7 +71,7 @@ const props = defineProps({
     a.cep(href="#") NÃO SEI MEU CEP
     q-btn.botao.q-pa-md(
       color="green" label="C O M P R A R" style="width: 516px; height:52px")
-  .q-pa-md
+  div.q-pa-md
     h6 DETALHES
     p AQUI FICA TODAS AS INFORMAÇÕES PERTINENTES AO PRODUTO. MATERIAL FEITO. CORES. COLEÇÕES E DIMENSÕES.
 </template>

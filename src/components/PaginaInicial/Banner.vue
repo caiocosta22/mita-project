@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const slide = ref(1);
 const autoplay = ref(true);
 const bannersCarousel = ref([
@@ -30,7 +29,7 @@ const bannersCarousel = ref([
 
 async function searchTopBanners () {
   try {
-    const banners = await axios.get(`${api}bannerService/allEcommerce`).then(e => e.data);
+    const banners = await axios.get("mita/bannerService/allEcommerce").then(e => e.data);
     if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
   } catch (e) {
     console.error(e);

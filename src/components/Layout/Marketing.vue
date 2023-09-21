@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-.row.justify-center.marketing.col.q-gutter-sm.q-pl-sm
+div.row.justify-center.marketing.col.q-gutter-sm.q-pl-sm
   q-img(src="../../assets/imgs/marketing1.png").col-5.cursor-pointer
   q-img(src="../../assets/imgs/marketing2.png").col-5.cursor-pointer
 </template>

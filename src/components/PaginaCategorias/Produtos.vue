@@ -3,7 +3,6 @@ import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Topo from "./Topo.vue";
 import axios from "axios";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const items = ref([
   {
     name: "Case para Iphone",
@@ -46,7 +45,7 @@ const pickedCategories = ref([
 
 async function findProductsByCategory () {
   try {
-    const products = await axios.post(`${api}servicoService/filtro-produtoV2/-1`, {
+    const products = await axios.post("/mita/servicoService/filtro-produtoV2/-1", {
       tiposServico: [],
       gruposServico: pickedCategories.value,
       marcas: [],

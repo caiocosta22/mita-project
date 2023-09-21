@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-.column.q-gutter-md
+div.column.q-gutter-md
   img(src="../../assets/imgs/paginaprodutos/carteira.png")
   img(src="../../assets/imgs/paginaprodutos/carteira.png")
   img(src="../../assets/imgs/paginaprodutos/carteira.png")

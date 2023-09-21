@@ -97,10 +97,10 @@ module.exports = configure(function (ctx) {
     devServer: {
       port: 8080,
       proxy: {
-        "/api": {
+        "/mita": {
           target: "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "")
+          rewrite: (path) => path.replace(/^\/mita/, "")
         }
       },
       https: true,

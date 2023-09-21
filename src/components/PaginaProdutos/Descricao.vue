@@ -5,9 +5,9 @@ const options = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 
 <template lang="pug">
 div.column.q-gutter-sm
-  .row.justify-between
+  div.row.justify-between
     p.tituloprod Carteira Feminina
-    .row.q-gutter-md.align-center.q-pt-md
+    div.row.q-gutter-md.align-center.q-pt-md
       q-icon.cursor-pointer
         img(src="../../assets/svgs/share.svg" style="width:24px; height:24px")
       q-icon.cursor-pointer
@@ -20,17 +20,17 @@ div.column.q-gutter-sm
       img(src="../../assets/svgs/elipsecreme.svg" style="width:24px; height:24px")
     q-icon.cursor-pointer.q-pl-md
       img(src="../../assets/svgs/elipsemarrom.svg" style="width:24px; height:24px")
-  .row.justify-between
+  div.row.justify-between
     p.destaque VALOR
     p.destaque R$279,00
   q-separator(color="black")
-  .row.justify-between
+  div.row.justify-between
     p.destaque.col-6 FORMAS DE PAGAMENTO
     q-select(bordeless v-model="model" :options="options" label-color="black" label="A VISTA" color="black").col-5
-  .row.justify-between
+  div.row.justify-between
     p.destaque(style="width:45%") CUPOM DE DESCONTO
     q-input(v-model="text" label="CUPOM" color="black" style="width:55%")
-  .row.justify-between
+  div.row.justify-between
     p.destaque(style="width:45%") CALCULAR FRETE
     q-input(v-model="text" label="CEP" color="black" style="width:55%")
       template(v-slot:append)

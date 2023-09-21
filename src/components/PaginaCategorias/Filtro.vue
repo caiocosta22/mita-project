@@ -8,8 +8,8 @@ const marcas = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 const modelos = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 </script>
 <template lang="pug">
-.justify-evenly.q-gutter-sm.flex.row
-  .column
+div.justify-evenly.q-gutter-sm.flex.row
+  div.column
     div.secao.row(style="width: 257px;height: 100px;")
       img(style="width:15px;height:15px" src="../../assets/imgs/casaicon.png")
       p /CASE SMARTPHONE

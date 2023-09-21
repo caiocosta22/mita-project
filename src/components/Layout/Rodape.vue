@@ -17,7 +17,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap")
+div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap")
   div.Institucional.column.col-2(style="padding-left: 4px;")
     p.principal Institucional
     p.secundario(href="#") A empresa
@@ -63,7 +63,7 @@ onBeforeMount(async () => {
           size="md"
           name="fa-brands fa-whatsapp"
         )
-.rodape2
+div.rodape2
   q-expansion-item.listas.text-bold(
     expand-separator
     label="Institucional"

@@ -2,13 +2,17 @@
 </script>
 
 <template lang="pug">
-.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
-  q-img.cursor-pointer.col-5(src="../../assets/imgs/BOLSAS.png")
-  .column.col-5
-    q-img.cursor-pointer(src="../../assets/imgs/CHAVEIROS.png")
-    q-img.cursor-pointer.q-mt-lg.q-pt-sm(src="../../assets/imgs/NECESSAIRES.png")
-.valentines.row.col
-  q-img.cursor-pointer.col-10.q-pa-lg(src="../../assets/imgs/VALENTINES.png" )
+div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
+  q-img.cursor-pointer.col-5(
+    src="../../assets/imgs/BOLSAS.png")
+  div.column.col-5
+    q-img.cursor-pointer(
+      src="../../assets/imgs/CHAVEIROS.png")
+    q-img.cursor-pointer.q-mt-lg.q-pt-sm(
+      src="../../assets/imgs/NECESSAIRES.png")
+div.valentines.row.col
+  q-img.cursor-pointer.col-10.q-pa-lg(
+    src="../../assets/imgs/VALENTINES.png" )
 </template>
 
 <style scoped>
