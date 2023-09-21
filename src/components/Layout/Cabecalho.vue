@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
-
+const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 function openInicialPage (logo) {
   const url = "https://mita-projeto.vercel.app/#/";
   window.location.replace(url, "_blank");
@@ -12,7 +12,7 @@ const srcLogo = ref("/images/logo.png");
 
 async function searchLogo () {
   try {
-    const logo = await axios.get("/api/configuracaoService/getLogoWeb").then(e => e.data);
+    const logo = await axios.get(`${api}configuracaoService/getLogoWeb`).then(e => e.data);
     if (logo.parametro) srcLogo.value = logo.parametro;
   } catch (e) {
     console.error(e);
