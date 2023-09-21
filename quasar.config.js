@@ -98,12 +98,12 @@ module.exports = configure(function (ctx) {
       port: 8080,
       proxy: {
         "/api": {
-          target: `https://${process.env.TENANT}.${process.env.BASE_URL}`,
+          target: "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, "")
         }
       },
-      // https: true,
+      https: true,
       open: false
     },
 

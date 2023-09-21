@@ -3,7 +3,7 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
 function openInicialPage (logo) {
-  const url = process.env.VERCEL_URL + "/";
+  const url = "https://mita-projeto.vercel.app/#/";
   window.location.replace(url, "_blank");
 }
 
