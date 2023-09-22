@@ -3,26 +3,27 @@ import DetalhesProduto from "../components/PaginaProdutos/DetalhesProduto.vue";
 import Marketing from "src/components/Layout/Marketing.vue";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
-const route = useRoute();
-const router = useRouter();
-
-const product = ref({});
 import { useQuasar } from "quasar";
 import axios from "axios";
 
+const route = useRoute();
+const router = useRouter();
 const $q = useQuasar();
+
+const product = ref({});
+const itsLoaded = ref(false);
 
 async function searchProductById (productId) {
   try {
-    // ! Essa é a correta
-    product.value = await axios.get(`/api/servicoService/productBySlugEcommerceV2/${productId}/-1`);
+    itsLoaded.value = false;
+    product.value = await axios.get(`/mita/servicoService/productBySlugEcommerceV2/${productId}/-1`).then(e => e.data);
   } catch (e) {
-    //! Buscar uma ideia melhor pra esse notify (a cargo do dev-frontend)
     $q.notify({
-      message: "Erro ao buscar produto, voltando..."
+      message: "Erro ao buscar produto, redirecionando para página principal!"
     });
     router.push("/");
+  } finally {
+    itsLoaded.value = true;
   }
 }
 
@@ -34,11 +35,10 @@ onMounted(async () => {
 
 <template lang="pug">
 q-page-container
-  .row.justify-center.q-gutter-sm
-    DetalhesProduto(
-      :produto="product"
-    )
-  //- ! Marketing vai vir de api tbm?
+  DetalhesProduto(
+  v-if="itsLoaded"
+  :produto="product"
+  )
   Marketing
 </template>
 

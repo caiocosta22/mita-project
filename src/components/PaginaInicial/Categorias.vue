@@ -77,7 +77,7 @@ async function searchCategories () {
         return {
           ...categorie,
           name: categorie.descricao,
-          image: categorie.bannerUrl
+          image: categorie.foto || categorie.bannerUrl
         };
       });
     }
@@ -87,7 +87,6 @@ async function searchCategories () {
     console.error(e);
   }
 }
-
 function openCategoryPage (category) {
   if (category.id) {
     const url = "/categorias/" + category.id;

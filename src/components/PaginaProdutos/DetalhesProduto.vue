@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from "vue";
-const options = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
+import { ref, computed } from "vue";
 const text1 = ref(""); // Referência para o texto digitado no q-input
-
+const text = ref(); // Ref para o texto digitado no CEP
 const props = defineProps({
   produto: {
     type: Object,
@@ -14,35 +13,38 @@ const props = defineProps({
     default: () => {}
   }
 });
-
+const product = computed(() => { return props.produto; });
+console.log(product.value);
+console.log(props);
 </script>
 
 <template lang="pug">
-div.row.justify-center.q-gutter-sm
-  div.column.q-gutter-md
-    img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
-    img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
-    img.min(src="../../assets/imgs/paginaprodutos/carteira.png")
-  q-img.foto(src="../../assets/imgs/paginaprodutos/carteiragrande.png" no-native-menu)
-    q-icon(class="absolute all-pointer-events cursor-pointer" size="24px" name="fullscreen" color="black" style="top:8px;right:8px")
-    .text-on-image {{ text1 }}
-  div.column.q-gutter-sm
-    div.row.justify-between
-      p.tituloprod Carteira Feminina
-      div.row.q-gutter-md.align-center.q-pt-md
-        q-icon.cursor-pointer
-          img(src="../../assets/svgs/share.svg" style="width:24px; height:24px")
-        q-icon.cursor-pointer
-          img(src="../../assets/svgs/like.svg" style="width:24px; height:24px")
-    p COD: 0001
+div.row.q-gutter-md.justify-center
+  div.column.q-gutter-lg.q-pa-md
+    img.min(
+      v-if="produto.fotosServico[0].foto"
+      :src="produto.fotosServico[0].foto"
+      )
+    img.min(
+      v-if="produto.fotosServico[0].foto"
+      :src="produto.fotosServico[0].foto"
+      )
+    img.min(
+      v-if="produto.fotosServico[0].foto"
+      :src="produto.fotosServico[0].foto"
+      )
+  div
+    q-img(
+    style="width:545px;height:641.935px;box-shadow:none"
+    no-native-menu
+    v-if="produto.fotosServico[0].foto"
+    :src="produto.fotosServico[0].foto"
+    )
+      .text-on-image {{ text1 }}
+  div.column.q-pa-sm
+    p.tituloprod {{ produto.descricao }}
+    p COD: {{ produto.codigo }}
     p.destaque CUSTOMIZAÇÃO
-    p.destaque COR
-      q-icon.cursor-pointer.q-pl-md
-        img(src="../../assets/svgs/elipsecinza.svg" style="width:24px; height:24px")
-      q-icon.cursor-pointer.q-pl-md
-        img(src="../../assets/svgs/elipsecreme.svg" style="width:24px; height:24px")
-      q-icon.cursor-pointer.q-pl-md
-        img(src="../../assets/svgs/elipsemarrom.svg" style="width:24px; height:24px")
     div.column
       p.destaque Adicione seu nome no produto!
       q-input(
@@ -51,42 +53,47 @@ div.row.justify-center.q-gutter-sm
         placeholder="Digite aqui"
         color="black"
         label-color="black"
-        maxlength="10"
+        maxlength="15"
       )
-    div.row.justify-between
-      p.destaque VALOR
-      p.destaque R$279,00
+    div.justify-between.row
+      template(
+        v-if="produto.promocao"
+        )
+        .destaque.justify-end valordesconto
+      .destaque.q-pt-md.q-pb-md VALOR
+      .destaque {{ produto.valor }}
     q-separator(color="black")
-    div.row.justify-between
-      p.destaque.col-6 FORMAS DE PAGAMENTO
-      q-select(bordeless v-model="model" :options="options" label-color="black" label="A VISTA" color="black").col-5
-    div.row.justify-between
-      p.destaque(style="width:45%") CUPOM DE DESCONTO
-      q-input(v-model="text" label="CUPOM" color="black" style="width:55%")
-    div.row.justify-between
-      p.destaque(style="width:45%") CALCULAR FRETE
-      q-input(v-model="text" label="CEP" color="black" style="width:55%")
+    div.row.justify-between(style="flex-wrap: nowrap;")
+      p.destaque(style="padding-top: 20px;") CALCULAR FRETE
+      q-input(
+        v-model="text"
+        label="CEP"
+        color="black"
+        style="width: 340px;"
+      )
         template(v-slot:append)
           q-icon(name="search")
-    a.cep(href="#") NÃO SEI MEU CEP
+    a.cep.q-pb-md(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
     q-btn.botao.q-pa-md(
-      color="green" label="C O M P R A R" style="width: 516px; height:52px")
-  div.q-pa-md
-    h6 DETALHES
-    p AQUI FICA TODAS AS INFORMAÇÕES PERTINENTES AO PRODUTO. MATERIAL FEITO. CORES. COLEÇÕES E DIMENSÕES.
+       color="green"
+       label="C O M P R A R"
+       style="width: 516px; height:52px"
+       )
+.col-10.column.text-center.q-pa-md
+  h5.col-5(style="font-weight: bold;") DETALHES DO PRODUTO
+  p.col-5.detalhes {{ produto.descricaoLonga }}
 </template>
 
 <style scoped>
 .min{
-  max-width:170px;
-  max-height:200.282px;
+  max-width:150px;
+  max-height:200px;
 }
-p.oi{
+p.detalhes{
   color: #000;
   font-family: Catamaran;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
-  font-weight: bold;
   line-height: normal;
   margin: auto;
 }
@@ -121,6 +128,7 @@ p.oi{
   font-weight: 300;
   line-height: normal;
   text-decoration-line: underline;
+  padding-top:10px
 }
 .detalhesprod{
   color: #939598;
