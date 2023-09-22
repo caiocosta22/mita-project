@@ -7,7 +7,7 @@ import Bolsa from "../../assets/imgs/BOLSA.png";
 import Carteira from "../../assets/imgs/CARTEIRA.png";
 import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
 
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const currentOffset = ref(0);
 const router = useRouter();
 const itemsOfApi = ref([]);
@@ -124,7 +124,7 @@ div.card-carousel-wrapper.col
     div.card-carousel--overflow-container
       div.card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
         div.card-carousel--card(v-for="item in items" :key="item")
-          img(:src="item.image")
+          img.image(:src="item.image")
           div.card-carousel--card--footer.q-pa-sm.text-black
             p {{ item.name }}
             p.tag.text-bold(

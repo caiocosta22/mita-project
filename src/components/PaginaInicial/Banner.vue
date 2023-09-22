@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const slide = ref(1);
 const autoplay = ref(true);
 const bannersCarousel = ref([

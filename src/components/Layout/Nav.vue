@@ -3,7 +3,7 @@ import { ref, computed, onBeforeMount } from "vue";
 import axios from "axios";
 const showMenu = ref(false);
 const showThisMenu = ref("VIAGENS");
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const productTyped = ref("");
 const productsSearched = ref([]);
 const categoriesBase = ref([

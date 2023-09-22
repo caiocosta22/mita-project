@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
-const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 function openInicialPage (logo) {
   const url = "https://alastrar-mita.netlify.app/#/";
   window.location.replace(url, "_blank");
