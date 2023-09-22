@@ -119,7 +119,6 @@ div.text-black.justify-center.text-center.text-bold.row
 
 <style scoped>
 a{
-  cursor: pointer;
   text-decoration: none;
 }
 *{
@@ -132,6 +131,7 @@ a{
 .secundario{
   font-size:16px;
   cursor: pointer;
+
 }
 .listas{
   box-shadow:none
