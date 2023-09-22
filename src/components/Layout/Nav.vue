@@ -3,7 +3,7 @@ import { ref, computed, onBeforeMount } from "vue";
 import axios from "axios";
 const showMenu = ref(false);
 const showThisMenu = ref("VIAGENS");
-
+const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const productTyped = ref("");
 const productsSearched = ref([]);
 const categoriesBase = ref([
@@ -65,7 +65,7 @@ async function searchProducts () {
   try {
     let data = [];
     if (productTyped.value) {
-      data = await axios.get(`/mita/servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
+      data = await axios.get(`${api}servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
     }
     if (data.content && data.content.length) productsSearched.value = data.content;
   } catch (e) {
@@ -76,7 +76,7 @@ const backgroundsearchColor = ref("rgba(0,0,0,0)");
 
 async function searchCategories () {
   try {
-    const data = await axios.get("/mita/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
+    const data = await axios.get(`${api}ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
     if (data.length) {
       categoriesBase.value = data.map(row => {
         return { name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };

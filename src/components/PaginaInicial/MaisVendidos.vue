@@ -7,6 +7,7 @@ import Bolsa from "../../assets/imgs/BOLSA.png";
 import Carteira from "../../assets/imgs/CARTEIRA.png";
 import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
 
+const api = "https://sualoja.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const currentOffset = ref(0);
 const router = useRouter();
 const itemsOfApi = ref([]);
@@ -84,7 +85,7 @@ const moveCarousel = (direction) => {
 // eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
-    const data = await axios.get("/mita/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    const data = await axios.get(`${api}ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE`).then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
       const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
