@@ -79,9 +79,12 @@ div.row.q-gutter-md.justify-center
        label="C O M P R A R"
        style="width: 516px; height:52px"
        )
-.col-10.column.text-center.q-pa-md
+.col-10.row
+  p.col-1
   h5.col-5(style="font-weight: bold;") DETALHES DO PRODUTO
-  p.col-5.detalhes {{ produto.descricaoLonga }}
+.col-10.row.justify-start
+  p.detalhes.col-9 {{ produto.descricaoLonga }}
+  p.col-1
 </template>
 
 <style scoped>
