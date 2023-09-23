@@ -1,31 +1,10 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
 
-function openInicialPage (logo) {
-  // const url = "https://alastrar-mita.netlify.app/#/";
-  // window.location.replace(url, "_blank");
-  router.push("/");
-}
-
-const srcLogo = ref("/images/logo.png");
-// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
-
-async function searchLogo () {
-  try {
-    const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
-    if (logo.parametro) srcLogo.value = logo.parametro;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-onBeforeMount(async () => {
-  await searchLogo();
-});
 const menuList = [
   {
     icon: "search",
@@ -74,6 +53,52 @@ const menuList = [
   }
 ];
 const drawer = ref(false);
+
+const srcLogo = ref("/images/logo_branco_mita.png");
+const cortransicao = ref("white");
+// const srcLogoBranca = ref("/images/logo_branco_mita.png");
+// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
+
+function openInicialPage (logo) {
+  // const url = "https://alastrar-mita.netlify.app/#/";
+  // window.location.replace(url, "_blank");
+  router.push("/");
+}
+
+const handleScroll = () => {
+  const scrollPosition = window.scrollY;
+  const opacityThreshold = 0;
+
+  if (scrollPosition > opacityThreshold) {
+    srcLogo.value = "/images/logo.png";
+    cortransicao.value = "black";
+  } else {
+    srcLogo.value = "/images/logo_branco_mita.png";
+    cortransicao.value = "white";
+  }
+};
+
+// async function searchLogo () {
+//   try {
+//     const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
+//     if (logo.parametro) srcLogo.value = logo.parametro;
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+// onBeforeMount(async () => {
+//   await searchLogo();
+// });
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
 </script>
 
 <template lang="pug">
@@ -86,18 +111,18 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
   div.row.q-mr-xl.minimenu(style="flex-wrap: nowrap;")
     a.q-mr-sm.cursor-pointer.usuario
       q-icon(
-      color="black"
+      :color="cortransicao"
       size="sm"
       name="fa-solid fa-regular fa-user"
       )
-      span.q-ml-sm.text-bold Minha conta
+      span.q-ml-sm.text-bold(:style="{color:cortransicao}") Minha conta
     a.cursor-pointer.carrinho
       q-icon(
-        color="black"
+        :color="cortransicao"
         size="sm"
         name="fa-solid fa-cart-shopping"
       )
-      span.q-ml-md.text-bold Meu carrinho
+      span.q-ml-md.text-bold(:style="{color:cortransicao}") Meu carrinho
     .botaomenu
       q-btn(
       flat
@@ -105,7 +130,7 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
       round
       dense
       icon="menu"
-      color="black"
+      :color="cortransicao"
       )
 .multimenu
   q-drawer(

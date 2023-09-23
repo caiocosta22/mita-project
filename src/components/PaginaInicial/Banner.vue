@@ -4,7 +4,6 @@ import axios from "axios";
 
 const slide = ref(1);
 const autoplay = ref(true);
-const efeitoBanner = ref("/images/bg_menu_preto_top(1).png");
 
 const bannersCarousel = ref([
   {
@@ -46,34 +45,32 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-//- q-img.efeitobanner(
-//-   :src="efeitoBanner"
-//-   )
-q-carousel.cursor-pointer.banner.col(
-  animated
-  v-model="slide"
-  infinite
-  :autoplay="autoplay"
-  arrows
-  transition-prev="slide-right"
-  transition-next="slide-left"
-  @mouseenter="autoplay = false"
-  @mouseleave="autoplay = true"
-)
-  template(
-    v-for="(banner, index) in bannersCarousel"
-    :key="index"
+div.banner
+  q-carousel.cursor-pointer.col(
+    animated
+    v-model="slide"
+    infinite
+    :autoplay="autoplay"
+    arrows
+    transition-prev="slide-right"
+    transition-next="slide-left"
+    @mouseenter="autoplay = false"
+    @mouseleave="autoplay = true"
   )
-    q-carousel-slide.slide.col(
-      :name="index"
-      :img-src="banner.fotoWebp"
+    template(
+      v-for="(banner, index) in bannersCarousel"
+      :key="index"
     )
+      q-carousel-slide.slide.col(
+        :name="index"
+        :img-src="banner.fotoWebp"
+        )
+  .efeitobanner
+
 </template>
 
 <style scoped>
-.efeitobanner{
-  z-index: 10;
-}
+
 .banner{
   display:flex;
   flex-direction: column;
@@ -89,6 +86,21 @@ q-carousel.cursor-pointer.banner.col(
 .slide{
   max-width: 100%;
   display:block;
+}
+.efeitobanner{
+  z-index: 10;
+  top: 0px;
+  left: 0;
+  bottom: 68%;
+  width: 100%;
+  margin: 0;
+  padding: 40px 0;
+  position: absolute;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, black,transparent);
+  opacity: 0.7;
 }
 @media screen and (max-width: 1150px) {
   .banner{
