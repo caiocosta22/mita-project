@@ -102,7 +102,9 @@ async function addProductToCart () {
     if (response.length) {
       quantidadeCarrinho.value = response.items?.length;
     }
-    console.log(response);
+    // ! Esse ponto está na documentação, mas nada foi falado ainda sobre para onde redirecionar
+    // const url = "a que eles definirem";
+    // window.location.href = url;
   } catch (e) {
     console.error(e);
   }
