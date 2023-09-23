@@ -88,8 +88,8 @@ async function searchBestSellers () {
     const data = await axios.get(`${api}ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE`).then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
-      const bestSellers = data.filter(sellers => sellers.titulo === "DESTAQUE");
-      itemsOfApi.value = bestSellers;
+      const bestSellers = data.filter(sellers => sellers.titulo === "Mais Vendidos");
+      itemsOfApi.value = data;
     }
   } catch (e) {
     console.error(e);
@@ -110,86 +110,90 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.titulo MAIS VENDIDOS
-div.card-carousel-wrapper.col
-  q-icon.cursor-pointer.q-mr-sm(
-    name="chevron_left"
-    size="2.5em"
-    color="black"
-    @click="moveCarousel(-1)"
-  )
-  div.card-carousel(
-    v-if="!itemsOfApi.length"
-  )
-    div.card-carousel--overflow-container
-      div.card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
-        div.card-carousel--card(v-for="item in items" :key="item")
-          img.image(:src="item.image")
-          div.card-carousel--card--footer.q-pa-sm.text-black
-            p {{ item.name }}
-            p.tag.text-bold(
-              v-for="(tag, index) in item.tag"
-              :key="index"
-              :class="index > 0 ? 'secondary' : ''"
-              @click="openProductPage(item)"
-            ) {{ tag }}
-  div.card-carousel(
-    v-else
-  )
-    div.card-carousel--overflow-container
-      div.card-carousel-cards(
-        :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
-      )
-        template(
-          v-for="(item, index) in itemsOfApi"
-          :key="index"
+div
+  div.titulo MAIS VENDIDOS
+  div.card-carousel-wrapper.col.carrosselantigo
+    q-icon.cursor-pointer.q-mr-sm(
+      name="chevron_left"
+      size="2.5em"
+      color="black"
+      @click="moveCarousel(-1)"
+    )
+    div.card-carousel(
+      v-if="!itemsOfApi.length"
+    )
+      div.card-carousel--overflow-container
+        div.card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
+          div.card-carousel--card(v-for="item in items" :key="item")
+            img.image(:src="item.image")
+            div.card-carousel--card--footer.q-pa-sm.text-black
+              p {{ item.name }}
+              p.tag.text-bold(
+                v-for="(tag, index) in item.tag"
+                :key="index"
+                :class="index > 0 ? 'secondary' : ''"
+                @click="openProductPage(item)"
+              ) {{ tag }}
+    div.card-carousel(
+      v-else
+    )
+      div.card-carousel--overflow-container
+        div.card-carousel-cards(
+          :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
         )
-          template(v-if="item.orientacao === 'horizontal'")
-            template(
-              v-if="item.subsecoesEcommerce"
-            )
+          template(
+            v-for="(item, index) in itemsOfApi"
+            :key="index"
+          )
+            template(v-if="item.orientacao === 'horizontal'")
               template(
-                v-for="subsec in item.subsecoesEcommerce"
-                :key="subsec"
+                v-if="item.subsecoesEcommerce"
               )
                 template(
-                  v-if="subsec.produtos"
+                  v-for="subsec in item.subsecoesEcommerce"
+                  :key="subsec"
                 )
                   template(
-                    v-for="produto in subsec.produtos"
-                    :key="produto"
+                    v-if="subsec.produtos"
                   )
-                    div.card-carousel--card--footer.q-pa-sm.text-black.text-bold(
-                      @click="openProductPage(produto)"
+                    template(
+                      v-for="produto in subsec.produtos"
+                      :key="produto"
                     )
-                      q-img.image.cursor-pointer(
-                        v-if="produto.fotosServico[0].foto"
-                        :src="produto.fotosServico[0].foto"
+                      div.card-carousel--card--footer.q-pa-sm.text-black.text-bold(
+                        @click="openProductPage(produto)"
                       )
-                      div.row.justify-between.cursor-pointer
-                        .q-py-lg(style="font-size:22px") {{ produto.titulo }}
-                        template(
-                        v-if="produto.promocao"
-                      )
-                          div.column.q-pa-md.q-pr-md
-                            div.tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
-                            p.tag.text-black(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
-                        template(
-                        v-else
-                      )
-                            p.tag.text-black.q-py-lg.q-pr-md(style="font-size: 20px;") R$: {{ produto.valor }}
-            template(v-if="item.orientacao === 'vertical'")
-              p Lógica para vertical aqui!!!
-  q-icon.cursor-pointer.q-ml-md(
-    name="chevron_right"
-    size="2.5em"
-    color="black"
-    @click="moveCarousel(1)"
-  )
+                        q-img.image.cursor-pointer(
+                          v-if="produto.fotosServico[0].foto"
+                          :src="produto.fotosServico[0].foto"
+                        )
+                        div.row.justify-between.cursor-pointer
+                          .q-py-lg(style="font-size:22px") {{ produto.titulo }}
+                          template(
+                          v-if="produto.promocao"
+                        )
+                            div.column.q-pa-md.q-pr-md
+                              div.tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
+                              p.tag.text-black(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
+                          template(
+                          v-else
+                        )
+                              p.tag.text-black.q-py-lg.q-pr-md(style="font-size: 20px;") R$: {{ produto.valor }}
+              template(v-if="item.orientacao === 'vertical'")
+                p Lógica para vertical aqui!!!
+    q-icon.cursor-pointer.q-ml-md(
+      name="chevron_right"
+      size="2.5em"
+      color="black"
+      @click="moveCarousel(1)"
+    )
 </template>
 
 <style scoped>
-  .titulo{
+.carroselantigo{
+  display: none;
+}
+.titulo{
   color: #000;
   text-align: center;
   font-family: Catamaran;
@@ -210,4 +214,5 @@ div.card-carousel-wrapper.col
 * {
   color: black;
 }
+
 </style>

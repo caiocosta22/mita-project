@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 const text1 = ref(""); // Referência para o texto digitado no q-input
 const text = ref(); // Ref para o texto digitado no CEP
 const props = defineProps({
-  produto: {
+  product: {
     type: Object,
     required: true,
     // ! Dentro desse objeto monte um exemplo de como receberá o produto
@@ -13,32 +13,28 @@ const props = defineProps({
     default: () => {}
   }
 });
-const product = computed(() => { return props.produto; });
-console.log(product.value);
-console.log(props);
+const produto = computed(() => { return props.product; });
+const principalImg = ref(produto.value.fotosServico[0].foto);
 </script>
 
 <template lang="pug">
 div.row.q-gutter-md.justify-center
   div.column.q-gutter-lg.q-pa-md
-    img.min(
-      v-if="produto.fotosServico[0].foto"
-      :src="produto.fotosServico[0].foto"
-      )
-    img.min(
-      v-if="produto.fotosServico[0].foto"
-      :src="produto.fotosServico[0].foto"
-      )
-    img.min(
-      v-if="produto.fotosServico[0].foto"
-      :src="produto.fotosServico[0].foto"
+    template(
+      v-for="objFoto in produto.fotosServico"
+      :key="objFoto"
+    )
+      img.min(
+        @click="principalImg = objFoto.foto"
+        v-if="objFoto.foto"
+        :src="objFoto.foto"
       )
   div
     q-img(
-    style="width:545px;height:641.935px;box-shadow:none"
-    no-native-menu
-    v-if="produto.fotosServico[0].foto"
-    :src="produto.fotosServico[0].foto"
+      v-if="principalImg"
+      :src="principalImg"
+      style="width:545px;height:641.935px;box-shadow:none"
+      no-native-menu
     )
       .text-on-image {{ text1 }}
   div.column.q-pa-sm
@@ -58,7 +54,7 @@ div.row.q-gutter-md.justify-center
     div.justify-between.row
       template(
         v-if="produto.promocao"
-        )
+      )
         .destaque.justify-end valordesconto
       .destaque.q-pt-md.q-pb-md VALOR
       .destaque {{ produto.valor }}
@@ -75,10 +71,10 @@ div.row.q-gutter-md.justify-center
           q-icon(name="search")
     a.cep.q-pb-md(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
     q-btn.botao.q-pa-md(
-       color="green"
-       label="C O M P R A R"
-       style="width: 516px; height:52px"
-       )
+      color="green"
+      label="C O M P R A R"
+      style="width: 516px; height:52px"
+    )
 .col-10.row
   p.col-1
   h5.col-5(style="font-weight: bold;") DETALHES DO PRODUTO

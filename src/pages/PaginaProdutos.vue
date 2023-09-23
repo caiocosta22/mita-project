@@ -36,8 +36,8 @@ onMounted(async () => {
 <template lang="pug">
 q-page-container
   DetalhesProduto(
-  v-if="itsLoaded"
-  :produto="product"
+    v-if="itsLoaded"
+    :product="product"
   )
   Marketing
 </template>

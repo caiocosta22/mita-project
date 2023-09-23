@@ -4,6 +4,7 @@ import axios from "axios";
 const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const slide = ref(1);
 const autoplay = ref(true);
+const efeitoBanner = ref("/images/bg_menu_preto_top(1).png");
 const bannersCarousel = ref([
   {
     fotoWebp: "/images/MITA-EXPERIENCE.png",
@@ -44,6 +45,9 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
+//- q-img.efeitobanner(
+//-   :src="efeitoBanner"
+//-   )
 q-carousel.cursor-pointer.banner.col(
   animated
   v-model="slide"
@@ -66,6 +70,9 @@ q-carousel.cursor-pointer.banner.col(
 </template>
 
 <style scoped>
+.efeitobanner{
+  z-index: 10;
+}
 .banner{
   display:flex;
   flex-direction: column;

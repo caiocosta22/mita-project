@@ -1,9 +1,13 @@
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
+
+const router = useRouter();
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+
 const showMenu = ref(false);
 const showThisMenu = ref("VIAGENS");
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const productTyped = ref("");
 const productsSearched = ref([]);
 const categoriesBase = ref([
@@ -79,11 +83,20 @@ async function searchCategories () {
     const data = await axios.get(`${api}ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
     if (data.length) {
       categoriesBase.value = data.map(row => {
-        return { name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
+        return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
       });
+      categoriesBase.value = categoriesBase.value.filter(row => row.name !== "MEIO SITE");
     }
   } catch (e) {
     console.error(e);
+  }
+}
+
+function openCategoryPage (category) {
+  console.log(category);
+  if (category.id) {
+    const url = "/categorias/" + category.id;
+    router.push(url);
   }
 }
 
@@ -124,7 +137,9 @@ onBeforeMount(async () => {
       template(
         v-else
       )
-        p.text-bold {{ categorie.name }}
+        p.text-bold.cursor-pointer(
+          @click="openCategoryPage(categorie)"
+        ) {{ categorie.name }}
     q-input.col-3.text-black.busca(
       v-model="productTyped"
       type="search"
