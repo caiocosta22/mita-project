@@ -54,7 +54,12 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
-      env: { ...envFile.parsed },
+      env: {
+        BASE_URL: "elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
+        HOST_URL: "http://localhost:8080/#/",
+        VERCEL_URL: "https://mita.vercel.app/#/",
+        TENANT: "mitaoficial"
+      },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16"
@@ -69,7 +74,8 @@ module.exports = configure(function (ctx) {
       // vueOptionsAPI: false,
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
-      publicPath: ctx.mode.spa ? "/" : "/app/",
+      // publicPath: ctx.mode.spa ? "/" : "/app/",
+      publicPath: "/",
       // analyze: true,
       // env: {},
       // rawDefine: {}
@@ -97,10 +103,10 @@ module.exports = configure(function (ctx) {
     devServer: {
       port: 8080,
       proxy: {
-        "/mita": {
-          target: "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
+        "/projeto": {
+          target: `https://${process.env.TENANT}.${process.env.BASE_URL}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/mita/, "")
+          rewrite: (path) => path.replace(/^\/projeto/, "")
         }
       },
       https: true,

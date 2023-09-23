@@ -1,10 +1,12 @@
 <script setup>
-import DetalhesProduto from "../components/PaginaProdutos/DetalhesProduto.vue";
-import Marketing from "src/components/Layout/Marketing.vue";
 import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import { useQuasar } from "quasar";
+import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
+
+import Marketing from "src/components/Layout/Marketing.vue";
+import DetalhesProdutoLoading from "../components/PaginaProdutos/DetalhesProdutoLoading.vue";
+import DetalhesProduto from "../components/PaginaProdutos/DetalhesProduto.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -16,7 +18,7 @@ const itsLoaded = ref(false);
 async function searchProductById (productId) {
   try {
     itsLoaded.value = false;
-    product.value = await axios.get(`/mita/servicoService/productBySlugEcommerceV2/${productId}/-1`).then(e => e.data);
+    product.value = await axios.get(`/projeto/servicoService/productBySlugEcommerceV2/${productId}/-1`).then(e => e.data);
   } catch (e) {
     $q.notify({
       message: "Erro ao buscar produto, redirecionando para página principal!"
@@ -38,6 +40,9 @@ q-page-container
   DetalhesProduto(
     v-if="itsLoaded"
     :product="product"
+  )
+  DetalhesProdutoLoading(
+    v-else
   )
   Marketing
 </template>

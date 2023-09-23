@@ -1,10 +1,14 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
+
+const router = useRouter();
+
 function openInicialPage (logo) {
-  const url = "https://alastrar-mita.netlify.app/#/";
-  window.location.replace(url, "_blank");
+  // const url = "https://alastrar-mita.netlify.app/#/";
+  // window.location.replace(url, "_blank");
+  router.push("/");
 }
 
 const srcLogo = ref("/images/logo.png");
@@ -12,7 +16,7 @@ const srcLogo = ref("/images/logo.png");
 
 async function searchLogo () {
   try {
-    const logo = await axios.get(`${api}configuracaoService/getLogoWeb`).then(e => e.data);
+    const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
     if (logo.parametro) srcLogo.value = logo.parametro;
   } catch (e) {
     console.error(e);

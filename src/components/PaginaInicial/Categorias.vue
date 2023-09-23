@@ -9,7 +9,6 @@ import bolsa from "../../assets/imgs/4.png";
 import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
 
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/";
 const router = useRouter();
 const currentOffset = ref(0);
 const hasItems = ref(true);
@@ -72,9 +71,8 @@ const moveCarousel = (direction) => {
 
 async function searchCategories () {
   try {
-    let data = await axios.get(`${api}ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
+    let data = await axios.get("/projeto/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     data = data.find(row => row.descricao === "MEIO SITE").subCategoria;
-    console.log(data);
     let itemsForItems = [];
     if (data.length) {
       itemsForItems = data.map(categorie => {
