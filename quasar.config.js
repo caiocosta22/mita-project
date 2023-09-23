@@ -10,7 +10,6 @@
 
 const { configure } = require("quasar/wrappers");
 const vuePugPlugin = require("vue-pug-plugin");
-const envFile = require("dotenv").config();
 
 module.exports = configure(function (ctx) {
   return {
