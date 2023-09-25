@@ -184,10 +184,12 @@ div.row.q-gutter-md.justify-center
     div(
       v-if="usarSkeleton"
     )
-      q-skeleton.q-pa-sm.q-my-sm(
-        v-for="index in 3"
-        :key="index"
-      )
+      div.col.row
+        q-skeleton.q-pa-sm.q-my-sm.col-5
+        div.col-5.column
+          q-skeleton.col-2(type="text" class="text-subtitle1")
+          q-skeleton.col-2(type="text" width="50%" class="text-subtitle1")
+          q-skeleton.col-1(type="text" class="text-caption")
     q-btn.botao.q-pa-md.q-mt-md.text-bold(
       color="green"
       @click="addProductToCart()"

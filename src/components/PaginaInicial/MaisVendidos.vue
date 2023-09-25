@@ -84,7 +84,7 @@ const moveCarousel = (direction) => {
 // eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
-    const data = await axios.get("/projeto/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
+    const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
       // Lielton falou para pegar da chave SESSAO_ DIA 22/09 WPP LAYOUT BANBAN
