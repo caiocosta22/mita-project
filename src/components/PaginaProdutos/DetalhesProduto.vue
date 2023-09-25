@@ -184,7 +184,7 @@ div.row.q-gutter-md.justify-center
     div(
       v-if="usarSkeleton"
     )
-      q-skeleton.q-pa-sm.q-my-sm(
+      q-skeleton(
         v-for="index in 3"
         :key="index"
       )

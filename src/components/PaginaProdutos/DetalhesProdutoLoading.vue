@@ -17,68 +17,40 @@ const produto = computed(() => { return props.product ? props.product : ""; });
 </script>
 
 <template lang="pug">
-div.row.q-gutter-md.justify-center
-  div.column.q-gutter-lg.q-pa-md
+div.row.justify-center.col.q-pa-md.q-gutter-sm
+  div.row.col-7.justify-center
+    div.col-2.column.q-gutter-sm.q-mr-xl
       q-skeleton(
-        size="1000px"
+        height="195px"
       )
-      //- img.min(
-      //-   @click="principalImg = objFoto.foto"
-      //-   v-if="objFoto.foto"
-      //-   :src="objFoto.foto"
-      //- )
-//-   div
-//-     q-img(
-//-       v-if="principalImg"
-//-       :src="principalImg"
-//-       style="width:545px;height:641.935px;box-shadow:none"
-//-       no-native-menu
-//-     )
-//-       .text-on-image {{ text1 }}
-//-   div.column.q-pa-sm
-//-     p.tituloprod {{ produto.descricao }}
-//-     p COD: {{ produto.codigo }}
-//-     p.destaque CUSTOMIZAÇÃO
-//-     div.column
-//-       p.destaque Adicione seu nome no produto!
-//-       q-input(
-//-         v-model="text1"
-//-         outlined
-//-         placeholder="Digite aqui"
-//-         color="black"
-//-         label-color="black"
-//-         maxlength="15"
-//-       )
-//-     div.justify-between.row
-//-       template(
-//-         v-if="produto.promocao"
-//-       )
-//-         .destaque.justify-end valordesconto
-//-       .destaque.q-pt-md.q-pb-md VALOR
-//-       .destaque {{ produto.valor }}
-//-     q-separator(color="black")
-//-     div.row.justify-between(style="flex-wrap: nowrap;")
-//-       p.destaque(style="padding-top: 20px;") CALCULAR FRETE
-//-       q-input(
-//-         v-model="text"
-//-         label="CEP"
-//-         color="black"
-//-         style="width: 340px;"
-//-       )
-//-         template(v-slot:append)
-//-           q-icon(name="search")
-//-     a.cep.q-pb-md(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
-//-     q-btn.botao.q-pa-md(
-//-       color="green"
-//-       label="C O M P R A R"
-//-       style="width: 516px; height:52px"
-//-     )
-//- .col-10.row
-//-   p.col-1
-//-   h5.col-5(style="font-weight: bold;") DETALHES DO PRODUTO
-//- .col-10.row.justify-start
-//-   p.detalhes.col-9 {{ produto.descricaoLonga }}
-//-   p.col-1
+      q-skeleton(
+        height="195px"
+      )
+      q-skeleton(
+        height="195px"
+      )
+    q-skeleton.col-6(
+      height="600px"
+    )
+  div.col-3.column
+      q-skeleton.col-1(
+        type="text"
+        class="text-subtitle1"
+        height="300px"
+      )
+      q-skeleton.col-1(
+        type="text"
+        class="text-subtitle1"
+      )
+      q-skeleton.col-1(
+        type="text"
+        class="text-caption"
+      )
+
+      q-skeleton.col-2(
+        type="text"
+        class="text-caption"
+      )
 </template>
 
 <style scoped>

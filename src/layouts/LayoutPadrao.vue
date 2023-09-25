@@ -2,7 +2,7 @@
 q-layout(view="lHh Lpr lFf")
   q-header( header)
     Topbar
-    Cabecalho
+    CabecalhoPadrao
     Navbar(:style="{ color: navTextColor }")
   router-view
   CadastroEmail
@@ -12,7 +12,7 @@ q-layout(view="lHh Lpr lFf")
 
 <script setup>
 import Topbar from "../components/Layout/Topbar.vue";
-import Cabecalho from "../components/Layout/Cabecalho.vue";
+import CabecalhoPadrao from "../components/Layout/CabecalhoPadrao.vue";
 import Navbar from "../components/Layout/Nav.vue";
 import Rodape from "../components/Layout/Rodape.vue";
 import CadastroEmail from "../components//Layout/CadastroEmail.vue";
