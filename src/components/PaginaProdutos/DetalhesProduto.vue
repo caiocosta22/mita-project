@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { BottomSheet, useQuasar } from "quasar";
+import { useQuasar } from "quasar";
 import axios from "axios";
 
 const $q = useQuasar();
