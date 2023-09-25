@@ -6,6 +6,7 @@ import axios from "axios";
 
 import Filtro from "../components/PaginaCategorias/Filtro.vue";
 import Produtos from "../components/PaginaCategorias/TabelaProdutos.vue";
+import CategoriasLoading from "../components/PaginaCategorias/CategoriasLoading.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -87,17 +88,24 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 q-page-container.row.q-pa-md.q-gutter-md.q-ml-md(style="flex-wrap:nowrap")
-  Filtro(
-    :categories="categoriesBase"
-    :pickedCategorie="route.params.categoria"
-    @atualizarPage="pickedCategories = $event"
+  template(
+    v-if="itsLoading"
   )
-  Produtos(
-    @atualizarPage="page = $event"
-    :items="items"
-    :loading="itsLoading"
-    :bannerUrl="bannerUrlCategorie"
+    CategoriasLoading
+  template(
+    v-else
   )
+    Filtro(
+      :categories="categoriesBase"
+      :pickedCategorie="route.params.categoria"
+      @atualizarPage="pickedCategories = $event"
+    )
+    Produtos(
+      @atualizarPage="page = $event"
+      :items="items"
+      :loading="itsLoading"
+      :bannerUrl="bannerUrlCategorie"
+    )
 </template>
 
 <style scoped>
