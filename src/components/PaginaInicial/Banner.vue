@@ -6,6 +6,7 @@ const slide = ref(1);
 const autoplay = ref(true);
 const itsLoading = ref(true);
 
+const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal";
 const bannersCarousel = ref([
   {
     fotoWebp: "/images/MITA-EXPERIENCE.png",
@@ -32,7 +33,7 @@ const bannersCarousel = ref([
 
 async function searchTopBanners () {
   try {
-    const banners = await axios.get("/projeto/bannerService/allEcommerce").then(e => e.data);
+    const banners = await axios.get(`${api}/bannerService/allEcommerce`).then(e => e.data);
     if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
   } catch (e) {
     console.error(e);
