@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useQuasar } from "quasar";
+import { BottomSheet, useQuasar } from "quasar";
 import axios from "axios";
 
 const $q = useQuasar();
@@ -10,8 +10,29 @@ const cep = ref(); // Ref para o texto digitado no CEP
 const dadosFrete = ref([]);
 const usarSkeleton = ref(false);
 const quantidadeCarrinho = ref(0);
-const cartId = $q.localStorage.getItem("cartIdBackend");
 const qtdProduct = ref(1);
+const cartId = $q.localStorage.getItem("cartIdBackend");
+
+const icons = ref([
+  {
+    icon: "brown",
+    ativo: false
+  },
+  {
+    icon: "grey",
+    ativo: false
+  },
+  {
+    icon: "blue",
+    ativo: false
+  }
+]);
+
+const ativar = (index) => {
+  icons.value.forEach((icon, i) => {
+    icon.ativo = i === index;
+  });
+};
 
 const props = defineProps({
   product: {
@@ -135,7 +156,20 @@ div.row.q-gutter-md.justify-center
   div.column.q-pa-sm
     p.tituloprod {{ produto.descricao }}
     p COD: {{ produto.codigo }}
-    p.destaque CUSTOMIZAÇÃO
+    div.row.q-gutter-sm
+      p.destaque COR
+      div(
+          v-for="(icon, index) in icons"
+          :key="index"
+        )
+        q-btn(
+          round
+          size="sm"
+          :color="icon.icon"
+          :class="{ ativo: icon.ativo }"
+          push
+          @click="ativar(index)"
+        )
     div.column
       p.destaque Adicione seu nome no produto!
       q-input(
@@ -267,5 +301,8 @@ p.detalhes{
   box-shadow:none;
   color: black;
   background-color: rgba(0,0,0,0);
+}
+.ativo {
+  border: solid black 2px;
 }
 </style>
