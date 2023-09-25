@@ -170,13 +170,13 @@ div
                           :src="produto.fotosServico[0].foto"
                         )
                         div.row.justify-between.cursor-pointer
-                          .q-py-lg(style="font-size:22px") {{ produto.titulo }}
+                          .q-py-lg(style="font-size:18px") {{ produto.titulo }}
                           template(
                           v-if="produto.promocao"
                         )
                             div.column.q-pa-md.q-pr-md
                               div.tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
-                              p.tag.text-black(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
+                              p.tag.text-black(style="font-size: 18px;") Por R$: {{ produto.precoPromocional }}
                           template(
                           v-else
                         )

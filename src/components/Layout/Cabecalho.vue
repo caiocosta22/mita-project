@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
 import axios from "axios";
@@ -8,7 +8,20 @@ const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
 const srcLogo = ref("/images/logo.png");
+const srcLogoInicial = ref("/images/logo_branco_mita.png");
 
+function changeLogo (logo) {
+  srcLogo.value = logo;
+}
+
+function changeLogoBasedOnPage () {
+  const pagePath = router.currentRoute.path;
+  if (pagePath === "/") {
+    changeLogo(srcLogoInicial.value);
+  } else {
+    changeLogo("/images/logo.png");
+  }
+}
 const menuList = ref([
   {
     icon: "search",
@@ -95,8 +108,8 @@ setInterval(async () => {
 
 onBeforeMount(async () => {
   await Promise.all([
-    getCartItems()
-    // searchLogo()
+    getCartItems(),
+    changeLogoBasedOnPage()
   ]);
 });
 
