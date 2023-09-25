@@ -1,13 +1,15 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useQuasar } from "quasar";
 import axios from "axios";
 
 const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
+const route = useRoute();
 const srcLogo = ref("/images/logo.png");
+const corcabecalho = ref("black");
 
 const menuList = ref([
   {
@@ -60,6 +62,29 @@ const drawer = ref(false);
 const quantidadeCarrinho = ref(0);
 const cartItems = ref([]);
 
+function MudarCores () {
+  if (route.path === "/") {
+    srcLogo.value = "/images/logo_branco_mita.png";
+    corcabecalho.value = "white";
+  } else {
+    srcLogo.value = "/images/logo.png";
+    corcabecalho.value = "black";
+  }
+}
+
+const handleScroll = () => {
+  const scrollPosition = window.scrollY;
+  const opacityThreshold = 0;
+
+  if (scrollPosition > opacityThreshold) {
+    srcLogo.value = "/images/logo.png";
+    corcabecalho.value = "black";
+  } else {
+    srcLogo.value = "/images/logo_branco_mita.png";
+    corcabecalho.value = "white";
+  }
+};
+
 function openInicialPage (logo) {
   // const url = "https://alastrar-mita.netlify.app/#/";
   // window.location.replace(url, "_blank");
@@ -95,9 +120,17 @@ setInterval(async () => {
 
 onBeforeMount(async () => {
   await Promise.all([
-    getCartItems()
-    // searchLogo()
+    getCartItems(),
+    MudarCores()
   ]);
+});
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
 });
 
 </script>
@@ -112,14 +145,14 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
   div.row.q-mr-xl.minimenu(style="flex-wrap: nowrap;")
     a.q-mr-sm.cursor-pointer.usuario
       q-icon(
-      color="black"
+      :color="corcabecalho"
       size="sm"
       name="fa-solid fa-regular fa-user"
       )
-      span.q-ml-sm.text-bold Minha conta
+      span.q-ml-sm.text-bold(:style = "{ color : corcabecalho }") Minha conta
     a.cursor-pointer.carrinho
       q-icon(
-        color="black"
+        :color="corcabecalho"
         size="sm"
         name="fa-solid fa-cart-shopping"
       )
@@ -127,7 +160,7 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
           v-if="quantidadeCarrinho"
           floating
         ) {{ quantidadeCarrinho }}
-      span.q-ml-md.text-bold Meu carrinho
+      span.q-ml-md.text-bold(:style = "{ color : corcabecalho }") Meu carrinho
     .botaomenu
       q-btn(
       flat
