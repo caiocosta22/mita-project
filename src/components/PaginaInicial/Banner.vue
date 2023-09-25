@@ -4,6 +4,7 @@ import axios from "axios";
 
 const slide = ref(1);
 const autoplay = ref(true);
+const itsLoading = ref(true);
 
 const bannersCarousel = ref([
   {
@@ -39,13 +40,17 @@ async function searchTopBanners () {
 }
 
 onBeforeMount(async () => {
+  itsLoading.value = true;
   await searchTopBanners();
+  itsLoading.value = false;
 });
 
 </script>
 
 <template lang="pug">
-div.banner
+div.banner(
+  v-show="!itsLoading"
+)
   q-carousel.cursor-pointer.col(
     animated
     v-model="slide"

@@ -9,6 +9,7 @@ const showMenu = ref(false);
 const showThisMenu = ref("VIAGENS");
 const productTyped = ref("");
 const productsSearched = ref([]);
+const itsLoading = ref(true);
 const categoriesBase = ref([
   {
     name: "VIAGENS",
@@ -91,21 +92,26 @@ async function searchCategories () {
   }
 }
 
-function openCategoryPage (category) {
-  console.log(category);
+async function openCategoryPage (category) {
   if (category.id) {
     const url = "/categorias/" + category.id;
-    router.push(url);
+    await router.push(url);
+    window.location.reload();
   }
 }
 
 onBeforeMount(async () => {
+  itsLoading.value = true;
   await searchCategories();
+  itsLoading.value = false;
 });
+
 </script>
 
 <template lang="pug">
-.nav.row.q-pa-sm.q-mt-mb-xl
+.nav.row.q-pa-sm.q-mt-mb-xl(
+  v-show="!itsLoading"
+)
   q-toolbar.col-12.q-gutter-sm.justify-evenly
     template(
       v-for="categorie in categoriesBase"
