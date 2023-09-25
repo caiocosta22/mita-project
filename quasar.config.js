@@ -102,14 +102,14 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       port: 8080,
-      proxy: {
-        "/projeto": {
-          target: "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/, "")
-        }
-      },
-      // https: true,
+      // proxy: {
+      //   "/projeto": {
+      //     target: "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
+      //     changeOrigin: true,
+      //     // rewrite: (path) => path.replace(/^\https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/, "")
+      //   }
+      // },
+      https: true,
       open: false
     },
 
