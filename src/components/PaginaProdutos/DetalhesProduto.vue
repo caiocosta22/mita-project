@@ -13,27 +13,6 @@ const quantidadeCarrinho = ref(0);
 const qtdProduct = ref(1);
 const cartId = $q.localStorage.getItem("cartIdBackend");
 
-const icons = ref([
-  {
-    icon: "brown",
-    ativo: false
-  },
-  {
-    icon: "grey",
-    ativo: false
-  },
-  {
-    icon: "blue",
-    ativo: false
-  }
-]);
-
-const ativar = (index) => {
-  icons.value.forEach((icon, i) => {
-    icon.ativo = i === index;
-  });
-};
-
 const props = defineProps({
   product: {
     type: Object,
@@ -46,8 +25,13 @@ const props = defineProps({
   }
 });
 
+// const icons = computed(() => { return props.cores; });
 const produto = computed(() => { return props.product; });
 const principalImg = ref(produto.value.fotosServico[0].foto);
+
+function ativar (cor) {
+  console.log("Quando a api tiver cor a gnt arruma");
+}
 
 async function calcFrete () {
   try {
@@ -156,20 +140,23 @@ div.row.q-gutter-md.justify-center
   div.column.q-pa-sm
     p.tituloprod {{ produto.descricao }}
     p COD: {{ produto.codigo }}
-    div.row.q-gutter-sm
+    //- Só vai dar pra fazer quando tiver um produto com cores ativa
+    div.row.q-gutter-sm(
+      v-if="produto.cores.length > 1"
+    )
       p.destaque COR
-      div(
-          v-for="(icon, index) in icons"
-          :key="index"
-        )
-        q-btn(
-          round
-          size="sm"
-          :color="icon.icon"
-          :class="{ ativo: icon.ativo }"
-          push
-          @click="ativar(index)"
-        )
+      template(
+        v-for="(icon, index) in produto.cores"
+        :key="index"
+      )
+        div
+          q-btn(
+            round
+            size="sm"
+            :color="icon.icon"
+            :class="{ ativo: icon.ativo }"
+            @click="ativar(produto.cores)"
+          )
     div.column
       p.destaque Adicione seu nome no produto!
       q-input(
