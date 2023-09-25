@@ -1,11 +1,15 @@
 <script setup>
-import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 import axios from "axios";
 
+const $q = useQuasar();
+const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
+const srcLogo = ref("/images/logo.png");
 
-const menuList = [
+const menuList = ref([
   {
     icon: "search",
     label: "Pesquisar",
@@ -51,13 +55,10 @@ const menuList = [
     label: "Bolsas",
     separator: true
   }
-];
+]);
 const drawer = ref(false);
-
-const srcLogo = ref("/images/logo_branco_mita.png");
-const cortransicao = ref("white");
-// const srcLogoBranca = ref("/images/logo_branco_mita.png");
-// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
+const quantidadeCarrinho = ref(0);
+const cartItems = ref([]);
 
 function openInicialPage (logo) {
   // const url = "https://alastrar-mita.netlify.app/#/";
@@ -65,18 +66,7 @@ function openInicialPage (logo) {
   router.push("/");
 }
 
-const handleScroll = () => {
-  const scrollPosition = window.scrollY;
-  const opacityThreshold = 0;
-
-  if (scrollPosition > opacityThreshold) {
-    srcLogo.value = "/images/logo.png";
-    cortransicao.value = "black";
-  } else {
-    srcLogo.value = "/images/logo_branco_mita.png";
-    cortransicao.value = "white";
-  }
-};
+// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
 
 // async function searchLogo () {
 //   try {
@@ -87,16 +77,27 @@ const handleScroll = () => {
 //   }
 // }
 
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
+async function getCartItems () {
+  try {
+    const cart = await axios.post(`/projeto/cartService/getCart/${cartId}/-1`);
+    cartItems.value = cart.data || cart.response.data;
+    if (cartItems.value !== "Nenhum carrinho válido encontrado") {
+      quantidadeCarrinho.value = cartItems.value.items?.length;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
 
-// onBeforeMount(async () => {
-//   await searchLogo();
-// });
+setInterval(async () => {
+  await getCartItems();
+}, 10000);
 
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
+onBeforeMount(async () => {
+  await Promise.all([
+    getCartItems()
+    // searchLogo()
+  ]);
 });
 
 </script>
@@ -111,18 +112,22 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
   div.row.q-mr-xl.minimenu(style="flex-wrap: nowrap;")
     a.q-mr-sm.cursor-pointer.usuario
       q-icon(
-      :color="cortransicao"
+      color="black"
       size="sm"
       name="fa-solid fa-regular fa-user"
       )
-      span.q-ml-sm.text-bold(:style="{color:cortransicao}") Minha conta
+      span.q-ml-sm.text-bold Minha conta
     a.cursor-pointer.carrinho
       q-icon(
-        :color="cortransicao"
+        color="black"
         size="sm"
         name="fa-solid fa-cart-shopping"
       )
-      span.q-ml-md.text-bold(:style="{color:cortransicao}") Meu carrinho
+        q-badge.text-black.text-bold(
+          v-if="quantidadeCarrinho"
+          floating
+        ) {{ quantidadeCarrinho }}
+      span.q-ml-md.text-bold Meu carrinho
     .botaomenu
       q-btn(
       flat
@@ -130,7 +135,7 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
       round
       dense
       icon="menu"
-      :color="cortransicao"
+      color="black"
       )
 .multimenu
   q-drawer(
@@ -155,17 +160,23 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
 </template>
 
 <style scoped>
-a{
+a {
   color: black;
 }
-.logo{
+.logo {
   max-width:180px;
   max-height: 60px
 }
-.cabecalho
-{
+.cabecalho {
   max-height: 70px;
 }
+
+.q-icon .q-badge {
+  background-color: white;
+  right: -20px;
+  top: -15px
+}
+
 @media screen and (min-width: 1150px) {
   .multimenu{
     display:none

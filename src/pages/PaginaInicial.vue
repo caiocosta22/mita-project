@@ -5,7 +5,7 @@ import Vendidos from "../components/PaginaInicial/MaisVendidos.vue";
 import Banner from "../components/PaginaInicial/Banner.vue";
 import Marketing from "../components/Layout/Marketing.vue";
 import Topbar from "../components/Layout/Topbar.vue";
-import CabecalhoAnimado from "../components/Layout/CabecalhoAnimado.vue";
+import Cabecalho from "../components/Layout/Cabecalho.vue";
 import Navbar from "../components/Layout/Nav.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
@@ -52,7 +52,7 @@ q-page-container.column
   Marketing
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar
-    CabecalhoAnimado.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: multimenuTextColor }")
+    Cabecalho.cabecalho(:style="{ backgroundcolor: navBackGroundColor, color: multimenuTextColor }")
     Navbar.nav(
       :style="{ backgroundcolor: navBackGroundColor, color: navTextColor }"
       :dynamicStyle="{ backgroundcolor: navBackGroundColor, color: navTextColor }"
