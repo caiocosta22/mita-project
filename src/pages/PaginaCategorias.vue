@@ -62,15 +62,17 @@ async function searchCategories () {
       categoriesBase.value = data.map(row => {
         return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
       });
-      categoriesBase.value = categoriesBase.value.filter(row => row.name !== "MEIO SITE");
     }
-    console.log("🚀 ~ searchCategories ~ categoriesBase.value:", categoriesBase.value);
   } catch (e) {
     console.error(e);
   }
 }
 
 watch(() => page.value, async () => {
+  await findProductsByCategory();
+});
+
+watch(() => pickedCategories.value, async () => {
   await findProductsByCategory();
 });
 
@@ -85,7 +87,11 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 q-page-container.row.q-pa-md.q-gutter-md.q-ml-md(style="flex-wrap:nowrap")
-  Filtro
+  Filtro(
+    :categories="categoriesBase"
+    :pickedCategorie="route.params.categoria"
+    @atualizarPage="pickedCategories = $event"
+  )
   Produtos(
     @atualizarPage="page = $event"
     :items="items"
