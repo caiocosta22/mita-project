@@ -106,7 +106,7 @@ module.exports = configure(function (ctx) {
         "/projeto": {
           target: "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/projeto/, "")
+          rewrite: (path) => path.replace(/^\https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/, "")
         }
       },
       // https: true,

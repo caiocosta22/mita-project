@@ -96,7 +96,7 @@ function openInicialPage (logo) {
 
 // async function searchLogo () {
 //   try {
-//     const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
+//     const logo = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/configuracaoService/getLogoWeb").then(e => e.data);
 //     if (logo.parametro) srcLogo.value = logo.parametro;
 //   } catch (e) {
 //     console.error(e);

@@ -25,7 +25,7 @@ const pickedCategories = ref([
 async function findProductsByCategory () {
   try {
     itsLoading.value = true;
-    const products = await axios.post("/projeto/servicoService/filtro-produtoV2/-1", {
+    const products = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtro-produtoV2/-1", {
       tiposServico: [],
       gruposServico: pickedCategories.value,
       marcas: [],
@@ -58,7 +58,7 @@ async function findProductsByCategory () {
 
 async function searchCategories () {
   try {
-    const data = await axios.get("/projeto/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
+    const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     if (data.length) {
       categoriesBase.value = data.map(row => {
         return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };

@@ -18,7 +18,7 @@ const itsLoaded = ref(false);
 async function searchProductById (productId) {
   try {
     itsLoaded.value = false;
-    product.value = await axios.get(`/projeto/servicoService/productBySlugEcommerceV2/${productId}/-1`).then(e => e.data);
+    product.value = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/productBySlugEcommerceV2/${productId}/-1`).then(e => e.data);
   } catch (e) {
     $q.notify({
       message: "Erro ao buscar produto, redirecionando para página principal!"
