@@ -104,7 +104,7 @@ module.exports = configure(function (ctx) {
       port: 8080,
       proxy: {
         "/projeto": {
-          target: `https://${process.env.TENANT}.${process.env.BASE_URL}`,
+          target: "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/projeto/, "")
         }
