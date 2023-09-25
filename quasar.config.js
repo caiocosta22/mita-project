@@ -109,7 +109,7 @@ module.exports = configure(function (ctx) {
           rewrite: (path) => path.replace(/^\/projeto/, "")
         }
       },
-      https: true,
+      // https: true,
       open: false
     },
 
