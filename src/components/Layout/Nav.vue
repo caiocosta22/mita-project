@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal";
+
 const showMenu = ref(false);
 const showThisMenu = ref("VIAGENS");
 const productTyped = ref("");
@@ -69,7 +69,7 @@ async function searchProducts () {
   try {
     let data = [];
     if (productTyped.value) {
-      data = await axios.get(`${api}/servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
+      data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
     }
     if (data.content && data.content.length) productsSearched.value = data.content;
   } catch (e) {
@@ -80,7 +80,7 @@ const backgroundsearchColor = ref("rgba(0,0,0,0)");
 
 async function searchCategories () {
   try {
-    const data = await axios.get(`${api}/ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
+    const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     if (data.length) {
       categoriesBase.value = data.map(row => {
         return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };

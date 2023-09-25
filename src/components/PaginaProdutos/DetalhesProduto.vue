@@ -4,7 +4,7 @@ import { useQuasar } from "quasar";
 import axios from "axios";
 
 const $q = useQuasar();
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal";
+
 const text1 = ref(""); // Referência para o texto digitado no q-input
 const cep = ref(); // Ref para o texto digitado no CEP
 const dadosFrete = ref([]);
@@ -82,7 +82,7 @@ async function getFretes (dados) {
 
 async function createCart () {
   try {
-    const response = await axios.post(`${api}/cartService/getCart/-1/-1`, {
+    const response = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/-1/-1", {
       quantity: qtdProduct.value,
       productId: produto.value.id
     }).then(e => e.data);
@@ -99,7 +99,7 @@ async function addProductToCart () {
     if (!cartId) {
       response = await createCart();
     } else {
-      response = await axios.post(`${api}/cartService/addCartItem/${cartId}`, {
+      response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
         quantity: qtdProduct.value,
         productId: produto.value.id
       }).then(e => e.data);

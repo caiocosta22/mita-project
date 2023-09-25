@@ -10,7 +10,6 @@ const router = useRouter();
 const route = useRoute();
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal";
 
 const menuList = ref([
   {
@@ -106,7 +105,7 @@ function openInicialPage (logo) {
 async function getCartItems () {
   try {
     if (cartId) {
-      const cart = await axios.post(`${api}/cartService/getCart/${cartId}/-1`);
+      const cart = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/-1`);
       cartItems.value = cart.data || cart.response.data;
       if (cartItems.value !== "Nenhum carrinho válido encontrado") {
         quantidadeCarrinho.value = cartItems.value.items?.length;

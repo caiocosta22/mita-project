@@ -14,7 +14,6 @@ const currentOffset = ref(0);
 const hasItems = ref(true);
 const windowSize = 6;
 const paginationFactor = 220;
-const api = "https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal";
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -72,7 +71,7 @@ const moveCarousel = (direction) => {
 
 async function searchCategories () {
   try {
-    let data = await axios.get(`${api}/ecommerce/categoriaAutoRelacionada/getAllCategorias`).then(e => e.data);
+    let data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
     data = data.find(row => row.descricao === "MEIO SITE").subCategoria;
     let itemsForItems = [];
     if (data.length) {
