@@ -1,33 +1,15 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import { useRouter, useRoute } from "vue-router";
-// import axios from "axios";
+import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
+import axios from "axios";
 
+const $q = useQuasar();
+const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
-const route = useRoute();
-console.log(route);
-function openInicialPage (logo) {
-  // const url = "https://alastrar-mita.netlify.app/#/";
-  // window.location.replace(url, "_blank");
-  router.push("/");
-}
-
 const srcLogo = ref("/images/logo.png");
-// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
 
-// async function searchLogo () {
-//   try {
-//     const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
-//     if (logo.parametro) srcLogo.value = logo.parametro;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
-
-// onBeforeMount(async () => {
-//   await searchLogo();
-// });
-const menuList = [
+const menuList = ref([
   {
     icon: "search",
     label: "Pesquisar",
@@ -73,8 +55,51 @@ const menuList = [
     label: "Bolsas",
     separator: true
   }
-];
+]);
 const drawer = ref(false);
+const quantidadeCarrinho = ref(0);
+const cartItems = ref([]);
+
+function openInicialPage (logo) {
+  // const url = "https://alastrar-mita.netlify.app/#/";
+  // window.location.replace(url, "_blank");
+  router.push("/");
+}
+
+// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
+
+// async function searchLogo () {
+//   try {
+//     const logo = await axios.get("/projeto/configuracaoService/getLogoWeb").then(e => e.data);
+//     if (logo.parametro) srcLogo.value = logo.parametro;
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
+
+async function getCartItems () {
+  try {
+    const cart = await axios.post(`/projeto/cartService/getCart/${cartId}/-1`);
+    cartItems.value = cart.data || cart.response.data;
+    if (cartItems.value !== "Nenhum carrinho válido encontrado") {
+      quantidadeCarrinho.value = cartItems.value.items?.length;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+setInterval(async () => {
+  await getCartItems();
+}, 10000);
+
+onBeforeMount(async () => {
+  await Promise.all([
+    getCartItems()
+    // searchLogo()
+  ]);
+});
+
 </script>
 
 <template lang="pug">
@@ -98,6 +123,10 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
         size="sm"
         name="fa-solid fa-cart-shopping"
       )
+        q-badge.text-black.text-bold(
+          v-if="quantidadeCarrinho"
+          floating
+        ) {{ quantidadeCarrinho }}
       span.q-ml-md.text-bold Meu carrinho
     .botaomenu
       q-btn(
@@ -131,17 +160,23 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
 </template>
 
 <style scoped>
-a{
+a {
   color: black;
 }
-.logo{
+.logo {
   max-width:180px;
   max-height: 60px
 }
-.cabecalho
-{
+.cabecalho {
   max-height: 70px;
 }
+
+.q-icon .q-badge {
+  background-color: white;
+  right: -20px;
+  top: -15px
+}
+
 @media screen and (min-width: 1150px) {
   .multimenu{
     display:none
