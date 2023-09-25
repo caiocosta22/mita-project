@@ -18,9 +18,6 @@ const modelos = ref(["DINHEIRO", "PIX", "CARTAO DE CREDITO"]);
 <template lang="pug">
 div.justify-evenly.q-gutter-sm.flex.row
   div.column
-    div.secao.row(style="width: 257px;height: 100px;")
-      img(style="width:15px;height:15px" src="../../assets/imgs/casaicon.png")
-      p /CASE SMARTPHONE
     div.marcas.column(style="width: 257px;height: 257px;")
       //- Procure por multiplas checkbox no quasar e NÃO ESQUEÇA DE CRIAR AS REFS
       q-select(bordeless v-model="model" :options="marcas" label-color="black" label="Categorias" color="black" blocked)

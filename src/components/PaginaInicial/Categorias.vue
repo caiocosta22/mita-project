@@ -89,6 +89,7 @@ async function searchCategories () {
     console.error(e);
   }
 }
+
 function openCategoryPage (category) {
   if (category.id) {
     const url = "/categorias/" + category.id;

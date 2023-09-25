@@ -1,0 +1,146 @@
+<script setup>
+import { ref, watch, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const pageIndex = ref(1);
+const emit = defineEmits(["atualizarPage"]);
+
+const maximunPage = computed(() => {
+  const calc = (props.items.totalRows % 12) + 1;
+  return calc;
+});
+
+const seeingProductsBetween = computed(() => {
+  const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
+  const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
+  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
+});
+
+const props = defineProps({
+  items: {
+    type: Object,
+    default: () => {
+      return {
+        content: [
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          },
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          },
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          },
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          },
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          },
+          {
+            name: "Case para Iphone",
+            image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+          }
+        ],
+        totalRows: 6,
+        currentPage: 1
+      };
+    }
+  },
+  loading: {
+    type: Boolean,
+    default: true
+  },
+  bannerUrlCategorie: {
+    type: String,
+    default: () => ""
+  }
+});
+
+function openProductPage (product) {
+  if (product.slug) {
+    const url = "/produtos/" + product.slug;
+    router.push(url);
+  }
+}
+
+watch(() => pageIndex.value, (val) => {
+  emit("atualizarPage", val);
+});
+
+</script>
+
+<template lang="pug">
+.container
+  div(
+    :class="bannerUrlCategorie !== '' ? 'column' : false"
+  )
+    img(
+      v-if="bannerUrlCategorie"
+      :src="bannerUrlCategorie"
+      style="width:1300px; height:164px"
+    )
+    div.row.q-pt-md
+      p.produtos.q-mr-md Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
+      div.row.q-gutter-sm.end
+        q-icon(
+          name="chevron_left"
+          size="1.5em"
+          style="width:8px; heigth:16px"
+          @click="pageIndex === 1 ? false : pageIndex--"
+        )
+        p {{ pageIndex }}
+        q-icon(
+          name="chevron_right"
+          size="1.5em"
+          style="width:8px; heigth:15px"
+          @click="pageIndex === maximunPage ? false : pageIndex++"
+        )
+  //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
+  div.row
+    template(
+      v-for="item in items.content"
+      :key="item"
+    )
+      div.foto(
+        style="width:200px"
+      )
+        q-img.cursor-pointer(
+          :src="item.image"
+          style="width: 300px; height: 350px;"
+          @click="openProductPage(item)"
+        )
+        .texto
+          p {{ item.name }}
+          p.texto2(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
+</template>
+
+<style scoped>
+
+.foto {
+  flex-basis: calc(33%); /* 33.33% para 3 produtos por linha, com um espaçamento de 20px */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.texto {
+  color:black;
+  font-weight:bold
+}
+.texto2 {
+  color:black;
+  font-weight: bolder;
+}
+
+</style>
