@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 // import axios from "axios";
 
 const router = useRouter();
-
+const route = useRoute();
+console.log(route);
 function openInicialPage (logo) {
   // const url = "https://alastrar-mita.netlify.app/#/";
   // window.location.replace(url, "_blank");
