@@ -88,18 +88,18 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 q-page-container.row.q-pa-md.q-gutter-md.q-ml-md(style="flex-wrap:nowrap")
-  template(
-    v-if="itsLoading"
+  Filtro(
+    :categories="categoriesBase"
+    :pickedCategorie="route.params.categoria"
+    @atualizarPage="pickedCategories = $event"
   )
-    CategoriasLoading
   template(
-    v-else
-  )
-    Filtro(
-      :categories="categoriesBase"
-      :pickedCategorie="route.params.categoria"
-      @atualizarPage="pickedCategories = $event"
+      v-if="itsLoading"
     )
+      CategoriasLoading
+  template(
+    v-if="!itsLoading"
+  )
     Produtos(
       @atualizarPage="page = $event"
       :items="items"

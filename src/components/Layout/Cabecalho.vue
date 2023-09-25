@@ -128,11 +128,15 @@ onBeforeMount(async () => {
 });
 
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
+  if (route.path === "/") {
+    window.addEventListener("scroll", handleScroll);
+  }
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
+  if (route.path === "/") {
+    window.removeEventListener("scroll", handleScroll);
+  }
 });
 
 </script>

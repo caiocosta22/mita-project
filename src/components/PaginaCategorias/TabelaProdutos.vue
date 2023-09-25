@@ -73,6 +73,7 @@ function openProductPage (product) {
   if (product.slug) {
     const url = "/produtos/" + product.slug;
     router.push(url);
+    console.log(product);
   }
 }
 
@@ -109,7 +110,7 @@ watch(() => pageIndex.value, (val) => {
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
-  div.row
+  div.row.flex
     template(
       v-for="item in items.content"
       :key="item"
@@ -119,11 +120,11 @@ watch(() => pageIndex.value, (val) => {
       )
         q-img.cursor-pointer(
           :src="item.image"
-          style="width: 300px; height: 350px;"
+          style="width: 300px; height: 350px;border-top-left-radius: 4px;border-top-right-radius: 4px"
           @click="openProductPage(item)"
         )
-        .texto
-          p {{ item.name }}
+        div
+          p.texto.q-pt-sm {{ item.name }}
           p.texto2(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
 </template>
 
@@ -136,11 +137,13 @@ watch(() => pageIndex.value, (val) => {
 }
 .texto {
   color:black;
-  font-weight:bold
+  font-weight:bold;
+  font-size:18px
 }
 .texto2 {
   color:black;
   font-weight: bolder;
+  font-size: 18px;
 }
 
 </style>

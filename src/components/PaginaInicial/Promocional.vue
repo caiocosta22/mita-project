@@ -1,18 +1,34 @@
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function openCategoryPage (category) {
+  const url = "/categorias/" + category;
+  router.push(url);
+}
 </script>
 
 <template lang="pug">
 div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
   q-img.cursor-pointer.col-5(
-    src="../../assets/imgs/BOLSAS.png")
+      src="../../assets/imgs/BOLSAS.png"
+      @click="openCategoryPage(159)"
+    )
   div.column.col-5
     q-img.cursor-pointer(
-      src="../../assets/imgs/CHAVEIROS.png")
+      src="../../assets/imgs/CHAVEIROS.png"
+      @click="openCategoryPage(149)"
+    )
     q-img.cursor-pointer.q-mt-lg.q-pt-sm(
-      src="../../assets/imgs/NECESSAIRES.png")
+      src="../../assets/imgs/NECESSAIRES.png"
+      @click="openCategoryPage(149)"
+    )
 div.valentines.row.col
   q-img.cursor-pointer.col-10.q-pa-lg(
-    src="../../assets/imgs/VALENTINES.png" )
+    src="../../assets/imgs/VALENTINES.png"
+    @click="openCategoryPage(149)"
+  )
 </template>
 
 <style scoped>
