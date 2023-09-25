@@ -76,7 +76,7 @@ const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const opacityThreshold = 0;
 
-  if (scrollPosition > opacityThreshold) {
+  if (scrollPosition > opacityThreshold && route.path === "/") {
     srcLogo.value = "/images/logo.png";
     corcabecalho.value = "black";
   } else {
