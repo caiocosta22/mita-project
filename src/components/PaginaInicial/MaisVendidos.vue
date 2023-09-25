@@ -87,8 +87,11 @@ async function searchBestSellers () {
     const data = await axios.get("/projeto/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
       // * Trocar de "DESTAQUE" para  "Mais Vendidos"
-      const bestSellers = data.filter(sellers => sellers.titulo === "Mais Vendidos");
-      itemsOfApi.value = data;
+      // Lielton falou para pegar da chave SESSAO_ DIA 22/09 WPP LAYOUT BANBAN
+      // Falou tbm para pegar numa "chave" chamada "funcao" e buscar por "destaque"
+      // Nao encontrei na api q deixaram
+      const bestSellers = data.filter(sellers => sellers.chave === "SESSAO_3");
+      itemsOfApi.value = bestSellers;
     }
   } catch (e) {
     console.error(e);

@@ -7,7 +7,11 @@ export default boot(async ({ app }) => {
   axios.interceptors.response.use(function (config) {
     return config;
   }, async function (error) {
-    return Promise.reject(error);
+    if (error.response.data === "Nenhum carrinho válido encontrado") {
+      return error;
+    } else {
+      return Promise.reject(error);
+    }
   });
   // for use inside Vue files (Options API) through this.$axios and this.$api
 

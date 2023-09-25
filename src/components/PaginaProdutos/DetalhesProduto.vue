@@ -1,7 +1,18 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
+import axios from "axios";
+
+const $q = useQuasar();
+
 const text1 = ref(""); // Referência para o texto digitado no q-input
-const text = ref(); // Ref para o texto digitado no CEP
+const cep = ref(); // Ref para o texto digitado no CEP
+const dadosFrete = ref([]);
+const usarSkeleton = ref(false);
+const quantidadeCarrinho = ref(0);
+const cartId = $q.localStorage.getItem("cartIdBackend");
+const qtdProduct = ref(1);
+
 const props = defineProps({
   product: {
     type: Object,
@@ -13,8 +24,92 @@ const props = defineProps({
     default: () => {}
   }
 });
+
 const produto = computed(() => { return props.product; });
 const principalImg = ref(produto.value.fotosServico[0].foto);
+
+async function calcFrete () {
+  try {
+    const searchCepDetails = cep.value.replace("-", "");
+    if (searchCepDetails.length === 8) {
+      const dados = await axios.get(`https://viacep.com.br/ws/${searchCepDetails}/json/`).then(e => e.data);
+      await getFretes(dados);
+    }
+  } catch (e) {
+    console.error("Erro ao calcular frete: ", e);
+  }
+}
+
+async function getFretes (dados) {
+  try {
+    usarSkeleton.value = true;
+    const json = {
+      valorTotal: null,
+      produtos: [
+        {
+          altura: 2,
+          largura: 2,
+          comprimento: 2,
+          peso: 2,
+          quantity: 1,
+          price: 161.42,
+          cepOrigem: "60425813",
+          cepDestino: dados.cep.replace("-", "")
+        }
+      ],
+      cliente: {
+        uf: dados.uf,
+        cidade: dados.localidade,
+        tenant: process.env.TENANT
+      }
+    };
+    dadosFrete.value = await axios.post("https://elevarcommerce.com.br/freteapi/frete/calcularFretePequenos", json, {
+      headers: {
+        // Overwrite Axios's automatically set Content-Type
+        "Content-Type": "application/json"
+      }
+    }).then(e => e.data);
+    usarSkeleton.value = false;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function createCart () {
+  try {
+    const response = await axios.post("/projeto/cartService/getCart/-1/-1", {
+      quantity: qtdProduct.value,
+      productId: produto.value.id
+    }).then(e => e.data);
+    $q.localStorage.set("cartIdBackend", response.id);
+    return response;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function addProductToCart () {
+  try {
+    let response = [];
+    if (!cartId) {
+      response = await createCart();
+    } else {
+      response = await axios.post(`/projeto/cartService/addCartItem/${cartId}`, {
+        quantity: qtdProduct.value,
+        productId: produto.value.id
+      }).then(e => e.data);
+    }
+    if (response.length) {
+      quantidadeCarrinho.value = response.items?.length;
+    }
+    // ! Esse ponto está na documentação, mas nada foi falado ainda sobre para onde redirecionar
+    // const url = "a que eles definirem";
+    // window.location.href = url;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 </script>
 
 <template lang="pug">
@@ -59,19 +154,43 @@ div.row.q-gutter-md.justify-center
       .destaque.q-pt-md.q-pb-md VALOR
       .destaque {{ produto.valor }}
     q-separator(color="black")
-    div.row.justify-between(style="flex-wrap: nowrap;")
+    div.row
       p.destaque(style="padding-top: 20px;") CALCULAR FRETE
-      q-input(
-        v-model="text"
+      q-input.q-ml-md(
+        v-model="cep"
         label="CEP"
+        debounce="300"
+        @update:model-value="calcFrete()"
+        max-length="8"
+        mask="#####-###"
         color="black"
         style="width: 340px;"
       )
         template(v-slot:append)
           q-icon(name="search")
     a.cep.q-pb-md(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
-    q-btn.botao.q-pa-md(
+    div(
+      v-if="!usarSkeleton && dadosFrete.length"
+    )
+      q-btn.q-my-sm(
+        v-for="frete in dadosFrete"
+        style="width: 100%; vertical-align: baseline;"
+        :key="frete"
+        outlined
+      )
+        p.q-ma-none {{ frete.name }}
+        p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
+        p.q-ma-none.text-bold R$ {{ frete.valor }}
+    div(
+      v-if="usarSkeleton"
+    )
+      q-skeleton.q-pa-sm.q-my-sm(
+        v-for="index in 3"
+        :key="index"
+      )
+    q-btn.botao.q-pa-md.q-mt-md.text-bold(
       color="green"
+      @click="addProductToCart()"
       label="C O M P R A R"
       style="width: 516px; height:52px"
     )
@@ -121,6 +240,7 @@ p.detalhes{
 }
 .cep{
   color: #939598;
+  max-width: 20%;
   font-family: Catamaran;
   font-size: 12px;
   font-style: normal;
