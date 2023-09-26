@@ -124,27 +124,36 @@ async function addProductToCart () {
 </script>
 
 <template lang="pug">
-div.row.justify-center.col.q-gutter-md
-  div.q-pa-md.miniaturas
-    template(
-      v-for="objFoto in produto.fotosServico"
-      :key="objFoto"
-    )
-      q-img(
-        @click="principalImg = objFoto.foto"
-        v-if="objFoto.foto"
-        :src="objFoto.foto"
-        style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
+div.container.q-gutter-md
+  div.containerfotos.q-pa-md.q-gutter-md
+    div.miniaturas
+      template(
+        v-for="objFoto in produto.fotosServico"
+        :key="objFoto"
       )
-  div.row.q-pa-md.fotogrande.q-pr-lg
-    q-img(
-      v-if="principalImg"
-      :src="principalImg"
-      no-native-menu
-      style="width: 545px; height: 645px;border-radius: 4px;border-top-right-radius: 4px"
-    )
-      .text-on-image {{ text1 }}
-  div.column.q-pa-sm.informacoesprod
+        q-img.foto.cursor-pointer(
+          @click="principalImg = objFoto.foto"
+          v-if="objFoto.foto"
+          :src="objFoto.foto"
+          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
+        )
+        q-img.foto.cursor-pointer(
+          src="../../assets/imgs/CAPAIPHONE.png"
+          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
+        )
+        q-img.foto.cursor-pointer(
+          src="../../assets/imgs/CAPAIPHONE.png"
+          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
+        )
+    div.fotogrande
+      q-img.foto.cursor-pointer(
+        v-if="principalImg"
+        :src="principalImg"
+        no-native-menu
+        style="width: 545px; height: 645px;border-radius: 4px;border-top-right-radius: 4px"
+      )
+        .text-on-image {{ text1 }}
+  div.containerdetalhes.q-pa-md
     div
       div.row.justify-between
         span.tituloprod {{ produto.descricao }}
@@ -188,7 +197,7 @@ div.row.justify-center.col.q-gutter-md
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
-      .destaque(style="font-weight: bold;") Adicione seu nome no produto!
+      .destaque(style="font-weight: bold;") ADICIONE SEU NOME NO PRODUTO
       q-input.q-pt-sm(
         outlined
         v-model="text1"
@@ -197,8 +206,8 @@ div.row.justify-center.col.q-gutter-md
         label-color="black"
         maxlength="15"
       )
-    div.row
-      span.destaque.q-pt-md.q-pr-md CALCULAR FRETE
+    div.calcularfrete
+      span.destaque.q-pt-md(style="max-width: 300px; min-width: 180px;") CALCULE SEU FRETE
       q-input(
         v-model="cep"
         label="CEP"
@@ -207,7 +216,7 @@ div.row.justify-center.col.q-gutter-md
         max-length="8"
         mask="#####-###"
         color="black"
-        style="width: 380px;"
+        style="width:270px;"
       )
         template(v-slot:append)
           q-icon(name="search")
@@ -267,11 +276,10 @@ p.detalhes{
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  display: flex;
 }
 .informacoesprod{
   display:flex;
-  width: 30%;
+  width: 22%;
 }
 .cep{
   color: #939598;
@@ -302,5 +310,39 @@ p.detalhes{
 }
 .ativo {
   border: solid black 2px;
+}
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: row;
+}
+.containerfotos{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+.foto{
+  display: block;
+  max-width: 100%;
+}
+.miniaturas{
+  display: flex;
+  flex-direction: column;
+}
+.miniaturas>div{
+  margin-bottom: 10px;
+}
+.containerdetalhes{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  max-width:30%
+}
+.calcularfrete{
+  display:flex;
+  max-width: 700px;
+  flex-direction: row;
 }
 </style>
