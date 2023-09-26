@@ -104,11 +104,11 @@ watch(() => pageIndex.value, (val) => {
           style="width:8px; heigth:16px"
           @click="pageIndex === 1 ? false : pageIndex--"
           )
-        p {{ pageIndex }}
+        p(style="font-weight: bold;") {{ pageIndex }}
         q-icon.cursor-pointer(
           name="chevron_right"
           size="1.5em"
-          style="width:8px; heigth:15px"
+          style="width:8px; heigth:15px;"
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
     template(
