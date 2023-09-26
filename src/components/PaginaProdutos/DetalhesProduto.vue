@@ -29,6 +29,12 @@ const props = defineProps({
 const produto = computed(() => { return props.product; });
 const principalImg = ref(produto.value.fotosServico[0].foto);
 
+const copyLink = () => {
+  navigator.clipboard.writeText(window.location.href);
+  $q.notify({
+    message: "Link Copiado para Área de transferência!"
+  });
+};
 function ativar (cor) {
   console.log("Quando a api tiver cor a gnt arruma");
 }
@@ -140,7 +146,20 @@ div.row.justify-center.col.q-gutter-md
       .text-on-image {{ text1 }}
   div.column.q-pa-sm.informacoesprod
     div
-      span.tituloprod {{ produto.descricao }}
+      div.row.justify-between
+        span.tituloprod {{ produto.descricao }}
+        div.q-gutter-sm
+          q-icon.cursor-pointer(
+            :color="black"
+            size="sm"
+            name="share"
+            @click="copyLink"
+          )
+          q-icon.cursor-pointer(
+            :color="black"
+            size="sm"
+            name="favorite"
+          )
       p COD: {{ produto.codigo }}
     //- Só vai dar pra fazer quando tiver um produto com cores ativa
     div.row.q-gutter-sm(
@@ -159,16 +178,6 @@ div.row.justify-center.col.q-gutter-md
             :class="{ ativo: icon.ativo }"
             @click="ativar(produto.cores)"
           )
-    div.column.q-pt-sm.q-pb-md
-      span.destaque Adicione seu nome no produto!
-      q-input.q-pt-sm(
-        v-model="text1"
-        outlined
-        placeholder="Digite aqui"
-        color="black"
-        label-color="black"
-        maxlength="15"
-      )
     div.justify-between.row.q-pb-sm.q-pt-sm
       .destaque VALOR
       .destaque R$ {{ produto.valor }}
@@ -178,10 +187,19 @@ div.row.justify-center.col.q-gutter-md
         .destaque.justify-end valordesconto
     div.q-pb-sm
       q-separator(color="black")
-    div.row.q-pt-md
+    div.column.q-pt-sm.q-pb-md
+      .destaque(style="font-weight: bold;") Adicione seu nome no produto!
+      q-input.q-pt-sm(
+        outlined
+        v-model="text1"
+        placeholder="Digite aqui"
+        color="black"
+        label-color="black"
+        maxlength="15"
+      )
+    div.row
       span.destaque.q-pt-md.q-pr-md CALCULAR FRETE
       q-input(
-        outlined
         v-model="cep"
         label="CEP"
         debounce="300"
