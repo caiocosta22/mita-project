@@ -45,4 +45,11 @@ div.column.filtro.q-pa-lg(
   display: flex;
   width: 15%;
 }
+@media screen and (max-width: 892px) {
+  .filtro{
+  display: flex;
+  width: 25%;
+}
+
+}
 </style>
