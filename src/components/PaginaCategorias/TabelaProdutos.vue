@@ -91,12 +91,12 @@ watch(() => pageIndex.value, (val) => {
     img(
       v-if="bannerUrlCategorie"
       :src="bannerUrlCategorie"
-      style="width:1300px; height:164px"
+      style="width:1240px; height:164px"
     )
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
   div.containertabela.q-pa-md
     div.row.paginacao
-      p.produtos.q-mr-md Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
+      p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm.end
         q-icon.cursor-pointer(
           name="chevron_left"

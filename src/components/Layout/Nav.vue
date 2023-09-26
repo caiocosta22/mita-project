@@ -145,7 +145,7 @@ onBeforeMount(async () => {
         p.text-bold.cursor-pointer(
           @click="openCategoryPage(categorie)"
         ) {{ categorie.name }}
-    q-input.col-3.text-black.busca(
+    q-input.col-3.text-black.busca.q-pb-md(
       v-model="productTyped"
       type="search"
       label
@@ -156,7 +156,7 @@ onBeforeMount(async () => {
       ref="inputRef"
     )
       template(v-slot:label)
-        p.text-bold.textobusca(
+        .text-bold.textobusca(
           :style="correctStyle"
         ) O QUE ESTÁ BUSCANDO
       template(v-slot:append)

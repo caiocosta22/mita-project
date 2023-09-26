@@ -169,12 +169,12 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
       span.q-ml-md.text-bold(:style = "{ color : corcabecalho }") Meu carrinho
     .botaomenu
       q-btn(
-      flat
-      @click="drawer = !drawer"
-      round
-      dense
-      icon="menu"
-      color="black"
+        flat
+        @click="drawer = !drawer"
+        round
+        dense
+        icon="menu"
+        :color="corcabecalho"
       )
 .multimenu
   q-drawer(
