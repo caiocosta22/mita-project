@@ -93,7 +93,7 @@ watch(() => pageIndex.value, (val) => {
       :src="bannerUrlCategorie"
       style="width:1300px; height:164px"
     )
-    div.row.q-pt-md
+    div.row.q-pa-md.paginacao
       p.produtos.q-mr-md Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm.end
         q-icon(
@@ -110,7 +110,7 @@ watch(() => pageIndex.value, (val) => {
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
-  div.row.flex
+  div.row.flex.q-pa-md
     template(
       v-for="item in items.content"
       :key="item"
@@ -134,6 +134,11 @@ watch(() => pageIndex.value, (val) => {
   flex-basis: calc(33%); /* 33.33% para 3 produtos por linha, com um espaçamento de 20px */
   margin-bottom: 20px;
   box-sizing: border-box;
+}
+.paginacao{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
 }
 .texto {
   color:black;

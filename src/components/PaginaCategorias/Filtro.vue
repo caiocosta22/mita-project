@@ -22,7 +22,7 @@ watch(() => categorieModel.value, val => {
 
 </script>
 <template lang="pug">
-div.column(
+div.column.q-pa-md(
   style="width: 257px;"
 )
   label.text-bold(style="font-size:1.5em") Categorias

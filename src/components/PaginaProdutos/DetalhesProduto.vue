@@ -178,7 +178,7 @@ div.row.justify-center.col.q-gutter-md
         .destaque.justify-end valordesconto
     div.q-pb-sm
       q-separator(color="black")
-    div.row
+    div.row.q-pt-md
       span.destaque.q-pt-md.q-pr-md CALCULAR FRETE
       q-input(
         outlined
