@@ -130,7 +130,7 @@ div.row.justify-center.col.q-gutter-md
         :src="objFoto.foto"
         style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
       )
-  div.row.q-pa-md.fotogrande
+  div.row.q-pa-md.fotogrande.q-pr-lg
     q-img(
       v-if="principalImg"
       :src="principalImg"
@@ -171,7 +171,7 @@ div.row.justify-center.col.q-gutter-md
       )
     div.justify-between.row.q-pb-sm.q-pt-sm
       .destaque VALOR
-      .destaque {{ produto.valor }}
+      .destaque R$ {{ produto.valor }}
       template(
         v-if="produto.promocao"
       )
@@ -279,6 +279,7 @@ p.detalhes{
   font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
   box-shadow:none;
   color: black;
+  font-weight: bolderc;
   background-color: rgba(0,0,0,0);
 }
 .ativo {
