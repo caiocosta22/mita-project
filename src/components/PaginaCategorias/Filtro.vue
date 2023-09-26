@@ -43,7 +43,7 @@ div.column.filtro.q-pa-lg(
 <style scoped>
 .filtro{
   display: flex;
-  width: 15%;
+  width: 22.5%;
 }
 @media screen and (max-width: 892px) {
   .filtro{

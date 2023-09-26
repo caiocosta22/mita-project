@@ -158,7 +158,7 @@ watch(() => pageIndex.value, (val) => {
   font-weight: bolder;
   font-size: 18px;
 }
-@media screen and (max-width: 892px) {
+@media screen and (max-width: 936px) {
   .containerfoto{
   flex: 1 1 200px;
   margin: 10px;
