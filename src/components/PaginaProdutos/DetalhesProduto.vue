@@ -200,7 +200,7 @@ div.container.q-gutter-md
       )
     div.calcularfrete
       span.destaque.q-pt-md(style="max-width: 300px; min-width: 180px;") CALCULE SEU FRETE
-      q-input(
+      q-input.campocep(
         v-model="cep"
         label="CEP"
         debounce="300"
@@ -208,7 +208,6 @@ div.container.q-gutter-md
         max-length="8"
         mask="#####-###"
         color="black"
-        style="width:270px;"
       )
         template(v-slot:append)
           q-icon(name="search")
@@ -336,5 +335,26 @@ p.detalhes{
   display:flex;
   max-width: 700px;
   flex-direction: row;
+}
+.campocep{
+  width: 270px;
+}
+@media screen and (max-width: 1201px) {
+  .containerdetalhes{
+    display: flex;
+    width: 85%;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+  }
+  .calcularfrete{
+    display:flex;
+    max-width: 100%;
+    flex-direction: row;
+  }
+  .campocep{
+    width: 800px;
+  }
+
 }
 </style>
