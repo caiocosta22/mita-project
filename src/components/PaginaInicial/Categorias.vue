@@ -155,8 +155,7 @@ div(
 }
 img {
   vertical-align: bottom;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius:4px;
   transition: opacity 150ms linear;
   user-select: none;
   height: 200px;

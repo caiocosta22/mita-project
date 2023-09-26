@@ -206,8 +206,7 @@ div
   }
 .image {
   vertical-align: bottom !important;
-  border-top-left-radius: 4px !important;
-  border-top-right-radius: 4px !important;
+  border-radius: 4px !important;
   transition: opacity 150ms linear !important;
   user-select: none !important;
   height: 320px !important;

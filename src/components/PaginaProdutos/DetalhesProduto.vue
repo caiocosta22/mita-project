@@ -118,8 +118,8 @@ async function addProductToCart () {
 </script>
 
 <template lang="pug">
-div.row.q-gutter-md.justify-center.col.q-pt-lg
-  div.q-pa-md.col-1
+div.row.justify-center.col.q-gutter-md
+  div.q-pa-md.miniaturas
     template(
       v-for="objFoto in produto.fotosServico"
       :key="objFoto"
@@ -128,20 +128,22 @@ div.row.q-gutter-md.justify-center.col.q-pt-lg
         @click="principalImg = objFoto.foto"
         v-if="objFoto.foto"
         :src="objFoto.foto"
+        style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
       )
-  div.row.col-5.q-pt-md
-    q-img.col-10(
+  div.row.q-pa-md.fotogrande
+    q-img(
       v-if="principalImg"
       :src="principalImg"
       no-native-menu
+      style="width: 545px; height: 645px;border-radius: 4px;border-top-right-radius: 4px"
     )
-      .text-on-image.col-1 {{ text1 }}
-  div.column.q-pa-sm.col-4
-    div.col-2
-      p.tituloprod {{ produto.descricao }}
+      .text-on-image {{ text1 }}
+  div.column.q-pa-sm.informacoesprod
+    div
+      span.tituloprod {{ produto.descricao }}
       p COD: {{ produto.codigo }}
     //- Só vai dar pra fazer quando tiver um produto com cores ativa
-    div.row.q-gutter-sm.col-2(
+    div.row.q-gutter-sm(
       v-if="produto.cores.length > 1"
     )
       p.destaque COR
@@ -157,28 +159,29 @@ div.row.q-gutter-md.justify-center.col.q-pt-lg
             :class="{ ativo: icon.ativo }"
             @click="ativar(produto.cores)"
           )
-    div.row.col-2.q-pt-sm
-      div.column.col-12
-        p.destaque.col-1 Adicione seu nome no produto!
-        q-input.q-pt-sm(
-          v-model="text1"
-          outlined
-          placeholder="Digite aqui"
-          color="black"
-          label-color="black"
-          maxlength="15"
-        )
-    div.justify-between.row.col-1
+    div.column.q-pt-sm.q-pb-md
+      span.destaque Adicione seu nome no produto!
+      q-input.q-pt-sm(
+        v-model="text1"
+        outlined
+        placeholder="Digite aqui"
+        color="black"
+        label-color="black"
+        maxlength="15"
+      )
+    div.justify-between.row.q-pb-sm.q-pt-sm
+      .destaque VALOR
+      .destaque {{ produto.valor }}
       template(
         v-if="produto.promocao"
       )
         .destaque.justify-end valordesconto
-      .destaque.q-pt-md.q-pb-md VALOR
-      .destaque {{ produto.valor }}
-    q-separator(color="black")
-    div.row.col-1
-      span.destaque.col-4(style="padding-top: 20px;") CALCULAR FRETE
-      q-input.col-8(
+    div.q-pb-sm
+      q-separator(color="black")
+    div.row
+      span.destaque.q-pt-md.q-pr-md CALCULAR FRETE
+      q-input(
+        outlined
         v-model="cep"
         label="CEP"
         debounce="300"
@@ -186,10 +189,12 @@ div.row.q-gutter-md.justify-center.col.q-pt-lg
         max-length="8"
         mask="#####-###"
         color="black"
+        style="width: 380px;"
       )
         template(v-slot:append)
           q-icon(name="search")
-    a.cep(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
+    div.q-pt-sm
+      a.cep(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
     div(
       v-if="!usarSkeleton && dadosFrete.length"
     )
@@ -209,17 +214,17 @@ div.row.q-gutter-md.justify-center.col.q-pt-lg
         v-for="index in 3"
         :key="index"
       )
-    q-btn.botao.q-pa-md.q-mt-md.text-bold.col-1(
+    q-btn.botao.q-pa-md.q-mt-md.text-bold(
       color="green"
       @click="addProductToCart()"
       label="C O M P R A R"
     )
-.col-10.row
-  p.col-1
-  h5.col-5.q-pt-xl(style="font-weight: bold;") DETALHES DO PRODUTO
-.col-10.row.justify-start.q-pb-lg
-  p.detalhes.col-9.q-pt-sm Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-  p.col-1
+.row
+  p
+  h5.q-pt-xl(style="font-weight: bold;") DETALHES DO PRODUTO
+.row.justify-start.q-pb-lg
+  p.detalhes.q-pt-sm Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+  p
 </template>
 
 <style scoped>
@@ -246,16 +251,16 @@ p.detalhes{
   line-height: normal;
   display: flex;
 }
+.informacoesprod{
+  display:flex;
+  width: 30%;
+}
 .cep{
   color: #939598;
-  max-width: 20%;
   font-family: Catamaran;
-  font-size: 12px;
-  font-style: normal;
+  font-size: 14px;
   font-weight: 300;
-  line-height: normal;
-  text-decoration-line: underline;
-  padding-top:10px
+  text-decoration-line: underline;;
 }
 .detalhesprod{
   color: #939598;

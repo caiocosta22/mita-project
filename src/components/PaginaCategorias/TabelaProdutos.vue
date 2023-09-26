@@ -120,7 +120,7 @@ watch(() => pageIndex.value, (val) => {
       )
         q-img.cursor-pointer(
           :src="item.image"
-          style="width: 300px; height: 350px;border-top-left-radius: 4px;border-top-right-radius: 4px"
+          style="width: 300px; height: 350px;border-radius: 4px;border-radius: 4px"
           @click="openProductPage(item)"
         )
         div
