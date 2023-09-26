@@ -93,7 +93,9 @@ watch(() => pageIndex.value, (val) => {
       :src="bannerUrlCategorie"
       style="width:1300px; height:164px"
     )
-    div.row.q-pa-md.paginacao
+  //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
+  div.containertabela.q-pa-md
+    div.row.paginacao
       p.produtos.q-mr-md Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm.end
         q-icon(
@@ -101,7 +103,7 @@ watch(() => pageIndex.value, (val) => {
           size="1.5em"
           style="width:8px; heigth:16px"
           @click="pageIndex === 1 ? false : pageIndex--"
-        )
+          )
         p {{ pageIndex }}
         q-icon(
           name="chevron_right"
@@ -109,18 +111,15 @@ watch(() => pageIndex.value, (val) => {
           style="width:8px; heigth:15px"
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
-  //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
-  div.row.flex.q-pa-md
     template(
       v-for="item in items.content"
       :key="item"
     )
-      div.foto(
-        style="width:200px"
+      div.containerfoto(
       )
-        q-img.cursor-pointer(
+        q-img.cursor-pointer.foto(
           :src="item.image"
-          style="width: 300px; height: 350px;border-radius: 4px;border-radius: 4px"
+          style="border-radius: 4px;border-radius: 4px"
           @click="openProductPage(item)"
         )
         div
@@ -129,17 +128,26 @@ watch(() => pageIndex.value, (val) => {
 </template>
 
 <style scoped>
-
+.containertabela{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.containerfoto{
+  flex: 1 1 300px;
+  margin: 10px;
+}
 .foto {
-  flex-basis: calc(33%); /* 33.33% para 3 produtos por linha, com um espaçamento de 20px */
-  margin-bottom: 20px;
-  box-sizing: border-box;
+  max-width: 100%;
+  display: block;
 }
 .paginacao{
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
 }
+
 .texto {
   color:black;
   font-weight:bold;

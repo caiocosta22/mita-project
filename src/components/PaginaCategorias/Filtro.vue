@@ -22,10 +22,9 @@ watch(() => categorieModel.value, val => {
 
 </script>
 <template lang="pug">
-div.column.q-pa-md(
-  style="width: 257px;"
+div.column.filtro.q-pa-lg(
 )
-  label.text-bold(style="font-size:1.5em") Categorias
+  label.text-bold(style="font-size:1.5em;;") Categorias
   q-separator.q-mb-md(color="black")
   div.column
     template(
@@ -40,3 +39,10 @@ div.column.q-pa-md(
         color="black"
       )
 </template>
+
+<style scoped>
+.filtro{
+  display: flex;
+  width: 15%;
+}
+</style>
