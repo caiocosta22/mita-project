@@ -137,14 +137,6 @@ div.container.q-gutter-md
           :src="objFoto.foto"
           style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
         )
-        q-img.foto.cursor-pointer(
-          src="../../assets/imgs/CAPAIPHONE.png"
-          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
-        )
-        q-img.foto.cursor-pointer(
-          src="../../assets/imgs/CAPAIPHONE.png"
-          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
-        )
     div.fotogrande
       q-img.foto.cursor-pointer(
         v-if="principalImg"
