@@ -55,6 +55,7 @@ div.banner(
     animated
     v-model="slide"
     infinite
+    swipeable
     :autoplay="autoplay"
     transition-prev="slide-right"
     transition-next="slide-left"
