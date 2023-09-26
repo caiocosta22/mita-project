@@ -122,8 +122,8 @@ watch(() => pageIndex.value, (val) => {
           style="border-radius: 4px;border-radius: 4px"
           @click="openProductPage(item)"
         )
-        div
-          p.texto.q-pt-sm {{ item.name }}
+        div.row.justify-between.q-pt-sm
+          p.texto {{ item.name }}
           p.texto2(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
 </template>
 
@@ -150,13 +150,13 @@ watch(() => pageIndex.value, (val) => {
 
 .texto {
   color:black;
-  font-weight:bold;
-  font-size:18px
+  font-weight:700;
+  font-size:18px;
 }
 .texto2 {
   color:black;
-  font-weight: bolder;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
 }
 @media screen and (max-width: 936px) {
   .containerfoto{
