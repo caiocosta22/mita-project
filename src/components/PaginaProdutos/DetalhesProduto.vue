@@ -118,7 +118,7 @@ async function addProductToCart () {
 </script>
 
 <template lang="pug">
-div.row.q-gutter-md.justify-center.col
+div.row.q-gutter-md.justify-center.col.q-pt-lg
   div.q-pa-md.col-1
     template(
       v-for="objFoto in produto.fotosServico"
@@ -176,9 +176,9 @@ div.row.q-gutter-md.justify-center.col
       .destaque.q-pt-md.q-pb-md VALOR
       .destaque {{ produto.valor }}
     q-separator(color="black")
-    div.row.col-2
-      p.destaque.col-3(style="padding-top: 20px;") CALCULAR FRETE
-      q-input.col-9.q-pt-md(
+    div.row.col-1
+      span.destaque.col-4(style="padding-top: 20px;") CALCULAR FRETE
+      q-input.col-8(
         v-model="cep"
         label="CEP"
         debounce="300"
@@ -228,8 +228,6 @@ p.detalhes{
   font-family: Catamaran;
   font-size: 18px;
   font-style: normal;
-  line-height: normal;
-  margin: auto;
 }
 .tituloprod{
   color: #000;
@@ -246,7 +244,6 @@ p.detalhes{
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  align-items: center;
   display: flex;
 }
 .cep{
