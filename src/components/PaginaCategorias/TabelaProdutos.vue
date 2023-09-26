@@ -98,14 +98,14 @@ watch(() => pageIndex.value, (val) => {
     div.row.paginacao
       p.produtos.q-mr-md Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm.end
-        q-icon(
+        q-icon.cursor-pointer(
           name="chevron_left"
           size="1.5em"
           style="width:8px; heigth:16px"
           @click="pageIndex === 1 ? false : pageIndex--"
           )
         p {{ pageIndex }}
-        q-icon(
+        q-icon.cursor-pointer(
           name="chevron_right"
           size="1.5em"
           style="width:8px; heigth:15px"
