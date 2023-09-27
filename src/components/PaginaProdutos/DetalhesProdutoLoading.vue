@@ -2,9 +2,9 @@
 </script>
 
 <template lang="pug">
-div.row.justify-center.col.q-pa-md.q-gutter-sm
+div.row.justify-center.col.q-pa-lg.q-gutter-sm.q-mt-xl
   div.row.col-7.justify-center
-    div.col-2.column.q-gutter-sm.q-mr-xl
+    div.col-2.column.q-gutter-sm.q-mr-lg
       q-skeleton(
         height="195px"
       )
@@ -14,7 +14,7 @@ div.row.justify-center.col.q-pa-md.q-gutter-sm
       q-skeleton(
         height="195px"
       )
-    q-skeleton.col-6(
+    q-skeleton.col-7(
       height="600px"
     )
   div.col-3.column
