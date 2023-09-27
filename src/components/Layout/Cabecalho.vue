@@ -143,7 +143,7 @@ onBeforeUnmount(() => {
 
 <template lang="pug">
 q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
-  q-img.cursor-pointer.col-2.logo(
+  q-img.cursor-pointer.col-2.logo.q-ml-md(
     :src="srcLogo"
     spinner-color="white"
     @click="openInicialPage"
