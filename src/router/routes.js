@@ -30,6 +30,17 @@ const routes = [
         component: () => import("pages/PaginaCategorias.vue")
       }
     ]
+  },
+  {
+    path: "/pesquisa",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: ":pesquisa",
+        name: "pesquisa",
+        component: () => import("pages/PaginaPesquisa.vue")
+      }
+    ]
   }
 ];
 
