@@ -142,40 +142,46 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
-  q-img.cursor-pointer.col-2.logo.q-ml-md(
-    :src="srcLogo"
-    spinner-color="white"
-    @click="openInicialPage"
-  )
-  div.row.q-mr-xl.minimenu(style="flex-wrap: nowrap;")
-    a.q-mr-sm.cursor-pointer.usuario
-      q-icon(
-      :color="corcabecalho"
-      size="sm"
-      name="fa-solid fa-regular fa-user"
+q-toolbar.cabecalho.row.col
+  div.containercabecalho.row.col.flex.q-pt-md
+    div.row.col-2.flex
+      p.col-5
+      q-img.cursor-pointer.col.logo(
+      :src="srcLogo"
+      spinner-color="white"
+      @click="openInicialPage"
       )
-      span.q-ml-sm.text-bold(:style = "{ color : corcabecalho }") Minha conta
-    a.cursor-pointer.carrinho
-      q-icon(
+    div.col
+    div.row.minimenu.flex.q-gutter-sm.col-4.justify-center(
+      style="flex-wrap: nowrap;"
+      )
+      a.cursor-pointer.usuario.row.q-gutter-sm
+        q-icon(
         :color="corcabecalho"
         size="sm"
-        name="fa-solid fa-cart-shopping"
-      )
-        q-badge.text-black.text-bold(
-          v-if="quantidadeCarrinho"
-          floating
-        ) {{ quantidadeCarrinho }}
-      span.q-ml-md.text-bold(:style = "{ color : corcabecalho }") Meu carrinho
-    .botaomenu
-      q-btn(
-        flat
-        @click="drawer = !drawer"
-        round
-        dense
-        icon="menu"
-        :color="corcabecalho"
-      )
+        name="fa-solid fa-regular fa-user"
+        )
+        span.text-bold.col(:style = "{ color : corcabecalho }") Minha conta
+      a.cursor-pointer.carrinho.row.q-gutter-sm
+        q-icon(
+          :color="corcabecalho"
+          size="sm"
+          name="fa-solid fa-cart-shopping"
+        )
+          q-badge.text-black.text-bold(
+            v-if="quantidadeCarrinho"
+            floating
+          ) {{ quantidadeCarrinho }}
+        span.text-bold(:style = "{ color : corcabecalho }") Meu carrinho
+      div.botaomenu.row
+        q-btn(
+          flat
+          @click="drawer = !drawer"
+          round
+          dense
+          icon="menu"
+          :color="corcabecalho"
+        )
 .multimenu
   q-drawer(
     behavior="mobile"
@@ -199,15 +205,22 @@ q-toolbar.cabecalho.q-pa-md.row.justify-between.q-mx-md
 </template>
 
 <style scoped>
-a {
-  color: black;
-}
-.logo {
-  max-width:180px;
-  max-height: 60px
-}
+
 .cabecalho {
   max-height: 70px;
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+.containercabecalho{
+  align-items: center;
+}
+.logo{
+  max-width: 133px;
+  display: block;
 }
 
 .q-icon .q-badge {
@@ -226,8 +239,7 @@ a {
 }
 @media screen and (max-width: 1150px) {
   .logo{
-    max-width: 90px;
-    max-height: 30px
+    width: 233px;
   }
   span{
     display:none

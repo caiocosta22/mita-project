@@ -5,8 +5,6 @@ import axios from "axios";
 
 const router = useRouter();
 
-const showMenu = ref(false);
-const showThisMenu = ref("VIAGENS");
 const productTyped = ref("");
 const productsSearched = ref([]);
 const itsLoading = ref(true);
@@ -55,16 +53,6 @@ const correctStyle = computed(() => {
   return { color: "" };
 });
 
-function openMenu (name) {
-  showMenu.value = true;
-  showThisMenu.value = name;
-}
-
-function closeMenu (name) {
-  showMenu.value = false;
-  showThisMenu.value = "";
-}
-
 async function searchProducts () {
   try {
     let data = [];
@@ -109,74 +97,64 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-.nav.row.q-pa-sm.q-mt-mb-xl(
+.containernav.col.row.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.col-12.q-gutter-sm.justify-evenly
+  q-toolbar.col-10.row.q-gutter-sm.justify-evenly.q-pr-md
     template(
       v-for="categorie in categoriesBase"
       :key="categorie.name"
     )
-      template(
-        v-if="categorie.children?.length"
-      )
-        p.text-bold.cursor-pointer(
-          unelevated
-          @mouseover="openMenu(categorie.name)"
-        ) {{ categorie.name }}
-          template(
-            v-if="categorie.name == showThisMenu"
-          )
-            q-menu.cursor-pointer(
-              v-model="showMenu"
-              @mouseleave="closeMenu(categorie.name)"
-            )
-              q-list(style="min-width: 100px")
-                template(
-                  v-for="child in categorie.children"
-                  :key="child.name"
-                )
-                  q-item
-                    q-item-section {{ child.name }}
-                  q-separator
-      template(
-        v-else
-      )
-        p.text-bold.cursor-pointer(
+      p.text-bold.cursor-pointer.row(
           @click="openCategoryPage(categorie)"
+          style=" font-size: 14px;"
         ) {{ categorie.name }}
-    q-input.col-3.text-black.busca.q-pb-md(
-      v-model="productTyped"
-      type="search"
-      label
-      debounce="500"
-      color="black"
-      :bg-color="backgroundsearchColor"
-      @update:model-value="searchProducts()"
-      ref="inputRef"
-    )
-      template(v-slot:label)
-        .text-bold.textobusca(
-          :style="correctStyle"
-        ) O QUE ESTÁ BUSCANDO
-      template(v-slot:append)
-        q-icon(
-          size="md"
-          :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
-          name="search"
-          style="transition: 1s;"
-        )
+    div.col-4.row
+      q-input.text-black.busca.q-pb-md.col-6(
+        v-model="productTyped"
+        type="search"
+        label
+        debounce="500"
+        color="black"
+        :bg-color="backgroundsearchColor"
+        @update:model-value="searchProducts()"
+        ref="inputRef"
+      )
+        template(v-slot:label)
+          .text-bold.textobusca(
+            :style="correctStyle"
+        )  O QUE ESTÁ BUSCANDO
+        template(v-slot:append)
+          q-icon(
+            size="md"
+            :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
+            name="search"
+            style="transition: 1s;"
+          )
 </template>
 <style scoped>
 a{
   cursor: pointer;
   font-weight: bold;
 }
+p{
+  font-size: 14px;
+}
 .menu{
   font-weight:bolder;
 }
 .textobusca{
   transition: 1s;
+}
+.containernav{
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  align-items: center;
+  text-align: center;
 }
 @media screen and (max-width: 1150px) {
   .nav{
