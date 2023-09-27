@@ -3,40 +3,33 @@
 
 <template lang="pug">
 div.row.justify-center.col.q-pa-md
-  //- div.column.col-2.q-gutter-md
-  //-   q-skeleton.col-1(
-  //-     heigth="150px"
-  //-   )
-  //-   q-skeleton.col-6(
-  //-     heigth="600px"
-  //-   )
-  div.col-11.row.q-gutter-xl.q-pl-xl
+  div.col-12.row.q-gutter-xl.q-pl-xl.q-mt-xl
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
     q-skeleton.col-3(
-      height="300px"
+      height="500px"
     )
 </template>
 
