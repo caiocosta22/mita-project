@@ -191,7 +191,7 @@ div.container.q-gutter-md
         v-else
       )
         div.row
-          span.text-black.text-bold(style="font-size: 16px;") R$: {{ produto.valor }}
+          span.text-black.text-bold(style="font-size: 20px;") R$: {{ produto.valor }}
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
