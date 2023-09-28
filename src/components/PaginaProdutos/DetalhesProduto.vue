@@ -181,11 +181,17 @@ div.container.q-gutter-md
           )
     div.justify-between.row.q-pb-sm.q-pt-sm
       .destaque VALOR
-      .destaque R$ {{ produto.valor }}
       template(
         v-if="produto.promocao"
       )
-        .destaque.justify-end valordesconto
+        div.column
+          span.text-black.text-bold.text-center(style="font-size: 16px; text-decoration: line-through") De R$:{{ produto.valor }}
+          span.text-black.text-bold(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
+      template(
+        v-else
+      )
+        div.row
+          span.text-black.text-bold(style="font-size: 16px;") R$: {{ produto.valor }}
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
