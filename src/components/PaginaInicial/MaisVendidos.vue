@@ -11,7 +11,7 @@ const currentOffset = ref(0);
 const router = useRouter();
 const itemsOfApi = ref([]);
 const windowSize = 4;
-const paginationFactor = 340;
+const paginationFactor = 382;
 const items = ref([
   {
     name: "Case para Iphone",
@@ -112,10 +112,9 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div
-  div.titulo MAIS VENDIDOS
+div.row
   div.card-carousel-wrapper.col.carrosselantigo
-    q-icon.cursor-pointer.q-mr-sm(
+    q-icon.cursor-pointer.q-mb-xl(
       name="chevron_left"
       size="2.5em"
       color="black"
@@ -162,7 +161,7 @@ div
                       v-for="produto in subsec.produtos"
                       :key="produto"
                     )
-                      div.card-carousel--card--footer.q-pa-sm.text-black.text-bold(
+                      div.card-carousel--card--footer.q-px-md.text-black.text-bold(
                         @click="openProductPage(produto)"
                       )
                         q-img.image.cursor-pointer(
@@ -183,7 +182,7 @@ div
                               p.tag.text-black.q-py-lg.q-pr-md(style="font-size: 20px;") R$: {{ produto.valor }}
               template(v-if="item.orientacao === 'vertical'")
                 p Lógica para vertical aqui!!!
-    q-icon.cursor-pointer.q-ml-md(
+    q-icon.cursor-pointer.q-mb-xl.q-ml-sm(
       name="chevron_right"
       size="2.5em"
       color="black"
@@ -209,8 +208,8 @@ div
   border-radius: 4px !important;
   transition: opacity 150ms linear !important;
   user-select: none !important;
-  height: 320px !important;
-  width: 320px !important;
+  height: 350px !important;
+  width: 350px !important;
 }
 * {
   color: black;

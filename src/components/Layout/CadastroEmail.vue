@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-div.container.col
+div.container.col.q-pt-md
   div.row.email.fit.col-10.q-gutter-sm.q-pa-sm
     div.texto.column.flex.text-start.col-2.q-pl-sm Cadastre-se em nossa Lista Vip <br> Fique por dentro de tudo que acontece e receba<br>novidades e ofertas exclusivas!
     q-input.col-3(standout v-model="text" label="Digite seu nome" bg-color="white" color="black" label-color="black" text="black" outlined)

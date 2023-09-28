@@ -53,17 +53,13 @@ const correctStyle = computed(() => {
   return { color: "" };
 });
 
-async function searchProducts () {
-  try {
-    let data = [];
-    if (productTyped.value) {
-      data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtroBuscaV2/${productTyped.value}/-1/1/false/-1`).then(e => e.data);
-    }
-    if (data.content && data.content.length) productsSearched.value = data.content;
-  } catch (e) {
-    console.error(e);
+function redirectToSearchPage () {
+  if (productTyped.value) {
+    const url = "/pesquisa/" + productTyped.value;
+    router.push(url);
   }
 }
+
 const backgroundsearchColor = ref("rgba(0,0,0,0)");
 
 async function searchCategories () {
@@ -116,8 +112,8 @@ onBeforeMount(async () => {
         label
         debounce="500"
         color="black"
+        @keypress.enter="redirectToSearchPage()"
         :bg-color="backgroundsearchColor"
-        @update:model-value="searchProducts()"
         ref="inputRef"
       )
         template(v-slot:label)
@@ -127,6 +123,7 @@ onBeforeMount(async () => {
         template(v-slot:append)
           q-icon(
             size="md"
+            @click="redirectToSearchPage()"
             :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
             name="search"
             style="transition: 1s;"
