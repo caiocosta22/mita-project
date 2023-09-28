@@ -96,7 +96,7 @@ onBeforeMount(async () => {
 .containernav.col.row.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.col-10.row.q-mr-md
+  q-toolbar.col-10.row.q-mr-md.nav
     div.row.col.justify-evenly.col-10
       template(
         v-for="categorie in categoriesBase"
