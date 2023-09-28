@@ -142,9 +142,9 @@ div.row.col.justify-center.q-pt-md
                     template(
                       v-if="produto.promocao"
                     )
-                      div.row
-                        span.text-black.text-bold(style="font-size: 16px;") De R$:{{ produto.valor }}
-                        span.text-black.text-bold(style="font-size: 16px;") Por R$: {{ produto.precoPromocional }}
+                      div.column
+                        span.text-black.text-bold(style="font-size: 16px; text-decoration: line-through") De R$:{{ produto.valor }}
+                        span.text-black.text-bold(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
                     template(
                       v-else
                     )

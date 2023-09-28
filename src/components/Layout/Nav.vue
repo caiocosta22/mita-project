@@ -107,8 +107,8 @@ onBeforeMount(async () => {
           style=" font-size: 14px;"
         ) {{ categorie.name }}
         div.col
-    div.col-4.row
-      q-input.text-black.busca.q-pb-md.col-5(
+    div.col-5.row
+      q-input.text-black.busca.q-pb-md.col-9(
         v-model="productTyped"
         type="search"
         label

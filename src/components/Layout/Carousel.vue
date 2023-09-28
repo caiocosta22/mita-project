@@ -133,9 +133,6 @@ onBeforeMount(async () => {
 </template>
 
 <style>
-.carousel__slide {
-}
-
 .carousel__prev,
 .carousel__next {
   box-sizing: content-box;
