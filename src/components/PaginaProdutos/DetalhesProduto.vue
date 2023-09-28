@@ -145,11 +145,11 @@ div.container.q-gutter-md
         style="width: 545px; height: 645px;border-radius: 4px;border-top-right-radius: 4px"
       )
         .text-on-image {{ text1 }}
-  div.containerdetalhes.q-pa-md
-    div
+  div.containerdetalhes.q-py-md
+    div.column
       div.row.justify-between
         span.tituloprod {{ produto.descricao }}
-        div.q-gutter-sm
+        div.q-gutter-sm.q-pt-sm
           q-icon.cursor-pointer(
             :color="black"
             size="sm"
