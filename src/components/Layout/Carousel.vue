@@ -4,50 +4,6 @@ import { Carousel, Navigation, Slide } from "vue3-carousel";
 import axios from "axios";
 import "vue3-carousel/dist/carousel.css";
 
-const items = ref([
-  {
-    name: "Case para Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Necessaire veneza pequena",
-    image: "Bolsa",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Chaveiro em couro para chave de carro",
-    image: "Chavecarro",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Carteira feminina",
-    image: "Carteira",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  }
-]);
 const itemsOfApi = ref([]);
 const settings = ref({
   itemsToShow: 1,
@@ -98,28 +54,40 @@ onBeforeMount(async () => {
       v-for="(item, index) in itemsOfApi"
       :key="index"
     )
-    template(v-if="item.orientacao === 'horizontal'")
-      template(
-        v-if="item.subsecoesEcommerce"
-      )
+      template(v-if="item.orientacao === 'horizontal'")
         template(
-          v-for="subsec in item.subsecoesEcommerce"
-          :key="subsec"
+          v-if="item.subsecoesEcommerce"
         )
           template(
-            v-if="subsec.produtos"
+            v-for="subsec in item.subsecoesEcommerce"
+            :key="subsec"
           )
-            Slide(
-              v-for="produto in subsec.produtos"
-              :key="produto"
+            template(
+              v-if="subsec.produtos"
             )
-              div(
-                class="carousel__item"
+              Slide(
+                v-for="produto in subsec.produtos"
+                :key="produto"
               )
-                q-img(
-                  :src="produto.fotosServico[0].foto"
+                div(
+                  class="carousel__item"
                 )
-              p 10
+                  div.col.full-width.full-height
+                    q-img.col-8(
+                      :src="produto.fotosServico[0].foto"
+                    )
+                    div.row.justify-between.cursor-pointer.q-py-lg(style="font-size:18px")
+                      p.text-black.text-bold {{ produto.titulo }}
+                      template(
+                        v-if="produto.promocao"
+                      )
+                        div
+                          div.tag.text-black.text-bold(style="font-size: 16px;") De R$:{{ produto.valor }}
+                          p.tag.text-black.text-bold(style="font-size: 18px;") Por R$: {{ produto.precoPromocional }}
+                      template(
+                        v-else
+                      )
+                        p.text-black.text-bold(style="font-size: 20px;") R$: {{ produto.valor }}
     template(#addons)
       Navigation
 </template>
