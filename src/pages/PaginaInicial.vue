@@ -2,7 +2,6 @@
 import Promocional from "../components/PaginaInicial/Promocional.vue";
 import Categorias from "../components/PaginaInicial/Categorias.vue";
 import Vendidos from "../components/PaginaInicial/MaisVendidos.vue";
-import Carousel from "src/components/Layout/Carousel.vue";
 import Banner from "../components/PaginaInicial/Banner.vue";
 import Marketing from "../components/Layout/Marketing.vue";
 import Topbar from "../components/Layout/Topbar.vue";
@@ -50,7 +49,6 @@ q-page-container.column
   Promocional
   Categorias
   Vendidos
-  Carousel
   Marketing
   q-header.header( :style="{ backgroundColor: headerBackgroundColor }")
     Topbar

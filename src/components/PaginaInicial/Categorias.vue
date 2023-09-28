@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import necessaire from "../../assets/imgs/1.png";
@@ -10,10 +12,7 @@ import garrafa from "../../assets/imgs/5.png";
 import carteira from "../../assets/imgs/6.png";
 
 const router = useRouter();
-const currentOffset = ref(0);
 const hasItems = ref(true);
-const windowSize = 6;
-const paginationFactor = 220;
 const items = ref([
   {
     name: "NECESSAIRES",
@@ -52,22 +51,28 @@ const items = ref([
     image: chaveiro
   }
 ]);
-
-const atEndOfList = computed(() => {
-  return currentOffset.value <= (paginationFactor * -1) * (items.value.length - windowSize);
+const settings = ref({
+  itemsToShow: 1,
+  snapAlign: "center"
 });
-
-const atHeadOfList = computed(() => {
-  return currentOffset.value === 0;
-});
-
-const moveCarousel = (direction) => {
-  if (direction === 1 && !atEndOfList.value) {
-    currentOffset.value -= paginationFactor;
-  } if (direction === -1 && !atHeadOfList.value) {
-    currentOffset.value += paginationFactor;
+const breakpoints = ref({
+  368: {
+    itemsToShow: 2.0,
+    snapAlign: "start"
+  },
+  768: {
+    itemsToShow: 3.0,
+    snapAlign: "start"
+  },
+  1200: {
+    itemsToShow: 6.0,
+    snapAlign: "start"
+  },
+  1300: {
+    itemsToShow: 6,
+    snapAlign: "start"
   }
-};
+});
 
 async function searchCategories () {
   try {
@@ -104,65 +109,44 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div(
-  v-if="hasItems"
-)
-  div.q-pt-lg
-    p.titulo CATEGORIAS
-  div.card-carousel-wrapper2
-    q-icon.cursor-pointer.q-mr-sm(
-      name="chevron_left"
-      size="2.5em"
-      color="black"
-      @click="moveCarousel(-1)"
+div.row.col.justify-center.q-py-lg
+  div.col-10.row.justify-start
+    h3.justify-start.text-black CATEGORIAS
+.container.row.col.q-pt-sm.q-mb-md
+  Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
+    template(
+      v-if="hasItems"
     )
-    div.card-carousel2
-      div.card-carousel--overflow-container
-        div.card-carousel-cards(
-          :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
+      Slide.flex.q-pr-sm(
+        v-for="item in items"
+        :key="item"
+      )
+        div.full-width.full-height.column.justify-center(
+          @click="openCategoryPage(item)"
         )
-          div.card-carousel--card(
-            v-for="item in items"
-            :key="item"
-            style="box-shadow:none"
+          q-img.cursor-pointer(
+            v-if="item.image"
+            :src="item.image"
+            style="display: block; max-width: 100%; border-radius: 4px;"
           )
-            img.cursor-pointer(
-              spinner-color="white"
-              @click="openCategoryPage(item)"
-              v-if="item.image"
-              :src="item.image"
-            )
-            div.card-carousel--card--footer.text-bold.text-black.text-center
-              p.q-pa-sm(style="font-size:20px") {{ item.name }}
-              p.tag(v-for="(tag,index) in item.tag" :key="index" :class="index > 0 ? 'secondary' : ''") {{ tag }}
-    q-icon.cursor-pointer.q-ml-md(
-      name="chevron_right"
-      size="2.5em"
-      color="black"
-      @click="moveCarousel(1)"
-    )
+          div.row.col.q-pt-md.justify-center(style="font-size:16px")
+            span.text-black.text-bold.text-center {{ item.name }}
+    template(#addons)
+      Navigation
 </template>
 
 <style scoped>
-.titulo{
-  color: #000;
-  text-align: center;
-  font-family: Catamaran;
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
 }
-img {
-  vertical-align: bottom;
-  border-radius:4px;
-  transition: opacity 150ms linear;
-  user-select: none;
-  height: 200px;
-  width: 200px;
-  aspect-ratio: auto 1920/200 ;
-}
-*{
-  color: black;
+.container{
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom:20px
 }
 </style>

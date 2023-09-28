@@ -1,87 +1,75 @@
 <script setup>
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
 import { useRouter } from "vue-router";
-import axios from "axios";
-import Capaiphone from "../../assets/imgs/CAPAIPHONE.png";
-import Bolsa from "../../assets/imgs/BOLSA.png";
-import Carteira from "../../assets/imgs/CARTEIRA.png";
-import Chavecarro from "../../assets/imgs/CHAVECARRO.png";
-
-const currentOffset = ref(0);
 const router = useRouter();
-const itemsOfApi = ref([]);
-const windowSize = 4;
-const paginationFactor = 382;
+import axios from "axios";
+import "vue3-carousel/dist/carousel.css";
+
 const items = ref([
   {
     name: "Case para Iphone",
-    image: Capaiphone,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Capaiphone",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Necessaire veneza pequena",
-    image: Bolsa,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Bolsa",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Chaveiro em couro para chave de carro",
-    image: Chavecarro,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Chavecarro",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Carteira feminina",
-    image: Carteira,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Carteira",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Case Iphone",
-    image: Capaiphone,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Capaiphone",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Case Iphone",
-    image: Capaiphone,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Capaiphone",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   },
   {
     name: "Case Iphone",
-    image: Capaiphone,
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+    image: "Capaiphone",
+    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+    src: "../../assets/imgs/capaiphone.png"
   }
 ]);
-
-const productsApiLength = computed(() => {
-  let countProducts = 0;
-  itemsOfApi.value.forEach(item => {
-    if (item.subsecoesEcommerce) {
-      item.subsecoesEcommerce.forEach(sub => {
-        if (sub.produtos) {
-          countProducts += sub.produtos.length;
-        }
-      });
-    }
-  });
-  return countProducts;
+const itemsOfApi = ref([]);
+const settings = ref({
+  itemsToShow: 1,
+  snapAlign: "center"
 });
-
-const atEndOfList = computed(() => {
-  if (!itemsOfApi.value.length) return currentOffset.value <= (paginationFactor * -1) * (items.value.length - windowSize);
-  return currentOffset.value <= (paginationFactor * -1) * (productsApiLength.value - windowSize);
-});
-
-const atHeadOfList = computed(() => {
-  return currentOffset.value === 0;
-});
-
-const moveCarousel = (direction) => {
-  if (direction === 1 && !atEndOfList.value) {
-    currentOffset.value -= paginationFactor;
-  } if (direction === -1 && !atHeadOfList.value) {
-    currentOffset.value += paginationFactor;
+const breakpoints = ref({
+  368: {
+    itemsToShow: 2.0,
+    snapAlign: "start"
+  },
+  1200: {
+    itemsToShow: 3.0,
+    snapAlign: "start"
+  },
+  1300: {
+    itemsToShow: 4,
+    snapAlign: "start"
   }
-};
+});
 
-// eslint-disable-next-line no-unused-vars
 async function searchBestSellers () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
@@ -92,11 +80,17 @@ async function searchBestSellers () {
       // Nao encontrei na api q deixaram
       const bestSellers = data.filter(sellers => sellers.chave === "SESSAO_3");
       itemsOfApi.value = bestSellers;
+      console.log(itemsOfApi.value);
     }
   } catch (e) {
     console.error(e);
   }
 }
+
+onBeforeMount(async () => {
+  //! A Definir
+  await searchBestSellers();
+});
 
 function openProductPage (product) {
   if (product.slug) {
@@ -112,107 +106,69 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.row
-  div.card-carousel-wrapper.col.carrosselantigo
-    q-icon.cursor-pointer.q-mb-xl(
-      name="chevron_left"
-      size="2.5em"
-      color="black"
-      @click="moveCarousel(-1)"
+div.row.col.justify-center.q-pt-md
+  div.col-10.row.justify-start
+    h3.justify-start.text-black MAIS VENDIDOS
+.container.row.col
+  Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
+    template(
+      v-for="(item, index) in itemsOfApi"
+      :key="index"
     )
-    div.card-carousel(
-      v-if="!itemsOfApi.length"
-    )
-      div.card-carousel--overflow-container
-        div.card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
-          div.card-carousel--card(v-for="item in items" :key="item")
-            img.image(:src="item.image")
-            div.card-carousel--card--footer.q-pa-sm.text-black
-              p {{ item.name }}
-              p.tag.text-bold(
-                v-for="(tag, index) in item.tag"
-                :key="index"
-                :class="index > 0 ? 'secondary' : ''"
-                @click="openProductPage(item)"
-              ) {{ tag }}
-    div.card-carousel(
-      v-else
-    )
-      div.card-carousel--overflow-container
-        div.card-carousel-cards(
-          :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}"
+      template(v-if="item.orientacao === 'horizontal'")
+        template(
+          v-if="item.subsecoesEcommerce"
         )
           template(
-            v-for="(item, index) in itemsOfApi"
-            :key="index"
+            v-for="subsec in item.subsecoesEcommerce"
+            :key="subsec"
           )
-            template(v-if="item.orientacao === 'horizontal'")
-              template(
-                v-if="item.subsecoesEcommerce"
+            template(
+              v-if="subsec.produtos"
+            )
+              Slide.flex.q-pr-sm(
+                v-for="produto in subsec.produtos"
+                :key="produto"
               )
-                template(
-                  v-for="subsec in item.subsecoesEcommerce"
-                  :key="subsec"
+                div.full-width.full-height.column.justify-center.cursor-pointer(
+                  @click="openProductPage(produto)"
                 )
-                  template(
-                    v-if="subsec.produtos"
+                  q-img.cursor-pointer(
+                    :src="produto.fotosServico[0].foto"
+                    style="display: block; max-width: 100%; border-radius: 4px;"
                   )
+                  div.row.justify-between.col.q-pt-sm(style="font-size:16px")
+                    span.text-black.text-bold {{ produto.titulo }}
                     template(
-                      v-for="produto in subsec.produtos"
-                      :key="produto"
+                      v-if="produto.promocao"
                     )
-                      div.card-carousel--card--footer.q-px-md.text-black.text-bold(
-                        @click="openProductPage(produto)"
-                      )
-                        q-img.image.cursor-pointer(
-                          v-if="produto.fotosServico[0].foto"
-                          :src="produto.fotosServico[0].foto"
-                        )
-                        div.row.justify-between.cursor-pointer
-                          .q-py-lg(style="font-size:18px") {{ produto.titulo }}
-                          template(
-                          v-if="produto.promocao"
-                        )
-                            div.column.q-pa-md.q-pr-md
-                              div.tag.text-black(style="font-size: 16px;") De R$:{{ produto.valor }}
-                              p.tag.text-black(style="font-size: 18px;") Por R$: {{ produto.precoPromocional }}
-                          template(
-                          v-else
-                        )
-                              p.tag.text-black.q-py-lg.q-pr-md(style="font-size: 20px;") R$: {{ produto.valor }}
-              template(v-if="item.orientacao === 'vertical'")
-                p Lógica para vertical aqui!!!
-    q-icon.cursor-pointer.q-mb-xl.q-ml-sm(
-      name="chevron_right"
-      size="2.5em"
-      color="black"
-      @click="moveCarousel(1)"
-    )
+                      div.row
+                        span.text-black.text-bold(style="font-size: 16px;") De R$:{{ produto.valor }}
+                        span.text-black.text-bold(style="font-size: 16px;") Por R$: {{ produto.precoPromocional }}
+                    template(
+                      v-else
+                    )
+                      div.row
+                        span.text-black.text-bold(style="font-size: 16px;") R$: {{ produto.valor }}
+    template(#addons)
+      Navigation
 </template>
 
 <style scoped>
-.carroselantigo{
-  display: none;
+.carousel__slide {
 }
-.titulo{
-  color: #000;
-  text-align: center;
-  font-family: Catamaran;
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-  }
-.image {
-  vertical-align: bottom !important;
-  border-radius: 4px !important;
-  transition: opacity 150ms linear !important;
-  user-select: none !important;
-  height: 350px !important;
-  width: 350px !important;
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
 }
-* {
-  color: black;
+.container{
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom:20px
 }
 
 </style>

@@ -96,17 +96,19 @@ onBeforeMount(async () => {
 .containernav.col.row.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.col-10.row.q-gutter-sm.justify-evenly.q-pr-md
-    template(
-      v-for="categorie in categoriesBase"
-      :key="categorie.name"
-    )
-      p.text-bold.cursor-pointer.row(
+  q-toolbar.col-10.row.q-mr-md
+    div.row.col.justify-evenly.col-8
+      template(
+        v-for="categorie in categoriesBase"
+        :key="categorie.name"
+      )
+        p.text-bold.cursor-pointer.row(
           @click="openCategoryPage(categorie)"
           style=" font-size: 14px;"
         ) {{ categorie.name }}
+        div.col
     div.col-4.row
-      q-input.text-black.busca.q-pb-md.col-6(
+      q-input.text-black.busca.q-pb-md.col-5(
         v-model="productTyped"
         type="search"
         label
