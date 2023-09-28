@@ -97,7 +97,7 @@ onBeforeMount(async () => {
   v-show="!itsLoading"
 )
   q-toolbar.col-10.row.q-mr-md
-    div.row.col.justify-evenly.col-8
+    div.row.col.justify-evenly.col-10
       template(
         v-for="categorie in categoriesBase"
         :key="categorie.name"
@@ -107,8 +107,8 @@ onBeforeMount(async () => {
           style=" font-size: 14px;"
         ) {{ categorie.name }}
         div.col
-    div.col-5.row
-      q-input.text-black.busca.q-pb-md.col-9(
+    div.col-2.row
+      q-input.text-black.busca.q-pb-md.col-12(
         v-model="productTyped"
         type="search"
         label
