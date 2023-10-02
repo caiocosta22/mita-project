@@ -188,8 +188,8 @@ div.container.q-gutter-md
           p
           .destaque VALOR
         div.column(style="display:flex;text-align:right")
-          span.text-black(style="font-size: 18px; text-decoration: line-through") De R$:{{ produto.valor }}
-          span.text-black.text-bold(style="font-size: 24px;") Por R$: {{ produto.precoPromocional }}
+          span.text-black(style="font-size: 18px; text-decoration: line-through") R$:{{ produto.valor }}
+          span.text-black.text-bold(style="font-size: 24px;") R$: {{ produto.precoPromocional }}
       template(
         v-else
       )
