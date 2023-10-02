@@ -123,8 +123,10 @@ watch(() => pageIndex.value, (val) => {
           @click="openProductPage(item)"
         )
         div.row.justify-between.q-pt-sm
-          p.texto {{ item.name }}
-          p.texto2(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
+          div.column(style="width:50%;text-align:left;font-size:14px")
+            span.text-black {{ item.name }}
+          div.column(style="width:50%; text-align:right;font-size:12px")
+            span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
 </template>
 
 <style scoped>
@@ -150,11 +152,11 @@ watch(() => pageIndex.value, (val) => {
 
 .texto {
   color:black;
-  font-size:18px;
+  font-size:12px;
 }
 .texto2 {
   color:black;
-  font-size: 20px;
+  font-size: 12px;
 }
 @media screen and (max-width: 936px) {
   .containerfoto{
