@@ -137,19 +137,20 @@ div.row.col.justify-center.q-pt-md
                     :src="produto.fotosServico[0].foto"
                     style="display: block; max-width: 100%; border-radius: 4px;"
                   )
-                  div.row.justify-between.col.q-pt-sm(style="font-size:16px")
-                    span.text-black.text-bold {{ produto.titulo }}
+                  div.row.justify-between.col.q-pt-sm(style="font-size:14px")
+                    span.text-black {{ produto.titulo }}
                     template(
                       v-if="produto.promocao"
                     )
                       div.column
-                        span.text-black.text-bold(style="font-size: 16px; text-decoration: line-through") De R$:{{ produto.valor }}
-                        span.text-black.text-bold(style="font-size: 20px;") Por R$: {{ produto.precoPromocional }}
+                        span.text-black(style="font-size: 12px; text-decoration: line-through") R$:{{ produto.valor }}
+                        span.text-black(style="font-size: 12px;") R$: {{ produto.precoPromocional }}
+                        span.text-black(style="font-size: 12px") ou {{ produto.coligada.numeroParcelas }}x de
                     template(
                       v-else
                     )
                       div.row
-                        span.text-black.text-bold(style="font-size: 16px;") R$: {{ produto.valor }}
+                        span.text-black(style="font-size: 16px;") R$: {{ produto.valor }}
     template(#addons)
       Navigation
 </template>

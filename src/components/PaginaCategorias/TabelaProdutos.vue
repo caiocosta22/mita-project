@@ -150,13 +150,11 @@ watch(() => pageIndex.value, (val) => {
 
 .texto {
   color:black;
-  font-weight:700;
   font-size:18px;
 }
 .texto2 {
   color:black;
   font-size: 20px;
-  font-weight: 700;
 }
 @media screen and (max-width: 936px) {
   .containerfoto{

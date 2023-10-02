@@ -130,7 +130,7 @@ div.row.col.justify-center.q-py-lg
             style="display: block; max-width: 100%; border-radius: 4px;"
           )
           div.row.col.q-pt-md.justify-center(style="font-size:16px")
-            span.text-black.text-bold.text-center {{ item.name }}
+            span.text-black.text-center {{ item.name }}
     template(#addons)
       Navigation
 </template>
