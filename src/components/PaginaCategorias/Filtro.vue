@@ -37,6 +37,7 @@ div.column.filtro(
         :label="categorie.descricao"
         text-color="black"
         color="black"
+        size="sm"
       )
 </template>
 
