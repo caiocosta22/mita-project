@@ -41,6 +41,17 @@ const routes = [
         component: () => import("pages/PaginaPesquisa.vue")
       }
     ]
+  },
+  {
+    path: "/login",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: ":login",
+        name: "login",
+        component: () => import("pages/PaginaLogin.vue")
+      }
+    ]
   }
 ];
 

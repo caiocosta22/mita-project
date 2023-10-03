@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import Produtos from "../components/PaginaCategorias/TabelaProdutos.vue";
+import Produtos from "../components/Layout/TabelaPesquisa.vue";
 import axios from "axios";
 
 const route = useRoute();
@@ -73,4 +73,5 @@ q-page-container
 </template>
 
 <style scoped>
+
 </style>
