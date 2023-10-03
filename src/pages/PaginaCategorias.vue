@@ -87,7 +87,7 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-q-page-container.row.q-pa-md.q-gutter-md.q-ml-md(style="flex-wrap:nowrap")
+q-page-container.container.q-gutter-md(style="flex-wrap:nowrap")
   Filtro(
     :categories="categoriesBase"
     :pickedCategorie="route.params.categoria"
@@ -109,4 +109,10 @@ q-page-container.row.q-pa-md.q-gutter-md.q-ml-md(style="flex-wrap:nowrap")
 </template>
 
 <style scoped>
+.container{
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: 0 auto;
+}
 </style>

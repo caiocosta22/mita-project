@@ -22,7 +22,7 @@ watch(() => categorieModel.value, val => {
 
 </script>
 <template lang="pug">
-div.column.filtro.q-pa-lg(
+div.column.filtro(
 )
   label.text-bold(style="font-size:1.5em;;") Categorias
   q-separator.q-mb-md(color="black")
@@ -43,7 +43,7 @@ div.column.filtro.q-pa-lg(
 <style scoped>
 .filtro{
   display: flex;
-  width: 22.5%;
+  width: 18%;
 }
 @media screen and (max-width: 892px) {
   .filtro{

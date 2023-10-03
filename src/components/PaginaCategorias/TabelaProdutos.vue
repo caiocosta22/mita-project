@@ -94,10 +94,10 @@ watch(() => pageIndex.value, (val) => {
       style="width:1240px; height:164px"
     )
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
-  div.containertabela.q-pa-md
-    div.row.paginacao
+  div.containertabela.q-py-md
+    div.row.paginacao.q-px-sm
       p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
-      div.row.q-gutter-sm.end
+      div.row.q-gutter-sm
         q-icon.cursor-pointer(
           name="chevron_left"
           size="1.5em"
@@ -119,7 +119,7 @@ watch(() => pageIndex.value, (val) => {
       )
         q-img.cursor-pointer.foto(
           :src="item.image"
-          style="border-radius: 4px;border-radius: 4px"
+          style="border-radius: 4px;"
           @click="openProductPage(item)"
         )
         div.row.justify-between.q-pt-sm
@@ -133,7 +133,7 @@ watch(() => pageIndex.value, (val) => {
 .containertabela{
   display: flex;
   flex-wrap: wrap;
-  max-width: 1280px;
+  max-width: 1312px;
   margin: 0 auto;
 }
 .containerfoto{
@@ -148,6 +148,7 @@ watch(() => pageIndex.value, (val) => {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin: 0 auto
 }
 
 .texto {
