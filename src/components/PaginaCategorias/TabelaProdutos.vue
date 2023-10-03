@@ -133,11 +133,11 @@ watch(() => pageIndex.value, (val) => {
 .containertabela{
   display: flex;
   flex-wrap: wrap;
-  max-width: 1312px;
+  max-width: 1313px;
   margin: 0 auto;
 }
 .containerfoto{
-  flex: 1 1 300px;
+  flex: 1 1 313px;
   margin: 10px;
 }
 .foto {
