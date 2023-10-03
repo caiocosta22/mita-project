@@ -35,17 +35,20 @@ div.container.col.q-pt-md
   display: flex;
   flex-direction: column;
 }
+.texto{
+  padding: 0;
+}
 .email>div{
-  width: 85%;
+  width: 84%;
 }
 .nomeinput{
-  width: 85%;
+  width: 84%;
 }
 .emailinput{
-  width: 85%;
+  width: 84%;
 }
 .botao{
-  width: 85%;
+  width: 84%;
 }
 }
 
