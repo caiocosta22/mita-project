@@ -110,9 +110,9 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.row.col.justify-center.q-pt-md
-  div.col-10.row.justify-start
-    h3.justify-start.text-black MAIS VENDIDOS
+div.row.col.justify-center.q-pt-md(style="align-items:center")
+  div.col-10.row.justify-start.q-pt-sm
+    .sessao.justify-start.text-black MAIS VENDIDOS
 .container.row.col
   Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
     template(
@@ -161,7 +161,14 @@ div.row.col.justify-center.q-pt-md
 </template>
 
 <style scoped>
-.carousel__slide {
+.sessao{
+  color: #000;
+  text-align: center;
+  font-family: Catamaran;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
 }
 
 .carousel__prev,
@@ -174,7 +181,7 @@ div.row.col.justify-center.q-pt-md
   justify-content: center;
   position: relative;
   width: 100%;
-  margin-bottom:20px
+  margin-bottom:20px;
 }
 
 </style>

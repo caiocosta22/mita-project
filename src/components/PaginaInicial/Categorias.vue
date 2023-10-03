@@ -111,7 +111,7 @@ onBeforeMount(async () => {
 <template lang="pug">
 div.row.col.justify-center.q-py-lg
   div.col-10.row.justify-start
-    h3.justify-start.text-black CATEGORIAS
+    .sessao.justify-start.text-black CATEGORIAS
 .container.row.col.q-pt-sm.q-mb-md
   Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
     template(
@@ -148,5 +148,14 @@ div.row.col.justify-center.q-py-lg
   position: relative;
   width: 100%;
   margin-bottom:20px
+}
+.sessao{
+  color: #000;
+  text-align: center;
+  font-family: Catamaran;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
 }
 </style>
