@@ -95,7 +95,7 @@ watch(() => pageIndex.value, (val) => {
     )
   //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
   div.containertabela.q-py-md
-    div.row.paginacao.q-px-sm
+    div.row.paginacao.q-px-sm.q-pt-xl
       p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm
         q-icon.cursor-pointer(
