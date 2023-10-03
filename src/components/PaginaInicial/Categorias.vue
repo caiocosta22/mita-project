@@ -69,7 +69,7 @@ const breakpoints = ref({
     snapAlign: "start"
   },
   1300: {
-    itemsToShow: 6,
+    itemsToShow: 6.0,
     snapAlign: "start"
   }
 });

@@ -63,49 +63,50 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
           size="md"
           name="fa-brands fa-whatsapp"
         )
-div.rodape2
-  q-expansion-item.listas.text-bold(
-    expand-separator
-    label="Institucional"
-  )
-    q-card.listas
-      q-card-section
-        a(href="#") A empresa
-      q-card-section
-        a(href="#") Política de Entrega
-      q-card-section
-        a(href="#") Privacidade e Segurança
-      q-card-section
-        a(href="#") Trocas e Devoluções
-  q-expansion-item.listas.text-bold(
-    expand-separator
-    label="Minha Conta"
-  )
-    q-card.listas
-      q-card-section
-        a(href="#") Perfil
-      q-card-section
-        a(href="#") Meus pedidos
-      q-card-section
-        a(href="#") Meu carrinho
-  q-expansion-item.listas.text-bold(
-    expand-separator
-    label="Ajuda e suporte"
-  )
-    q-card.listas
-      q-card-section
-        a(href="#") Nosso chat
-  q-expansion-item.listas.text-bold(
-    expand-separator
-    label="Contato"
-  )
-    q-card.listas
-      q-card-section
-        p atendimento@mita.com.br
-      q-card-section
-        p (00)00000-0000
-      q-card-section
-        p Atendimento: <br> Segunda à sexta, de 9h as 17h.
+div.rodape2.col.column
+  div.containerrodape2
+    q-expansion-item.listas.text-bold(
+      expand-separator
+      label="Institucional"
+    )
+      q-card.listas
+        q-card-section
+          a(href="#") A empresa
+        q-card-section
+          a(href="#") Política de Entrega
+        q-card-section
+          a(href="#") Privacidade e Segurança
+        q-card-section
+          a(href="#") Trocas e Devoluções
+    q-expansion-item.listas.text-bold(
+      expand-separator
+      label="Minha Conta"
+    )
+      q-card.listas
+        q-card-section
+          a(href="#") Perfil
+        q-card-section
+          a(href="#") Meus pedidos
+        q-card-section
+          a(href="#") Meu carrinho
+    q-expansion-item.listas.text-bold(
+      expand-separator
+      label="Ajuda e suporte"
+    )
+      q-card.listas
+        q-card-section
+          a(href="#") Nosso chat
+    q-expansion-item.listas.text-bold(
+      expand-separator
+      label="Contato"
+    )
+      q-card.listas
+        q-card-section
+          p atendimento@mita.com.br
+        q-card-section
+          p (00)00000-0000
+        q-card-section
+          p Atendimento: <br> Segunda à sexta, de 9h as 17h.
 div.text-black.justify-center.text-center.text-bold.row
   p MITA C V A DE C LTDA.
   p(v-if="infos.street") &nbsp; | {{ infos.street }}
@@ -135,6 +136,12 @@ a{
 }
 .listas{
   box-shadow:none
+}
+.containerrodape2{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 87%;
 }
 @media screen and (min-width: 1025px) {
   .rodape2{

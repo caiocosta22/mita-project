@@ -60,8 +60,12 @@ const breakpoints = ref({
     itemsToShow: 2.0,
     snapAlign: "start"
   },
+  768: {
+    itemsToShow: 2.0,
+    snapAlign: "start"
+  },
   1200: {
-    itemsToShow: 3.0,
+    itemsToShow: 4.0,
     snapAlign: "start"
   },
   1300: {
