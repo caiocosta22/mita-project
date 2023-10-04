@@ -159,7 +159,7 @@ div.container
         size="sm"
         name="fa-solid fa-regular fa-user"
         )
-        span.text-bold.col(:style = "{ color : corcabecalho }") Minha conta
+        span.col(:style = "{ color : corcabecalho }") Minha conta
       a.cursor-pointer.carrinho.row.q-gutter-sm
         q-icon(
           :color="corcabecalho"
@@ -170,7 +170,7 @@ div.container
             v-if="quantidadeCarrinho"
             floating
           ) {{ quantidadeCarrinho }}
-        span.text-bold(:style = "{ color : corcabecalho }") Meu carrinho
+        span(:style = "{ color : corcabecalho }") Meu carrinho
       div.botaomenu.row
         q-btn(
           flat
@@ -237,6 +237,13 @@ div.container
   background-color: white;
   right: -20px;
   top: -15px
+}
+span{
+  font-family: Catamaran;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 @media screen and (min-width: 1150px) {
