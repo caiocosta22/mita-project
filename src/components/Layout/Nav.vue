@@ -1,13 +1,15 @@
 <script setup>
-import { ref, computed, onBeforeMount } from "vue";
-import { useRouter } from "vue-router";
+import { ref, computed, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
+const route = useRoute();
 
 const productTyped = ref("");
-const productsSearched = ref([]);
+//  const productsSearched = ref([]);
 const itsLoading = ref(true);
+const cor = ref("black");
 const categoriesBase = ref([
   {
     name: "VIAGENS",
@@ -60,8 +62,6 @@ function redirectToSearchPage () {
   }
 }
 
-const backgroundsearchColor = ref("rgba(0,0,0,0)");
-
 async function searchCategories () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
@@ -84,10 +84,42 @@ async function openCategoryPage (category) {
   }
 }
 
+function MudarCores () {
+  if (route.path === "/") {
+    cor.value = "white";
+  } else {
+    cor.value = "black";
+  }
+}
+
+const handleScroll = () => {
+  const scrollPosition = window.scrollY;
+  const opacityThreshold = 0;
+
+  if (scrollPosition > opacityThreshold) {
+    cor.value = "black";
+  } else {
+    cor.value = "white";
+  }
+};
+
 onBeforeMount(async () => {
   itsLoading.value = true;
   await searchCategories();
+  MudarCores();
   itsLoading.value = false;
+});
+
+onMounted(() => {
+  if (route.path === "/") {
+    window.addEventListener("scroll", handleScroll);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (route.path === "/") {
+    window.removeEventListener("scroll", handleScroll);
+  }
 });
 
 </script>
@@ -96,7 +128,7 @@ onBeforeMount(async () => {
 .containernav.col.row.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.nav
+  q-toolbar.nav.q-px-md
     div.row.col.justify-evenly
       template(
         v-for="categorie in categoriesBase"
@@ -105,6 +137,7 @@ onBeforeMount(async () => {
         p.cursor-pointer.row(
           @click="openCategoryPage(categorie)"
           style=" font-size: 12px;"
+          :color="cor"
         ) {{ categorie.name }}
         div.col
     div.col-2.row
@@ -113,31 +146,28 @@ onBeforeMount(async () => {
         type="search"
         label
         dense
-        color="black"
+        :color="cor"
         @keypress.enter="redirectToSearchPage()"
-        :bg-color="backgroundsearchColor"
         ref="inputRef"
       )
         template(v-slot:label)
           .textobusca(
             :style="correctStyle"
+            :color="cor"
         )  O QUE ESTÁ BUSCANDO
         template(v-slot:append)
           q-icon(
             size="sm"
             @click="redirectToSearchPage()"
-            :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
+            :color="cor"
             name="search"
-            style="transition: 1s;"
+            style="transition: 1s; cursor:pointer"
           )
 </template>
 <style scoped>
 a{
   cursor: pointer;
   font-weight: bold;
-}
-p{
-  font-size: 14px;
 }
 .menu{
   font-weight:bolder;
@@ -151,7 +181,7 @@ p{
   flex-direction: row;
   flex-shrink: 1;
   flex-grow: 1;
-  max-width: 92%;
+  max-width: 85%;
   margin: 0 auto
 }
 .containernav{

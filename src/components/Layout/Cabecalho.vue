@@ -142,17 +142,15 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-q-toolbar.cabecalho.row.col
-  div.containercabecalho.row.col.flex.q-pt-md
-    div.row.col-2.flex
-      p.col-5
-      q-img.cursor-pointer.col.logo(
+div.container
+  q-toolbar.cabecalho
+    div.flex.row.col
+      q-img.cursor-pointer.logo.q-pa-md(
       :src="srcLogo"
       spinner-color="white"
       @click="openInicialPage"
       )
-    div.col
-    div.row.minimenu.flex.q-gutter-sm.col-4.justify-center(
+    div.minimenu.q-gutter-sm.q-pa-sm(
       style="flex-wrap: nowrap;"
       )
       a.cursor-pointer.usuario.row.q-gutter-sm
@@ -206,21 +204,33 @@ q-toolbar.cabecalho.row.col
 
 <style scoped>
 
-.cabecalho {
-  max-height: 70px;
+.container {
   display:flex;
   flex-wrap:nowrap;
+  flex-direction: row;
   justify-content: center;
   position: relative;
   box-sizing: border-box;
   width: 100%;
-}
-.containercabecalho{
   align-items: center;
+  text-align: center;
+}
+.cabecalho{
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 1;
+  flex-grow: 1;
+  max-width: 85%;
+  margin: 0 auto;
+  justify-content:space-between
 }
 .logo{
   max-width: 133px;
   display: block;
+}
+.minimenu{
+  display: flex;
+  flex-direction: row;
 }
 
 .q-icon .q-badge {
@@ -238,8 +248,8 @@ q-toolbar.cabecalho.row.col
   }
 }
 @media screen and (max-width: 1150px) {
-  .logo{
-    width: 233px;
+  .container{
+    margin-top: -15px;
   }
   span{
     display:none
