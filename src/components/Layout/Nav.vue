@@ -125,44 +125,43 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-.containernav.col.row.q-pt-sm(
+q-toolbar.nav.q-px-md.col.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.nav.q-px-md
-    div.row.col.justify-evenly
-      template(
-        v-for="categorie in categoriesBase"
-        :key="categorie.name"
-      )
-        p.cursor-pointer.row(
-          @click="openCategoryPage(categorie)"
-          style=" font-size: 12px;"
-          :color="cor"
-        ) {{ categorie.name }}
-        div.col
-    div.col-2.row
-      q-input.text-black.busca.q-pb-md.col-12(
-        v-model="productTyped"
-        type="search"
-        label
-        dense
+  div.row.col.justify-evenly
+    template(
+      v-for="categorie in categoriesBase"
+      :key="categorie.name"
+    )
+      p.cursor-pointer.row(
+        @click="openCategoryPage(categorie)"
+        style=" font-size: 12px;"
         :color="cor"
-        @keypress.enter="redirectToSearchPage()"
-        ref="inputRef"
-      )
-        template(v-slot:label)
-          .textobusca(
-            :style="correctStyle"
-            :color="cor"
-        )  O QUE ESTÁ BUSCANDO
-        template(v-slot:append)
-          q-icon(
-            size="sm"
-            @click="redirectToSearchPage()"
-            :color="cor"
-            name="search"
-            style="transition: 1s; cursor:pointer"
-          )
+      ) {{ categorie.name }}
+      div.col
+  div.col-2.row
+    q-input.text-black.busca.q-pb-md.col-12(
+      v-model="productTyped"
+      type="search"
+      label
+      dense
+      :color="cor"
+      @keypress.enter="redirectToSearchPage()"
+      ref="inputRef"
+    )
+      template(v-slot:label)
+        .textobusca(
+          :style="correctStyle"
+          :color="cor"
+      )  O QUE ESTÁ BUSCANDO
+      template(v-slot:append)
+        q-icon(
+          size="sm"
+          @click="redirectToSearchPage()"
+          :color="cor"
+          name="search"
+          style="transition: 1s; cursor:pointer"
+        )
 </template>
 <style scoped>
 a{
@@ -182,17 +181,13 @@ a{
   flex-shrink: 1;
   flex-grow: 1;
   max-width: 85%;
-  margin: 0 auto
-}
-.containernav{
-  display:flex;
-  flex-wrap:nowrap;
-  justify-content: center;
+  margin: 0 auto;
+  flex-wrap: nowrap;
   position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  align-items: center;
+  justify-content: center;
   text-align: center;
+  align-items: center;
+  box-sizing:border-box;
 }
 @media screen and (max-width: 1150px) {
   .nav{
