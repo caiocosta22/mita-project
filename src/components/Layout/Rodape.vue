@@ -126,13 +126,20 @@ a{
   color:black
 }
 .principal{
-  font-size:18px;
-  font-weight: bold;
+  color: #000;
+  font-family: Catamaran;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }
 .secundario{
-  font-size:16px;
-  cursor: pointer;
-
+  color: #000;
+  font-family: Catamaran;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px; /* 153.846% */
 }
 .listas{
   box-shadow:none
