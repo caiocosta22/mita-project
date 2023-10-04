@@ -96,15 +96,15 @@ onBeforeMount(async () => {
 .containernav.col.row.q-pt-sm(
   v-show="!itsLoading"
 )
-  q-toolbar.col-10.row.q-mr-md.nav
-    div.row.col.justify-evenly.col-10
+  q-toolbar.nav
+    div.row.col.justify-evenly
       template(
         v-for="categorie in categoriesBase"
         :key="categorie.name"
       )
-        p.text-bold.cursor-pointer.row(
+        p.cursor-pointer.row(
           @click="openCategoryPage(categorie)"
-          style=" font-size: 14px;"
+          style=" font-size: 12px;"
         ) {{ categorie.name }}
         div.col
     div.col-2.row
@@ -112,19 +112,19 @@ onBeforeMount(async () => {
         v-model="productTyped"
         type="search"
         label
-        debounce="500"
+        dense
         color="black"
         @keypress.enter="redirectToSearchPage()"
         :bg-color="backgroundsearchColor"
         ref="inputRef"
       )
         template(v-slot:label)
-          .text-bold.textobusca(
+          .textobusca(
             :style="correctStyle"
         )  O QUE ESTÁ BUSCANDO
         template(v-slot:append)
           q-icon(
-            size="md"
+            size="sm"
             @click="redirectToSearchPage()"
             :color="!!correctStyle.color && correctStyle.color === 'rgba(0,0,0,1)' ? 'black' : 'white'"
             name="search"
@@ -144,6 +144,15 @@ p{
 }
 .textobusca{
   transition: 1s;
+  font-size:12px;
+}
+.nav{
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 1;
+  flex-grow: 1;
+  max-width: 92%;
+  margin: 0 auto
 }
 .containernav{
   display:flex;
