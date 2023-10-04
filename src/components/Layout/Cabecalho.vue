@@ -257,5 +257,11 @@ div.container
   .carrinho{
     padding-right: 5px ;
   }
+  .minimenu{
+    margin-left: 30px;
+  }
+  .cabecalho{
+    max-width: 87%;
+  }
 }
 </style>
