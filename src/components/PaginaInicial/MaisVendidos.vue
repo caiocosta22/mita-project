@@ -112,7 +112,19 @@ onBeforeMount(async () => {
 <template lang="pug">
 div.row.col.justify-center.q-pt-md(style="align-items:center")
   div.col-10.row.justify-start.q-pt-sm
-    .sessao.justify-start.text-black MAIS VENDIDOS
+    template(
+      v-for="(item, index) in itemsOfApi"
+      :key="index"
+    )
+      template(v-if="item.orientacao === 'horizontal'")
+        template(
+          v-if="item.subsecoesEcommerce"
+        )
+          template(
+            v-for="subsec in item.subsecoesEcommerce"
+            :key="subsec"
+          )
+            .sessao.justify-start.text-black {{ subsec.titulo }}
 .container.row.col
   Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
     template(

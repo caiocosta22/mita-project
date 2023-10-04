@@ -87,7 +87,7 @@ div(
       q-carousel-slide.slide(
         :name="index"
         :img-src="banner.fotoWebp"
-        style="height: 32px;"
+        style="height: 32px; width: 100%; margin: 0 auto"
         )
 </template>
 
