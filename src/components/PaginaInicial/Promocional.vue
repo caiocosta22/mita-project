@@ -18,11 +18,11 @@ div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
   div.column.col-5
     q-img.cursor-pointer(
       src="../../assets/imgs/CHAVEIROS.png"
-      @click="openCategoryPage(169)"
+      @click="openCategoryPage(168)"
     )
     q-img.cursor-pointer.q-mt-lg.q-pt-sm(
       src="../../assets/imgs/NECESSAIRES.png"
-      @click="openCategoryPage(151)"
+      @click="openCategoryPage(150)"
     )
 div.valentines.row.col
   q-img.cursor-pointer.col-10.q-pa-lg(
