@@ -73,7 +73,6 @@ div.container
   display: flex;
   width: 86%;
   margin: 0 auto;
-  flex-wrap: nowrap;
   flex-direction: row;
 }
 .foto{
