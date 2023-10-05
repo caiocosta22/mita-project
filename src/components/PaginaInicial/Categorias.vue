@@ -4,53 +4,33 @@ import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { useRouter } from "vue-router";
 import axios from "axios";
-import necessaire from "../../assets/imgs/1.png";
-import capa from "../../assets/imgs/2.png";
-import chaveiro from "../../assets/imgs/3.png";
-import bolsa from "../../assets/imgs/4.png";
-import garrafa from "../../assets/imgs/5.png";
-import carteira from "../../assets/imgs/6.png";
 
 const router = useRouter();
-const hasItems = ref(true);
-const items = ref([
+const itsLoading = ref(true);
+
+const categoriasCarousel = ref([
   {
-    name: "NECESSAIRES",
-    image: necessaire
+    descricao: "CARTEIRAS",
+    fotoUrl: "https://cs210033fff90d2f7ac.blob.core.windows.net/mitaoficial/categoria-autorelacionada-servico/3368imagem2023-09-28T11:56:50.209.png",
+    googleCategoriaProduto: "2668 - VestuÃ¡rio e acessÃ³rios > Bolsas, carteiras e estojos > Carteiras e clipes de dinheiro",
+    id: 151,
+    menuEcommerce: true,
+    ordem: 3,
+    slug: "carteiras",
+    subCategoria: []
   },
   {
-    name: "CAPAS",
-    image: capa
-  },
-  {
-    name: "CHAVEIROS",
-    image: chaveiro
-  },
-  {
-    name: "BOLSAS",
-    image: bolsa
-  },
-  {
-    name: "GARRAFAS",
-    image: garrafa
-  },
-  {
-    name: "CARTEIRAS",
-    image: carteira
-  },
-  {
-    name: "NECESSAIRES",
-    image: necessaire
-  },
-  {
-    name: "CAPAS",
-    image: capa
-  },
-  {
-    name: "CHAVEIROS",
-    image: chaveiro
+    descricao: "BOLSAS",
+    fotoUrl: "https://cs210033fff90d2f7ac.blob.core.windows.net/mitaoficial/categoria-autorelacionada-servico/2913imagem2023-09-28T11:53:44.207.png",
+    googleCategoriaProduto: "106 - Malas e bolsas > Bolsas a tiracolo",
+    id: 159,
+    menuEcommerce: true,
+    ordem: 11,
+    slug: "bolsas",
+    subCategoria: []
   }
 ]);
+
 const settings = ref({
   itemsToShow: 1,
   snapAlign: "center"
@@ -76,34 +56,25 @@ const breakpoints = ref({
 
 async function searchCategories () {
   try {
-    let data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
-    data = data.find(row => row.descricao === "MEIO SITE").subCategoria;
-    let itemsForItems = [];
-    if (data.length) {
-      itemsForItems = data.map(categorie => {
-        return {
-          ...categorie,
-          name: categorie.descricao,
-          image: categorie.fotoUrl || categorie.bannerUrl
-        };
-      });
-    }
-    const finalItems = itemsForItems.filter(item => item.image);
-    if (finalItems.length) items.value = finalItems;
+    const categorias = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
+    const categoriascomFoto = categorias.filter(categoria => categoria.fotoUrl);
+    if (categorias.length) categoriasCarousel.value = categoriascomFoto;
   } catch (e) {
     console.error(e);
   }
 }
 
-function openCategoryPage (category) {
-  if (category.id) {
-    const url = "/categorias/" + category.id;
+function openCategoryPage (categoria) {
+  if (categoria.id) {
+    const url = "/categorias/" + categoria.id;
     router.push(url);
   }
 }
 
 onBeforeMount(async () => {
+  itsLoading.value = true;
   await searchCategories();
+  itsLoading.value = false;
 });
 
 </script>
@@ -113,24 +84,25 @@ div.row.col.justify-center.q-py-lg
   div.col-10.row.justify-start
     .sessao.justify-start.text-black CATEGORIAS
 .container.row.col.q-pt-sm.q-mb-md
-  Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
-    template(
-      v-if="hasItems"
+  Carousel.col-10(
+      v-bind="settings"
+      :breakpoints="breakpoints"
+      v-show="!itsLoading"
     )
-      Slide.flex.q-pr-sm(
-        v-for="item in items"
-        :key="item"
+    Slide.flex.q-pr-sm(
+      v-for="(categoria, index) in categoriasCarousel"
+      :key="index"
+    )
+      div.full-width.full-height.column.justify-center(
+        @click="openCategoryPage(categoria)"
       )
-        div.full-width.full-height.column.justify-center(
-          @click="openCategoryPage(item)"
+        q-img.cursor-pointer(
+          :name="index"
+          :src="categoria.fotoUrl"
+          style="display: block; max-width: 100%; border-radius: 4px;"
         )
-          q-img.cursor-pointer(
-            v-if="item.image"
-            :src="item.image"
-            style="display: block; max-width: 100%; border-radius: 4px;"
-          )
-          div.row.col.q-pt-md.justify-center(style="font-size:14px")
-            span.text-black.text-center {{ item.name }}
+        div.row.col.q-pt-md.justify-center(style="font-size:14px")
+          span.text-black.text-center {{ categoria.descricao }}
     template(#addons)
       Navigation
 </template>
