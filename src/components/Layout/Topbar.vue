@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import axios from "src/boot/axios";
+import axios from "axios";
 
 const slide = ref(1);
 const autoplay = ref(true);
@@ -15,7 +15,7 @@ const bannersAnuncio = ref([
     posicionamento: "anuncio"
   },
   {
-    fotoWebp: "https://cs210033fff90d2f7ac.blob.core.windows.net/mitaoficial/banner/2023-10-04T15:44:04.670_110.webp",
+    fotoWebp: 0,
     id: 0,
     image: "",
     ordem: 0,
@@ -88,7 +88,7 @@ div(
         :name="index"
         :img-src="banner.fotoWebp"
         style="height: 32px; width: 100%; margin: 0 auto"
-        )
+      )
 </template>
 
 <style scoped>

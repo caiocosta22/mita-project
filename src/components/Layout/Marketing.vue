@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import axios from "src/boot/axios";
+import axios from "axios";
 
 const itsLoading = ref(true);
 
