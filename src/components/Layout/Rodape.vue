@@ -1,18 +1,24 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import axios from "src/boot/axios";
 
-const infos = ref({});
+const infos = ref({
+  facebook: "https://www.facebook.com/",
+  googlePlus: "",
+  id: 1,
+  instagram: "https://www.instagram.com/"
+});
 
-async function searchBestSellers () {
+async function searchSocialMedia () {
   try {
-    // infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
+    infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
   } catch (e) {
     console.error(e);
   }
 }
 
 onBeforeMount(async () => {
-  await searchBestSellers();
+  await searchSocialMedia();
 });
 </script>
 
