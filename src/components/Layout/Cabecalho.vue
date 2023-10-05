@@ -85,6 +85,10 @@ const handleScroll = () => {
   }
 };
 
+function openLoginPage () {
+  router.push("/login");
+}
+
 function openInicialPage (logo) {
   // const url = "https://alastrar-mita.netlify.app/#/";
   // window.location.replace(url, "_blank");
@@ -153,7 +157,7 @@ div.container
     div.minimenu.q-gutter-sm.q-pa-sm(
       style="flex-wrap: nowrap;"
       )
-      a.cursor-pointer.usuario.row.q-gutter-sm
+      a(@click="openLoginPage").cursor-pointer.usuario.row.q-gutter-sm
         q-icon(
         :color="corcabecalho"
         size="sm"
