@@ -134,7 +134,7 @@ a{
 .principal{
   color: #000;
   font-family: Catamaran;
-  font-size: 17px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
@@ -142,7 +142,7 @@ a{
 .secundario{
   color: #000;
   font-family: Catamaran;
-  font-size: 13px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 300;
   line-height: 20px; /* 153.846% */

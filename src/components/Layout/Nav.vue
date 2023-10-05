@@ -135,7 +135,7 @@ q-toolbar.nav.q-px-md.col.q-pt-sm(
     )
       p.cursor-pointer.row(
         @click="openCategoryPage(categorie)"
-        style=" font-size: 12px;"
+        style=" font-size: 14px;"
         :color="cor"
       ) {{ categorie.name }}
       div.col
