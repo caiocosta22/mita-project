@@ -45,14 +45,14 @@ div.container
     q-img(src="../../assets/imgs/marketing1.png").cursor-pointer
     q-img(src="../../assets/imgs/marketing2.png").q-mr-md.cursor-pointer
 div.container
-  div.containerfoto.q-gutter-sm(
+  div.containerfoto.q-gutter-sm.q-pa-md(
     v-show="!itsLoading"
   )
     template(
       v-for="(banner, index) in bannersFim"
       :key="index"
     )
-      q-img.cursor-pointer.q-mr-md(
+      q-img.cursor-pointer.q-mr-sm(
         :name="index"
         :src="banner.fotoWebp"
       )
