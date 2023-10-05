@@ -1,17 +1,28 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import axios from "src/boot/axios";
+import axios from "axios";
 
-const infos = ref({
-  facebook: "https://www.facebook.com/",
-  googlePlus: "",
-  id: 1,
-  instagram: "https://www.instagram.com/"
+const infosLinks = ref({
+  city: "Fortaleza",
+  cnpj: "28463426000109",
+  complement: "",
+  district: "Meireles",
+  email: "LOJAMITAOFICIAL@GMAIL.COM",
+  id: 5,
+  name: "MITA COMERCIO VAREJISTA DE ARTEFATOS DE COURO LTDA",
+  nomeFantasia: "Mita Oficial",
+  number: 705,
+  phone: "85991742677",
+  site: "https://mitaoficial.elevarloja.com.br não puxando da api",
+  state: "CE",
+  street: "Avenida Dom Luís não puxa da pi",
+  zipcode: "60160230"
 });
 
 async function searchSocialMedia () {
   try {
-    infos.value = await axios.get("/api/empresaService/ecommerce/nomeTenant").then(e => e.data);
+    const infos = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/empresaService/ecommerce/nomeTenant").then(e => e.data);
+    infosLinks.value = infos;
   } catch (e) {
     console.error(e);
   }
@@ -44,7 +55,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.secundario Atendimento:<br>Segunda à sexta, de 9h as 17h.
   div.Redes.column.col-2
     p.principal Nossas redes sociais
-    div.row
+    div.row.q-gutter-sm
       a(
         target="_blank"
         href="https://www.instagram.com/mita.oficial/"
@@ -57,7 +68,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
         target="_blank"
         href="https://www.instagram.com/mita.oficial/"
       )
-        q-icon.q-mx-lg(
+        q-icon(
           size="md"
           name="fa-brands fa-instagram"
         )
@@ -68,6 +79,14 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
         q-icon(
           size="md"
           name="fa-brands fa-whatsapp"
+        )
+      a(
+        target="_blank"
+        href="https://api.whatsapp.com/send?phone=5585991896604"
+      )
+        q-icon(
+          size="md"
+          name="fa-brands fa-x-twitter"
         )
 div.rodape2.col.column
   div.containerrodape2
@@ -113,15 +132,15 @@ div.rodape2.col.column
           p (00)00000-0000
         q-card-section
           p Atendimento: <br> Segunda à sexta, de 9h as 17h.
-div.text-black.justify-center.text-center.text-bold.row
+div.text-black.justify-center.text-center.row(style="color: #000;text-align: center;font-family: Catamaran;font-size: 14px;font-style: normal;font-weight: 300;line-height: normal;")
   p MITA C V A DE C LTDA.
-  p(v-if="infos.street") &nbsp; | {{ infos.street }}
-  p(v-if="infos.number") , {{ infos.number }}
-  p(v-if="infos.district") , {{ infos.district }}
-  p(v-if="infos.city") , {{ infos.city }}
-  p(v-if="infos.state") , {{ infos.state }}
-  p(v-if="infos.zipcode") &nbsp; | CEP: &nbsp; {{ infos.zipcode }}
-  p(v-if="infos.cnpj") &nbsp; | CNPJ: &nbsp; {{ infos.cnpj }}
+  p(v-if="infosLinks.street") &nbsp; | {{ infosLinks.street }}
+  p(v-if="infosLinks.number") , {{ infosLinks.number }}
+  p(v-if="infosLinks.district") , {{ infosLinks.district }}
+  p(v-if="infosLinks.city") , {{ infosLinks.city }}
+  p(v-if="infosLinks.state") , {{ infosLinks.state }}
+  p(v-if="infosLinks.zipcode") &nbsp; | CEP: &nbsp; {{ infosLinks.zipcode }}
+  p(v-if="infosLinks.cnpj") &nbsp; | CNPJ: &nbsp; {{ infosLinks.cnpj }}
 </template>
 
 <style scoped>
