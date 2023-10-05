@@ -84,7 +84,7 @@ div.row.col.justify-center.q-py-lg
   div.col-10.row.justify-start
     .sessao.justify-start.text-black CATEGORIAS
 .container.row.col.q-pt-sm.q-mb-md
-  Carousel.col-10(
+  Carousel.col-10.q-ml-sm(
       v-bind="settings"
       :breakpoints="breakpoints"
       v-show="!itsLoading"

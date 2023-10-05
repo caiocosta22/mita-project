@@ -126,7 +126,7 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
           )
             .sessao.justify-start.text-black {{ subsec.titulo }}
 .container.row.col
-  Carousel.col-10(v-bind="settings" :breakpoints="breakpoints")
+  Carousel.col-10.q-ml-sm(v-bind="settings" :breakpoints="breakpoints")
     template(
       v-for="(item, index) in itemsOfApi"
       :key="index"
