@@ -160,14 +160,14 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
                       v-if="produto.promocao"
                     )
                       div.column(style="width:50%; display:flex; text-align:right")
-                        span.text-black(style="font-size: 12px; text-decoration: line-through") R$:{{ produto.valor }}
-                        span.text-black(style="font-size: 12px;") R$: {{ produto.precoPromocional }}
-                        span.text-black(style="font-size: 12px") ou {{ produto.coligada.numeroParcelas }}x de {{ produto.valor / produto.coligada.numeroParcelas }}
+                        span.text-black(style="font-size: 14px; text-decoration: line-through") R$:{{ produto.valor }}
+                        span.text-black(style="font-size: 14px;") R$: {{ produto.precoPromocional }}
+                        span.text-black(style="font-size: 14px") ou {{ produto.coligada.numeroParcelas }}x de {{ produto.valor / produto.coligada.numeroParcelas }}
                     template(
                       v-else
                     )
                       div.column(style="width:50%; display:flex; text-align:right")
-                        span.text-black(style="font-size: 12px") R$: {{ produto.valor }}
+                        span.text-black(style="font-size: 14px") R$: {{ produto.valor }}
     template(#addons)
       Navigation
 </template>
