@@ -240,7 +240,7 @@ div.container
 }
 span{
   font-family: Catamaran;
-  font-size: 13px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
