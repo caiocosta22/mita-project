@@ -2,21 +2,22 @@
 </script>
 
 <template lang="pug">
-div.container
-    div
-        span.titulo LOGIN
-    div.boxprincipal
-        div.boxsecundaria
-            div
-                span EMAIL
-                q-input
-            div
-                div.row
-                    span SENHA
-                    a ESQUECEU A SENHA?
-                q-input
-            div
-                q-btn
+q-page-container
+    div.container
+        div
+            span.titulo LOGIN
+        div.boxprincipal
+            div.boxsecundaria
+                div
+                    span EMAIL
+                    q-input
+                div
+                    div.row
+                        span SENHA
+                        a ESQUECEU A SENHA?
+                    q-input
+                div
+                    q-btn
 </template>
 
 <style scoped>
