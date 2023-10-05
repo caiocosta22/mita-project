@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 import { useQuasar } from "quasar";
 
@@ -30,10 +30,6 @@ const envioemail = async () => {
     });
   }
 };
-
-onMounted(() => {
-  envioemail();
-});
 </script>
 
 <template lang="pug">
