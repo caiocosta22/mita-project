@@ -39,12 +39,6 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 div.container
-  div.containerfoto.q-gutter-sm(
-    v-show="!itsLoading"
-  )
-    q-img(src="../../assets/imgs/marketing1.png").cursor-pointer
-    q-img(src="../../assets/imgs/marketing2.png").q-mr-md.cursor-pointer
-div.container
   div.containerfoto.q-gutter-sm.q-pa-md(
     v-show="!itsLoading"
   )
