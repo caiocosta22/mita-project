@@ -1,10 +1,10 @@
 <script setup>
-import Login from "../components/PaginaLogin/FormLogin.vue";
+import registro from "../components/PaginaLogin/FormRegistro.vue";
 </script>
 
 <template lang="pug">
 q-page-container
-    Login
+    registro
 </template>
 
 <style scoped>

@@ -44,11 +44,21 @@ const routes = [
   },
   {
     path: "/login",
-    component: () => import("layouts/LayoutPadrao.vue"),
+    component: () => import("layouts/LayoutUsuario.vue"),
     children: [
       {
         path: "",
         component: () => import("pages/Paginalogin.vue")
+      }
+    ]
+  },
+  {
+    path: "/registro",
+    component: () => import("layouts/LayoutUsuario.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/PaginaRegistro.vue")
       }
     ]
   }
