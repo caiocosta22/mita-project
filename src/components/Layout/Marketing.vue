@@ -39,7 +39,7 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 div.container
-  div.containerfoto.q-gutter-sm.q-pa-md(
+  div.containerfoto.q-gutter-sm.q-pa-sm(
     v-show="!itsLoading"
   )
     template(
