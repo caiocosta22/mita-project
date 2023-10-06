@@ -16,7 +16,8 @@ const infosLinks = ref({
   site: "https://mitaoficial.elevarloja.com.br não puxando da api",
   state: "CE",
   street: "Avenida Dom Luís não puxa da pi",
-  zipcode: "60160230"
+  zipcode: "60160230",
+  socialNetwork: []
 });
 
 async function searchSocialMedia () {
@@ -58,7 +59,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     div.row.q-gutter-sm
       a(
         target="_blank"
-        href="https://www.instagram.com/mita.oficial/"
+        :href="infosLinks.socialNetwork.facebook"
       )
         q-icon(
           size="md"
@@ -66,7 +67,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
         )
       a(
         target="_blank"
-        href="https://www.instagram.com/mita.oficial/"
+        :href="infosLinks.socialNetwork.instagram"
       )
         q-icon(
           size="md"

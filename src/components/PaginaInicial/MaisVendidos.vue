@@ -153,6 +153,10 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
                     :src="produto.fotosServico[0].foto"
                     style="display: block; max-width: 100%; border-radius: 4px;"
                   )
+                    template(
+                      v-if="produto.promocao"
+                    )
+                      div.tag FRETE GRATIS
                   div.row.justify-between.col.q-pt-sm(style="font-size:14px")
                     div.row(style="width:50%; display:flex; text-align:left")
                       span.text-black {{ produto.titulo }}
@@ -194,6 +198,19 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
   position: relative;
   width: 100%;
   margin-bottom:20px;
+}
+.tag{
+  color: #FFF;
+  font-family: Catamaran;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  top:10px;
+  left: 10px;
+  height: 10px;
+  align-items: center;
+  display: flex;
 }
 
 </style>
