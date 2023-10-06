@@ -46,25 +46,27 @@ div.container
         @reset="onReset"
     )
         .titulo Faça seu Login
-        .primario Email
-        q-input(
-            outlined
-            v-model="email"
-            label="Digite seu email"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
-        )
-        .primario Senha
-        q-input(
-            outlined
-            type="password"
-            v-model="password"
-            label="Digite sua senha"
-            lazy-rules
-            label-color="black"
-            :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
-        )
-        a.esqueceu.cursor-pointer Esqueceu sua senha?
+        div.column
+          .primario Email
+          q-input(
+              outlined
+              v-model="email"
+              label="Digite seu email"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
+          )
+        div.column
+          .primario Senha
+          q-input(
+              outlined
+              type="password"
+              v-model="password"
+              label="Digite sua senha"
+              lazy-rules
+              label-color="black"
+              :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
+          )
+          a.esqueceu.cursor-pointer Esqueceu sua senha?
         div
             q-btn(
                 label="Login"
@@ -75,7 +77,6 @@ div.container
                 label="Registre-se"
                 color="black"
                 label-color="black"
-                flat
                 class="q-ml-sm"
                 @click="redirectToRegisterPage()"
             )
@@ -96,7 +97,7 @@ div.container
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    width: 30%;
+    width: 30%;;
 }
 .titulo{
     color: #000;

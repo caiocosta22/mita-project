@@ -45,23 +45,23 @@ div.container
         @submit="onSubmit"
         @reset="onReset"
     )
-        .titulo CRIAR CONTA
-        div.row.flex.q-gutter-sm(style="max-width:100%")
-            div.column
+        .titulo.q-pl-sm CRIAR CONTA
+        div.row.flex.q-gutter-sm
+            div.column(style="width:22.5%")
                 .primario Nome
                 q-input(
                     outlined
                     v-model="nome"
                     placeholder="Ex: João"
                 )
-            div.column
+            div.column(style="width:22.5%")
                 .primario Sobrenome
                 q-input(
                     outlined
                     v-model="sobrenome"
                     placeholder="Ex: Silva"
                 )
-            div.column
+            div.column(style="width:45%")
                 .primario Email
                 q-input(
                 outlined
@@ -70,31 +70,31 @@ div.container
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
             )
-        div.row.flex.q-gutter-sm(style="max-width:100%")
-            div.column
+        div.row.flex.q-gutter-sm.q-mt-md
+            div.column(style="width:45%")
                 .primario CPF
                 q-input(
                     outlined
-                    v-model="sobrenome"
+                    v-model="CPF"
                     placeholder="Ex: 123.456.789-14"
                 )
-            div.column
+            div.column(style="width:45%")
                 .primario Data Nascimento
                 q-input(
                     outlined
-                    v-model="sobrenome"
+                    v-model="nascimento"
                     placeholder="Ex: 00/00/0000"
                 )
-        div.row.flex.q-gutter-sm(style="max-width: 100%;")
-            div.column
+        div.row.flex.q-gutter-sm
+            div.column(style="width:45%")
                 .primario Telefone
                 q-input(
                     outlined
-                    v-model="sobrenome"
+                    v-model="telefone"
                     placeholder="Ex: (99)99999-9999"
                 )
-        div.row.flex.q-gutter-sm(style="max-width:100%")
-            div.column
+        div.row.flex.q-gutter-sm
+            div.column(style="width:45%")
                 .primario Senha
                 q-input(
                     outlined
@@ -105,7 +105,8 @@ div.container
                     label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
-            div.column
+                a.esqueceu.cursor-pointer Já tem uma conta? Faça login!
+            div.column(style="width:45%")
                 .primario Confirme a senha
                 q-input(
                     outlined
@@ -116,8 +117,7 @@ div.container
                     label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
-        a.esqueceu.cursor-pointer Já tem uma conta? Faça login!
-        div
+        div.q-pl-sm
             q-btn(
                 label="REGISTRAR"
                 type="submit"
@@ -134,13 +134,14 @@ div.container
     box-sizing: border-box;
     align-items: center;
     margin-bottom: 40px;
+
 }
 .containerlogin{
     margin: 0 auto;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    width: 60%;
+    width: 40%;
 }
 .titulo{
     color: #000;
