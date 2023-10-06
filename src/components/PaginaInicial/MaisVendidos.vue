@@ -5,51 +5,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import axios from "axios";
 import "vue3-carousel/dist/carousel.css";
-
-const items = ref([
-  {
-    name: "Case para Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Necessaire veneza pequena",
-    image: "Bolsa",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Chaveiro em couro para chave de carro",
-    image: "Chavecarro",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Carteira feminina",
-    image: "Carteira",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  },
-  {
-    name: "Case Iphone",
-    image: "Capaiphone",
-    tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
-    src: "../../assets/imgs/capaiphone.png"
-  }
-]);
 const itemsOfApi = ref([]);
 const settings = ref({
   itemsToShow: 1,
@@ -74,6 +29,13 @@ const breakpoints = ref({
   }
 });
 
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+  });
+}
 async function searchBestSellers () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
@@ -164,14 +126,14 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
                       v-if="produto.promocao"
                     )
                       div.column(style="width:50%; display:flex; text-align:right")
-                        span.text-black(style="font-size: 14px; text-decoration: line-through") R$:{{ produto.valor }}
-                        span.text-black(style="font-size: 14px;") R$: {{ produto.precoPromocional }}
-                        span.text-black(style="font-size: 14px") ou {{ produto.coligada.numeroParcelas }}x de {{ produto.valor / produto.coligada.numeroParcelas }}
+                        span.text-black(style="font-size: 14px; text-decoration: line-through") {{ formatCurrency(produto.valor) }}
+                        span.text-black(style="font-size: 14px;") {{ formatCurrency(produto.precoPromocional) }}
+                        span.text-black(style="font-size: 14px") ou {{ produto.coligada.numeroParcelas }}x de {{ formatCurrency(produto.valor / produto.coligada.numeroParcelas) }}
                     template(
                       v-else
                     )
                       div.column(style="width:50%; display:flex; text-align:right")
-                        span.text-black(style="font-size: 14px") R$: {{ produto.valor }}
+                        span.text-black(style="font-size: 14px") {{ formatCurrency(produto.valor) }}
     template(#addons)
       Navigation
 </template>

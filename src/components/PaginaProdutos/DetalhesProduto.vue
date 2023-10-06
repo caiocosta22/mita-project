@@ -39,6 +39,14 @@ function ativar (cor) {
   console.log("Quando a api tiver cor a gnt arruma");
 }
 
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+  });
+}
+
 async function calcFrete () {
   try {
     const searchCepDetails = cep.value.replace("-", "");
@@ -188,15 +196,15 @@ div.container.q-gutter-md
           p
           .destaque VALOR
         div.column(style="display:flex;text-align:right")
-          span.text-black(style="font-size: 18px; text-decoration: line-through") R$:{{ produto.valor }}
-          span.text-black.text-bold(style="font-size: 24px;") R$: {{ produto.precoPromocional }}
+          span.text-black(style="font-size: 18px; text-decoration: line-through") {{ formatCurrency(produto.valor) }}
+          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(produto.precoPromocional) }}
       template(
         v-else
       )
         div.column(style="display:flex;align-items:center")
           .destaque VALOR
         div.column(style="display:flex;text-align:right")
-          span.text-black.text-bold(style="font-size: 24px;") R$: {{ produto.valor }}
+          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(produto.valor) }}
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
@@ -235,7 +243,7 @@ div.container.q-gutter-md
       )
         p.q-ma-none {{ frete.name }}
         p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
-        p.q-ma-none.text-bold R$ {{ frete.valor }}
+        p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
     div(
       v-if="usarSkeleton"
     )

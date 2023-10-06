@@ -17,6 +17,14 @@ const seeingProductsBetween = computed(() => {
   return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
 });
 
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+  });
+}
+
 const props = defineProps({
   items: {
     type: Object,
@@ -126,7 +134,7 @@ watch(() => pageIndex.value, (val) => {
           div.column(style="width:50%;text-align:left;font-size:14px")
             span.text-black {{ item.name }}
           div.column(style="width:50%; text-align:right;font-size:12px")
-            span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
+            span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
 </template>
 
 <style scoped>
