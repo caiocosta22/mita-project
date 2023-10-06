@@ -90,7 +90,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
         )
 div.rodape2.col.column
   div.containerrodape2
-    q-expansion-item.listas.text-bold(
+    q-expansion-item.listas(
       expand-separator
       label="Institucional"
     )
@@ -103,7 +103,7 @@ div.rodape2.col.column
           a(href="#") Privacidade e Segurança
         q-card-section
           a(href="#") Trocas e Devoluções
-    q-expansion-item.listas.text-bold(
+    q-expansion-item.listas(
       expand-separator
       label="Minha Conta"
     )
@@ -114,14 +114,14 @@ div.rodape2.col.column
           a(href="#") Meus pedidos
         q-card-section
           a(href="#") Meu carrinho
-    q-expansion-item.listas.text-bold(
+    q-expansion-item.listas(
       expand-separator
       label="Ajuda e suporte"
     )
       q-card.listas
         q-card-section
           a(href="#") Nosso chat
-    q-expansion-item.listas.text-bold(
+    q-expansion-item.listas(
       expand-separator
       label="Contato"
     )
