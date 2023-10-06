@@ -57,38 +57,61 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
   div.Redes.column.col-2
     p.principal Nossas redes sociais
     div.row.q-gutter-sm
-      a(
-        target="_blank"
-        :href="infosLinks.socialNetwork.facebook"
+      template(
+        v-if="infosLinks.socialNetwork.facebook"
       )
-        q-icon(
-          size="md"
-          name="fa-brands fa-square-facebook"
+        a(
+          target="_blank"
+          :href="infosLinks.socialNetwork.facebook"
         )
-      a(
-        target="_blank"
-        :href="infosLinks.socialNetwork.instagram"
+          q-icon(
+            size="md"
+            name="fa-brands fa-square-facebook"
+          )
+      template(
+        v-if="infosLinks.socialNetwork.instagram"
       )
-        q-icon(
-          size="md"
-          name="fa-brands fa-instagram"
+        a(
+          target="_blank"
+          :href="infosLinks.socialNetwork.instagram"
         )
-      a(
-        target="_blank"
-        href="https://api.whatsapp.com/send?phone=5585991896604"
+          q-icon(
+            size="md"
+            name="fa-brands fa-instagram"
+          )
+      template(
+        v-if="infosLinks.socialNetwork.linkedin"
       )
-        q-icon(
-          size="md"
-          name="fa-brands fa-whatsapp"
+        a(
+          target="_blank"
+          :href="infosLinks.socialNetwork.linkedin"
         )
-      a(
-        target="_blank"
-        href="https://api.whatsapp.com/send?phone=5585991896604"
+          q-icon(
+            size="md"
+            name="fa-brands fa-linkedin"
+          )
+      template(
+        v-if="infosLinks.socialNetwork.twitter"
       )
-        q-icon(
-          size="md"
-          name="fa-brands fa-x-twitter"
+        a(
+          target="_blank"
+          :href="infosLinks.socialNetwork.twitter"
         )
+          q-icon(
+            size="md"
+            name="fa-brands fa-x-twitter"
+          )
+      template(
+        v-if="infosLinks.socialNetwork.youtube"
+      )
+        a(
+          target="_blank"
+          :href="infosLinks.socialNetwork.youtube"
+        )
+          q-icon(
+            size="md"
+            name="fa-brands fa-square-youtube"
+          )
 div.rodape2.col.column
   div.containerrodape2
     q-expansion-item.listas(
