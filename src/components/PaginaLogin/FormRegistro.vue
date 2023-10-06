@@ -46,22 +46,22 @@ div.container
         @reset="onReset"
     )
         .titulo.q-pl-sm CRIAR CONTA
-        div.row.flex.q-gutter-sm
-            div.column(style="width:22.5%")
+        div.row.flex.q-gutter-sm.nomesobrenome
+            div.column.nome
                 .primario Nome
                 q-input(
                     outlined
                     v-model="nome"
                     placeholder="Ex: João"
                 )
-            div.column(style="width:22.5%")
+            div.column.nome
                 .primario Sobrenome
                 q-input(
                     outlined
                     v-model="sobrenome"
                     placeholder="Ex: Silva"
                 )
-            div.column(style="width:45%")
+            div.column.mediainput
                 .primario Email
                 q-input(
                 outlined
@@ -70,31 +70,31 @@ div.container
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
             )
-        div.row.flex.q-gutter-sm.q-mt-md
-            div.column(style="width:45%")
+        div.row.flex.q-gutter-sm.mediacontainer
+            div.column.mediainput
                 .primario CPF
                 q-input(
                     outlined
                     v-model="CPF"
                     placeholder="Ex: 123.456.789-14"
                 )
-            div.column(style="width:45%")
-                .primario Data Nascimento
+            div.column.mediainput
+                .primario.mediainput Data Nascimento
                 q-input(
                     outlined
                     v-model="nascimento"
                     placeholder="Ex: 00/00/0000"
                 )
-        div.row.flex.q-gutter-sm
-            div.column(style="width:45%")
+        div.row.flex.q-gutter-sm.mediacontainer
+            div.column.mediainput
                 .primario Telefone
                 q-input(
                     outlined
                     v-model="telefone"
                     placeholder="Ex: (99)99999-9999"
                 )
-        div.row.flex.q-gutter-sm
-            div.column(style="width:45%")
+        div.row.flex.q-gutter-sm.mediacontainer
+            div.column.mediainput
                 .primario Senha
                 q-input(
                     outlined
@@ -105,8 +105,7 @@ div.container
                     label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
-                a.esqueceu.cursor-pointer Já tem uma conta? Faça login!
-            div.column(style="width:45%")
+            div.column.mediainput
                 .primario Confirme a senha
                 q-input(
                     outlined
@@ -117,6 +116,7 @@ div.container
                     label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
+            a.esqueceu.cursor-pointer Já tem uma conta? Faça login!
         div.q-pl-sm
             q-btn(
                 label="REGISTRAR"
@@ -134,6 +134,7 @@ div.container
     box-sizing: border-box;
     align-items: center;
     margin-bottom: 40px;
+    margin: 0 auto;
 
 }
 .containerlogin{
@@ -141,7 +142,7 @@ div.container
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
 }
 .titulo{
     color: #000;
@@ -167,5 +168,34 @@ div.container
   font-size: 14px;
   font-weight: 300;
   text-decoration-line: underline;;
+}
+.nome{
+    width:24%;
+}
+.mediainput{
+    width: 49%;
+}
+@media screen and (max-width: 1150px) {
+    .mediacontainer{
+        display:flex;
+        flex-direction: column;
+    }
+    .nome{
+        width:60%;
+    }
+    .mediainput{
+        width:60%;
+    }
+    .containerlogin{
+        width: 65%;
+    }
+}
+@media screen and (max-width: 789px) {
+    .titulo{
+    font-size:22px
+  }
+  .primario{
+    font-size: 18px;
+  }
 }
 </style>
