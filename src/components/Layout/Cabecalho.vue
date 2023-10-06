@@ -11,6 +11,18 @@ const route = useRoute();
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
 
+const categoriesBase = ref([
+  {
+    name: "VIAGENS",
+    children: [
+      { name: "VIAGEM 1", children: [] },
+      { name: "VIAGEM 2", children: [] },
+      { name: "VIAGEM 3", children: [] },
+      { name: "VIAGEM 4", children: [] },
+      { name: "VIAGEM 5", children: [] }
+    ]
+  }
+]);
 const menuList = ref([
   {
     icon: "search",
@@ -62,6 +74,13 @@ const drawer = ref(false);
 const quantidadeCarrinho = ref(0);
 const cartItems = ref([]);
 
+const props = defineProps({
+  dynamicStyle: {
+    type: Object,
+    default: () => {}
+  }
+});
+
 function MudarCores () {
   if (route.path === "/") {
     srcLogo.value = "/images/logo_branco_mita.png";
@@ -95,16 +114,26 @@ function openInicialPage (logo) {
   router.push("/");
 }
 
-// ? Exemplo do que deve retornar no parametro: https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg
+async function openCategoryPage (category) {
+  if (category.id) {
+    const url = "/categorias/" + category.id;
+    await router.push(url);
+    window.location.reload();
+  }
+}
 
-// async function searchLogo () {
-//   try {
-//     const logo = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/configuracaoService/getLogoWeb").then(e => e.data);
-//     if (logo.parametro) srcLogo.value = logo.parametro;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
+async function searchCategories () {
+  try {
+    const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/categoriaAutoRelacionada/getAllCategorias").then(e => e.data);
+    if (data.length) {
+      categoriesBase.value = data.map(row => {
+        return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 async function getCartItems () {
   try {
@@ -127,7 +156,8 @@ setInterval(async () => {
 onBeforeMount(async () => {
   await Promise.all([
     getCartItems(),
-    MudarCores()
+    MudarCores(),
+    searchCategories()
   ]);
 });
 
@@ -195,15 +225,17 @@ div.container
   )
     q-scroll-area(class="fit")
       q-list
-        template(v-for="(menuItem, index) in menuList" :key="index")
-          q-item.text-bold(
-            clickable :active="menuItem.label === 'Outbox'" v-ripple
-            style="color:black; font-size:bold"
+        template(
+          v-for="categorie in categoriesBase"
+          :key="categorie.name"
+        )
+          q-item(
+            clickable :active="categorie.name === 'Outbox'" v-ripple
+            style="color:black;"
+            @click="openCategoryPage(categorie)"
           )
-            q-item-section(avatar)
-              q-icon(:name="menuItem.icon")
-            q-item-section {{ menuItem.label }}
-          q-separator(:key="'sep' + index"  v-if="menuItem.separator")
+            q-item-section {{ categorie.name }}
+          q-separator
 </template>
 
 <style scoped>

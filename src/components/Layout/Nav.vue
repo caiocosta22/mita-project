@@ -20,32 +20,12 @@ const categoriesBase = ref([
       { name: "VIAGEM 4", children: [] },
       { name: "VIAGEM 5", children: [] }
     ]
-  },
-  {
-    name: "OFFICE",
-    children: [
-      { name: "MATERIAL 1", children: [] },
-      { name: "MATERIAL 2", children: [] },
-      { name: "MATERIAL 3", children: [] },
-      { name: "MATERIAL 4", children: [] },
-      { name: "MATERIAL 5", children: [] }
-    ]
-  },
-  { name: "NECESSAIRES", children: [] },
-  { name: "CARTEIRAS", children: [] },
-  { name: "HOME", children: [] },
-  { name: "MASCULINO", children: [] },
-  { name: "FEMININO", children: [] },
-  { name: "PET", children: [] },
-  { name: "UTILITÁRIOS", children: [] },
-  { name: "PACCO", children: [] },
-  { name: "BOLSAS", children: [] }
+  }
 ]);
 
 const props = defineProps({
   dynamicStyle: {
     type: Object,
-    // eslint-disable-next-line no-labels, no-unused-expressions
     default: () => {}
   }
 });
