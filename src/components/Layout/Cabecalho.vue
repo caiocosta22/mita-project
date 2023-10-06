@@ -8,8 +8,6 @@ const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
 const route = useRoute();
-const srcLogo = ref("/images/logo.png");
-const corcabecalho = ref("black");
 
 const categoriesBase = ref([
   {
@@ -73,6 +71,10 @@ const menuList = ref([
 const drawer = ref(false);
 const quantidadeCarrinho = ref(0);
 const cartItems = ref([]);
+const prompt = ref(false);
+const srcLogo = ref("/images/logo.png");
+const corcabecalho = ref("black");
+const pesquisa = ref("");
 
 const props = defineProps({
   dynamicStyle: {
@@ -119,6 +121,13 @@ async function openCategoryPage (category) {
     const url = "/categorias/" + category.id;
     await router.push(url);
     window.location.reload();
+  }
+}
+
+function redirectToSearchPage () {
+  if (pesquisa.value) {
+    const url = "/pesquisa/" + pesquisa.value;
+    router.push(url);
   }
 }
 
@@ -225,6 +234,19 @@ div.container
   )
     q-scroll-area(class="fit")
       q-list
+        q-item(
+          clickable
+          v-ripple
+          style="color:black"
+          @click="prompt = true"
+        )
+          q-item-section BUSCA
+          q-icon(
+            name="search"
+            size="sm"
+            style="padding-top:4px"
+          )
+        q-separator
         template(
           v-for="categorie in categoriesBase"
           :key="categorie.name"
@@ -236,6 +258,51 @@ div.container
           )
             q-item-section {{ categorie.name }}
           q-separator
+    q-dialog(
+      v-model="prompt"
+    )
+      q-card(
+        style="min-width:350px"
+      )
+        q-card-section.row.items-center
+          div.h6 O que está buscando?
+          q-space
+          q-btn(
+            icon="close"
+            flat
+            round
+            dense
+            v-close-popup
+          )
+        q-card-section.q-pt-none
+          q-input(
+            dense
+            v-model="pesquisa"
+            autofocus @keyup.enter="prompt = false"
+            color="black"
+            label-color="black"
+            placeholder="Digite aqui"
+            @keypress.enter="redirectToSearchPage()"
+            type="search"
+            ref="inputRef"
+          )
+        q-card-actions(
+          align="right"
+          text-black
+        )
+          q-btn(
+            label="Cancelar"
+            v-close-popup
+            color="black"
+            size="sm"
+          )
+          q-btn(
+            label="Pesquisar"
+            v-close-popup
+            color="black"
+            size="sm"
+            @click="redirectToSearchPage()"
+          )
 </template>
 
 <style scoped>
