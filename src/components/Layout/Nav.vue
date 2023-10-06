@@ -69,7 +69,6 @@ async function searchCategories () {
       categoriesBase.value = data.map(row => {
         return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
       });
-      categoriesBase.value = categoriesBase.value.filter(row => row.name !== "MEIO SITE");
     }
   } catch (e) {
     console.error(e);
