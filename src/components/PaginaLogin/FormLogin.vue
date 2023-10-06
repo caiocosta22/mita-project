@@ -67,13 +67,13 @@ div.container
               :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
           )
           a.esqueceu.cursor-pointer Esqueceu sua senha?
-        div
+        div.botoes
             q-btn(
                 label="Login"
                 type="submit"
                 color="black"
             )
-            q-btn(
+            q-btn.botaoregistro(
                 label="Registre-se"
                 color="black"
                 label-color="black"
@@ -123,5 +123,29 @@ div.container
   font-size: 14px;
   font-weight: 300;
   text-decoration-line: underline;;
+}
+@media screen and (max-width: 1150px) {
+  .containerlogin{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 789px) {
+  .botoes{
+    display:flex;
+    flex-direction:column;
+  }
+  .botaoregistro{
+    margin: 0;
+    margin-top: 15px
+  }
+
+}
+@media screen and (max-width: 460px){
+  .titulo{
+    font-size:22px
+  }
+  .primario{
+    font-size: 18px;
+  }
 }
 </style>
