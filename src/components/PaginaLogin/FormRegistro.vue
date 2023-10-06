@@ -111,8 +111,8 @@ div.container
                 q-input(
                     outlined
                     type="password"
-                    v-model="password"
-                    label="Digite sua senha"
+                    v-model="confirmpassword"
+                    label="Confirme sua senha"
                     lazy-rules
                     label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
