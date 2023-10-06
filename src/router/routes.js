@@ -48,7 +48,7 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("pages/Paginalogin.vue")
+        component: () => import("pages/PaginaLogin.vue")
       }
     ]
   },
