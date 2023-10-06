@@ -59,7 +59,7 @@ div.valentines.row.col
             v-for="subsec in item.subsecoesEcommerce"
             :key="subsec"
           )
-            q-img.cursor-pointer.col-10.q-pa-lg(
+            q-img.cursor-pointer.col-10(
             :src="subsec.banners[0].fotoWebp"
           )
 </template>
@@ -82,6 +82,6 @@ div.valentines.row.col
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
-  aspect-ratio: auto 1920/373;
+
 }
 </style>
