@@ -36,6 +36,11 @@ function formatCurrency (value) {
     minimumFractionDigits: 2
   });
 }
+function formatPercentage (value) {
+  return value.toLocaleString("en-us", {
+    maximumFractionDigits: 0
+  });
+}
 async function searchBestSellers () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
@@ -118,7 +123,7 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
                     template(
                       v-if="produto.promocao"
                     )
-                      div.tag FRETE GRATIS
+                      div.tag {{ formatPercentage(produto.precoPromocional / produto.valor * 10) }}% OFF!
                   div.row.justify-between.col.q-pt-sm(style="font-size:14px")
                     div.row(style="width:50%; display:flex; text-align:left")
                       span.text-black {{ produto.titulo }}
