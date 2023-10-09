@@ -261,7 +261,7 @@ div.container.q-gutter-md
   h5.q-pt-xl.col-5(style="font-weight: bold;") DETALHES DO PRODUTO
 .row.justify-start.q-pb-lg.col
   p.col-1
-  p.detalhes.q-pt-sm.col-9 {{ produto.descricaoLonga }}
+  p.detalhes.q-pt-sm.col-9(v-html="produto.descricaoLonga")
 </template>
 
 <style scoped>
