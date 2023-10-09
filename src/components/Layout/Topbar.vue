@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
-const slide = ref(1);
+const slide = ref(0);
 const itsLoading = ref(true);
 
 const bannersAnuncio = ref([
