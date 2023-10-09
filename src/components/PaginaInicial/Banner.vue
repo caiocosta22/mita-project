@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
-const slide = ref(1);
+const slide = ref(0);
 const itsLoading = ref(true);
 
 const bannersCarousel = ref([
@@ -65,7 +65,7 @@ div.banner(
       q-carousel-slide.slide.col(
         :name="index"
         :img-src="banner.fotoWebp"
-        )
+      )
   .efeitobanner
 
 </template>
