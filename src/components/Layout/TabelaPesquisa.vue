@@ -120,7 +120,7 @@ watch(() => pageIndex.value, (val) => {
         div.column(style="max-width: 360px;")
             q-img.cursor-pointer.foto(
             :src="item.image"
-            style="border-radius: 4px;"
+            style=";"
             @click="openProductPage(item)"
             )
             div.row.justify-between.q-pt-sm

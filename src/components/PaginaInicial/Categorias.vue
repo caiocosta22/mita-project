@@ -99,7 +99,7 @@ div.row.col.justify-center.q-py-lg
         q-img.cursor-pointer(
           :name="index"
           :src="categoria.fotoUrl"
-          style="display: block; max-width: 100%; border-radius: 4px;"
+          style="display: block; max-width: 100%; ;"
         )
         div.row.col.q-pt-md.justify-center(style="font-size:14px")
           span.text-black.text-center {{ categoria.descricao }}

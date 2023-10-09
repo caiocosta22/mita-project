@@ -127,7 +127,7 @@ watch(() => pageIndex.value, (val) => {
       )
         q-img.cursor-pointer.foto(
           :src="item.image"
-          style="border-radius: 4px;"
+          style=";"
           @click="openProductPage(item)"
         )
         div.row.justify-between.q-pt-sm

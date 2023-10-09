@@ -2,9 +2,11 @@
 import { ref, onBeforeMount } from "vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 import { useRouter } from "vue-router";
-const router = useRouter();
 import axios from "axios";
 import "vue3-carousel/dist/carousel.css";
+
+const router = useRouter();
+
 const itemsOfApi = ref([]);
 const settings = ref({
   itemsToShow: 1,
@@ -36,11 +38,13 @@ function formatCurrency (value) {
     minimumFractionDigits: 2
   });
 }
+
 function formatPercentage (value) {
   return value.toLocaleString("en-us", {
     maximumFractionDigits: 0
   });
 }
+
 async function searchBestSellers () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
@@ -118,7 +122,7 @@ div.row.col.justify-center.q-pt-md(style="align-items:center")
                 )
                   q-img.cursor-pointer(
                     :src="produto.fotosServico[0].foto"
-                    style="display: block; max-width: 100%; border-radius: 4px;"
+                    style="display: block; max-width: 100%; ;"
                   )
                     template(
                       v-if="produto.promocao"

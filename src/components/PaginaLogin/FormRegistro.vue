@@ -13,24 +13,20 @@ const cpf = ref("");
 const data = ref("");
 const telefone = ref("");
 const senharef = ref("");
-const corporegistro = ref({
-  nmCliente: nomeref.value,
-  sobrenome: sobrenomeref.value,
-  email: dsEmail.value,
-  nrCpfCnpj: cpf.value,
-  dataNascimento: data.value,
-  nrTelefone: telefone.value,
-  senha: senharef.value
-});
-const email = ref(null);
-const password = ref(null);
-const accept = ref(false);
 const confirmpassword = ref(null);
 
 const envioregistro = async () => {
   try {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
-      corporegistro
+      {
+        nmCliente: nomeref.value,
+        sobrenome: sobrenomeref.value,
+        dsEmail: dsEmail.value,
+        nrCpfCnpj: cpf.value,
+        dataNascimento: data.value,
+        nrTelefone: telefone.value,
+        senha: senharef.value
+      }
     );
     console.log(response.status);
     if (response.status === 200) {
@@ -58,19 +54,13 @@ function redirectToLoginPage () {
   router.push(url);
 }
 
-function onReset () {
-  email.value = null;
-  password.value = null;
-  accept.value = false;
-}
 </script>
 
 <template lang="pug">
 div.container
     .q-form.q-gutter-md.containerlogin.q-pa-md(
-        @reset="onReset"
     )
-        .titulo.q-pl-sm CRIAR CONTA
+        .titulo.q-pl-sm Criar Conta
         div.row.flex.q-gutter-sm.nomesobrenome
             div.column.nome
                 .primario Nome
@@ -114,7 +104,6 @@ div.container
                     color="black"
                     v-model="data"
                     placeholder="Ex: 00/00/0000"
-                    mask="##/##/####"
                 )
         div.row.flex.q-gutter-sm.mediacontainer
             div.column.mediainput
@@ -137,7 +126,7 @@ div.container
                     lazy-rules
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
-            div.column.mediainput
+            div.column.mediainput(style="display:flex;flex-wrap: nowrap;")
                 .primario Confirme a senha
                 q-input(
                     outlined
@@ -149,17 +138,18 @@ div.container
                     color="black"
                     :rules="[ val => val === senharef || 'As senhas não coincidem']"
                 )
-            a.esqueceu.cursor-pointer(
+        div.q-pl-sm.column
+          a.esqueceu.cursor-pointer(
                 @click="redirectToLoginPage()"
-            ) Já tem uma conta? Faça login!
-        div.q-pl-sm
-            q-btn(
-                label="REGISTRAR"
-                type="submit"
-                color="black"
-                @click="envioregistro()"
-                @keypress.enter="envioregistro()"
-            )
+              )   Já tem uma conta? Faça login!
+          q-btn(
+              label="REGISTRAR"
+              type="submit"
+              color="black"
+              @click="envioregistro()"
+              @keypress.enter="envioregistro()"
+              style="width: 100px;"
+          )
 </template>
 
 <style scoped>

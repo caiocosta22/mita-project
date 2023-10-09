@@ -6,18 +6,17 @@ import axios from "axios";
 const router = useRouter();
 const $q = useQuasar();
 
-const email = ref("");
-const password = ref("");
+const login = ref("");
+const senha = ref("");
 const accept = ref(false);
-const corpoLogin = ref({
-  email: email.value,
-  password: password.value
-});
 
 const envioLogin = async () => {
   try {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getAutenticacaoEcommerce",
-      corpoLogin
+      {
+        login: login.value,
+        senha: senha.value
+      }
     );
     console.log(response.status);
     if (response.status === 200) {
@@ -46,8 +45,8 @@ function redirectToRegisterPage () {
 }
 
 function onReset () {
-  email.value = null;
-  password.value = null;
+  login.value = null;
+  senha.value = null;
   accept.value = false;
 }
 </script>
@@ -62,7 +61,7 @@ div.container
           .primario Email
           q-input(
               outlined
-              v-model="email"
+              v-model="login"
               label="Digite seu email"
               lazy-rules
               color="black"
@@ -73,7 +72,7 @@ div.container
           q-input(
               outlined
               type="password"
-              v-model="password"
+              v-model="senha"
               label="Digite sua senha"
               lazy-rules
               color="black"

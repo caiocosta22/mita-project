@@ -113,7 +113,7 @@ onBeforeMount(async () => {
                 div.full-width.full-height.column.justify-center
                   q-img.cursor-pointer(
                     :src="produto.fotosServico[0].foto"
-                    style="display: block; max-width: 100%; border-radius: 4px;"
+                    style="display: block; max-width: 100%; ;"
                   )
                   div.row.justify-between.col.q-pt-sm(style="font-size:16px")
                     span.text-black.text-bold {{ produto.titulo }}
