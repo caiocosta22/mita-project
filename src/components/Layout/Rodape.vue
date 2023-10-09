@@ -134,24 +134,24 @@ div.rodape2.col.column
     )
       q-card.listas
         q-card-section
-          a(href="#") A empresa
+          a.cursor-pointer(href="#") A empresa
         q-card-section
-          a(href="#") Política de Entrega
+          a.cursor-pointer(@click="redirectToHTMLPage2") Política de Entrega
         q-card-section
-          a(href="#") Privacidade e Segurança
+          a.cursor-pointer(href="#") Privacidade e Segurança
         q-card-section
-          a(href="#") Trocas e Devoluções
+          a.cursor-pointer(@click="redirectToHTMLPage") Trocas e Devoluções
     q-expansion-item.listas(
       expand-separator
       label="Minha Conta"
     )
       q-card.listas
         q-card-section
-          a(href="#") Perfil
+          a.cursor-pointer(href="#") Perfil
         q-card-section
-          a(href="#") Meus pedidos
+          a.cursor-pointer(href="#") Meus pedidos
         q-card-section
-          a(href="#") Meu carrinho
+          a.cursor-pointer(href="#") Meu carrinho
     q-expansion-item.listas(
       expand-separator
       label="Ajuda e suporte"
