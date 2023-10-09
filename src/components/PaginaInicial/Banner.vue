@@ -4,6 +4,7 @@ import axios from "axios";
 
 const slide = ref(0);
 const itsLoading = ref(true);
+const autoplay = ref(true);
 
 const bannersCarousel = ref([
   {
@@ -55,6 +56,7 @@ div.banner(
     v-model="slide"
     infinite
     swipeable
+    :autoplay="autoplay"
     transition-prev="slide-right"
     transition-next="slide-left"
   )

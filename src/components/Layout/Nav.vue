@@ -129,13 +129,13 @@ q-toolbar.nav.q-px-md.col.q-pt-sm(
       ref="inputRef"
     )
       template(v-slot:label)
-        .textobusca(
+        .textobusca.q-pr-sm(
           :style="correctStyle"
           :color="cor"
-      )  O QUE ESTÁ BUSCANDO
+      ) O QUE ESTÁ BUSCANDO
       template(v-slot:append)
         q-icon(
-          size="sm"
+          size="xs"
           @click="redirectToSearchPage()"
           :color="cor"
           name="search"
