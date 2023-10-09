@@ -66,6 +66,9 @@ div.container.col.q-pt-md
 </template>
 
 <style scoped>
+.container{
+  display: none;
+}
 *{
   color: black;
 }
