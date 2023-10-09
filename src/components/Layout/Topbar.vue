@@ -3,7 +3,6 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
 const slide = ref(1);
-const autoplay = ref(true);
 const itsLoading = ref(true);
 
 const bannersAnuncio = ref([
@@ -75,7 +74,6 @@ div(
     v-model="slide"
     infinite
     swipeable
-    autoplay="true"
     transition-prev="slide-right"
     transition-next="slide-left"
     style="max-height: 32px;"

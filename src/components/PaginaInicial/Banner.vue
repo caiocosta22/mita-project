@@ -3,7 +3,6 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 
 const slide = ref(1);
-const autoplay = ref(true);
 const itsLoading = ref(true);
 
 const bannersCarousel = ref([
@@ -56,11 +55,8 @@ div.banner(
     v-model="slide"
     infinite
     swipeable
-    :autoplay="autoplay"
     transition-prev="slide-right"
     transition-next="slide-left"
-    @mouseenter="autoplay = false"
-    @mouseleave="autoplay = true"
   )
     template(
       v-for="(banner, index) in bannersCarousel"

@@ -2,33 +2,59 @@
 import { useQuasar } from "quasar";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 const $q = useQuasar();
-
+const nomeref = ref("");
+const sobrenomeref = ref("");
+const dsEmail = ref("");
+const cpf = ref("");
+const data = ref("");
+const telefone = ref("");
+const senharef = ref("");
+const corporegistro = ref({
+  nmCliente: nomeref.value,
+  sobrenome: sobrenomeref.value,
+  email: dsEmail.value,
+  nrCpfCnpj: cpf.value,
+  dataNascimento: data.value,
+  nrTelefone: telefone.value,
+  senha: senharef.value
+});
 const email = ref(null);
 const password = ref(null);
 const accept = ref(false);
+const confirmpassword = ref(null);
 
-function onSubmit () {
-  if (accept.value !== true) {
-    $q.notify({
-      color: "red-5",
-      textColor: "white",
-      icon: "warning",
-      message: "You need to accept the license and terms first"
-    });
-  } else {
-    $q.notify({
-      color: "green-4",
-      textColor: "white",
-      icon: "cloud_done",
-      message: "Submitted"
-    });
+const envioregistro = async () => {
+  try {
+    const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
+      corporegistro
+    );
+    console.log(response.status);
+    if (response.status === 200) {
+      $q.notify({
+        color: "green-4",
+        textColor: "white",
+        icon: "cloud_done",
+        message: "Registro concluído com sucesso!"
+      });
+    } else {
+      $q.notify({
+        color: "red-5",
+        textColor: "white",
+        icon: "warning",
+        message: "Ocorreu um erro! Tente novamente."
+      });
+    }
+  } catch (error) {
+    console.log(error);
   }
-}
-function redirectToRegisterPage () {
-  const url = "/registro";
+};
+
+function redirectToLoginPage () {
+  const url = "/login";
   router.push(url);
 }
 
@@ -42,7 +68,6 @@ function onReset () {
 <template lang="pug">
 div.container
     .q-form.q-gutter-md.containerlogin.q-pa-md(
-        @submit="onSubmit"
         @reset="onReset"
     )
         .titulo.q-pl-sm CRIAR CONTA
@@ -51,21 +76,24 @@ div.container
                 .primario Nome
                 q-input(
                     outlined
-                    v-model="nome"
+                    color="black"
+                    v-model="nomeref"
                     placeholder="Ex: João"
                 )
             div.column.nome
                 .primario Sobrenome
                 q-input(
                     outlined
-                    v-model="sobrenome"
+                    color="black"
+                    v-model="sobrenomeref"
                     placeholder="Ex: Silva"
                 )
             div.column.mediainput
                 .primario Email
                 q-input(
                 outlined
-                v-model="email"
+                color="black"
+                v-model="dsEmail"
                 placeholder="Ex: email@email.com"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
@@ -75,21 +103,25 @@ div.container
                 .primario CPF
                 q-input(
                     outlined
-                    v-model="CPF"
+                    color="black"
+                    v-model="cpf"
                     placeholder="Ex: 123.456.789-14"
                 )
             div.column.mediainput
                 .primario.mediainput Data Nascimento
                 q-input(
                     outlined
-                    v-model="nascimento"
+                    color="black"
+                    v-model="data"
                     placeholder="Ex: 00/00/0000"
+                    mask="##/##/####"
                 )
         div.row.flex.q-gutter-sm.mediacontainer
             div.column.mediainput
                 .primario Telefone
                 q-input(
                     outlined
+                    color="black"
                     v-model="telefone"
                     placeholder="Ex: (99)99999-9999"
                 )
@@ -98,11 +130,11 @@ div.container
                 .primario Senha
                 q-input(
                     outlined
+                    color="black"
                     type="password"
-                    v-model="password"
+                    v-model="senharef"
                     label="Digite sua senha"
                     lazy-rules
-                    label-color="black"
                     :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
                 )
             div.column.mediainput
@@ -112,16 +144,21 @@ div.container
                     type="password"
                     v-model="confirmpassword"
                     label="Confirme sua senha"
+                    @keypress.enter="envioregistro()"
                     lazy-rules
-                    label-color="black"
-                    :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
+                    color="black"
+                    :rules="[ val => val === senharef || 'As senhas não coincidem']"
                 )
-            a.esqueceu.cursor-pointer Já tem uma conta? Faça login!
+            a.esqueceu.cursor-pointer(
+                @click="redirectToLoginPage()"
+            ) Já tem uma conta? Faça login!
         div.q-pl-sm
             q-btn(
                 label="REGISTRAR"
                 type="submit"
                 color="black"
+                @click="envioregistro()"
+                @keypress.enter="envioregistro()"
             )
 </template>
 
@@ -145,7 +182,7 @@ div.container
     width: 50%;
 }
 .titulo{
-    color: #000;
+  color: #000;
   text-align: left;
   font-family: Catamaran;
   font-size: 30px;
@@ -154,7 +191,7 @@ div.container
   line-height: normal;
 }
 .primario{
-    color: #000;
+  color: #000;
   text-align: left;
   font-family: Catamaran;
   font-size: 24px;
@@ -163,7 +200,7 @@ div.container
   line-height: normal;
 }
 .esqueceu {
-    color: #939598;
+  color: #939598;
   font-family: Catamaran;
   font-size: 14px;
   font-weight: 300;

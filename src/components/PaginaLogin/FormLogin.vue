@@ -2,31 +2,44 @@
 import { useQuasar } from "quasar";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+import axios from "axios";
 const router = useRouter();
 const $q = useQuasar();
 
-const email = ref(null);
-const password = ref(null);
+const email = ref("");
+const password = ref("");
 const accept = ref(false);
+const corpoLogin = ref({
+  email: email.value,
+  password: password.value
+});
 
-function onSubmit () {
-  if (accept.value !== true) {
-    $q.notify({
-      color: "red-5",
-      textColor: "white",
-      icon: "warning",
-      message: "You need to accept the license and terms first"
-    });
-  } else {
-    $q.notify({
-      color: "green-4",
-      textColor: "white",
-      icon: "cloud_done",
-      message: "Submitted"
-    });
+const envioLogin = async () => {
+  try {
+    const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getAutenticacaoEcommerce",
+      corpoLogin
+    );
+    console.log(response.status);
+    if (response.status === 200) {
+      $q.notify({
+        color: "green-4",
+        textColor: "white",
+        icon: "cloud_done",
+        message: "Bem vindo!"
+      });
+    } else {
+      $q.notify({
+        color: "red-5",
+        textColor: "white",
+        icon: "warning",
+        message: "Credenciais Incorretas! Tenta novamente."
+      });
+    }
+  } catch (error) {
+    console.log(error);
   }
-}
+};
+
 function redirectToRegisterPage () {
   const url = "/registro";
   router.push(url);
@@ -42,7 +55,6 @@ function onReset () {
 <template lang="pug">
 div.container
     .q-form.q-gutter-md.containerlogin.q-pa-md(
-        @submit="onSubmit"
         @reset="onReset"
     )
         .titulo Faça seu Login
@@ -53,6 +65,7 @@ div.container
               v-model="email"
               label="Digite seu email"
               lazy-rules
+              color="black"
               :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
           )
         div.column
@@ -63,8 +76,9 @@ div.container
               v-model="password"
               label="Digite sua senha"
               lazy-rules
-              label-color="black"
+              color="black"
               :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
+              @keypress.enter="envioLogin()"
           )
           a.esqueceu.cursor-pointer Esqueceu sua senha?
         div.botoes
@@ -72,6 +86,7 @@ div.container
                 label="Login"
                 type="submit"
                 color="black"
+                @click="envioLogin()"
             )
             q-btn.botaoregistro(
                 label="Registre-se"
