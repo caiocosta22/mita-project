@@ -61,6 +61,26 @@ const routes = [
         component: () => import("pages/PaginaRegistro.vue")
       }
     ]
+  },
+  {
+    path: "/politicas",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Politicas.vue")
+      }
+    ]
+  },
+  {
+    path: "/trocas",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Trocas.vue")
+      }
+    ]
   }
 ];
 

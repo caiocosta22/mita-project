@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
+
+const router = useRouter();
 
 const infosLinks = ref({
   city: "Fortaleza",
@@ -29,9 +32,20 @@ async function searchSocialMedia () {
   }
 }
 
+function redirectToHTMLPage () {
+  const url = "/trocas/";
+  router.push(url);
+}
+
+function redirectToHTMLPage2 () {
+  const url = "/politicas/";
+  router.push(url);
+}
+
 onBeforeMount(async () => {
   await searchSocialMedia();
 });
+
 </script>
 
 <template lang="pug">
@@ -46,8 +60,8 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.secundario Minha Sacola
   div.Suporte.column.col-2
     p.principal Ajuda e Suporte
-    p.secundario Política de Entrega
-    p.secundario Trocas e Devoluções
+    p.secundario(@click="redirectToHTMLPage2") Política de Entrega
+    p.secundario(@click="redirectToHTMLPage") Trocas e Devoluções
   div.Contato.column.col-2
     p.principal Contato
     p.secundario Fale Conosco
@@ -188,6 +202,7 @@ a{
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
+  cursor: pointer;
   line-height: 20px; /* 153.846% */
 }
 .listas{

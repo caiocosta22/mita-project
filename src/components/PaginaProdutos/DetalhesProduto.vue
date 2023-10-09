@@ -4,7 +4,6 @@ import { useQuasar } from "quasar";
 import axios from "axios";
 
 const $q = useQuasar();
-
 const text1 = ref(""); // Referência para o texto digitado no q-input
 const cep = ref(); // Ref para o texto digitado no CEP
 const dadosFrete = ref([]);
@@ -143,14 +142,14 @@ div.container.q-gutter-md
           @click="principalImg = objFoto.foto"
           v-if="objFoto.foto"
           :src="objFoto.foto"
-          style="width: 200px;height: 200px; border-radius: 4px;border-radius: 4px"
+          style="width: 200px;height: 200px"
         )
     div.fotogrande
       q-img.foto.cursor-pointer(
         v-if="principalImg"
         :src="principalImg"
         no-native-menu
-        style="width: 545px; height: 645px;border-radius: 4px;border-top-right-radius: 4px"
+        style="width: 545px; height: 645px"
       )
         .text-on-image {{ text1 }}
   div.containerdetalhes.q-py-md
