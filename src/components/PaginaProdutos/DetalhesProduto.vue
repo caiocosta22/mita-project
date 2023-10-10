@@ -219,7 +219,7 @@ div.container.q-py-md
         maxlength="15"
       )
     div.calcularfrete
-      span.destaque.q-pt-md(style="max-width: 300px; min-width: 180px;") CALCULE SEU FRETE
+      span.destaque.q-pt-md CALCULE SEU FRETE
       q-input.campocep(
         v-model="cep"
         label="CEP"
@@ -358,11 +358,13 @@ p.detalhes{
 }
 .calcularfrete{
   display:flex;
-  max-width: 700px;
   flex-direction: row;
 }
+.calcularfrete>span{
+width: 35%;
+}
 .campocep{
-  width: 270px;
+  width: 65%;
 }
 @media screen and (max-width: 1150px) {
 }
