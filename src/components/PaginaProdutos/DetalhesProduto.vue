@@ -133,8 +133,8 @@ async function addProductToCart () {
 </script>
 
 <template lang="pug">
-div.container.q-gutter-md
-  div.containerfotos.q-pa-md.q-gutter-md
+div.container.q-py-md
+  div.containerfotos.q-gutter-lg
     div.miniaturas
       template(
         v-for="objFoto in produto.fotosServico"
@@ -144,17 +144,17 @@ div.container.q-gutter-md
           @click="principalImg = objFoto.foto"
           v-if="objFoto.foto"
           :src="objFoto.foto"
-          style="width: 200px;height: 200px"
+          style="max-width: 100%; height: 208px; display:block"
         )
     div.fotogrande
       q-img.foto.cursor-pointer(
         v-if="principalImg"
         :src="principalImg"
         no-native-menu
-        style="width: 545px; height: 645px"
+        style="max-width: 100%; height: 640px; display:block"
       )
         .text-on-image {{ text1 }}
-  div.containerdetalhes.q-py-md
+  div.containerdetalhes
     div.column
       div.row.justify-between
         span.tituloprod {{ produto.descricao }}
@@ -324,15 +324,19 @@ p.detalhes{
 }
 .container{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: 0 auto;
-  justify-content: center;
   flex-direction: row;
+  justify-content: center;
 }
 .containerfotos{
   display: flex;
   flex-wrap: wrap;
-  max-width: 900px;
+  width:50%
+}
+.fotogrande {
+  display: flex;
+  width: 60%;
 }
 .foto{
   display: block;
@@ -340,6 +344,7 @@ p.detalhes{
 }
 .miniaturas{
   display: flex;
+  width: 25%;
   flex-direction: column;
 }
 .miniaturas>div{
@@ -349,7 +354,7 @@ p.detalhes{
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  max-width:30%
+  width: 34.5%
 }
 .calcularfrete{
   display:flex;
@@ -359,22 +364,6 @@ p.detalhes{
 .campocep{
   width: 270px;
 }
-@media screen and (max-width: 1201px) {
-  .containerdetalhes{
-    display: flex;
-    width: 85%;
-    max-width: 100%;
-    margin: 0 auto;
-    flex-wrap: nowrap;
-  }
-  .calcularfrete{
-    display:flex;
-    max-width: 100%;
-    flex-direction: row;
-  }
-  .campocep{
-    width: 800px;
-  }
-
+@media screen and (max-width: 1150px) {
 }
 </style>

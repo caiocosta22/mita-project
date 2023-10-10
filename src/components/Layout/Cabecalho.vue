@@ -2,7 +2,7 @@
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import { getCartItems } from "../../helpers/getCartItems.js";
+import getCartItems from "src/helpers/getCartItems";
 import axios from "axios";
 
 const $q = useQuasar();
@@ -27,13 +27,6 @@ const categoriesBase = ref([
     ]
   }
 ]);
-
-const props = defineProps({
-  dynamicStyle: {
-    type: Object,
-    default: () => {}
-  }
-});
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY;

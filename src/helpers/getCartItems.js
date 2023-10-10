@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuasar } from "quasar";
 const $q = useQuasar();
 
-export default async function getCartItems () {
+async function getCartItems () {
   const cartId = $q.localStorage.getItem("cartIdBackend") || undefined;
   let cartItems = [];
   let quantidadeCarrinho = $q.localStorage.getItem("quantidadeCarrinho") || 0;
@@ -20,3 +20,5 @@ export default async function getCartItems () {
     throw new Error(e);
   }
 }
+
+export default getCartItems;
