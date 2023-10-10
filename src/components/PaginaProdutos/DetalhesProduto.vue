@@ -367,5 +367,18 @@ width: 35%;
   width: 65%;
 }
 @media screen and (max-width: 1150px) {
+  .container{
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .containerfotos{
+    width: 84%;
+    margin: 0 auto;
+  }
+  .containerdetalhes{
+    width: 84%;
+    justify-content: center;
+    margin: 0 auto;
+  }
 }
 </style>
