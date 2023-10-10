@@ -33,7 +33,8 @@ const categoriasCarousel = ref([
 
 const settings = ref({
   itemsToShow: 1,
-  snapAlign: "center"
+  snapAlign: "center",
+  wrapAround: true
 });
 const breakpoints = ref({
   368: {
