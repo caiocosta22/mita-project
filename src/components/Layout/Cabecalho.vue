@@ -2,16 +2,15 @@
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useQuasar } from "quasar";
+import { getCartItems } from "../../helpers/getCartItems.js";
 import axios from "axios";
 
 const $q = useQuasar();
-const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
 const route = useRoute();
 
 const drawer = ref(false);
-const quantidadeCarrinho = ref(0);
-const cartItems = ref([]);
+const quantidadeCarrinho = ref($q.localStorage.getItem("quantidadeCarrinho") || 0);
 const prompt = ref(false);
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
@@ -95,19 +94,19 @@ async function searchCategories () {
   }
 }
 
-async function getCartItems () {
-  try {
-    if (cartId) {
-      const cart = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/-1`);
-      cartItems.value = cart.data || cart.response.data;
-      if (cartItems.value !== "Nenhum carrinho válido encontrado") {
-        quantidadeCarrinho.value = cartItems.value.items?.length;
-      }
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
+// async function getCartItems () {
+//   try {
+//     if (cartId) {
+//       const cart = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/-1`);
+//       cartItems.value = cart.data || cart.response.data;
+//       if (cartItems.value !== "Nenhum carrinho válido encontrado") {
+//         quantidadeCarrinho.value = cartItems.value.items?.length;
+//       }
+//     }
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
 
 setInterval(async () => {
   await getCartItems();

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
+import getCartItems from "../../helpers/getCartItems.js";
 import axios from "axios";
 
 const $q = useQuasar();
@@ -123,6 +124,7 @@ async function addProductToCart () {
     // ! Esse ponto está na documentação, mas nada foi falado ainda sobre para onde redirecionar
     // const url = "a que eles definirem";
     // window.location.href = url;
+    await getCartItems();
   } catch (e) {
     console.error(e);
   }
