@@ -2,9 +2,9 @@
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
 import getCartItems from "../../helpers/getCartItems.js";
+import InnerImageZoom from "vue-inner-image-zoom";
+import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import axios from "axios";
-import VueMagnifier from "@websitebeaver/vue-magnifier";
-import "@websitebeaver/vue-magnifier/styles.css";
 
 const $q = useQuasar();
 const text1 = ref(""); // Referência para o texto digitado no q-input
@@ -149,9 +149,8 @@ div.container.q-py-md
           style="max-width: 100%; height: 208px; display:block"
         )
     div.fotogrande
-      Vue-magnifier.foto(
-        mgShape="circle"
-        zoomFactor="1.2"
+      InnerImageZoom.foto(
+        zoomType="hover"
         v-if="principalImg"
         :src="principalImg"
         no-native-menu
