@@ -15,6 +15,8 @@ const prompt = ref(false);
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
 const pesquisa = ref("");
+const cartId = $q.localStorage.getItem("cartIdBackend");
+const linkcarrinho = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
 const categoriesBase = ref([
   {
     name: "VIAGENS",
@@ -146,7 +148,7 @@ div.container
         name="fa-solid fa-regular fa-user"
         )
         span.col(:style = "{ color : corcabecalho }") Minha conta
-      a.cursor-pointer.carrinho.row.q-gutter-sm
+      a.cursor-pointer.carrinho.row.q-gutter-sm(:href="linkcarrinho")
         q-icon(
           :color="corcabecalho"
           size="sm"
