@@ -105,7 +105,7 @@ watch(() => pageIndex.value, (val) => {
   div.containertabela.q-py-md
     div.row.paginacao.q-px-sm.q-pt-xl
       p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
-      div.row.q-gutter-sm
+      div.row.q-gutter-sm.q-px-xs
         q-icon.cursor-pointer(
           name="chevron_left"
           size="1.5em"
@@ -125,23 +125,24 @@ watch(() => pageIndex.value, (val) => {
     )
       div.containerfoto(
       )
-        q-img.cursor-pointer.foto(
-          :src="item.image"
-          style=";"
-          @click="openProductPage(item)"
-        )
-        div.row.justify-between.q-pt-sm
-          div.column(style="width:50%;text-align:left;font-size:14px")
-            span.text-black {{ item.name }}
-          div.column(style="width:50%; text-align:right;font-size:12px")
-            span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
+        div.column(style="max-width: 360px")
+          q-img.cursor-pointer.foto(
+            :src="item.image"
+            style=";"
+            @click="openProductPage(item)"
+          )
+          div.row.justify-between.q-pt-sm
+            div.column(style="width:50%;text-align:left;font-size:14px")
+              span.text-black {{ item.name }}
+            div.column(style="width:50%; text-align:right;font-size:12px")
+              span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
 </template>
 
 <style scoped>
 .containertabela{
   display: flex;
   flex-wrap: wrap;
-  max-width: 1313px;
+  width: 100%;
   margin: 0 auto;
 }
 .containerfoto{
