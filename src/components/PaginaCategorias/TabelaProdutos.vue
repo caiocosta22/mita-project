@@ -134,7 +134,7 @@ watch(() => pageIndex.value, (val) => {
           div.row.justify-between.q-pt-sm
             div.column(style="width:50%;text-align:left;font-size:14px")
               span.text-black {{ item.name }}
-            div.column(style="width:50%; text-align:right;font-size:12px")
+            div.column(style="width:50%; text-align:right;font-size:14px")
               span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
 </template>
 
@@ -162,11 +162,11 @@ watch(() => pageIndex.value, (val) => {
 
 .texto {
   color:black;
-  font-size:12px;
+  font-size:14px;
 }
 .texto2 {
   color:black;
-  font-size: 12px;
+  font-size: 14px;
 }
 @media screen and (max-width: 936px) {
   .containerfoto{
