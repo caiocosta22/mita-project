@@ -9,6 +9,13 @@ const cartId = $q.localStorage.getItem("cartIdBackend");
 const router = useRouter();
 const route = useRoute();
 
+const drawer = ref(false);
+const quantidadeCarrinho = ref(0);
+const cartItems = ref([]);
+const prompt = ref(false);
+const srcLogo = ref("/images/logo.png");
+const corcabecalho = ref("black");
+const pesquisa = ref("");
 const categoriesBase = ref([
   {
     name: "VIAGENS",
@@ -21,60 +28,6 @@ const categoriesBase = ref([
     ]
   }
 ]);
-const menuList = ref([
-  {
-    icon: "search",
-    label: "Pesquisar",
-    separator: true
-  },
-  {
-    label: "Viagens",
-    separator: true
-  },
-  {
-    label: "Necessaires",
-    separator: true
-  },
-  {
-    label: "Carteiras",
-    separator: true
-  },
-  {
-    label: "Home",
-    separator: true
-  },
-  {
-    label: "Office",
-    separator: true
-  },
-  {
-    label: "Masculino",
-    separator: true
-  },
-  {
-    label: "Feminino",
-    separator: true
-  },
-  {
-    label: "Utilitários",
-    separator: true
-  },
-  {
-    label: "Pacco",
-    separator: true
-  },
-  {
-    label: "Bolsas",
-    separator: true
-  }
-]);
-const drawer = ref(false);
-const quantidadeCarrinho = ref(0);
-const cartItems = ref([]);
-const prompt = ref(false);
-const srcLogo = ref("/images/logo.png");
-const corcabecalho = ref("black");
-const pesquisa = ref("");
 
 const props = defineProps({
   dynamicStyle: {
@@ -82,16 +35,6 @@ const props = defineProps({
     default: () => {}
   }
 });
-
-function MudarCores () {
-  if (route.path === "/") {
-    srcLogo.value = "/images/logo_branco_mita.png";
-    corcabecalho.value = "white";
-  } else {
-    srcLogo.value = "/images/logo.png";
-    corcabecalho.value = "black";
-  }
-}
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
@@ -106,13 +49,21 @@ const handleScroll = () => {
   }
 };
 
+function MudarCores () {
+  if (route.path === "/") {
+    srcLogo.value = "/images/logo_branco_mita.png";
+    corcabecalho.value = "white";
+  } else {
+    srcLogo.value = "/images/logo.png";
+    corcabecalho.value = "black";
+  }
+}
+
 function openLoginPage () {
   router.push("/login");
 }
 
 function openInicialPage (logo) {
-  // const url = "https://alastrar-mita.netlify.app/#/";
-  // window.location.replace(url, "_blank");
   router.push("/");
 }
 

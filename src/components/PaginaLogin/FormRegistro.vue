@@ -21,13 +21,16 @@ const envioregistro = async () => {
       {
         nmCliente: nomeref.value,
         sobrenome: sobrenomeref.value,
+        login: dsEmail.value,
         dsEmail: dsEmail.value,
         nrCpfCnpj: cpf.value,
         dataNascimento: data.value,
         nrTelefone: telefone.value,
+        celular: telefone.value,
         senha: senharef.value
       }
     );
+    console.log(response);
     console.log(response.status);
     if (response.status === 200) {
       $q.notify({
@@ -103,6 +106,7 @@ div.container
                     outlined
                     color="black"
                     v-model="data"
+                    mask="##/##/####"
                     placeholder="Ex: 00/00/0000"
                 )
         div.row.flex.q-gutter-sm.mediacontainer
