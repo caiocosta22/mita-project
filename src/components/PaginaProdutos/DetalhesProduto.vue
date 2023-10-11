@@ -30,6 +30,7 @@ const props = defineProps({
 // const icons = computed(() => { return props.cores; });
 const produto = computed(() => { return props.product; });
 const principalImg = ref(produto.value.fotosServico[0].foto);
+const nomecor = ref("");
 
 const copyLink = () => {
   navigator.clipboard.writeText(window.location.href);
@@ -174,23 +175,26 @@ div.container.q-py-md
             name="favorite"
           )
       p COD: {{ produto.codigo }}
-    //- Só vai dar pra fazer quando tiver um produto com cores ativa
-    div.row.q-gutter-sm(
-      v-if="produto.cores.length > 1"
+    template(
+      v-if="produto.gradePrimaria"
     )
-      p.destaque COR
-      template(
-        v-for="(icon, index) in produto.cores"
-        :key="index"
+      div.row.q-gutter-sm(
+        v-if="produto.gradePrimaria.itensGrade.length > 1"
       )
-        div
-          q-btn(
-            round
-            size="sm"
-            :color="icon.icon"
-            :class="{ ativo: icon.ativo }"
-            @click="ativar(produto.cores)"
-          )
+        p.destaque {{ produto.gradePrimaria.nome }}
+        template(
+          v-for="(icon, index) in produto.gradePrimaria.itensGrade"
+          :key="index"
+        )
+          div.q-pt-xs
+            q-btn(
+              round
+              :name="icon.nome"
+              size="xs"
+              :style="{ backgroundColor: icon.valorVisualizacao }"
+              :class="{ ativo: icon.ativo }"
+              @click="nomecor = icon.nome"
+            )
     div.justify-between.row.q-pb-sm.q-pt-sm
       template(
         v-if="produto.promocao"
