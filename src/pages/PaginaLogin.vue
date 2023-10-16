@@ -4,7 +4,7 @@ import Login from "../components/PaginaLogin/FormLogin.vue";
 
 <template lang="pug">
 q-page-container
-    Login
+    Login(style="background-color: black; background-size:cover")
 </template>
 
 <style scoped>

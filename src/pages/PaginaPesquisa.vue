@@ -41,8 +41,6 @@ async function searchProducts (id) {
 async function getTypedSearch () {
   try {
     items.value = await searchProducts(route.params.pesquisa);
-    console.log("ah rapaz", items.value);
-    console.log("ah rapaz2", route.params);
   } catch (e) {
     console.error("Erro ao buscar", e);
     items.value = [];

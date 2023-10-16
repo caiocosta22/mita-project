@@ -46,7 +46,7 @@ div.column.filtro(
   display: flex;
   width: 18%;
 }
-@media screen and (max-width: 892px) {
+@media screen and (max-width: 1150px) {
   .filtro{
   display: flex;
   width: 25%;

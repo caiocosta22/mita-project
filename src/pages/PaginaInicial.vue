@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template lang="pug">
-q-page-container.column
+q-page-container.column(style="background-image: url('../assets/imgs/Banner.png'); background-size:cover")
   Banner
   Promocional
   Categorias

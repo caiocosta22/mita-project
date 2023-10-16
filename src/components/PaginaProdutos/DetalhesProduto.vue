@@ -7,12 +7,6 @@ import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import axios from "axios";
 
 const $q = useQuasar();
-const text1 = ref(""); // Referência para o texto digitado no q-input
-const cep = ref(); // Ref para o texto digitado no CEP
-const dadosFrete = ref([]);
-const usarSkeleton = ref(false);
-const quantidadeCarrinho = ref(0);
-const qtdProduct = ref(1);
 const cartId = $q.localStorage.getItem("cartIdBackend");
 
 const props = defineProps({
@@ -26,10 +20,26 @@ const props = defineProps({
     default: () => {}
   }
 });
-
-// const icons = computed(() => { return props.cores; });
 const produto = computed(() => { return props.product; });
+
+const miniaturaInicial = ref(produto.value.fotosServico);
+const promoçãoInicial = ref(produto.value.promocao);
+const preçoInicial = ref(produto.value.valor);
+const preçoPromoçãoInicial = ref(produto.value.precoPromocional);
 const principalImg = ref(produto.value.fotosServico[0].foto);
+const variacao = ref(produto.value.variacoes);
+
+const usarSkeleton = ref(false);
+const quantidadeCarrinho = ref(0);
+const qtdProduct = ref(1);
+const cep = ref();
+const dadosFrete = ref([]);
+const text1 = ref("");
+const selectedColor = ref(null);
+const miniaturas = ref(miniaturaInicial);
+const promoção = ref(promoçãoInicial);
+const preço = ref(preçoInicial);
+const preçoPromoção = ref(preçoPromoçãoInicial);
 const nomecor = ref("");
 
 const copyLink = () => {
@@ -38,8 +48,22 @@ const copyLink = () => {
     message: "Link Copiado para Área de transferência!"
   });
 };
-function ativar (cor) {
-  console.log("Quando a api tiver cor a gnt arruma");
+
+function updateProductInfo (colorId) {
+  const selectedVariation = variacao.value.find(variation => variation.itemGrade1.id === colorId);
+  if (selectedVariation) {
+    principalImg.value = selectedVariation.fotosServico[0].foto;
+    miniaturas.value = selectedVariation.fotosServico;
+    nomecor.value = selectedVariation.itemGrade1.nome;
+    promoção.value = selectedVariation.promocao;
+    preço.value = selectedVariation.valor;
+    preçoPromoção.value = selectedVariation.precoPromocional;
+  }
+}
+
+function onColorClick (colorId) {
+  selectedColor.value = colorId;
+  updateProductInfo(colorId);
 }
 
 function formatCurrency (value) {
@@ -61,7 +85,7 @@ async function calcFrete () {
     console.error("Erro ao calcular frete: ", e);
   }
 }
-console.log(props);
+
 async function getFretes (dados) {
   try {
     usarSkeleton.value = true;
@@ -133,6 +157,7 @@ async function addProductToCart () {
   }
 }
 
+console.log(props);
 </script>
 
 <template lang="pug">
@@ -140,14 +165,13 @@ div.container.q-py-md
   div.containerfotos.q-gutter-lg
     div.miniaturas
       template(
-        v-for="objFoto in produto.fotosServico"
-        :key="objFoto"
+        v-for="objfoto in miniaturas"
+        :key="objfoto"
       )
         q-img.foto.cursor-pointer(
-          @click="principalImg = objFoto.foto"
-          v-if="objFoto.foto"
-          :src="objFoto.foto"
-          style="max-width: 100%; height: 208px; display:block"
+          @click="principalImg = objfoto.foto"
+          :src="objfoto.foto"
+          style="max-width: 70%; height: 170px; display:block"
         )
     div.fotogrande
       InnerImageZoom.foto(
@@ -155,9 +179,9 @@ div.container.q-py-md
         v-if="principalImg"
         :src="principalImg"
         no-native-menu
-        style="max-width: 100%; height: 640px; display:block"
+        style="max-width: 100%; max-height: 640px; display:flex"
       )
-        .text-on-image {{ text1 }}
+      .text-on-image {{ text1 }}
   div.containerdetalhes
     div.column
       div.row.justify-between
@@ -181,7 +205,7 @@ div.container.q-py-md
       div.row.q-gutter-sm(
         v-if="produto.gradePrimaria.itensGrade.length > 1"
       )
-        p.destaque {{ produto.gradePrimaria.nome }}
+        p.destaque {{ produto.gradePrimaria.nome }} : {{ nomecor }}
         template(
           v-for="(icon, index) in produto.gradePrimaria.itensGrade"
           :key="index"
@@ -193,26 +217,26 @@ div.container.q-py-md
               size="xs"
               :style="{ backgroundColor: icon.valorVisualizacao }"
               :class="{ ativo: icon.ativo }"
-              @click="nomecor = icon.nome"
+              @click="nomecor = icon.nome, onColorClick(icon.id)"
             )
     div.justify-between.row.q-pb-sm.q-pt-sm
       template(
-        v-if="produto.promocao"
+        v-if="promoçãoInicial"
       )
         div.column(style="display:flex;align-items:center")
           p
           p
           .destaque VALOR
         div.column(style="display:flex;text-align:right")
-          span.text-black(style="font-size: 18px; text-decoration: line-through") {{ formatCurrency(produto.valor) }}
-          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(produto.precoPromocional) }}
+          span.text-black(style="font-size: 18px; text-decoration: line-through") {{ formatCurrency(preço) }}
+          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preçoPromoçãoInicial) }}
       template(
         v-else
       )
         div.column(style="display:flex;align-items:center")
           .destaque VALOR
         div.column(style="display:flex;text-align:right")
-          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(produto.valor) }}
+          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preço) }}
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
@@ -316,14 +340,14 @@ p.detalhes{
 }
 .text-on-image {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 28%;
+  left: 38%;
   transform: translate(-50%, -50%);
   z-index: 1; /* Garanta que ele esteja acima da imagem */
   font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
   box-shadow:none;
   color: black;
-  font-weight: bolderc;
+  font-weight: bolder;
   background-color: rgba(0,0,0,0);
 }
 .ativo {
@@ -332,7 +356,6 @@ p.detalhes{
 .container{
   display: flex;
   flex-wrap: nowrap;
-  margin: 0 auto;
   flex-direction: row;
   justify-content: center;
 }

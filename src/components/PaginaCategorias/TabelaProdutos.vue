@@ -157,7 +157,7 @@ watch(() => pageIndex.value, (val) => {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 .texto {
@@ -168,7 +168,7 @@ watch(() => pageIndex.value, (val) => {
   color:black;
   font-size: 14px;
 }
-@media screen and (max-width: 936px) {
+@media screen and (max-width: 1150px) {
   .containerfoto{
   flex: 1 1 200px;
   margin: 10px;
