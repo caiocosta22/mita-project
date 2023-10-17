@@ -166,7 +166,7 @@ div.container.q-py-md
   div.containerfotos.q-gutter-lg
     div.miniaturas
       Splide(
-        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '645px', perPage: 3 }"
+        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '640px', perPage: 3 }"
       )
         SplideSlide(
           v-for="objfoto in miniaturas"
@@ -175,15 +175,18 @@ div.container.q-py-md
           q-img.foto.cursor-pointer(
             @click="principalImg = objfoto.foto"
             :src="objfoto.foto"
-            style="max-width: 100%; height: 200px; display:block"
+            style="max-width: 200px; height: 200px; display:block"
           )
     div.fotogrande
-      InnerImageZoom.foto(
+      InnerImageZoom(
         zoomType="hover"
         v-if="principalImg"
         :src="principalImg"
+        :srcSet="principalImg"
         no-native-menu
-        style="max-width: 100%; max-height: 640px;"
+        width=525
+        heigth=650
+        hasSpacer=true
       )
       .text-on-image {{ text1 }}
   div.containerdetalhes
@@ -254,7 +257,7 @@ div.container.q-py-md
         maxlength="15"
       )
     div.calcularfrete
-      span.destaque.q-pt-md CALCULE SEU FRETE
+      span.destaque.q-pt-md.q-pr-md(style="min-width:28%;white-space: nowrap") CALCULE O FRETE
       q-input.campocep(
         v-model="cep"
         label="CEP"
@@ -263,6 +266,7 @@ div.container.q-py-md
         max-length="8"
         mask="#####-###"
         color="black"
+        style="width: 70%;"
       )
         template(v-slot:append)
           q-icon(name="search")
@@ -362,25 +366,25 @@ p.detalhes{
   flex-wrap: nowrap;
   flex-direction: row;
   justify-content: center;
+  position: relative;
 }
 .containerfotos{
   display: flex;
-  flex-wrap: wrap;
-  width:50%;
+  flex-wrap: nowrap;
+  width:54%;
   justify-content: space-between;
-}
-.fotogrande {
-  display: flex;
-  width: 67%;
-  padding-right: 30px;
 }
 .foto{
   display: block;
   max-width: 100%;
 }
+.fotogrande {
+  width: 60%;
+  padding-right: 30px;
+}
 .miniaturas{
   display: flex;
-  width: 18%;
+  width: 20%;
   height: 640px;
   flex-direction: column;
 }
@@ -391,17 +395,15 @@ p.detalhes{
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  width: 34.5%
+  width: 30.5%
 }
 .calcularfrete{
   display:flex;
   flex-direction: row;
-}
-.calcularfrete>span{
-width: 35%;
-}
-.campocep{
-  width: 65%;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 @media screen and (max-width: 1150px) {
   .container{
