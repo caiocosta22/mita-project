@@ -30,8 +30,6 @@ const envioregistro = async () => {
         senha: senharef.value
       }
     );
-    console.log(response);
-    console.log(response.status);
     if (response.status === 200) {
       $q.notify({
         color: "green-4",

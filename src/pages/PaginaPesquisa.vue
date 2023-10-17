@@ -13,7 +13,6 @@ async function searchProducts (id) {
     let data = [];
     data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtroBuscaV2/${id}/-1/1/false/-1`).then(e => e.data);
     if (data.content && data.content.length) {
-      console.log(data.content);
       data.content = data.content.map(product => {
         return {
           ...product,

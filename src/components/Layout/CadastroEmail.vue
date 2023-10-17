@@ -13,7 +13,6 @@ const envioemail = async () => {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/newsLetterService/sav", {
       email: email.value
     });
-    console.log(response.status);
     if (response.status === 200) {
       $q.notify({
         message: "Email enviado com sucesso!"

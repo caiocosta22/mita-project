@@ -157,7 +157,6 @@ async function addProductToCart () {
   }
 }
 
-console.log(props);
 </script>
 
 <template lang="pug">

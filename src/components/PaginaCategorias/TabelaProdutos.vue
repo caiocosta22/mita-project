@@ -81,7 +81,6 @@ function openProductPage (product) {
   if (product.slug) {
     const url = "/produtos/" + product.slug;
     router.push(url);
-    console.log(product);
   }
 }
 

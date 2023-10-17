@@ -75,7 +75,6 @@ async function searchBestSellers () {
       // Nao encontrei na api q deixaram
       const bestSellers = data.filter(sellers => sellers.chave === "SESSAO_3");
       itemsOfApi.value = bestSellers;
-      console.log(itemsOfApi.value);
     }
   } catch (e) {
     console.error(e);

@@ -18,7 +18,6 @@ const envioLogin = async () => {
         senha: senha.value
       }
     );
-    console.log(response.status);
     if (response.status === 200) {
       $q.notify({
         color: "green-4",
