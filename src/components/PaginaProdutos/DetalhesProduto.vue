@@ -1,10 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
+import axios from "axios";
 import getCartItems from "../../helpers/getCartItems.js";
 import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
-import axios from "axios";
+import { Splide, SplideSlide } from "@splidejs/vue-splide";
+import "@splidejs/vue-splide/css";
 
 const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
@@ -163,22 +165,25 @@ async function addProductToCart () {
 div.container.q-py-md
   div.containerfotos.q-gutter-lg
     div.miniaturas
-      template(
-        v-for="objfoto in miniaturas"
-        :key="objfoto"
+      Splide(
+        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '645px', perPage: 3 }"
       )
-        q-img.foto.cursor-pointer(
-          @click="principalImg = objfoto.foto"
-          :src="objfoto.foto"
-          style="max-width: 70%; height: 170px; display:block"
+        SplideSlide(
+          v-for="objfoto in miniaturas"
+          :key="objfoto"
         )
+          q-img.foto.cursor-pointer(
+            @click="principalImg = objfoto.foto"
+            :src="objfoto.foto"
+            style="max-width: 100%; height: 200px; display:block"
+          )
     div.fotogrande
       InnerImageZoom.foto(
         zoomType="hover"
         v-if="principalImg"
         :src="principalImg"
         no-native-menu
-        style="max-width: 100%; max-height: 640px; display:flex"
+        style="max-width: 100%; max-height: 640px;"
       )
       .text-on-image {{ text1 }}
   div.containerdetalhes
@@ -342,8 +347,8 @@ p.detalhes{
   top: 28%;
   left: 38%;
   transform: translate(-50%, -50%);
-  z-index: 1; /* Garanta que ele esteja acima da imagem */
-  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+  z-index: 1;
+  font-size: 20px;
   box-shadow:none;
   color: black;
   font-weight: bolder;
@@ -361,11 +366,13 @@ p.detalhes{
 .containerfotos{
   display: flex;
   flex-wrap: wrap;
-  width:50%
+  width:50%;
+  justify-content: space-between;
 }
 .fotogrande {
   display: flex;
-  width: 60%;
+  width: 67%;
+  padding-right: 30px;
 }
 .foto{
   display: block;
@@ -373,7 +380,8 @@ p.detalhes{
 }
 .miniaturas{
   display: flex;
-  width: 25%;
+  width: 18%;
+  height: 640px;
   flex-direction: column;
 }
 .miniaturas>div{
