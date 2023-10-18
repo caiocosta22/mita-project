@@ -25,7 +25,7 @@ const props = defineProps({
   }
 });
 const produto = computed(() => { return props.product; });
-
+console.log(produto);
 const miniaturaInicial = ref(produto.value.fotosServico);
 const promoçãoInicial = ref(produto.value.promocao);
 const preçoInicial = ref(produto.value.valor);
@@ -204,7 +204,8 @@ div.container.q-pt-md.q-pb-sm
             :src="objfoto.foto"
           )
     div.fotogrande
-      InnerImageZoom(
+      span.text-on-image {{ text1 }}
+      InnerImageZoom.imagezoom(
         zoomType="hover"
         v-if="principalImg"
         :src="principalImg"
@@ -215,7 +216,6 @@ div.container.q-pt-md.q-pb-sm
         height=600
         className="imagezoom"
       )
-      .text-on-image {{ text1 }}
     div.miniaturasmobile
       Carousel(v-bind="settings" :breakpoints="breakpoints")
         Slide.flex.q-pr-sm(
@@ -365,6 +365,7 @@ div.container.q-pt-md.q-pb-sm
 .fotogrande {
   width: 67.5%;
   padding-right: 30px;
+  position: relative;
 }
 .foto {
   max-width: 210px;
@@ -392,15 +393,13 @@ div.container.q-pt-md.q-pb-sm
 }
 .text-on-image {
   position: absolute;
-  top: 28%;
-  left: 38%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  font-size: 20px;
+  margin-left: 28%;
+  margin-top: 60%;
+  z-index: 5;
+  font-size: 38px;
   box-shadow:none;
-  color: black;
-  font-weight: bolder;
-  background-color: rgba(0,0,0,0);
+  color: #c2c2c2;
+  font-family: prompt;
 }
 .cep{
   color: #939598;
@@ -442,6 +441,9 @@ p.detalhes{
 }
 .ativo {
   border: solid black 2px;
+}
+.imagezoom {
+  position:relative;
 }
 
 @media screen and (max-width: 1738px) {
