@@ -162,11 +162,11 @@ async function addProductToCart () {
 </script>
 
 <template lang="pug">
-div.container.q-py-md
+div.container.q-pt-md.q-pb-sm
   div.containerfotos.q-gutter-lg
     div.miniaturas
       Splide(
-        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '640px', perPage: 3 }"
+        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '690px', perPage: 3.2,  type   : 'loop', breakpoints: { 1738: { perPage: 3.2, height : '600px' }, 1500: { perPage: 3.2, height : '500px' }, }}"
       )
         SplideSlide(
           v-for="objfoto in miniaturas"
@@ -175,7 +175,7 @@ div.container.q-py-md
           q-img.foto.cursor-pointer(
             @click="principalImg = objfoto.foto"
             :src="objfoto.foto"
-            style="max-width: 200px; height: 200px; display:block"
+            style="max-width: 180; max-height: 180; display:block"
           )
     div.fotogrande
       InnerImageZoom(
@@ -183,10 +183,10 @@ div.container.q-py-md
         v-if="principalImg"
         :src="principalImg"
         :srcSet="principalImg"
+        :zoomSrc="principalImg"
         no-native-menu
-        width=525
-        heigth=650
-        hasSpacer=true
+        width=580
+        height=600
       )
       .text-on-image {{ text1 }}
   div.containerdetalhes
@@ -305,6 +305,75 @@ div.container.q-py-md
 </template>
 
 <style scoped>
+.container{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+.containerfotos{
+  display: flex;
+  flex-wrap: nowrap;
+  width:44%;
+}
+.miniaturas{
+  width: 32.5%;
+  max-height: 640px;
+  position: relative;
+  flex-direction: column;
+}
+.fotogrande {
+  width: 67.5%;
+  padding-right: 30px;
+}
+.containerdetalhes{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 40.5%
+}
+.informacoesprod{
+  display:flex;
+  width: 22%;
+}
+.calcularfrete{
+  display:flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.text-on-image {
+  position: absolute;
+  top: 28%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 20px;
+  box-shadow:none;
+  color: black;
+  font-weight: bolder;
+  background-color: rgba(0,0,0,0);
+}
+.cep{
+  color: #939598;
+  font-family: Catamaran;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration-line: underline;;
+}
+.detalhesprod{
+  color: #939598;
+  font-family: Catamaran;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
 p.detalhes{
   color: #000;
   font-family: Catamaran;
@@ -327,84 +396,10 @@ p.detalhes{
   font-weight: bold;
   line-height: normal;
 }
-.informacoesprod{
-  display:flex;
-  width: 22%;
-}
-.cep{
-  color: #939598;
-  font-family: Catamaran;
-  font-size: 14px;
-  font-weight: 300;
-  text-decoration-line: underline;;
-}
-.detalhesprod{
-  color: #939598;
-  font-family: Catamaran;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
-.text-on-image {
-  position: absolute;
-  top: 28%;
-  left: 38%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  font-size: 20px;
-  box-shadow:none;
-  color: black;
-  font-weight: bolder;
-  background-color: rgba(0,0,0,0);
-}
 .ativo {
   border: solid black 2px;
 }
-.container{
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content: center;
-  position: relative;
-}
-.containerfotos{
-  display: flex;
-  flex-wrap: nowrap;
-  width:54%;
-  justify-content: space-between;
-}
-.foto{
-  display: block;
-  max-width: 100%;
-}
-.fotogrande {
-  width: 60%;
-  padding-right: 30px;
-}
-.miniaturas{
-  display: flex;
-  width: 20%;
-  height: 640px;
-  flex-direction: column;
-}
-.miniaturas>div{
-  margin-bottom: 10px;
-}
-.containerdetalhes{
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  width: 30.5%
-}
-.calcularfrete{
-  display:flex;
-  flex-direction: row;
-  text-align: left;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
+
 @media screen and (max-width: 1150px) {
   .container{
     flex-wrap: wrap;
