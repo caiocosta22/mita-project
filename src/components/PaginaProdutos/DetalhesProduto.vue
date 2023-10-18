@@ -400,6 +400,8 @@ div.container.q-pt-md.q-pb-sm
   box-shadow:none;
   color: #c2c2c2;
   font-family: prompt;
+  user-select: none;
+  cursor: default;
 }
 .cep{
   color: #939598;
