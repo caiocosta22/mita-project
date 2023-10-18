@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useQuasar } from "quasar";
 import axios from "axios";
 import getCartItems from "../../helpers/getCartItems.js";
@@ -7,6 +7,8 @@ import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/vue-splide/css";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
@@ -30,7 +32,18 @@ const preçoInicial = ref(produto.value.valor);
 const preçoPromoçãoInicial = ref(produto.value.precoPromocional);
 const principalImg = ref(produto.value.fotosServico[0].foto);
 const variacao = ref(produto.value.variacoes);
-
+const settings = ref({
+  itemsToShow: 3.5,
+  snapAlign: "start",
+  wrapAround: true
+});
+const breakpoints = ref({
+  1150: {
+    itemsToShow: 3.5,
+    snapAlign: "center"
+  }
+});
+const gutterClass = ref("");
 const usarSkeleton = ref(false);
 const quantidadeCarrinho = ref(0);
 const qtdProduct = ref(1);
@@ -49,6 +62,10 @@ const copyLink = () => {
   $q.notify({
     message: "Link Copiado para Área de transferência!"
   });
+};
+
+const setGutterClass = () => {
+  gutterClass.value = window.innerWidth >= 1150 ? "q-gutter-lg" : "";
 };
 
 function updateProductInfo (colorId) {
@@ -159,14 +176,24 @@ async function addProductToCart () {
   }
 }
 
+onMounted(() => {
+  setGutterClass();
+  window.addEventListener("resize", setGutterClass);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", setGutterClass);
+});
 </script>
 
 <template lang="pug">
 div.container.q-pt-md.q-pb-sm
-  div.containerfotos.q-gutter-lg
+  div.containerfotos(
+    :class="gutterClass"
+  )
     div.miniaturas
       Splide(
-        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '690px', perPage: 3.2,  type   : 'loop', breakpoints: { 1738: { perPage: 3.2, height : '600px' }, 1500: { perPage: 3.2, height : '500px' }, }}"
+        :options="{ direction: 'ttb', slidesPerView: 1, arrows: false,  height  : '690px', perPage: 3.2, breakpoints: { 1738: { perPage: 3.2, height : '600px' }, 1500: { perPage: 3.2, height : '500px' }, 1344: { perPage: 3.2, height : '437px' } }}"
       )
         SplideSlide(
           v-for="objfoto in miniaturas"
@@ -175,7 +202,6 @@ div.container.q-pt-md.q-pb-sm
           q-img.foto.cursor-pointer(
             @click="principalImg = objfoto.foto"
             :src="objfoto.foto"
-            style="max-width: 180; max-height: 180; display:block"
           )
     div.fotogrande
       InnerImageZoom(
@@ -187,8 +213,20 @@ div.container.q-pt-md.q-pb-sm
         no-native-menu
         width=580
         height=600
+        className="imagezoom"
       )
       .text-on-image {{ text1 }}
+    div.miniaturasmobile
+      Carousel(v-bind="settings" :breakpoints="breakpoints")
+        Slide.flex.q-pr-sm(
+          v-for="objfoto in miniaturas"
+          :key="objfoto"
+        )
+          q-img.cursor-pointer(
+            @click="principalImg = objfoto.foto"
+            :src="objfoto.foto"
+            style="display: block; max-width: 250px; max-height: 250px ;"
+          )
   div.containerdetalhes
     div.column
       div.row.justify-between
@@ -320,13 +358,19 @@ div.container.q-pt-md.q-pb-sm
 }
 .miniaturas{
   width: 32.5%;
-  max-height: 640px;
+  max-height: 690px;
   position: relative;
   flex-direction: column;
 }
 .fotogrande {
   width: 67.5%;
   padding-right: 30px;
+}
+.foto {
+  max-width: 210px;
+  max-height: 210px;
+  display:block;
+  margin-bottom:10px;
 }
 .containerdetalhes{
   display: flex;
@@ -400,19 +444,57 @@ p.detalhes{
   border: solid black 2px;
 }
 
+@media screen and (max-width: 1738px) {
+  .foto {
+    max-width: 180px;
+    max-height: 180px;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .foto {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+@media screen and (max-width: 1344px) {
+  .foto {
+    max-width: 130px;
+    max-height: 130px;
+  }
+}
 @media screen and (max-width: 1150px) {
-  .container{
+  .container {
     flex-wrap: wrap;
     flex-direction: column;
   }
-  .containerfotos{
+  .containerfotos {
     width: 84%;
-    margin: 0 auto;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
   }
-  .containerdetalhes{
+  .containerdetalhes {
     width: 84%;
     justify-content: center;
     margin: 0 auto;
+  }
+  .miniaturas {
+    display: none
+  }
+  .fotogrande{
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+  .miniaturasmobile{
+    margin-bottom: 10px;
+    margin-right: 15px;
+  }
+}
+@media screen and (min-width: 1150px) {
+  .miniaturasmobile {
+    display: none;
   }
 }
 </style>
