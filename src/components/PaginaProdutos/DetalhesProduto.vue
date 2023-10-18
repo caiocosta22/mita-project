@@ -395,7 +395,7 @@ div.container.q-pt-md.q-pb-sm
   position: absolute;
   margin-left: 28%;
   margin-top: 60%;
-  z-index: 5;
+  z-index: 1;
   font-size: 38px;
   box-shadow:none;
   color: #c2c2c2;
