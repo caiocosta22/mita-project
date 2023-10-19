@@ -7,7 +7,7 @@ import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/vue-splide/css";
-import { Carousel, Navigation, Slide } from "vue3-carousel";
+import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
@@ -32,6 +32,16 @@ const preçoInicial = ref(produto.value.valor);
 const preçoPromoçãoInicial = ref(produto.value.precoPromocional);
 const principalImg = ref(produto.value.fotosServico[0].foto);
 const variacao = ref(produto.value.variacoes);
+// const customcor = ref(produto.value.customizacao.color);
+// const customfamily = ref(produto.value.customizacao.// font);
+// const customMarginleft = ref(produto.value.customizacao.// marginLeft + "%");
+// const customMargintop = ref(produto.value.customizacao.// marginTop + "%");
+// const customsize = ref(produto.value.customizacao.size // + "px");
+const customcor = ref(produto.value?.customizacao?.color);
+const customfamily = ref(produto.value?.customizacao?.font);
+const customMarginleft = ref(produto.value?.customizacao?.marginLeft + "%");
+const customMargintop = ref(produto.value?.customizacao?.marginTop + "%");
+const customsize = ref(produto.value?.customizacao?.size + "px");
 const settings = ref({
   itemsToShow: 3.5,
   snapAlign: "start",
@@ -166,11 +176,11 @@ async function addProductToCart () {
     }
     if (response.length) {
       quantidadeCarrinho.value = response.items?.length;
+      await getCartItems();
     }
     // ! Esse ponto está na documentação, mas nada foi falado ainda sobre para onde redirecionar
-    // const url = "a que eles definirem";
-    // window.location.href = url;
-    await getCartItems();
+    const url = "https://mitaoficial.elevarone.com.br/checkout?idCart={idCarrinho}";
+    window.location.href = url;
   } catch (e) {
     console.error(e);
   }
@@ -204,7 +214,9 @@ div.container.q-pt-md.q-pb-sm
             :src="objfoto.foto"
           )
     div.fotogrande
-      span.text-on-image {{ text1 }}
+      span.text-on-image(
+        v-if="produto.customizacao"
+        :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontFamily: customfamily, fontSize: customsize, color: customcor}") {{ text1 }}
       InnerImageZoom.imagezoom(
         zoomType="hover"
         v-if="principalImg"
@@ -233,13 +245,13 @@ div.container.q-pt-md.q-pb-sm
         span.tituloprod {{ produto.descricao }}
         div.q-gutter-sm.q-pt-sm
           q-icon.cursor-pointer(
-            :color="black"
+            color="black"
             size="sm"
             name="share"
             @click="copyLink"
           )
           q-icon.cursor-pointer(
-            :color="black"
+            color="black"
             size="sm"
             name="favorite"
           )
@@ -285,15 +297,18 @@ div.container.q-pt-md.q-pb-sm
     div.q-pb-sm
       q-separator(color="black")
     div.column.q-pt-sm.q-pb-md
-      .destaque(style="font-weight: bold;") ADICIONE SEU NOME NO PRODUTO
-      q-input.q-pt-sm(
-        outlined
-        v-model="text1"
-        placeholder="Digite aqui"
-        color="black"
-        label-color="black"
-        maxlength="15"
+      template(
+        v-if="produto.customizacao"
       )
+        .destaque(style="font-weight: bold;") ADICIONE SEU NOME NO PRODUTO
+        q-input.q-pt-sm(
+          outlined
+          v-model="text1"
+          placeholder="Digite aqui"
+          color="black"
+          label-color="black"
+          maxlength="15"
+        )
     div.calcularfrete
       span.destaque.q-pt-md.q-pr-md(style="min-width:28%;white-space: nowrap") CALCULE O FRETE
       q-input.campocep(
@@ -393,13 +408,8 @@ div.container.q-pt-md.q-pb-sm
 }
 .text-on-image {
   position: absolute;
-  margin-left: 28%;
-  margin-top: 60%;
   z-index: 1;
-  font-size: 38px;
   box-shadow:none;
-  color: #c2c2c2;
-  font-family: prompt;
   user-select: none;
   cursor: default;
 }
