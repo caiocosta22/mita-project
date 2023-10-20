@@ -33,7 +33,7 @@ const bannersCarousel = ref([
 async function searchTopBanners () {
   try {
     const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/allEcommerce").then(e => e.data);
-    if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
+    bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
   } catch (e) {
     console.error(e);
   }
@@ -48,26 +48,33 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.banner(
-  v-show="!itsLoading"
-)
-  q-carousel.cursor-pointer.col(
-    animated
-    v-model="slide"
-    infinite
-    swipeable
-    :autoplay="autoplay"
-    transition-prev="slide-right"
-    transition-next="slide-left"
+div.banner
+  template(
+    v-if="itsLoading"
   )
-    template(
-      v-for="(banner, index) in bannersCarousel"
-      :key="index"
+    q-skeleton(
+      height="100%"
     )
-      q-carousel-slide.slide.col(
-        :name="index"
-        :img-src="banner.fotoWebp"
+  template(
+    v-else-if="!itsLoading"
+  )
+    q-carousel.cursor-pointer.col(
+      animated
+      v-model="slide"
+      infinite
+      swipeable
+      :autoplay="autoplay"
+      transition-prev="slide-right"
+      transition-next="slide-left"
+    )
+      template(
+        v-for="(banner, index) in bannersCarousel"
+        :key="index"
       )
+        q-carousel-slide.slide.col(
+          :name="index"
+          :img-src="banner.fotoWebp"
+        )
   .efeitobanner
 
 </template>
