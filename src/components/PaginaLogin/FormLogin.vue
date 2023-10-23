@@ -1,14 +1,17 @@
 <script setup>
-import { useQuasar } from "quasar";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 import axios from "axios";
+
 const router = useRouter();
 const $q = useQuasar();
 
+const loginSalvo = $q.localStorage.getItem("login");
+const senhaSalva = $q.localStorage.getItem("senha");
+
 const login = ref("");
 const senha = ref("");
-const accept = ref(false);
 
 const envioLogin = async () => {
   try {
@@ -19,6 +22,8 @@ const envioLogin = async () => {
       }
     );
     if (response.status === 200) {
+      $q.localStorage.set("login", login.value);
+      $q.localStorage.set("senha", senha.value);
       $q.notify({
         color: "green-4",
         textColor: "white",
@@ -44,11 +49,17 @@ function redirectToRegisterPage () {
   router.push(url);
 }
 
-function onReset () {
-  login.value = null;
-  senha.value = null;
-  accept.value = false;
-}
+onMounted(() => {
+  if (loginSalvo && senhaSalva) {
+    router.push("/");
+    $q.notify({
+      color: "green-4",
+      textColor: "white",
+      icon: "check",
+      message: "Você já está logado!"
+    });
+  }
+});
 </script>
 
 <template lang="pug">
