@@ -152,7 +152,7 @@ a{
 }
 .textobusca{
   transition: 1s;
-  font-size:12px;
+  font-size:14px;
 }
 .nav{
   display: flex;
@@ -167,6 +167,16 @@ a{
   text-align: center;
   align-items: center;
   box-sizing:border-box;
+}
+@media screen and (max-width: 1240px) {
+  .textobusca{
+    font-size:13px
+  }
+}
+@media screen and (max-width: 1176px) {
+  .textobusca{
+    font-size:12px
+  }
 }
 @media screen and (max-width: 1150px) {
   .nav{
