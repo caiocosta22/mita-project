@@ -25,6 +25,7 @@ const envioLogin = async () => {
         icon: "cloud_done",
         message: "Bem vindo!"
       });
+      router.push("/");
     } else {
       $q.notify({
         color: "red-5",
