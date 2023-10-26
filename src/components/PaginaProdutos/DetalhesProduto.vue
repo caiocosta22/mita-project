@@ -17,15 +17,10 @@ const props = defineProps({
   product: {
     type: Object,
     required: true,
-    // ! Dentro desse objeto monte um exemplo de como receberá o produto
-    // ? Produto dever possuir a KEY id, se preferir pode transformar
-    // * Dicas: Nessa tela não vai ser preciso se utilizar de v-for
-    // * Se quiser ver como vem um produto é só dar console.log()
     default: () => {}
   }
 });
 const produto = computed(() => { return props.product; });
-console.log(produto);
 const miniaturaInicial = ref(produto.value.fotosServico);
 const promoçãoInicial = ref(produto.value.promocao);
 const preçoInicial = ref(produto.value.valor);

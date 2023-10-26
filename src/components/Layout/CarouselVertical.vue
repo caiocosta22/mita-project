@@ -1,7 +1,6 @@
 <script setup>
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/vue-splide/css";
-// Dessa forma, ele tá aplicado pra mostrar 2 em 2 fotos, o que já é suficiente.
 </script>
 
 <template lang="pug">
