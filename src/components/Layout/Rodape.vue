@@ -59,8 +59,10 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.secundario Sustentatabilidade
   div.MeusDados.column.col-2
     p.principal Minha conta
-    p.secundario Meus pedidos
-    p.secundario Minha Sacola
+    a(:href="linkcarrinho")
+      p.secundario Meus pedidos
+    a(:href="linkcarrinho")
+      p.secundario Minha Sacola
   div.Suporte.column.col-2
     p.principal Ajuda e Suporte
     p.secundario(@click="redirectToHTMLPage2") Política de Entrega
