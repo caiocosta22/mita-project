@@ -27,11 +27,6 @@ const preçoInicial = ref(produto.value.valor);
 const preçoPromoçãoInicial = ref(produto.value.precoPromocional);
 const principalImg = ref(produto.value.fotosServico[0].foto);
 const variacao = ref(produto.value.variacoes);
-// const customcor = ref(produto.value.customizacao.color);
-// const customfamily = ref(produto.value.customizacao.// font);
-// const customMarginleft = ref(produto.value.customizacao.// marginLeft + "%");
-// const customMargintop = ref(produto.value.customizacao.// marginTop + "%");
-// const customsize = ref(produto.value.customizacao.size // + "px");
 const customcor = ref(produto.value?.customizacao?.color);
 const customfamily = ref(produto.value?.customizacao?.font);
 const customMarginleft = ref(produto.value?.customizacao?.marginLeft + "%");
@@ -61,7 +56,6 @@ const promoção = ref(promoçãoInicial);
 const preço = ref(preçoInicial);
 const preçoPromoção = ref(preçoPromoçãoInicial);
 const nomecor = ref("");
-
 const copyLink = () => {
   navigator.clipboard.writeText(window.location.href);
   $q.notify({
@@ -235,9 +229,11 @@ div.container.q-pt-md.q-pb-sm
             style="display: block; max-width: 250px; max-height: 250px ;"
           )
   div.containerdetalhes
-    div.column
+    template(
+      v-if="produto.qtdEstoque < 1"
+    )
       div.row.justify-between
-        span.tituloprod {{ produto.descricao }}
+        p.tituloprod {{ produto.descricao }}
         div.q-gutter-sm.q-pt-sm
           q-icon.cursor-pointer(
             color="black"
@@ -250,100 +246,125 @@ div.container.q-pt-md.q-pb-sm
             size="sm"
             name="favorite"
           )
-      p COD: {{ produto.codigo }}
+      div.column.justify-center
+        p(
+          style="text-align: center; color: #c2c2c2; font-weight: 600; font-size: 38px; margin-top: 60px;"
+        ) OPS!
+        p(
+          style="text-align:center; color: #c2c2c2; font-weight: 600; font-size: 24px; margin-top: 60px"
+        ) Sentimos muito, <br> Este produto encontra-se indisponível.
     template(
-      v-if="produto.gradePrimaria"
+      v-if="produto.qtdEstoque >= 1"
     )
-      div.row.q-gutter-sm(
-        v-if="produto.gradePrimaria.itensGrade.length > 1"
+      div.column
+        div.row.justify-between
+          span.tituloprod {{ produto.descricao }}
+          div.q-gutter-sm.q-pt-sm
+            q-icon.cursor-pointer(
+              color="black"
+              size="sm"
+              name="share"
+              @click="copyLink"
+            )
+            q-icon.cursor-pointer(
+              color="black"
+              size="sm"
+              name="favorite"
+            )
+        p COD: {{ produto.codigo }}
+      template(
+        v-if="produto.gradePrimaria"
       )
-        p.destaque {{ produto.gradePrimaria.nome }} : {{ nomecor }}
+        div.row.q-gutter-sm(
+          v-if="produto.gradePrimaria.itensGrade.length > 1"
+        )
+          p.destaque {{ produto.gradePrimaria.nome }} : {{ nomecor }}
+          template(
+            v-for="(icon, index) in produto.gradePrimaria.itensGrade"
+            :key="index"
+          )
+            div.q-pt-xs
+              q-btn(
+                round
+                :name="icon.nome"
+                size="xs"
+                :style="{ backgroundColor: icon.valorVisualizacao }"
+                :class="{ ativo: icon.ativo }"
+                @click="nomecor = icon.nome, onColorClick(icon.id)"
+              )
+      div.justify-between.row.q-pb-sm.q-pt-sm
         template(
-          v-for="(icon, index) in produto.gradePrimaria.itensGrade"
+          v-if="promoçãoInicial"
+        )
+          div.column(style="display:flex;align-items:center")
+            p
+            p
+            .destaque VALOR
+          div.column(style="display:flex;text-align:right")
+            span.text-black(style="font-size: 18px; text-decoration: line-through") {{ formatCurrency(preço) }}
+            span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preçoPromoçãoInicial) }}
+        template(
+          v-else
+        )
+          div.column(style="display:flex;align-items:center")
+            .destaque VALOR
+          div.column(style="display:flex;text-align:right")
+            span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preço) }}
+      div.q-pb-sm
+        q-separator(color="black")
+      div.column.q-pt-sm.q-pb-md
+        template(
+          v-if="produto.customizacao"
+        )
+          .destaque(style="font-weight: bold;") ADICIONE SEU NOME NO PRODUTO
+          q-input.q-pt-sm(
+            outlined
+            v-model="text1"
+            placeholder="Digite aqui"
+            color="black"
+            label-color="black"
+            maxlength="15"
+          )
+      div.calcularfrete
+        span.destaque.q-pt-md.q-pr-md(style="min-width:28%;white-space: nowrap") CALCULE O FRETE
+        q-input.campocep(
+          v-model="cep"
+          label="CEP"
+          debounce="300"
+          @update:model-value="calcFrete()"
+          max-length="8"
+          mask="#####-###"
+          color="black"
+          style="width: 70%;"
+        )
+          template(v-slot:append)
+            q-icon(name="search")
+      div.q-pt-sm
+        a.cep(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
+      div(
+        v-if="!usarSkeleton && dadosFrete.length"
+      )
+        q-btn.q-my-sm(
+          v-for="frete in dadosFrete"
+          style="width: 100%; vertical-align: baseline;"
+          :key="frete"
+          outlined
+        )
+          p.q-ma-none {{ frete.name }}
+          p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
+          p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
+      div(
+        v-if="usarSkeleton"
+      )
+        q-skeleton(
+          v-for="index in 3"
           :key="index"
         )
-          div.q-pt-xs
-            q-btn(
-              round
-              :name="icon.nome"
-              size="xs"
-              :style="{ backgroundColor: icon.valorVisualizacao }"
-              :class="{ ativo: icon.ativo }"
-              @click="nomecor = icon.nome, onColorClick(icon.id)"
-            )
-    div.justify-between.row.q-pb-sm.q-pt-sm
-      template(
-        v-if="promoçãoInicial"
+      q-btn.botao.q-pa-md.q-mt-md.text-bold(
+        color="green"
+        @click="addProductToCart()"
+        label="C O M P R A R"
       )
-        div.column(style="display:flex;align-items:center")
-          p
-          p
-          .destaque VALOR
-        div.column(style="display:flex;text-align:right")
-          span.text-black(style="font-size: 18px; text-decoration: line-through") {{ formatCurrency(preço) }}
-          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preçoPromoçãoInicial) }}
-      template(
-        v-else
-      )
-        div.column(style="display:flex;align-items:center")
-          .destaque VALOR
-        div.column(style="display:flex;text-align:right")
-          span.text-black.text-bold(style="font-size: 24px;") {{ formatCurrency(preço) }}
-    div.q-pb-sm
-      q-separator(color="black")
-    div.column.q-pt-sm.q-pb-md
-      template(
-        v-if="produto.customizacao"
-      )
-        .destaque(style="font-weight: bold;") ADICIONE SEU NOME NO PRODUTO
-        q-input.q-pt-sm(
-          outlined
-          v-model="text1"
-          placeholder="Digite aqui"
-          color="black"
-          label-color="black"
-          maxlength="15"
-        )
-    div.calcularfrete
-      span.destaque.q-pt-md.q-pr-md(style="min-width:28%;white-space: nowrap") CALCULE O FRETE
-      q-input.campocep(
-        v-model="cep"
-        label="CEP"
-        debounce="300"
-        @update:model-value="calcFrete()"
-        max-length="8"
-        mask="#####-###"
-        color="black"
-        style="width: 70%;"
-      )
-        template(v-slot:append)
-          q-icon(name="search")
-    div.q-pt-sm
-      a.cep(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
-    div(
-      v-if="!usarSkeleton && dadosFrete.length"
-    )
-      q-btn.q-my-sm(
-        v-for="frete in dadosFrete"
-        style="width: 100%; vertical-align: baseline;"
-        :key="frete"
-        outlined
-      )
-        p.q-ma-none {{ frete.name }}
-        p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
-        p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
-    div(
-      v-if="usarSkeleton"
-    )
-      q-skeleton(
-        v-for="index in 3"
-        :key="index"
-      )
-    q-btn.botao.q-pa-md.q-mt-md.text-bold(
-      color="green"
-      @click="addProductToCart()"
-      label="C O M P R A R"
-    )
 .row.col
   p.col-1
   h5.q-pt-xl.col-5(style="font-weight: bold;") DETALHES DO PRODUTO
