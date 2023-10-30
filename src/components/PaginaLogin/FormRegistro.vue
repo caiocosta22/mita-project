@@ -96,6 +96,7 @@ div.container
                     outlined
                     color="black"
                     v-model="cpf"
+                    mask="###.###.###-##"
                     placeholder="Ex: 123.456.789-14"
                 )
             div.column.mediainput
@@ -114,6 +115,7 @@ div.container
                     outlined
                     color="black"
                     v-model="telefone"
+                    mask="(##)#####-####"
                     placeholder="Ex: (99)99999-9999"
                 )
         div.row.flex.q-gutter-sm.mediacontainer
