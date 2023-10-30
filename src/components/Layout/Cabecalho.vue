@@ -89,20 +89,6 @@ async function searchCategories () {
   }
 }
 
-// async function getCartItems () {
-//   try {
-//     if (cartId) {
-//       const cart = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/-1`);
-//       cartItems.value = cart.data || cart.response.data;
-//       if (cartItems.value !== "Nenhum carrinho válido encontrado") {
-//         quantidadeCarrinho.value = cartItems.value.items?.length;
-//       }
-//     }
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
-
 setInterval(async () => {
   await getCartItems();
 }, 10000);

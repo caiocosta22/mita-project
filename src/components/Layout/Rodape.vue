@@ -16,9 +16,9 @@ const infosLinks = ref({
   nomeFantasia: "Mita Oficial",
   number: 705,
   phone: "85991742677",
-  site: "https://mitaoficial.elevarloja.com.br não puxando da api",
+  site: "https://mitaoficial.elevarloja.com.br",
   state: "CE",
-  street: "Avenida Dom Luís não puxa da pi",
+  street: "Avenida Dom Luís",
   zipcode: "60160230",
   socialNetwork: []
 });

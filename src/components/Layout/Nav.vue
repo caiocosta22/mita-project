@@ -7,7 +7,6 @@ const router = useRouter();
 const route = useRoute();
 
 const productTyped = ref("");
-//  const productsSearched = ref([]);
 const itsLoading = ref(true);
 const cor = ref("black");
 const categoriesBase = ref([

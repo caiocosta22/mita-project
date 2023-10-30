@@ -69,10 +69,6 @@ async function searchBestSellers () {
   try {
     const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
     if (data.length) {
-      // * Trocar de "DESTAQUE" para  "Mais Vendidos"
-      // Lielton falou para pegar da chave SESSAO_ DIA 22/09 WPP LAYOUT BANBAN
-      // Falou tbm para pegar numa "chave" chamada "funcao" e buscar por "destaque"
-      // Nao encontrei na api q deixaram
       const bestSellers = data.filter(sellers => sellers.chave === "SESSAO_3");
       itemsOfApi.value = bestSellers;
     }
@@ -82,7 +78,6 @@ async function searchBestSellers () {
 }
 
 onBeforeMount(async () => {
-  //! A Definir
   await searchBestSellers();
 });
 </script>
