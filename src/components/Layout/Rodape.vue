@@ -1,10 +1,13 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 import axios from "axios";
 
 const router = useRouter();
-
+const $q = useQuasar();
+const cartId = $q.localStorage.getItem("cartIdBackend");
+const linkcarrinho = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
 const infosLinks = ref({
   city: "Fortaleza",
   cnpj: "28463426000109",
@@ -149,9 +152,9 @@ div.rodape2.col.column
         q-card-section
           a.cursor-pointer(href="#") Perfil
         q-card-section
-          a.cursor-pointer(href="#") Meus pedidos
+          a.cursor-pointer(:href="linkcarrinho") Meus pedidos
         q-card-section
-          a.cursor-pointer(href="#") Meu carrinho
+          a.cursor-pointer(:href="linkcarrinho") Meu carrinho
     q-expansion-item.listas(
       expand-separator
       label="Ajuda e suporte"
