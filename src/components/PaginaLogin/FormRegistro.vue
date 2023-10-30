@@ -58,101 +58,101 @@ function redirectToLoginPage () {
 </script>
 
 <template lang="pug">
-div.container
-    .q-form.q-gutter-md.containerlogin.q-pa-md(
-    )
-        .titulo.q-pl-sm Criar Conta
-        div.row.flex.q-gutter-sm.nomesobrenome
-            div.column.nome
-                .primario Nome
-                q-input(
-                    outlined
-                    color="black"
-                    v-model="nomeref"
-                    placeholder="Ex: João"
-                )
-            div.column.nome
-                .primario Sobrenome
-                q-input(
-                    outlined
-                    color="black"
-                    v-model="sobrenomeref"
-                    placeholder="Ex: Silva"
-                )
-            div.column.mediainput
-                .primario Email
-                q-input(
-                outlined
-                color="black"
-                v-model="dsEmail"
-                placeholder="Ex: email@email.com"
-                lazy-rules
-                :rules="[ val => val && val.length > 0 || 'E-mail obrigatório']"
-            )
-        div.row.flex.q-gutter-sm.mediacontainer
-            div.column.mediainput
-                .primario CPF
-                q-input(
-                    outlined
-                    color="black"
-                    v-model="cpf"
-                    mask="###.###.###-##"
-                    placeholder="Ex: 123.456.789-14"
-                )
-            div.column.mediainput
-                .primario.mediainput Data Nascimento
-                q-input(
-                    outlined
-                    color="black"
-                    v-model="data"
-                    mask="##/##/####"
-                    placeholder="Ex: 00/00/0000"
-                )
-        div.row.flex.q-gutter-sm.mediacontainer
-            div.column.mediainput
-                .primario Telefone
-                q-input(
-                    outlined
-                    color="black"
-                    v-model="telefone"
-                    mask="(##)#####-####"
-                    placeholder="Ex: (99)99999-9999"
-                )
-        div.row.flex.q-gutter-sm.mediacontainer
-            div.column.mediainput
-                .primario Senha
-                q-input(
-                    outlined
-                    color="black"
-                    type="password"
-                    v-model="senharef"
-                    label="Digite sua senha"
-                    lazy-rules
-                    :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
-                )
-            div.column.mediainput(style="display:flex;flex-wrap: nowrap;")
-                .primario Confirme a senha
-                q-input(
-                    outlined
-                    type="password"
-                    v-model="confirmpassword"
-                    label="Confirme sua senha"
-                    @keypress.enter="envioregistro()"
-                    lazy-rules
-                    color="black"
-                    :rules="[ val => val === senharef || 'As senhas não coincidem']"
-                )
-        div.q-pl-sm.column
-          a.esqueceu.cursor-pointer(
-                @click="redirectToLoginPage()"
-              )   Já tem uma conta? Faça login!
+div.container.q-pa-md
+  div.titulo
+    p Criar Conta
+  .containerlogin
+    div.row.flex.q-gutter-sm.media
+      div.column.campo
+        .primario Nome
+        q-input(
+          outlined
+          color="black"
+          v-model="nomeref"
+          placeholder="Ex: João"
+        )
+      div.column.campo
+        .primario Sobrenome
+        q-input(
+          outlined
+          color="black"
+          v-model="sobrenomeref"
+          placeholder="Ex: Silva"
+        )
+    div.row.flex.q-gutter-sm.media.q-pt-md
+      div.column.campo
+        .primario Email
+        q-input(
+          outlined
+          color="black"
+          v-model="dsEmail"
+          placeholder="Ex: email@email.com"
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || 'E-mail   obrigatório']"
+        )
+        .primario CPF
+        q-input(
+          outlined
+          color="black"
+          v-model="cpf"
+          mask="###.###.###-##"
+          placeholder="Ex: 123.456.789-14"
+        )
+    div.row.flex.q-gutter-sm.media.q-pt-md
+      div.column.campo
+        .primario Data Nascimento
+        q-input(
+            outlined
+            color="black"
+            v-model="data"
+            mask="##/##/####"
+            placeholder="Ex: 00/00/0000"
+        )
+      div.column.campo
+        .primario Telefone
+        q-input(
+            outlined
+            color="black"
+            v-model="telefone"
+            mask="(##)#####-####"
+            placeholder="Ex: (99)99999-9999"
+        )
+    div.row.flex.q-gutter-sm.media.q-pt-md
+      div.column.campo
+        .primario Senha
+        q-input(
+          outlined
+          color="black"
+          type="password"
+          v-model="senharef"
+          label="Digite sua senha"
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
+        )
+    div.row.flex.q-gutter-sm.media
+      div.column.campo
+        .primario Confirme a senha
+        q-input(
+          outlined
+          type="password"
+          v-model="confirmpassword"
+          label="Confirme sua senha"
+          @keypress.enter="envioregistro()"
+          lazy-rules
+          color="black"
+          :rules="[ val => val === senharef || 'As senhas não coincidem']"
+        )
+        a.esqueceu.cursor-pointer(
+          @click="redirectToLoginPage()"
+        )   Já tem uma conta? Faça login!
+        div.q-pt-sm
           q-btn(
-              label="REGISTRAR"
-              type="submit"
-              color="black"
-              @click="envioregistro()"
-              @keypress.enter="envioregistro()"
-              style="width: 100px;"
+            label="REGISTRAR"
+            type="submit"
+            color="black"
+            @click="envioregistro()"
+            @keypress.enter="envioregistro()"
+            style="width: 100px;"
           )
 </template>
 
@@ -169,11 +169,11 @@ div.container
 
 }
 .containerlogin{
-    margin: 0 auto;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
-    width: 50%;
+  justify-content: center;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 50%;
 }
 .titulo{
   color: #000;
@@ -188,9 +188,9 @@ div.container
   color: #000;
   text-align: left;
   font-family: Catamaran;
-  font-size: 24px;
+  font-size: 22px;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   line-height: normal;
 }
 .esqueceu {
@@ -200,30 +200,23 @@ div.container
   font-weight: 300;
   text-decoration-line: underline;;
 }
-.nome{
-    width:24%;
+.campo {
+  width: 50%;
 }
-.mediainput{
-    width: 49%;
+.media {
+  flex-wrap: nowrap;
+  display: flex;
 }
 @media screen and (max-width: 1150px) {
-    .mediacontainer{
-        display:flex;
-        flex-direction: column;
-    }
-    .nome{
-        width:60%;
-    }
-    .mediainput{
-        width:60%;
-    }
-    .containerlogin{
-        width: 65%;
-    }
-}
-@media screen and (max-width: 789px) {
-    .titulo{
-    font-size:22px
+  .containerlogin{
+    width: 87%;
+  }
+  .media {
+  flex-direction: column;
+  display: flex;;
+  }
+  .campo {
+    width: 100%;
   }
   .primario{
     font-size: 18px;
