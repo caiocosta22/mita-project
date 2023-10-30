@@ -6,7 +6,7 @@ import axios from "axios";
 const router = useRouter();
 const route = useRoute();
 
-const productTyped = ref("");
+const productTyped = ref(null);
 const itsLoading = ref(true);
 const cor = ref("black");
 const categoriesBase = ref([
@@ -67,6 +67,12 @@ function MudarCores () {
     cor.value = "white";
   } else {
     cor.value = "black";
+  }
+}
+
+function limparbusca () {
+  if (productTyped.value != null) {
+    productTyped.value = null;
   }
 }
 
@@ -133,6 +139,14 @@ q-toolbar.nav.q-px-md.col.q-pt-sm(
           :color="cor"
       ) O QUE ESTÁ BUSCANDO
       template(v-slot:append)
+        q-icon(
+          v-show="productTyped != null"
+          size="xs"
+          @click="limparbusca()"
+          :color="cor"
+          name="close"
+          style="transition: 1s; cursor:pointer"
+        )
         q-icon(
           size="xs"
           @click="redirectToSearchPage()"
