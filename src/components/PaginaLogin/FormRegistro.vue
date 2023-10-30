@@ -12,9 +12,9 @@ const dsEmail = ref("");
 const cpf = ref("");
 const data = ref("");
 const telefone = ref("");
-const senharef = ref("");
+const senharef = ref(null);
 const confirmpassword = ref(null);
-
+const isPwd = ref(true);
 const envioregistro = async () => {
   try {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
@@ -123,12 +123,20 @@ div.container.q-pa-md
         q-input(
           outlined
           color="black"
-          type="password"
+          :type="isPwd ? 'password' : 'text'"
           v-model="senharef"
           label="Digite sua senha"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
         )
+          template(v-slot:append)
+            q-icon(
+              size="xs"
+              color="black"
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            )
     div.row.flex.q-gutter-sm.media
       div.column.campo
         .primario Confirme a senha
