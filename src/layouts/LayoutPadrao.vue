@@ -3,7 +3,10 @@ q-layout(view="lHh Lpr lFf")
   q-header( header)
     Topbar
     Cabecalho
-    Navbar(:style="{ color: navTextColor }")
+    Navbar(
+      :style="{ color: navTextColor }"
+      :dynamicStyle="{color: navTextColor }"
+    )
   router-view
   CadastroEmail
   Rodape
