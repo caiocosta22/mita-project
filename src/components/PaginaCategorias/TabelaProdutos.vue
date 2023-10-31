@@ -7,14 +7,13 @@ const pageIndex = ref(1);
 const emit = defineEmits(["atualizarPage"]);
 
 const maximunPage = computed(() => {
-  const calc = (props.items.totalRows % 12) + 1;
-  return calc;
+  return Math.ceil(props.items.totalRows / 10); // Calculate the maximum page based on 10 products per page
 });
 
 const seeingProductsBetween = computed(() => {
-  const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
-  const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
-  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
+  const startProduct = (pageIndex.value - 1) * 10 + 1;
+  const endProduct = Math.min(pageIndex.value * 10, props.items.totalRows);
+  return `${startProduct}-${endProduct}`;
 });
 
 function formatCurrency (value) {
@@ -62,7 +61,7 @@ const props = defineProps({
             tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
           }
         ],
-        totalRows: 6,
+        totalRows: 10,
         currentPage: 1
       };
     }
@@ -100,7 +99,6 @@ watch(() => pageIndex.value, (val) => {
       :src="bannerUrlCategorie"
       style="width:1240px; height:164px"
     )
-  //- ! Procure por q-table do quasar e faça essas fotos renderizarem com pagination, para pagination utilize a ref page que já deixei integrada
   div.containertabela.q-py-md
     div.row.paginacao.q-px-sm.q-pt-xl
       p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
@@ -109,25 +107,24 @@ watch(() => pageIndex.value, (val) => {
           name="chevron_left"
           size="1.5em"
           style="width:8px; heigth:16px"
-          @click="pageIndex === 1 ? false : pageIndex--"
-          )
+          @click="pageIndex === 1 ? false : pageIndex --; emit('atualizarPage', pageIndex)"
+        )
         p(style="font-weight: bold;") {{ pageIndex }}
         q-icon.cursor-pointer(
           name="chevron_right"
           size="1.5em"
           style="width:8px; heigth:15px;"
-          @click="pageIndex === maximunPage ? false : pageIndex++"
+          @click="pageIndex === maximunPage ? false : pageIndex ++; emit('atualizarPage',pageIndex)"
         )
     template(
-      v-for="item in items.content"
-      :key="item"
+      v-for="(item, index) in items.content.slice((pageIndex - 1) * 10, pageIndex * 10)"
+      :key="index"
     )
       div.containerfoto(
       )
         div.column(style="max-width: 360px")
           q-img.cursor-pointer.foto(
             :src="item.image"
-            style=";"
             @click="openProductPage(item)"
           )
           div.row.justify-between.q-pt-sm
