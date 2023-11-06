@@ -15,6 +15,7 @@ const telefone = ref("");
 const senharef = ref(null);
 const confirmpassword = ref(null);
 const isPwd = ref(true);
+const pf = ref("pf");
 const envioregistro = async () => {
   try {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
@@ -27,7 +28,8 @@ const envioregistro = async () => {
         dataNascimento: data.value,
         nrTelefone: telefone.value,
         celular: telefone.value,
-        senha: senharef.value
+        senha: senharef.value,
+        pf: pf.value
       }
     );
     if (response.status === 200) {
