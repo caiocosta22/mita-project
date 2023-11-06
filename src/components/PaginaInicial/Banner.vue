@@ -83,22 +83,6 @@ div.banner
 
 <style scoped>
 
-.banner{
-  display:flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  justify-content: center;
-  position: relative;
-  height: 60em ;
-  z-index: 2;
-  margin-top: -165px;
-  width:100%;
-}
-.slide{
-  max-width: 100%;
-  max-height: 100%;
-  display:block;
-}
 .efeitobanner{
   z-index: 10;
   top: 0px;
@@ -113,6 +97,22 @@ div.banner
   justify-content: center;
   background-image: linear-gradient(to bottom, black,transparent);
   opacity: 0.7;
+}
+.slide{
+  max-width: 100%;
+  display:block;
+}
+.banner{
+  display:flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  position: relative;
+  height: auto ;
+  z-index: 2;
+  margin-top: -165px;
+  width:100%;
+  aspect-ratio: 1920/860;
 }
 @media screen and (max-width: 1150px) {
   .banner{
