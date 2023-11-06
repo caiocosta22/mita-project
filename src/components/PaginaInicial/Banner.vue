@@ -112,7 +112,7 @@ div.banner
   z-index: 2;
   margin-top: -165px;
   width:100%;
-  aspect-ratio: 1920/860;
+  aspect-ratio: 1920/720;
 }
 @media screen and (max-width: 1150px) {
   .banner{
