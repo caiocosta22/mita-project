@@ -66,6 +66,7 @@ div.banner
       :autoplay="autoplay"
       transition-prev="slide-right"
       transition-next="slide-left"
+      spinner
     )
       template(
         v-for="(banner, index) in bannersCarousel"
@@ -74,6 +75,7 @@ div.banner
         q-carousel-slide.slide.col(
           :name="index"
           :img-src="banner.fotoWebp"
+          spinner
         )
   .efeitobanner
 
@@ -86,7 +88,7 @@ div.banner
   flex-direction: column;
   box-sizing: border-box;
   justify-content: center;
-  aspect-ratio: auto 1920/860;
+  aspect-ratio: 1920/860;
   position: relative;
   height: auto;
   z-index: 2;
