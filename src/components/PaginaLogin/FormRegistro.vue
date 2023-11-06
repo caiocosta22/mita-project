@@ -18,6 +18,12 @@ const isPwd = ref(true);
 const pf = ref("pf");
 const envioregistro = async () => {
   try {
+    $q.notify({
+      color: "green-4",
+      textColor: "white",
+      icon: "refresh",
+      message: "Iniciando registro, aguarde um pouco"
+    });
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
       {
         nmCliente: nomeref.value,
@@ -39,7 +45,7 @@ const envioregistro = async () => {
         icon: "cloud_done",
         message: "Registro concluído com sucesso!"
       });
-    } else {
+    } if (response.status === 500) {
       $q.notify({
         color: "red-5",
         textColor: "white",
@@ -49,6 +55,12 @@ const envioregistro = async () => {
     }
   } catch (error) {
     console.log(error);
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "Ocorreu um erro! Tente novamente."
+    });
   }
 };
 
