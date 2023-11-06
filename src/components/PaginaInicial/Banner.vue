@@ -74,7 +74,7 @@ div.banner
       )
         q-carousel-slide.slide.col(
           :name="index"
-          :img-src="banner.fotoWebp"
+          :img-src="banner.image"
           spinner
         )
   .efeitobanner
