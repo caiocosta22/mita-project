@@ -88,15 +88,15 @@ div.banner
   flex-direction: column;
   box-sizing: border-box;
   justify-content: center;
-  aspect-ratio: 1920/860;
   position: relative;
-  height: auto;
+  height: 60em ;
   z-index: 2;
   margin-top: -165px;
   width:100%;
 }
 .slide{
   max-width: 100%;
+  max-height: 100%;
   display:block;
 }
 .efeitobanner{
