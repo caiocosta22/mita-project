@@ -50,7 +50,7 @@ const handleScroll = () => {
 function checaLogin () {
   if (loginSalvo && senhaSalva) {
     linkcarrinho.value = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
-    window.open(linkcarrinho, "_blank");
+    window.open("www.google.com", "blank");
   } else {
     $q.notify({
       color: "red-5",
