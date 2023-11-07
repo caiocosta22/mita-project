@@ -7,6 +7,7 @@ import Marketing from "../components/Layout/Marketing.vue";
 import Topbar from "../components/Layout/Topbar.vue";
 import Cabecalho from "../components/Layout/Cabecalho.vue";
 import Navbar from "../components/Layout/Nav.vue";
+import { useQuasar } from "quasar";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const headerBackgroundColor = ref("rgba(0, 0, 0, 0)"); // Inicialmente opaco
@@ -14,7 +15,9 @@ const navBackGroundColor = ref("rgba(0,0,0,0)"); // Nav
 const navTextColor = ref("rgba(255,255,255,1)");
 const cabecalhoTextColor = ref("rgba(255,255,255,1)");
 const multimenuTextColor = ref("rgba(0,0,0,1)");
-
+const $q = useQuasar();
+const loginSalvo = $q.localStorage.getItem("login");
+const senhaSalva = $q.localStorage.getItem("senha");
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const opacityThreshold = 0;
@@ -36,6 +39,14 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  if (loginSalvo && senhaSalva) {
+    $q.notify({
+      color: "green-4",
+      textColor: "white",
+      icon: "check",
+      message: `Bem vindo, ${loginSalvo}`
+    });
+  }
 });
 
 onBeforeUnmount(() => {
