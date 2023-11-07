@@ -12,6 +12,7 @@ import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
+const cliente = $q.localStorage.getItem("idclient") || -1;
 
 const props = defineProps({
   product: {
@@ -141,7 +142,7 @@ async function getFretes (dados) {
 
 async function createCart () {
   try {
-    const response = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/-1/-1", {
+    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/-1/${cliente}`, {
       quantity: qtdProduct.value,
       productId: produto.value.id
     }).then(e => e.data);
