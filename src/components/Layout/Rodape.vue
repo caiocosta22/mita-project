@@ -6,8 +6,10 @@ import axios from "axios";
 
 const router = useRouter();
 const $q = useQuasar();
+
 const cartId = $q.localStorage.getItem("cartIdBackend");
 const linkcarrinho = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
+
 const infosLinks = ref({
   city: "Fortaleza",
   cnpj: "28463426000109",
@@ -25,6 +27,13 @@ const infosLinks = ref({
   zipcode: "60160230",
   socialNetwork: []
 });
+
+function maskPhoneNumber (phoneNumber) {
+  if (phoneNumber && phoneNumber.length >= 2) {
+    return `(${phoneNumber.substring(0, 2)})${phoneNumber.substring(2)}`;
+  }
+  return phoneNumber;
+};
 
 async function searchSocialMedia () {
   try {
@@ -71,7 +80,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.principal Contato
     p.secundario Fale Conosco
     p.secundario(style="text-transform: lowercase") {{ infosLinks.email }}
-    p.secundario SAC {{ infosLinks.phone }}
+    p.secundario SAC {{ maskPhoneNumber(infosLinks.phone) }}
     p.secundario Atendimento:<br>Segunda à sexta, de 9h as 17h.
   div.Redes.column.col-2
     p.principal Nossas redes sociais
