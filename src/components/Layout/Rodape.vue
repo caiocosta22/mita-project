@@ -186,9 +186,6 @@ div.text-black.justify-center.text-center.row(style="color: #000;text-align: cen
   p(v-if="infosLinks.cnpj") &nbsp; | CNPJ: &nbsp; {{ infosLinks.cnpj }}
 div.copyright
   a.row(
-    href="https://www.instagram.com/agenciaalastrar/"
-    cursor-pointer
-    target="_blank"
     style="text-align: center; align-items: center; margin: 0 auto"
   )
     p Tecnologia
