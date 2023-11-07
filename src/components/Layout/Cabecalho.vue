@@ -9,14 +9,18 @@ const $q = useQuasar();
 const router = useRouter();
 const route = useRoute();
 
-const drawer = ref(false);
+const loginSalvo = $q.localStorage.getItem("login");
+const senhaSalva = $q.localStorage.getItem("senha");
 const quantidadeCarrinho = ref($q.localStorage.getItem("quantidadeCarrinho") || 0);
+const cartId = $q.localStorage.getItem("cartIdBackend");
+
+const drawer = ref(false);
 const prompt = ref(false);
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
 const pesquisa = ref("");
-const cartId = $q.localStorage.getItem("cartIdBackend");
-const linkcarrinho = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
+const linkcarrinho = ref();
+
 const categoriesBase = ref([
   {
     name: "VIAGENS",
@@ -43,6 +47,20 @@ const handleScroll = () => {
   }
 };
 
+function checaLogin () {
+  if (loginSalvo && senhaSalva) {
+    linkcarrinho.value = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
+    window.open(linkcarrinho, "_blank");
+  } else {
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "Você não está logado, efetue o login."
+    });
+  }
+}
+
 function MudarCores () {
   if (route.path === "/") {
     srcLogo.value = "/images/logo_branco_mita.png";
@@ -61,18 +79,18 @@ function openInicialPage (logo) {
   router.push("/");
 }
 
+function redirectToSearchPage () {
+  if (pesquisa.value) {
+    const url = "/pesquisa/" + pesquisa.value;
+    router.push(url);
+  }
+}
+
 async function openCategoryPage (category) {
   if (category.id) {
     const url = "/categorias/" + category.id;
     await router.push(url);
     window.location.reload();
-  }
-}
-
-function redirectToSearchPage () {
-  if (pesquisa.value) {
-    const url = "/pesquisa/" + pesquisa.value;
-    router.push(url);
   }
 }
 
@@ -134,7 +152,9 @@ div.container
         name="fa-solid fa-regular fa-user"
         )
         span.col(:style = "{ color : corcabecalho }") Minha conta
-      a.cursor-pointer.carrinho.row.q-gutter-sm(:href="linkcarrinho")
+      a.cursor-pointer.carrinho.row.q-gutter-sm(
+        @click="checaLogin"
+      )
         q-icon(
           :color="corcabecalho"
           size="sm"
