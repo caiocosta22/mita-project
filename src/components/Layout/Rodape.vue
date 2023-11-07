@@ -70,7 +70,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
   div.Contato.column.col-2
     p.principal Contato
     p.secundario Fale Conosco
-    p.secundario {{ infosLinks.email }}
+    p.secundario(style="text-transform: lowercase") {{ infosLinks.email }}
     p.secundario SAC {{ infosLinks.phone }}
     p.secundario Atendimento:<br>Segunda à sexta, de 9h as 17h.
   div.Redes.column.col-2
