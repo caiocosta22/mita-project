@@ -1,13 +1,4 @@
-<template lang="pug">
-q-layout(view="lHh Lpr lFf")
-  router-view
-  CadastroEmail
-  Rodape
-  </template>
-
 <script setup>
-import Rodape from "../components/Layout/Rodape.vue";
-import CadastroEmail from "../components//Layout/CadastroEmail.vue";
 import { onMounted } from "vue";
 import { useQuasar } from "quasar";
 const $q = useQuasar();
@@ -16,8 +7,7 @@ function positioned () {
     title: "Alerta de Cookies.",
     message: "Ao clicar em Ok, você concorda com nossos Cookies e políticas de privacidade.",
     ok: {
-      push: true,
-      color: "black"
+      push: true
     },
     cancel: {
       push: true,
@@ -31,6 +21,3 @@ onMounted(() => {
   positioned();
 });
 </script>
-
-<style scoped>
-</style>
