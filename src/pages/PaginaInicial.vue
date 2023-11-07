@@ -18,6 +18,8 @@ const multimenuTextColor = ref("rgba(0,0,0,1)");
 const $q = useQuasar();
 const loginSalvo = $q.localStorage.getItem("login");
 const senhaSalva = $q.localStorage.getItem("senha");
+const nomeSalvo = $q.localStorage.getItem("nome");
+
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const opacityThreshold = 0;
@@ -44,7 +46,7 @@ onMounted(() => {
       color: "green-4",
       textColor: "white",
       icon: "check",
-      message: `Bem vindo, ${loginSalvo}`
+      message: `Bem vindo, ${nomeSalvo}`
     });
   }
 });

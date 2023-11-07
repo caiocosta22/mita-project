@@ -21,15 +21,12 @@ const envioLogin = async () => {
         senha: senha.value
       }
     );
+    const usuario = response.data;
     if (response.status === 200) {
       $q.localStorage.set("login", login.value);
       $q.localStorage.set("senha", senha.value);
-      $q.notify({
-        color: "green-4",
-        textColor: "white",
-        icon: "cloud_done",
-        message: "Bem vindo!"
-      });
+      $q.localStorage.set("nome", usuario.nmCliente);
+      $q.localStorage.set("idclient", usuario.idCliente);
       router.push("/");
     } else {
       $q.notify({

@@ -167,9 +167,6 @@ async function addProductToCart () {
       quantidadeCarrinho.value = response.items?.length;
       await getCartItems();
     }
-    // ! Esse ponto está na documentação, mas nada foi falado ainda sobre para onde redirecionar
-    const url = "https://mitaoficial.elevarone.com.br/checkout?idCart={idCarrinho}";
-    window.location.href = url;
   } catch (e) {
     console.error(e);
   }

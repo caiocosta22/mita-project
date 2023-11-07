@@ -19,7 +19,6 @@ const prompt = ref(false);
 const srcLogo = ref("/images/logo.png");
 const corcabecalho = ref("black");
 const pesquisa = ref("");
-const linkcarrinho = ref();
 
 const categoriesBase = ref([
   {
@@ -49,8 +48,7 @@ const handleScroll = () => {
 
 function checaLogin () {
   if (loginSalvo && senhaSalva) {
-    linkcarrinho.value = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
-    window.open("www.google.com", "blank");
+    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
   } else {
     $q.notify({
       color: "red-5",
