@@ -40,6 +40,12 @@ const envioLogin = async () => {
       });
     }
   } catch (error) {
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "Erro ao tentar Login! Tente novamente"
+    });
     console.log(error);
   }
 };
