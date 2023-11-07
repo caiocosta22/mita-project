@@ -184,6 +184,18 @@ div.text-black.justify-center.text-center.row(style="color: #000;text-align: cen
   p(v-if="infosLinks.state") , {{ infosLinks.state }}
   p(v-if="infosLinks.zipcode") &nbsp; | CEP: &nbsp; {{ infosLinks.zipcode }}
   p(v-if="infosLinks.cnpj") &nbsp; | CNPJ: &nbsp; {{ infosLinks.cnpj }}
+div.copyright
+  a.row(
+    href="https://www.instagram.com/agenciaalastrar/"
+    cursor-pointer
+    target="_blank"
+    style="text-align: center; align-items: center; margin: 0 auto"
+  )
+    p Tecnologia
+    img(
+      src="/images/elevar.png"
+      style="display: block; padding-bottom: 12px; padding-left: 5px;"
+    )
 </template>
 
 <style scoped>
@@ -218,6 +230,9 @@ a{
   flex-direction: column;
   margin: auto;
   width: 87%;
+}
+.copyright {
+  display: flex;
 }
 @media screen and (min-width: 1025px) {
   .rodape2{
