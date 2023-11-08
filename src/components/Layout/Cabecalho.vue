@@ -37,8 +37,9 @@ const tamanho = ref("");
 
 function getTamanho () {
   const larguraTela = window.innerWidth;
-  if (larguraTela < 1160) {
-    tamanho.value = "550";
+  tamanho.value = "550";
+  if (larguraTela < 1024) {
+    tamanho.value = "512";
   }
   if (larguraTela < 768) {
     tamanho.value = "350";
@@ -206,10 +207,9 @@ div.container
         q-item(
           clickable
           v-ripple
-          style="color:black; font-size: 20px"
           @click="prompt = true"
         )
-          q-item-section BUSCA
+          q-item-section.textomenu BUSCA
           q-icon(
             name="search"
             size="md"
@@ -222,10 +222,9 @@ div.container
         )
           q-item(
             clickable :active="categorie.name === 'Outbox'" v-ripple
-            style="color:black; font-size: 20px"
             @click="openCategoryPage(categorie)"
           )
-            q-item-section {{ categorie.name }}
+            q-item-section.textomenu {{ categorie.name }}
           q-separator
     q-dialog(
       v-model="prompt"
@@ -317,6 +316,11 @@ span{
   font-weight: 400;
   line-height: normal;
 }
+.textomenu {
+  font-size: 24px;
+  color: black;
+  font-weight: 400
+}
 
 @media screen and (min-width: 1150px) {
   .multimenu{
@@ -350,6 +354,16 @@ span{
   .cabecalho {
     height: 140px;
     padding-top: 65px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .textomenu {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .textomenu {
+    font-size: 18px;
   }
 }
 </style>
