@@ -325,10 +325,11 @@ span{
 }
 @media screen and (max-width: 1024px) {
   .container {
-    height: 140px;
+    margin-top: -75px;
   }
   .cabecalho {
     height: 140px;
+    padding-top: 65px;
   }
 }
 </style>
