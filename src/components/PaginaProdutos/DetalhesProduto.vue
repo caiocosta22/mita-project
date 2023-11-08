@@ -181,6 +181,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", setGutterClass);
 });
+console.log(props);
 </script>
 
 <template lang="pug">
@@ -200,21 +201,32 @@ div.container.q-pt-md.q-pb-sm
             @click="principalImg = objfoto.foto"
             :src="objfoto.foto"
           )
-    div.fotogrande
-      span.text-on-image(
-        v-if="produto.customizacao"
-        :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontFamily: customfamily, fontSize: customsize, color: customcor}") {{ text1 }}
-      InnerImageZoom.imagezoom(
-        zoomType="hover"
-        v-if="principalImg"
-        :src="principalImg"
-        :srcSet="principalImg"
-        :zoomSrc="principalImg"
-        no-native-menu
-        width=580
-        height=600
-        className="imagezoom"
-      )
+    template(
+      v-if="!produto.customizacao"
+    )
+      div.fotogrande
+        InnerImageZoom.imagezoom(
+          zoomType="hover"
+          v-if="principalImg"
+          :src="principalImg"
+          :srcSet="principalImg"
+          :zoomSrc="principalImg"
+          no-native-menu
+          width=580
+          height=600
+          className="imagezoom"
+        )
+    template(
+      v-if="produto.customizacao"
+    )
+      div.fotogrande
+        q-img(
+          :src="principalImg"
+        )
+          span.text-on-image(
+            v-if="produto.customizacao"
+            :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontFamily: customfamily, fontSize: customsize, color: customcor}"
+          ) {{ text1 }}
     div.miniaturasmobile
       Carousel(v-bind="settings" :breakpoints="breakpoints")
         Slide.flex.q-pr-sm(
