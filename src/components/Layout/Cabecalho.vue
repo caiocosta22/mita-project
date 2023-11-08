@@ -176,7 +176,7 @@ div.container
   q-drawer(
     behavior="mobile"
     v-model="drawer"
-    :width="200"
+    :width="260"
     :breakpoint="1025"
     bordered
     side="right"
@@ -186,13 +186,13 @@ div.container
         q-item(
           clickable
           v-ripple
-          style="color:black"
+          style="color:black; font-size: 20px"
           @click="prompt = true"
         )
           q-item-section BUSCA
           q-icon(
             name="search"
-            size="sm"
+            size="md"
             style="padding-top:4px"
           )
         q-separator
@@ -202,7 +202,7 @@ div.container
         )
           q-item(
             clickable :active="categorie.name === 'Outbox'" v-ripple
-            style="color:black;"
+            style="color:black; font-size: 20px"
             @click="openCategoryPage(categorie)"
           )
             q-item-section {{ categorie.name }}
@@ -321,6 +321,14 @@ span{
   }
   .cabecalho{
     max-width: 87%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .container {
+    height: 140px;
+  }
+  .cabecalho {
+    height: 140px;
   }
 }
 </style>
