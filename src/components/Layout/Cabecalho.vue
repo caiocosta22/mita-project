@@ -2,7 +2,7 @@
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import getCartItems from "src/helpers/getCartItems";
+import createCart from "src/helpers/createCart.js";
 import axios from "axios";
 
 const $q = useQuasar();
@@ -125,13 +125,13 @@ window.addEventListener("resize", () => {
   getTamanho();
 });
 
-setInterval(async () => {
-  await getCartItems();
-}, 10000);
+// setInterval(async () => {
+// await createCart();
+// }, 10000);
 
 onBeforeMount(async () => {
   await Promise.all([
-    getCartItems(),
+    createCart(),
     MudarCores(),
     searchCategories()
   ]);

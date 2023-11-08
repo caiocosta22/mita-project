@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useQuasar } from "quasar";
 import axios from "axios";
-import getCartItems from "../../helpers/getCartItems.js";
+import createCart from "../../helpers/createCart.js";
 import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
@@ -12,7 +12,7 @@ import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
 const cartId = $q.localStorage.getItem("cartIdBackend");
-const cliente = $q.localStorage.getItem("idclient") || -1;
+const idClient = $q.localStorage.getItem("idclient");
 
 const props = defineProps({
   product: {
@@ -46,7 +46,6 @@ const breakpoints = ref({
 });
 const gutterClass = ref("");
 const usarSkeleton = ref(false);
-const quantidadeCarrinho = ref(0);
 const qtdProduct = ref(1);
 const cep = ref();
 const dadosFrete = ref([]);
@@ -140,38 +139,42 @@ async function getFretes (dados) {
   }
 }
 
-async function createCart () {
-  try {
-    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/-1/${cliente}`, {
-      quantity: qtdProduct.value,
-      productId: produto.value.id
-    }).then(e => e.data);
-    $q.localStorage.set("cartIdBackend", response.id);
-    return response;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 async function addProductToCart () {
   try {
-    let response = [];
-    if (!cartId) {
-      response = await createCart();
-    } else {
-      response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
+    if (idClient) {
+      const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
         quantity: qtdProduct.value,
         productId: produto.value.id
-      }).then(e => e.data);
+      });
+      const response = add.response;
+      if (response.status === 200) {
+        await createCart();
+      } else {
+        $q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "Erro ao adicionar item ao   carrinho. Tente novamente."
+        });
+      }
+    } else {
+      $q.notify({
+        color: "red-5",
+        textColor: "white",
+        icon: "warning",
+        message: "Erro ao adicionar item ao   carrinho. Faça o Login na sua conta."
+      });
     }
-    if (response.length) {
-      quantidadeCarrinho.value = response.items?.length;
-      await getCartItems();
-    }
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.log(error);
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "Erro ao adicionar item ao   carrinho. Tente novamente."
+    });
   }
-}
+};
 
 onMounted(() => {
   setGutterClass();
