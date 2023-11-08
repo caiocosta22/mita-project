@@ -13,6 +13,8 @@ const senhaSalva = $q.localStorage.getItem("senha");
 const login = ref("");
 const senha = ref("");
 
+const isPwd = ref(true);
+
 const envioLogin = async () => {
   try {
     const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getAutenticacaoEcommerce",
@@ -85,7 +87,7 @@ div.container
           .primario Senha
           q-input(
               outlined
-              type="password"
+              :type="isPwd ? 'password' : 'text'"
               v-model="senha"
               label="Digite sua senha"
               lazy-rules
@@ -93,6 +95,14 @@ div.container
               :rules="[ val => val && val.length > 0 || 'Por favor digite sua senha']"
               @keypress.enter="envioLogin()"
           )
+            template(v-slot:append)
+              q-icon(
+                size="xs"
+                color="black"
+                :name="isPwd ? 'visibility_off' :   'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              )
           a.esqueceu.cursor-pointer Esqueceu sua senha?
         div.botoes
             q-btn(
