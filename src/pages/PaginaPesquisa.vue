@@ -7,6 +7,7 @@ import axios from "axios";
 const route = useRoute();
 const router = useRouter();
 const items = ref([]);
+const vazio = ref(false);
 
 async function searchProducts (id) {
   try {
@@ -29,10 +30,12 @@ async function searchProducts (id) {
       });
       return data;
     } else {
+      vazio.value = true;
       return [];
     }
   } catch (e) {
     console.error(e);
+    vazio.value = true;
     return [];
   }
 }
@@ -64,6 +67,19 @@ onMounted(async () => {
 
 <template lang="pug">
 q-page-container
+  template(
+    v-if="vazio"
+  )
+    div.interno(
+      style="width: 85%; display: flex; margin: 0 auto; height: 600px;"
+    )
+      div.q-pa-md
+        p(
+          style="font-size: 24px;"
+        ) Nenhum item encontrado, pesquise novamente.
+  template(
+    v-if="!vazio"
+  )
     Produtos(
       :items="items"
     )
