@@ -28,6 +28,7 @@ async function searchProducts (id) {
             ]
         };
       });
+      vazio.value = false;
       return data;
     } else {
       vazio.value = true;
@@ -73,7 +74,10 @@ q-page-container
     div.interno(
       style="width: 85%; display: flex; margin: 0 auto; height: 600px;"
     )
-      div.q-pa-md
+      div.q-pt-lg.q-px-md.column
+        p(
+          style="font-size: 16px;"
+        ) Produtos 0 de 0 Resultados
         p(
           style="font-size: 24px;"
         ) Nenhum item encontrado, pesquise novamente.
