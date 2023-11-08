@@ -33,6 +33,21 @@ const categoriesBase = ref([
   }
 ]);
 
+const tamanho = ref("");
+
+function getTamanho () {
+  const larguraTela = window.innerWidth;
+  if (larguraTela < 1160) {
+    tamanho.value = "550";
+  }
+  if (larguraTela < 768) {
+    tamanho.value = "350";
+  }
+  if (larguraTela < 480) {
+    tamanho.value = "200";
+  }
+}
+
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const opacityThreshold = 0;
@@ -105,6 +120,10 @@ async function searchCategories () {
   }
 }
 
+window.addEventListener("resize", () => {
+  getTamanho();
+});
+
 setInterval(async () => {
   await getCartItems();
 }, 10000);
@@ -129,6 +148,7 @@ onBeforeUnmount(() => {
   }
 });
 
+console.log(tamanho);
 </script>
 
 <template lang="pug">
@@ -176,7 +196,7 @@ div.container
   q-drawer(
     behavior="mobile"
     v-model="drawer"
-    :width="260"
+    :width="tamanho"
     :breakpoint="1025"
     bordered
     side="right"
