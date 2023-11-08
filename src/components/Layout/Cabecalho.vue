@@ -11,7 +11,7 @@ const route = useRoute();
 
 const loginSalvo = $q.localStorage.getItem("login");
 const senhaSalva = $q.localStorage.getItem("senha");
-const quantidadeCarrinho = ref($q.localStorage.getItem("quantidadeCarrinho") || 0);
+const quantidadeCarrinho = ref($q.localStorage.getItem("quantidadeCarrinho"));
 const cartId = $q.localStorage.getItem("cartIdBackend");
 
 const drawer = ref(false);
