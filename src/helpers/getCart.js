@@ -2,26 +2,24 @@ import axios from "axios";
 import { LocalStorage } from "quasar";
 
 async function getCart () {
-  const cartId = LocalStorage.getItem("cartIdBackend") || -1;
-  const clientId = LocalStorage.getItem("idclient");
   try {
-    const cart = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${clientId}`);
-    const response = cart.data;
-    if (response.items) {
-      const array = [];
-      array.value = response.items;
-      let quantidadeCarrinho = 0;
-      array.forEach(function (item) {
-        quantidadeCarrinho += item.quantity;
-      });
-      console.log(quantidadeCarrinho);
-      LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
-    } else {
-      const quantidadeCarrinho = 0;
-      LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
-    }
+    const cartId = LocalStorage.getItem("cartIdBackend") || -1;
+    const clientId = LocalStorage.getItem("idclient");
+    let quantidadeCarrinho = 0; // Resetando para 0 a cada chamada
+
+    console.log("parte1", quantidadeCarrinho);
+
+    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${clientId}`);
+
+    const items = response.data.items || [];
+
+    quantidadeCarrinho = items.reduce((total, item) => total + item.quantity, quantidadeCarrinho);
+
+    console.log("parte2", quantidadeCarrinho);
+
+    LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
