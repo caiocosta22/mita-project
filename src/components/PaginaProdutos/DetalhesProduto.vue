@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
-import { useQuasar } from "quasar";
+import { useQuasar, LocalStorage } from "quasar";
 import axios from "axios";
-import createCart from "../../helpers/createCart.js";
+import getCart from "../../helpers/getCart.js";
 import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
@@ -11,8 +11,8 @@ import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
-const cartId = $q.localStorage.getItem("cartIdBackend");
-const idClient = $q.localStorage.getItem("idclient");
+let cartId = LocalStorage.getItem("cartIdBackend") || -1;
+const idClient = LocalStorage.getItem("idclient");
 
 const props = defineProps({
   product: {
@@ -139,30 +139,44 @@ async function getFretes (dados) {
   }
 }
 
+async function createCart () {
+  try {
+    const add = await axios.post(`https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${idClient}`, {
+      quantity: qtdProduct.value,
+      productId: produto.value.id
+    });
+    console.log(add);
+    const response = add.data;
+    if (add.status === 200) {
+      cartId = response.id;
+      LocalStorage.set("cartIdBackend", cartId);
+      await getCart();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function addProductToCart () {
   try {
     if (idClient) {
-      const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
-        quantity: qtdProduct.value,
-        productId: produto.value.id
-      });
-      const response = add.response;
-      if (response.status === 200) {
+      if (cartId === -1) {
         await createCart();
       } else {
-        $q.notify({
-          color: "red-5",
-          textColor: "white",
-          icon: "warning",
-          message: "Erro ao adicionar item ao   carrinho. Tente novamente."
+        const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
+          quantity: qtdProduct.value,
+          productId: produto.value.id
         });
+        if (add.status === 200) {
+          await getCart();
+        }
       }
     } else {
       $q.notify({
         color: "red-5",
         textColor: "white",
         icon: "warning",
-        message: "Erro ao adicionar item ao   carrinho. Faça o Login na sua conta."
+        message: "Erro ao adicionar item ao carrinho. Faça o Login na sua conta."
       });
     }
   } catch (error) {
@@ -171,7 +185,7 @@ async function addProductToCart () {
       color: "red-5",
       textColor: "white",
       icon: "warning",
-      message: "Erro ao adicionar item ao   carrinho. Tente novamente."
+      message: "Erro ao adicionar item ao carrinho. Tente novamente."
     });
   }
 };
@@ -184,7 +198,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", setGutterClass);
 });
-console.log(props);
 </script>
 
 <template lang="pug">

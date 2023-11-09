@@ -17,7 +17,7 @@ const isPwd = ref(true);
 
 const envioLogin = async () => {
   try {
-    const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getAutenticacaoEcommerce",
+    const response = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getAutenticacaoEcommerce",
       {
         login: login.value,
         senha: senha.value

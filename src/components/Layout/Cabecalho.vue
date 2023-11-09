@@ -2,7 +2,7 @@
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useQuasar } from "quasar";
-import createCart from "src/helpers/createCart.js";
+import getCart from "src/helpers/getCart.js";
 import axios from "axios";
 
 const $q = useQuasar();
@@ -131,7 +131,7 @@ window.addEventListener("resize", () => {
 
 onBeforeMount(async () => {
   await Promise.all([
-    createCart(),
+    getCart(),
     MudarCores(),
     searchCategories()
   ]);

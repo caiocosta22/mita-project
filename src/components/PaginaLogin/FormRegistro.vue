@@ -24,7 +24,7 @@ const envioregistro = async () => {
       icon: "refresh",
       message: "Iniciando registro, aguarde um pouco"
     });
-    const response = await axios.post("https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
+    const response = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/salvaEcommerce",
       {
         nmCliente: nomeref.value,
         sobrenome: sobrenomeref.value,
