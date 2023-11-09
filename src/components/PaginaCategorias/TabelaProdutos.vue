@@ -11,9 +11,9 @@ const maximunPage = computed(() => {
 });
 
 const seeingProductsBetween = computed(() => {
-  const startProduct = (pageIndex.value - 1) * 10 + 1;
-  const endProduct = Math.min(pageIndex.value * 10, props.items.totalRows);
-  return `${startProduct}-${endProduct}`;
+  const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
+  const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
+  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
 });
 
 function formatCurrency (value) {
@@ -61,7 +61,7 @@ const props = defineProps({
             tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
           }
         ],
-        totalRows: 10,
+        totalRows: 12,
         currentPage: 1
       };
     }
@@ -117,8 +117,8 @@ watch(() => pageIndex.value, (val) => {
           @click="pageIndex === maximunPage ? false : pageIndex ++; emit('atualizarPage',pageIndex)"
         )
     template(
-      v-for="(item, index) in items.content.slice((pageIndex - 1) * 10, pageIndex * 10)"
-      :key="index"
+      v-for="item in items.content"
+      :key="item"
     )
       div.containerfoto(
       )
