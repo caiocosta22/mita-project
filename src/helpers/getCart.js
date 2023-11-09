@@ -7,15 +7,11 @@ async function getCart () {
     const clientId = LocalStorage.getItem("idclient");
     let quantidadeCarrinho = 0; // Resetando para 0 a cada chamada
 
-    console.log("parte1", quantidadeCarrinho);
-
     const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${clientId}`);
 
     const items = response.data.items || [];
 
     quantidadeCarrinho = items.reduce((total, item) => total + item.quantity, quantidadeCarrinho);
-
-    console.log("parte2", quantidadeCarrinho);
 
     LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
   } catch (err) {

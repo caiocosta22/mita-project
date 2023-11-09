@@ -7,7 +7,7 @@ const pageIndex = ref(1);
 const emit = defineEmits(["atualizarPage"]);
 
 const maximunPage = computed(() => {
-  return Math.ceil(props.items.totalRows / 10); // Calculate the maximum page based on 10 products per page
+  return Math.ceil(props.items.totalRows / 12); // Calculate the maximum page based on 10 products per page
 });
 
 const seeingProductsBetween = computed(() => {
