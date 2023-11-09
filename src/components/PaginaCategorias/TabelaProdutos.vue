@@ -13,7 +13,7 @@ const maximunPage = computed(() => {
 const seeingProductsBetween = computed(() => {
   const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
   const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
-  return Math.ceil(`${menorValorQuePossoVer}-${maiorValorQuePossoVer}`);
+  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
 });
 function formatCurrency (value) {
   return value.toLocaleString("pt-BR", {
