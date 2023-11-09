@@ -7,15 +7,14 @@ const pageIndex = ref(1);
 const emit = defineEmits(["atualizarPage"]);
 
 const maximunPage = computed(() => {
-  return Math.ceil(props.items.totalRows / 12); // Calculate the maximum page based on 10 products per page
+  return Math.ceil(props.items.totalRows / 12);
 });
 
 const seeingProductsBetween = computed(() => {
   const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
   const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
-  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
+  return Math.ceil(`${menorValorQuePossoVer}-${maiorValorQuePossoVer}`);
 });
-
 function formatCurrency (value) {
   return value.toLocaleString("pt-BR", {
     style: "currency",
