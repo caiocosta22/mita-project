@@ -11,8 +11,12 @@ const route = useRoute();
 
 const loginSalvo = $q.localStorage.getItem("login");
 const senhaSalva = $q.localStorage.getItem("senha");
-const quantidadeCarrinho = ref($q.localStorage.getItem("quantidadeCarrinho"));
 const cartId = $q.localStorage.getItem("cartIdBackend");
+
+const qtdProduto = ref($q.localStorage.getItem("quantidadeCarrinho"));
+const updateCartQuantity = (event) => {
+  qtdProduto.value = event.detail.quantity;
+};
 
 const drawer = ref(false);
 const prompt = ref(false);
@@ -125,10 +129,6 @@ window.addEventListener("resize", () => {
   getTamanho();
 });
 
-// setInterval(async () => {
-// await createCart();
-// }, 10000);
-
 onBeforeMount(async () => {
   await Promise.all([
     getCart(),
@@ -141,15 +141,16 @@ onMounted(() => {
   if (route.path === "/") {
     window.addEventListener("scroll", handleScroll);
   }
+  window.addEventListener("addToCart", updateCartQuantity);
 });
 
 onBeforeUnmount(() => {
   if (route.path === "/") {
     window.removeEventListener("scroll", handleScroll);
   }
+  window.removeEventListener("addToCart", updateCartQuantity);
 });
 
-console.log(tamanho);
 </script>
 
 <template lang="pug">
@@ -180,9 +181,9 @@ div.container
           name="fa-solid fa-cart-shopping"
         )
           q-badge.text-black.text-bold(
-            v-if="quantidadeCarrinho"
+            v-if="qtdProduto"
             floating
-          ) {{ quantidadeCarrinho }}
+          ) {{ qtdProduto }}
         span(:style = "{ color : corcabecalho }") Meu carrinho
       div.botaomenu.row
         q-btn(

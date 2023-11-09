@@ -11,6 +11,7 @@ import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
+const quantidadeCarrinho = ref(LocalStorage.getItem("quantidadeCarrinho"));
 let cartId = LocalStorage.getItem("cartIdBackend") || -1;
 const idClient = LocalStorage.getItem("idclient");
 
@@ -65,6 +66,13 @@ const copyLink = () => {
 
 const setGutterClass = () => {
   gutterClass.value = window.innerWidth >= 1150 ? "q-gutter-lg" : "";
+};
+
+const emitAddToCartEvent = () => {
+  const addToCartEvent = new CustomEvent("addToCart", {
+    detail: { quantity: LocalStorage.getItem("quantidadeCarrinho") }
+  });
+  window.dispatchEvent(addToCartEvent);
 };
 
 function updateProductInfo (colorId) {
@@ -169,6 +177,7 @@ async function addProductToCart () {
         });
         if (add.status === 200) {
           await getCart();
+          emitAddToCartEvent();
         }
       }
     } else {
