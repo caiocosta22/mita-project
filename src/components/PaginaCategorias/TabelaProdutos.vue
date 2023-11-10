@@ -89,19 +89,11 @@ watch(() => pageIndex.value, (val) => {
 </script>
 
 <template lang="pug">
-.container
-  div(
-    :class="bannerUrlCategorie !== '' ? 'column' : false"
-  )
-    img(
-      v-if="bannerUrlCategorie"
-      :src="bannerUrlCategorie"
-      style="width:1240px; height:164px"
-    )
-  div.containertabela.q-py-md
-    div.row.paginacao.q-px-sm.q-pt-xl
-      p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
-      div.row.q-gutter-sm.q-px-xs
+div.container
+  div.containertabela.q-pt-lg.q-pl-md
+    div.row.paginacao.q-px-sm
+      p.produtos.q-mr-md(style="font-size: 18px; font-weight: 400;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
+      div.row.q-gutter-sm.q-px-md
         q-icon.cursor-pointer(
           name="chevron_left"
           size="1.5em"
@@ -115,34 +107,38 @@ watch(() => pageIndex.value, (val) => {
           style="width:8px; heigth:15px;"
           @click="pageIndex === maximunPage ? false : pageIndex ++; emit('atualizarPage',pageIndex)"
         )
-    template(
-      v-for="item in items.content"
-      :key="item"
-    )
-      div.containerfoto(
+    div.grid.q-px-sm
+      template(
+        v-for="item in items.content"
+        :key="item"
       )
-        div.column(style="max-width: 360px")
+        div.column.containerfoto
           q-img.cursor-pointer.foto(
             :src="item.image"
             @click="openProductPage(item)"
           )
           div.row.justify-between.q-pt-sm
-            div.column(style="width:50%;text-align:left;font-size:14px")
+            div.column.texto(style="width:50%;text-align:left;")
               span.text-black {{ item.name }}
-            div.column(style="width:50%; text-align:right;font-size:14px")
+            div.column.texto(style="width:50%; text-align:right")
               span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
 </template>
 
 <style scoped>
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 .containertabela{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
-  margin: 0 auto;
+  flex-direction: column;
 }
 .containerfoto{
-  flex: 1 1 313px;
-  margin: 10px;
+  max-width: 360px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 .foto {
   max-width: 100%;
@@ -163,11 +159,29 @@ watch(() => pageIndex.value, (val) => {
   color:black;
   font-size: 14px;
 }
-@media screen and (max-width: 1150px) {
-  .containerfoto{
-  flex: 1 1 200px;
-  margin: 10px;
+@media screen and (max-width: 1024px) {
+    .grid{
+      grid-template-columns: 1fr 1fr 1fr
+    }
+    .texto{
+      font-size: 18px;
+    }
+}
+@media screen and (max-width: 768px) {
+  .grid{
+      grid-template-columns: 1fr 1fr
+    }
+    .texto{
+      font-size: 16px;
+    }
+}
+@media screen and (max-width: 480px) {
+  .grid{
+      grid-template-columns: 1fr 1fr
+    }
+    .texto{
+      font-size: 14px;
+    }
 }
 
-}
 </style>
