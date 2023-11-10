@@ -92,7 +92,7 @@ watch(() => pageIndex.value, (val) => {
 div.container
   div.containertabela.q-pt-lg.q-pl-md
     div.row.paginacao.q-px-sm
-      p.produtos.q-mr-md(style="font-size: 18px; font-weight: 400;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
+      p.produtos.q-mr-md(style="font-weight: 400;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
       div.row.q-gutter-sm.q-px-md
         q-icon.cursor-pointer(
           name="chevron_left"
@@ -128,6 +128,9 @@ div.container
 .grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .produtos{
+    font-size: 20px;
   }
 .containertabela{
   display: flex;
@@ -181,6 +184,9 @@ div.container
     }
     .texto{
       font-size: 14px;
+    }
+    .produtos{
+      font-size: 16px;
     }
 }
 
