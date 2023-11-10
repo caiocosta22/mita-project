@@ -84,14 +84,6 @@ watch(() => pageIndex.value, (val) => {
 
 <template lang="pug">
 .container
-  div(
-    :class="bannerUrlCategorie !== '' ? 'column' : false"
-  )
-    img(
-      v-if="bannerUrlCategorie"
-      :src="bannerUrlCategorie"
-      style="width:1240px; height:164px"
-    )
   div.containertabela
     div.row.paginacao.q-px-sm.q-pt-xl
       p.produtos.q-mr-md(style="font-size: 18px;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
@@ -101,7 +93,7 @@ watch(() => pageIndex.value, (val) => {
           size="1.5em"
           style="width:8px; heigth:16px"
           @click="pageIndex === 1 ? false : pageIndex--"
-          )
+        )
         p(style="font-weight: bold;") {{ pageIndex }}
         q-icon.cursor-pointer(
           name="chevron_right"
@@ -109,60 +101,55 @@ watch(() => pageIndex.value, (val) => {
           style="width:8px; heigth:15px;"
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
-    template(
-      v-for="item in items.content"
-      :key="item"
-    )
-      div.containerfoto(
+    div.grid1.q-px-sm
+      template(
+        v-for="item in items.content"
+        :key="item"
       )
-        div.column(style="max-width: 360px;")
-            q-img.cursor-pointer.foto(
+        div.column.q-pr-sm(style="max-width: 350px;")
+          q-img.cursor-pointer.foto(
             :src="item.image"
             style=";"
             @click="openProductPage(item)"
-            )
-            div.row.justify-between.q-pt-sm
-                div.column(style="width:50%;text-align:left;font-size:14px")
-                    span.text-black {{ item.name }}
-                div.column(style="width:50%; text-align:right;font-size:14px")
-                    span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
+          )
+          div.row.justify-between.q-pt-sm
+            div.column(style="width:50%;text-align:left;font-size:14px")
+              span.text-black {{ item.name }}
+            div.column(style="width:50%; text-align:right;font-size:14px")
+              span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
 </template>
 
-<style scoped>
-.containertabela{
-  display: flex;
-  flex-wrap: wrap;
-  width: 84%;
-  margin: 0 auto;
-}
-.containerfoto{
-  flex: 1 1 360px;
-  margin: 10px;
-}
-.foto {
-  max-width: 100%;
-  display: block;
-}
-.paginacao{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 0 auto
-}
+  <style scoped>
+  .grid1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 0 auto;
+  }
+  .containertabela{
+    flex-direction: column;
+    width: 84%;
+    margin: 0 auto;
+  }
 
-.texto {
-  color:black;
-  font-size:14px;
-}
-.texto2 {
-  color:black;
-  font-size: 14px;
-}
-@media screen and (max-width: 936px) {
-  .containerfoto{
-  flex: 1 1 200px;
-  margin: 10px;
-}
+  .foto {
+    max-width: 100%;
+    display: block;
+  }
 
-}
-</style>
+  .paginacao{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .texto {
+    color:black;
+    font-size:14px;
+  }
+
+  .texto2 {
+    color:black;
+    font-size: 14px;
+  }
+  </style>
