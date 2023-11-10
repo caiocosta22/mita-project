@@ -101,26 +101,26 @@ watch(() => pageIndex.value, (val) => {
           style="width:8px; heigth:15px;"
           @click="pageIndex === maximunPage ? false : pageIndex++"
         )
-    div.grid1.q-px-sm
+    div.grid.q-px-sm
       template(
         v-for="item in items.content"
         :key="item"
       )
-        div.column.q-pr-sm(style="max-width: 350px;")
+        div.column.q-pr-md.q-pb-md.containerfoto
           q-img.cursor-pointer.foto(
             :src="item.image"
             style=";"
             @click="openProductPage(item)"
           )
           div.row.justify-between.q-pt-sm
-            div.column(style="width:50%;text-align:left;font-size:14px")
+            div.column.texto(style="width:50%;text-align:left;")
               span.text-black {{ item.name }}
-            div.column(style="width:50%; text-align:right;font-size:14px")
+            div.column.texto(style="width:50%; text-align:right;")
               span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
 </template>
 
   <style scoped>
-  .grid1{
+  .grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0 auto;
@@ -129,6 +129,7 @@ watch(() => pageIndex.value, (val) => {
     flex-direction: column;
     width: 84%;
     margin: 0 auto;
+    flex-wrap: nowrap;
   }
 
   .foto {
@@ -152,4 +153,32 @@ watch(() => pageIndex.value, (val) => {
     color:black;
     font-size: 14px;
   }
+  .containerfoto {
+    max-width: 360px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .grid{
+      grid-template-columns: 1fr 1fr 1fr
+    }
+    .texto{
+      font-size: 18px;
+    }
+}
+@media screen and (max-width: 768px) {
+  .grid{
+      grid-template-columns: 1fr 1fr
+    }
+    .texto{
+      font-size: 16px;
+    }
+}
+@media screen and (max-width: 480px) {
+  .grid{
+      grid-template-columns: 1fr 1fr
+    }
+    .texto{
+      font-size: 14px;
+    }
+}
   </style>
