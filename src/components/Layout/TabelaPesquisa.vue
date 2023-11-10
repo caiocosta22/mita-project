@@ -86,7 +86,7 @@ watch(() => pageIndex.value, (val) => {
 .container
   div.containertabela
     div.row.paginacao.q-px-sm.q-pt-xl
-      p.produtos.q-mr-md(style="font-size: 20px; font-weight: 400; text-align: left;") Encontramos {{ items.totalRows }} Resultados para sua pesquisa.
+      p.produtos.q-mr-md(style="font-size: 20px; font-weight: 400; text-align: left;") Encontramos {{ items.totalRows }} resultados para sua pesquisa.
       div.row.q-gutter-sm
         q-icon.cursor-pointer(
           name="chevron_left"
