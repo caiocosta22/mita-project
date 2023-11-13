@@ -37,7 +37,7 @@ const categoriesBase = ref([
   }
 ]);
 
-const tamanho = ref("");
+const tamanho = ref("550");
 
 function getTamanho () {
   const larguraTela = window.innerWidth;
@@ -215,6 +215,7 @@ div.container
             name="search"
             size="md"
             style="padding-top:4px"
+            color="black"
           )
         q-separator
         template(
