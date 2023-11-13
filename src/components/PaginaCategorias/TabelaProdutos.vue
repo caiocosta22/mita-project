@@ -71,6 +71,16 @@ const page = ref(1);
 
 const perPage = 10;
 
+const maximunPage = computed(() => {
+  return Math.ceil(props.items.content.length / 10);
+});
+
+const seeingProductsBetween = computed(() => {
+  const menorValorQuePossoVer = page.value === 1 ? "01" : ((page.value - 1) * 10) + 1;
+  const maiorValorQuePossoVer = page.value === 1 ? "10" : (page.value * 10) > props.items.content.length ? props.items.content.length : (page.value * 10);
+  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
+});
+
 const data = Array.from(Array(24).keys()).map((item) => {
   return { index: item, value: `this_${item}` };
 });
@@ -122,7 +132,7 @@ console.log(props.items);
 div.container
   div.containertabela.q-pt-lg.q-pl-md
     div.row.paginacao.q-px-sm
-      p.produtos.q-mr-md(style="font-weight: 400;") Encontramos {{ items.content.length }} resultados
+      p.produtos.q-mr-md(style="font-weight: 400;") Produtos {{ seeingProductsBetween }} de {{ props.items.content.length }} resultados
       div.row.q-gutter-sm.q-px-md
         q-icon.cursor-pointer(
           name="chevron_left"
@@ -134,7 +144,7 @@ div.container
           v-for="item in Math.ceil(props.items.content.length / perPage)"
           :key="item"
           @click="() => goToPage(item)"
-          cursor-pointer
+          style="cursor:pointer"
         ) {{ item }}
         q-icon.cursor-pointer(
           name="chevron_right"
