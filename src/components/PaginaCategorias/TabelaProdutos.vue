@@ -32,32 +32,43 @@ const props = defineProps({
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137,
+            promocao: true
           },
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137,
+            promocao: false
           },
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137
           },
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137,
+            promocao: true
           },
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137,
+            promocao: true
           },
           {
             name: "Case para Iphone",
             image: "https://s3-alpha-sig.figma.com/img/c849/cc71/fda4a87fd5a01a082e7cd5a2a16b2c38?Expires=1693785600&Signature=omWKdVpVl7H9CxSUZJqrS7cVRtViDhLB1mV7y3Pofu1BQcpmZQIDtQXp~N4rNEFerK8hoZK50kOTgQNYQ-p~95ZlmcVyAHlE1SsDnNUbA9YsVJluOVFIyaV9-lcNX~gbzWLiPlv9IFhJ3RlfPZrFKuOqv9jKC6JDd~rDg7qUL98uA8-SvRIRknV41pLrMOdNRTYkQ~oVUmuCE-UHrxDaH04c9Fjx9q5XIlUo6h8KgtCwwEY6y09jZhuuY7h8Ibuqh6J3-hh9jOA1wuvSt6HDpwRsUkI0Zf~JR46D5I6Vj1yi1c7TxEV7C1P13o5tN4LwYYQycjWmceDqjT5seSAUaA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"]
+            tag: ["De R$ 279,90", "Por 259,00", "Ou 10x de 25,90"],
+            valor: 137,
+            promocao: true
           }
         ],
         totalRows: 12,
@@ -75,6 +86,12 @@ const props = defineProps({
   }
 });
 
+function formatPercentage (value) {
+  return value.toLocaleString("en-us", {
+    maximumFractionDigits: 0
+  });
+}
+
 function openProductPage (product) {
   if (product.slug) {
     const url = "/produtos/" + product.slug;
@@ -85,7 +102,7 @@ function openProductPage (product) {
 watch(() => pageIndex.value, (val) => {
   emit("atualizarPage", val);
 });
-
+console.log(props);
 </script>
 
 <template lang="pug">
@@ -117,11 +134,27 @@ div.container
             :src="item.image"
             @click="openProductPage(item)"
           )
-          div.row.justify-between.q-pt-sm
-            div.column.texto(style="width:50%;text-align:left;")
-              span.text-black {{ item.name }}
-            div.column.texto(style="width:50%; text-align:right")
-              span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ formatCurrency(tag) }}
+            template(
+              v-if="item.promocao"
+            )
+              div.tag {{ formatPercentage(item.precoPromocional / item.valor * 10) }}% OFF!
+          div.row.justify-between.col.q-pt-sm(style="font-size:14px")
+            div.row(style="width:50%; display:flex; text-align:left")
+              span.text-black {{ item.titulo }}
+            template(
+              v-if="item.promocao"
+            )
+              div.column(
+                style="width:50%; display:flex; text-align:right"
+              )
+                span.text-black(style="font-size: 14px;   text-decoration: line-through") {{ formatCurrency (item.valor) }}
+                span.text-black(style="font-size: 14px;") {{  formatCurrency(item.precoPromocional) }}
+                span.text-black(style="font-size: 14px") ou {{  item.coligada.numeroParcelas }}x de {{  formatCurrency(item.valor / item.coligada. numeroParcelas) }}
+            template(
+              v-if="!item.promocao"
+            )
+              div.column(style="width:50%; display:flex;  text-align:right")
+                span.text-black(style="font-size: 14px") {{   formatCurrency(item.valor) }}
 </template>
 
 <style scoped>
@@ -154,6 +187,19 @@ div.container
   margin: 0 auto;
 }
 
+.tag{
+  color: #FFF;
+  font-family: Catamaran;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  top:10px;
+  left: 10px;
+  height: 10px;
+  align-items: center;
+  display: flex;
+}
 .texto {
   color:black;
   font-size:14px;
