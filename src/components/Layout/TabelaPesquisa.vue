@@ -76,6 +76,20 @@ function openProductPage (product) {
   }
 }
 
+function formatPercentage (value) {
+  return value.toLocaleString("en-us", {
+    maximumFractionDigits: 0
+  });
+}
+
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+  });
+}
+
 watch(() => pageIndex.value, (val) => {
   emit("atualizarPage", val);
 });
@@ -109,14 +123,29 @@ watch(() => pageIndex.value, (val) => {
         div.column.q-pr-md.q-pb-md.containerfoto
           q-img.cursor-pointer.foto(
             :src="item.image"
-            style=";"
             @click="openProductPage(item)"
           )
-          div.row.justify-between.q-pt-sm
-            div.column.texto(style="width:50%;text-align:left;")
-              span.text-black {{ item.name }}
-            div.column.texto(style="width:50%; text-align:right;")
-              span.text-black(v-for="(tag,index) in item.tag" :key="index") {{ tag }}
+            template(
+              v-if="item.promocao"
+            )
+              div.tag {{ formatPercentage(item.precoPromocional / item.valor * 10) }}% OFF!
+          div.row.justify-between.col.q-pt-sm(style="font-size:14px")
+            div.row(style="width:50%; display:flex; text-align:left")
+              span.text-black {{ item.titulo }}
+            template(
+              v-if="item.promocao"
+            )
+              div.column(
+                style="width:50%; display:flex; text-align:right"
+              )
+                span.text-black(style="font-size: 14px;   text-decoration: line-through") {{ formatCurrency (item.valor) }}
+                span.text-black(style="font-size: 14px;") {{  formatCurrency(item.precoPromocional) }}
+                span.text-black(style="font-size: 14px") ou {{  item.coligada.numeroParcelas }}x de {{  formatCurrency(item.valor / item.coligada. numeroParcelas) }}
+            template(
+              v-if="!item.promocao"
+            )
+              div.column(style="width:50%; display:flex;  text-align:right")
+                span.text-black(style="font-size: 14px") {{   formatCurrency(item.valor) }}
 </template>
 
   <style scoped>

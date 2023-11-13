@@ -102,7 +102,7 @@ function openProductPage (product) {
 watch(() => pageIndex.value, (val) => {
   emit("atualizarPage", val);
 });
-console.log(props);
+
 </script>
 
 <template lang="pug">
