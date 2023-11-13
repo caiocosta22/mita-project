@@ -71,10 +71,6 @@ const page = ref(1);
 
 const perPage = 10;
 
-const maximunPage = computed(() => {
-  return Math.ceil(props.items.content.length / 10);
-});
-
 const seeingProductsBetween = computed(() => {
   const menorValorQuePossoVer = page.value === 1 ? "01" : ((page.value - 1) * 10) + 1;
   const maiorValorQuePossoVer = page.value === 1 ? "10" : (page.value * 10) > props.items.content.length ? props.items.content.length : (page.value * 10);
