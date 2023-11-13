@@ -3,18 +3,6 @@ import { ref, watch, computed } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const pageIndex = ref(1);
-const emit = defineEmits(["atualizarPage"]);
-
-const maximunPage = computed(() => {
-  return Math.ceil(props.items.totalRows / 12);
-});
-
-const seeingProductsBetween = computed(() => {
-  const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
-  const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
-  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
-});
 
 const props = defineProps({
   items: {
@@ -79,6 +67,34 @@ const props = defineProps({
   }
 });
 
+const page = ref(1);
+
+const perPage = 10;
+
+const data = Array.from(Array(24).keys()).map((item) => {
+  return { index: item, value: `this_${item}` };
+});
+
+const paginatedData = computed(() =>
+  props.items.content?.slice((page.value - 1) * perPage, page.value * perPage)
+);
+
+const nextPage = () => {
+  if (page.value !== Math.ceil(data.length / perPage)) {
+    page.value += 1;
+  }
+};
+
+const backPage = () => {
+  if (page.value !== 1) {
+    page.value -= 1;
+  }
+};
+
+const goToPage = (numPage) => {
+  page.value = numPage;
+};
+
 function formatPercentage (value) {
   return value.toLocaleString("en-us", {
     maximumFractionDigits: 0
@@ -99,36 +115,37 @@ function openProductPage (product) {
     router.push(url);
   }
 }
-
-watch(() => pageIndex.value, (val) => {
-  emit("atualizarPage", val);
-});
-
+console.log(props.items);
 </script>
 
 <template lang="pug">
 div.container
   div.containertabela.q-pt-lg.q-pl-md
     div.row.paginacao.q-px-sm
-      p.produtos.q-mr-md(style="font-weight: 400;") Produtos {{ seeingProductsBetween }} de {{ items.totalRows }} resultados
+      p.produtos.q-mr-md(style="font-weight: 400;") Encontramos {{ items.content.length }} resultados
       div.row.q-gutter-sm.q-px-md
         q-icon.cursor-pointer(
           name="chevron_left"
           size="1.5em"
           style="width:8px; heigth:16px"
-          @click="pageIndex === 1 ? false : pageIndex --; emit('atualizarPage', pageIndex)"
+          @click="backPage"
         )
-        p(style="font-weight: bold;") {{ pageIndex }}
+        p(
+          v-for="item in Math.ceil(props.items.content.length / perPage)"
+          :key="item"
+          @click="() => goToPage(item)"
+          cursor-pointer
+        ) {{ item }}
         q-icon.cursor-pointer(
           name="chevron_right"
           size="1.5em"
           style="width:8px; heigth:15px;"
-          @click="pageIndex === maximunPage ? false : pageIndex ++; emit('atualizarPage',pageIndex)"
+          @click="nextPage"
         )
     div.grid.q-px-sm
       template(
-        v-for="item in items.content"
-        :key="item"
+        v-for="item in paginatedData"
+        :key="item.index"
       )
         div.column.containerfoto
           q-img.cursor-pointer.foto(
