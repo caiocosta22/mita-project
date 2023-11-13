@@ -11,12 +11,6 @@ const maximunPage = computed(() => {
   return calc;
 });
 
-const seeingProductsBetween = computed(() => {
-  const menorValorQuePossoVer = pageIndex.value === 1 ? "01" : ((pageIndex.value - 1) * 12) + 1;
-  const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
-  return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
-});
-
 const props = defineProps({
   items: {
     type: Object,
@@ -182,6 +176,19 @@ watch(() => pageIndex.value, (val) => {
     color:black;
     font-size: 14px;
   }
+  .tag{
+  color: #FFF;
+  font-family: Catamaran;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  top:10px;
+  left: 10px;
+  height: 10px;
+  align-items: center;
+  display: flex;
+}
   .containerfoto {
     max-width: 360px;
   }

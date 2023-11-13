@@ -15,13 +15,6 @@ const seeingProductsBetween = computed(() => {
   const maiorValorQuePossoVer = pageIndex.value === 1 ? "12" : (pageIndex.value * 12) > props.items.totalRows ? props.items.totalRows : (pageIndex.value * 12);
   return `${menorValorQuePossoVer}-${maiorValorQuePossoVer}`;
 });
-function formatCurrency (value) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2
-  });
-}
 
 const props = defineProps({
   items: {
@@ -89,6 +82,14 @@ const props = defineProps({
 function formatPercentage (value) {
   return value.toLocaleString("en-us", {
     maximumFractionDigits: 0
+  });
+}
+
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
   });
 }
 
