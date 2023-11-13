@@ -76,7 +76,7 @@ div(
     swipeable
     transition-prev="slide-right"
     transition-next="slide-left"
-    style="max-height: 32px;"
+    style="max-height: 36px;"
   )
     template(
       v-for="(banner, index) in bannersAnuncio"
@@ -85,7 +85,7 @@ div(
       q-carousel-slide.slide(
         :name="index"
         :img-src="banner.fotoWebp"
-        style="height: 32px; width: 100%; margin: 0 auto"
+        style="height: 36px; width: 100%; margin: 0 auto"
       )
 </template>
 
