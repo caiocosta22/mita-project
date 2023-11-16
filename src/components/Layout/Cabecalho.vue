@@ -180,10 +180,14 @@ div.container
           size="sm"
           name="fa-solid fa-cart-shopping"
         )
-          q-badge.text-black.text-bold(
+          q-badge.contador.text-black.text-bold(
             v-if="qtdProduto"
             floating
           ) {{ qtdProduto }}
+          q-badge.esvaziar.text-black.text-bold(
+            v-if="qtdProduto"
+            floating
+          ) x
         span(:style = "{ color : corcabecalho }") Meu carrinho
       div.botaomenu.row
         q-btn(
@@ -306,10 +310,16 @@ div.container
   flex-direction: row;
 }
 
-.q-icon .q-badge {
+.contador {
   background-color: white;
   right: -20px;
-  top: -15px
+  top: -20px
+}
+.esvaziar {
+  background-color: white;
+  right: -20px;
+  bottom: -20px;
+  margin-top: 30px;
 }
 span{
   font-family: Catamaran;

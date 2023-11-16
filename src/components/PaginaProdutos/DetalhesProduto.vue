@@ -149,6 +149,7 @@ async function getFretes (dados) {
 
 async function createCart () {
   try {
+    cartId = -1;
     const add = await axios.post(`https://elevar.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${idClient}`, {
       quantity: qtdProduct.value,
       productId: produto.value.id
@@ -159,6 +160,7 @@ async function createCart () {
       cartId = response.id;
       LocalStorage.set("cartIdBackend", cartId);
       await getCart();
+      emitAddToCartEvent();
     }
   } catch (error) {
     console.log(error);
@@ -175,6 +177,7 @@ async function addProductToCart () {
           quantity: qtdProduct.value,
           productId: produto.value.id
         });
+        console.log(add);
         if (add.status === 200) {
           await getCart();
           emitAddToCartEvent();
@@ -196,6 +199,7 @@ async function addProductToCart () {
       icon: "warning",
       message: "Erro ao adicionar item ao carrinho. Tente novamente."
     });
+    await createCart();
   }
 };
 
