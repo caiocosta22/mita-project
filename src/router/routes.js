@@ -85,6 +85,26 @@ const routes = [
         component: () => import("pages/Trocas.vue")
       }
     ]
+  },
+  {
+    path: "/sustentabilidade",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Sustentabilidade.vue")
+      }
+    ]
+  },
+  {
+    path: "/empresa",
+    component: () => import("layouts/LayoutPadrao.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Empresa.vue")
+      }
+    ]
   }
 ];
 

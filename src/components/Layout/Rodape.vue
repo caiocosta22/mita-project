@@ -54,6 +54,16 @@ function redirectToHTMLPage2 () {
   router.push(url);
 }
 
+function redirectToHTMLPage3 () {
+  const url = "/empresa/";
+  router.push(url);
+}
+
+function redirectToHTMLPage4 () {
+  const url = "/sustentabilidade/";
+  router.push(url);
+}
+
 onBeforeMount(async () => {
   await searchSocialMedia();
 });
@@ -64,8 +74,8 @@ onBeforeMount(async () => {
 div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap")
   div.Institucional.column.col-2(style="padding-left: 4px;")
     p.principal Institucional
-    p.secundario(href="#") A empresa
-    p.secundario Sustentatabilidade
+    p.secundario(@click="redirectToHTMLPage3") A empresa
+    p.secundario(@click="redirectToHTMLPage4") Sustentatabilidade
   div.MeusDados.column.col-2
     p.principal Minha conta
     a(:href="linkcarrinho")
@@ -148,11 +158,11 @@ div.rodape2.col.column
     )
       q-card.listas
         q-card-section
-          a.cursor-pointer(href="#") A empresa
+          a.cursor-pointer(@click="redirectToHTMLPage3") A empresa
         q-card-section
           a.cursor-pointer(@click="redirectToHTMLPage2") Política de Entrega
         q-card-section
-          a.cursor-pointer(href="#") Privacidade e Segurança
+          a.cursor-pointer(@click="redirectToHTMLPage4") Sustentabilidade
         q-card-section
           a.cursor-pointer(@click="redirectToHTMLPage") Trocas e Devoluções
     q-expansion-item.listas(
