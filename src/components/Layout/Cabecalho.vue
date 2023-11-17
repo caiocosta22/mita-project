@@ -14,8 +14,16 @@ const senhaSalva = $q.localStorage.getItem("senha");
 const cartId = $q.localStorage.getItem("cartIdBackend");
 
 const qtdProduto = ref($q.localStorage.getItem("quantidadeCarrinho"));
+
 const updateCartQuantity = (event) => {
   qtdProduto.value = event.detail.quantity;
+};
+
+const emitAddToCartEvent = () => {
+  const addToCartEvent = new CustomEvent("addToCart", {
+    detail: { quantity: $q.localStorage.getItem("quantidadeCarrinho") }
+  });
+  window.dispatchEvent(addToCartEvent);
 };
 
 const drawer = ref(false);
@@ -125,8 +133,33 @@ async function searchCategories () {
   }
 }
 
+async function clearCart () {
+  try {
+    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/clearCart/${cartId}`);
+    if (response.status === 200) {
+      const quantidadeCarrinho = 0;
+      $q.localStorage.set("quantidadeCarrinho", quantidadeCarrinho);
+      emitAddToCartEvent();
+    }
+  } catch (error) {
+    console.log(error);
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      message: "Erro ao limpar carrinho, tente novamente."
+    });
+  }
+}
+
 window.addEventListener("resize", () => {
   getTamanho();
+});
+
+onMounted(() => {
+  if (route.path === "/") {
+    window.addEventListener("scroll", handleScroll);
+  }
 });
 
 onBeforeMount(async () => {
@@ -135,12 +168,6 @@ onBeforeMount(async () => {
     MudarCores(),
     searchCategories()
   ]);
-});
-
-onMounted(() => {
-  if (route.path === "/") {
-    window.addEventListener("scroll", handleScroll);
-  }
   window.addEventListener("addToCart", updateCartQuantity);
 });
 
@@ -184,11 +211,12 @@ div.container
             v-if="qtdProduto"
             floating
           ) {{ qtdProduto }}
-          q-badge.esvaziar.text-black.text-bold(
-            v-if="qtdProduto"
-            floating
-          ) x
         span(:style = "{ color : corcabecalho }") Meu carrinho
+      q-icon.esvaziar.text-black.text-bold(
+        v-if="qtdProduto"
+        floating
+        @click="clearCart"
+      ) x
       div.botaomenu.row
         q-btn(
           flat
@@ -313,13 +341,15 @@ div.container
 .contador {
   background-color: white;
   right: -20px;
-  top: -20px
+  top: -16px
 }
 .esvaziar {
   background-color: white;
-  right: -20px;
+  right: 90px;
   bottom: -20px;
-  margin-top: 30px;
+  margin-top: 25px;
+  border-radius:4px;
+  padding: 1px 1px 1px 1px;
 }
 span{
   font-family: Catamaran;
@@ -357,6 +387,10 @@ span{
   }
   .cabecalho{
     max-width: 87%;
+  }
+  .esvaziar{
+    right: 10px;
+    bottom: -20px;
   }
 }
 @media screen and (max-width: 1024px) {
