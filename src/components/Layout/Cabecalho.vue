@@ -218,7 +218,7 @@ div.container
             floating
           ) {{ qtdProduto }}
         span(:style = "{ color : corcabecalho }") Meu carrinho
-      q-icon.esvaziar.text-black.text-bold(
+      q-icon.esvaziar.text-black.text-bold.cursor-pointer(
         v-if="qtdProduto"
         floating
         @click="clearCart"
