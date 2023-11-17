@@ -140,6 +140,12 @@ async function clearCart () {
       const quantidadeCarrinho = 0;
       $q.localStorage.set("quantidadeCarrinho", quantidadeCarrinho);
       emitAddToCartEvent();
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Carrinho limpo com sucesso!"
+      });
     }
   } catch (error) {
     console.log(error);
@@ -391,6 +397,7 @@ span{
   .esvaziar{
     right: 10px;
     bottom: -20px;
+    cursor:pointer
   }
 }
 @media screen and (max-width: 1024px) {
