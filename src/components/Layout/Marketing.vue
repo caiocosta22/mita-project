@@ -1,25 +1,35 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 const itsLoading = ref(true);
-
+const router = useRouter();
 const bannersFim = ref([
   {
     fotoWebp: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/2023-09-22T16:28:58.692_108.webp",
     id: 108,
     image: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/2023-09-22T16:28:58.692_108.png",
     ordem: 1,
-    posicionamento: "meio"
+    posicionamento: "meio",
+    link: "https://alastrar-mita.netlify.app/#/categorias/154"
   },
   {
     fotoWebp: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/2023-09-22T16:28:58.692_108.webp",
     id: 108,
     image: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/2023-09-22T16:28:58.692_108.png",
     ordem: 1,
-    posicionamento: "meio"
+    posicionamento: "meio",
+    link: "https://alastrar-mita.netlify.app/#/categorias/154"
   }
 ]);
+
+function redirectPage (link) {
+  if (link) {
+    const url = link;
+    window.location.href = url;
+  }
+}
 
 async function searchBannersFim () {
   try {
@@ -49,6 +59,7 @@ div.container
       q-img.cursor-pointer.q-mr-sm(
         :name="index"
         :src="banner.fotoWebp"
+        @click="redirectPage(banner.link)"
       )
 </template>
 
