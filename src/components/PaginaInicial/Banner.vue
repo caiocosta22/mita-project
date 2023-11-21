@@ -29,6 +29,14 @@ const bannersCarousel = ref([
     posicionamento: "topo"
   }
 ]);
+const bannersMobile = ref([{
+  foto: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/Banner.png",
+  fotoWebp: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/Banner.png",
+  id: 103,
+  ordem: 1,
+  posicionamento: "topo",
+  status: true
+}]);
 
 async function searchTopBanners () {
   try {
@@ -39,9 +47,19 @@ async function searchTopBanners () {
   }
 }
 
+async function searchMobileBanners () {
+  try {
+    const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/all").then(e => e.data);
+    bannersMobile.value = banners.filter(banner => banner.posicionamento === "topo");
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 onBeforeMount(async () => {
   itsLoading.value = true;
   await searchTopBanners();
+  await searchMobileBanners();
   itsLoading.value = false;
 });
 
@@ -58,7 +76,7 @@ div.banner
   template(
     v-else-if="!itsLoading"
   )
-    q-carousel.cursor-pointer.col(
+    q-carousel#full.cursor-pointer.col(
       animated
       v-model="slide"
       infinite
@@ -75,6 +93,25 @@ div.banner
         q-carousel-slide.slide.col(
           :name="index"
           :img-src="banner.image"
+          spinner
+        )
+    q-carousel#mobile.cursor-pointer.col(
+      animated
+      v-model="slide"
+      infinite
+      swipeable
+      :autoplay="autoplay"
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      spinner
+    )
+      template(
+        v-for="(banner, index) in bannersMobile"
+        :key="index"
+      )
+        q-carousel-slide.slide.col(
+          :name="index"
+          :img-src="banner.fotoWebp"
           spinner
         )
   .efeitobanner
@@ -117,6 +154,19 @@ div.banner
 @media screen and (max-width: 1150px) {
   .banner{
     margin-top: -70px;
+  }
+}
+@media (max-width: 1024px) {
+  #full {
+    display: none;
+  }
+  .banner {
+    aspect-ratio: auto 769/700;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #mobile {
+    display: none;
   }
 }
 </style>
