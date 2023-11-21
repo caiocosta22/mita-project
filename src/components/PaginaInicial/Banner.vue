@@ -57,10 +57,18 @@ async function searchMobileBanners () {
 }
 
 onBeforeMount(async () => {
-  itsLoading.value = true;
-  await searchTopBanners();
-  await searchMobileBanners();
-  itsLoading.value = false;
+  if (window.innerWidth > 1024) {
+    itsLoading.value = true;
+    await searchTopBanners();
+    itsLoading.value = false;
+    await searchMobileBanners();
+  }
+  if (window.innerWidth <= 1024) {
+    itsLoading.value = true;
+    await searchMobileBanners();
+    itsLoading.value = false;
+    await searchTopBanners();
+  }
 });
 
 </script>
