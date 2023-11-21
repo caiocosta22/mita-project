@@ -12,7 +12,7 @@ import routes from "./routes";
  */
 
 export default route(function (/* { store, ssrContext } */) {
-  const Router = createRouter({
+  const router = createRouter({
     history: createWebHistory(),
     routes
 
@@ -21,5 +21,5 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
   });
 
-  return Router;
+  return router;
 });
