@@ -169,7 +169,7 @@ div.banner
     display: none;
   }
   .banner {
-    aspect-ratio: auto 769/700;
+    aspect-ratio: auto 1024/768;
   }
 }
 @media screen and (min-width: 1024px) {
