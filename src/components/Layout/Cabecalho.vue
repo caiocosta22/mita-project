@@ -45,22 +45,6 @@ const categoriesBase = ref([
   }
 ]);
 
-const tamanho = ref("550");
-
-function getTamanho () {
-  const larguraTela = window.innerWidth;
-  tamanho.value = "550";
-  if (larguraTela < 1024) {
-    tamanho.value = "512";
-  }
-  if (larguraTela < 768) {
-    tamanho.value = "350";
-  }
-  if (larguraTela < 480) {
-    tamanho.value = "200";
-  }
-}
-
 const handleScroll = () => {
   const scrollPosition = window.scrollY;
   const opacityThreshold = 0;
@@ -158,10 +142,6 @@ async function clearCart () {
   }
 }
 
-window.addEventListener("resize", () => {
-  getTamanho();
-});
-
 onMounted(() => {
   if (route.path === "/") {
     window.addEventListener("scroll", handleScroll);
@@ -236,8 +216,7 @@ div.container
   q-drawer(
     behavior="mobile"
     v-model="drawer"
-    :width="tamanho"
-    :breakpoint="1025"
+    width="200"
     bordered
     side="right"
   )
@@ -365,7 +344,7 @@ span{
   line-height: normal;
 }
 .textomenu {
-  font-size: 24px;
+  font-size: 14px;
   color: black;
   font-weight: 400
 }
