@@ -22,6 +22,10 @@ const breakpoints = ref({
     itemsToShow: 2.0,
     snapAlign: "start"
   },
+  1024: {
+    itemsToShow: 3.0,
+    snapAlign: "start"
+  },
   1200: {
     itemsToShow: 4.0,
     snapAlign: "start"
@@ -152,7 +156,7 @@ template(
                   :key="produto"
                 )
                   div.column.q-pr-md.q-pb-md(
-                    style="max-width: 360px"
+                    style="max-width: 500px"
                   )
                     q-img.cursor-pointer.foto(
                       :src="produto.fotosServico[0].foto"
@@ -240,6 +244,21 @@ h4{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 0 auto;
+}
+@media screen and (max-width: 1024px) {
+  .grid{
+    grid-template-columns: 1fr 1fr 1fr
+  }
+}
+@media screen and (max-width: 768px) {
+.grid{
+    grid-template-columns: 1fr 1fr
+  }
+}
+@media screen and (max-width: 480px) {
+.grid{
+    grid-template-columns: 1fr 1fr
+  }
 }
 
 </style>

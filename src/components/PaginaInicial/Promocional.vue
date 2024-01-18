@@ -46,12 +46,6 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 template(
-  v-if="itsLoading"
-)
-  q-img(
-    src="/images/BOLSAS.png"
-  )
-template(
   v-if="!itsLoading"
 )
   div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
