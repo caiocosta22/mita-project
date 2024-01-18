@@ -1,20 +1,56 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
+
 import Produtos from "../components/Layout/TabelaPesquisa.vue";
 import axios from "axios";
 
 const route = useRoute();
-const router = useRouter();
-const items = ref([]);
+const items = ref({});
 const vazio = ref(false);
+const page = ref(1);
 
-async function searchProducts (id) {
+async function searchProducts (id, page = 1, size = 12) {
+  const from = (page - 1) * size;
+
+  const body = {
+    from,
+    size,
+    query: {
+      bool: {
+        must: {
+          multi_match: {
+            query: id,
+            fields: ["descricao", "descricaoLonga", "marca", "grupos", "gtin", "codigo", "titulo", "tags", "nomeColigada", "camposExtra", "referencia"],
+            fuzziness: "AUTO"
+          }
+        },
+        filter: [
+          { term: { tipo: "produto" } },
+          { term: { status: true } },
+          {
+            bool: {
+              should: [
+                { term: { deletado: false } },
+                { bool: { must_not: { exists: { field: "deletado" } } } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  };
+
   try {
-    let data = [];
-    data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtroBuscaV2/${id}/-1/1/false/-1`).then(e => e.data);
-    if (data.content && data.content.length) {
-      data.content = data.content.map(product => {
+    const { data } = await axios.post("https://elevarcommerce.com.br/elastic/elastic/search?tenant=mitaoficial", body);
+    const { hits } = data;
+    const { total, hits: content } = hits;
+    const { value: totalRows } = total;
+
+    let products = content.map(({ _source }) => _source);
+
+    if (products && products.length) {
+      products = products.map(product => {
         return {
           ...product,
           name: product.descricao,
@@ -28,34 +64,34 @@ async function searchProducts (id) {
             ]
         };
       });
+
       vazio.value = false;
-      return data;
-    } else {
-      vazio.value = true;
-      return [];
+      return {
+        content: products,
+        totalRows
+      };
     }
-  } catch (e) {
-    console.error(e);
+
     vazio.value = true;
-    return [];
-  }
-}
-
-async function getTypedSearch () {
-  try {
-    items.value = await searchProducts(route.params.pesquisa);
+    return {};
   } catch (e) {
-    console.error("Erro ao buscar", e);
-    items.value = [];
+    vazio.value = true;
+    console.error(e);
+    return {};
   }
 }
 
-function openProductPage (product) {
-  if (product.slug) {
-    const url = "/produtos/" + product.slug;
-    router.push(url);
+async function getTypedSearch (page = 1) {
+  try {
+    items.value = await searchProducts(route.params.pesquisa, page);
+  } catch (e) {
+    items.value = {};
   }
 }
+
+watch(() => page.value, async () => {
+  await getTypedSearch(page.value);
+});
 
 watch(() => route.params.pesquisa, async () => {
   await getTypedSearch();
@@ -85,6 +121,7 @@ q-page-container
     v-if="!vazio"
   )
     Produtos(
+      @atualizarPage="page = $event"
       :items="items"
     )
 </template>

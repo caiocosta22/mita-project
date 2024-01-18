@@ -7,8 +7,7 @@ const pageIndex = ref(1);
 const emit = defineEmits(["atualizarPage"]);
 
 const maximunPage = computed(() => {
-  const calc = (props.items.totalRows % 12) + 1;
-  return calc;
+  return Math.ceil(props.items?.totalRows / 12);
 });
 
 const props = defineProps({

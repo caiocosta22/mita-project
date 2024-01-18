@@ -3,13 +3,14 @@ q-layout(view="lHh Lpr lFf")
   router-view
   CadastroEmail
   Rodape
-</template>
+  </template>
 
 <script setup>
 import Rodape from "../components/Layout/Rodape.vue";
 import CadastroEmail from "../components/Layout/CadastroEmail.vue";
+
 import { onMounted } from "vue";
-import { useQuasar, Cookies } from "quasar";
+import { useQuasar } from "quasar";
 
 const $q = useQuasar();
 const options = {
@@ -52,5 +53,5 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-</style>
+  <style scoped>
+  </style>

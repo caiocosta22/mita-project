@@ -1,8 +1,10 @@
 <script setup>
-import { ref, computed, onBeforeMount } from "vue";
-import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+
+import { ref, onBeforeMount } from "vue";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
 import { useRouter } from "vue-router";
+
 import axios from "axios";
 
 const router = useRouter();

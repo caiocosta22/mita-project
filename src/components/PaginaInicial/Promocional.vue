@@ -28,16 +28,16 @@ onBeforeMount(async () => {
 <template lang="pug">
 div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
   q-img.cursor-pointer.col-5(
-      src="../../assets/imgs/BOLSAS.png"
+      src="/images/BOLSAS.png"
       @click="openCategoryPage(159)"
     )
   div.column.col-5
     q-img.cursor-pointer(
-      src="../../assets/imgs/CHAVEIROS.png"
+      src="/images/CHAVEIROS.png"
       @click="openCategoryPage(168)"
     )
     q-img.cursor-pointer.q-mt-lg.q-pt-sm(
-      src="../../assets/imgs/NECESSAIRES.png"
+      src="/images/NECESSAIRES.png"
       @click="openCategoryPage(150)"
     )
 div.valentines.row.col

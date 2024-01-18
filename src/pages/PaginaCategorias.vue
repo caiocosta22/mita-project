@@ -1,17 +1,13 @@
 <script setup>
-import { ref, computed, onBeforeMount, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useQuasar } from "quasar";
-import axios from "axios";
+import { ref, onBeforeMount, watch } from "vue";
+import { useRoute } from "vue-router";
 
+import axios from "axios";
 import Filtro from "../components/PaginaCategorias/Filtro.vue";
 import Produtos from "../components/PaginaCategorias/TabelaProdutos.vue";
 import CategoriasLoading from "../components/PaginaCategorias/CategoriasLoading.vue";
 
 const route = useRoute();
-const router = useRouter();
-const $q = useQuasar();
-
 const page = ref(1);
 const items = ref([]);
 const categoriesBase = ref([]);
