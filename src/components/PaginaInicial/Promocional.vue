@@ -46,6 +46,12 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 template(
+  v-if="itsLoading"
+)
+  q-img(
+    src="/images/BOLSAS.png"
+  )
+template(
   v-if="!itsLoading"
 )
   div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
@@ -85,7 +91,7 @@ template(
         v-if="(banners.ordem === 4)"
       )
         q-img.cursor-pointer.col-10(
-          :src="subsec.banners[0].fotoWebp"
+          :src="banners.image"
         )
 </template>
 
