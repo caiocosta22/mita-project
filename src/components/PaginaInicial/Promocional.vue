@@ -1,61 +1,89 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import { useRouter } from "vue-router";
 import axios from "axios";
-const router = useRouter();
-const itemsOfApi = ref([]);
 
-function openCategoryPage (category) {
-  const url = "/categorias/" + category;
-  router.push(url);
-}
-async function searchBestSellers () {
+const itsLoading = ref(true);
+
+const bannersCarousel = ref([
+  {
+    fotoWebp: "/images/Banner.jpeg",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  },
+  {
+    fotoWebp: "/images/Banner.jpeg",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  },
+  {
+    fotoWebp: "/images/Banner.jpeg",
+    id: 0,
+    image: "",
+    ordem: 0,
+    posicionamento: "topo"
+  }
+]);
+
+async function searchTopBanners () {
   try {
-    const data = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/secaoEcommerceService/getAllSessions?plataforma=SITE").then(e => e.data);
-    if (data.length) {
-      const bestSellers = data.filter(sellers => sellers.chave === "SESSAO_3");
-      itemsOfApi.value = bestSellers;
-    }
+    const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/allEcommerce").then(e => e.data);
+    if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "ilha");
   } catch (e) {
     console.error(e);
   }
 }
+
 onBeforeMount(async () => {
-  await searchBestSellers();
+  itsLoading.value = true;
+  await searchTopBanners();
+  itsLoading.value = false;
 });
 </script>
 
 <template lang="pug">
 div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
-  q-img.cursor-pointer.col-5(
-      src="/images/BOLSAS.png"
-      @click="openCategoryPage(159)"
+  template(
+    v-for="banners in bannersCarousel"
+    :key="banners"
+  )
+    template(
+      v-if="(banners.ordem === 1)"
     )
+      q-img.cursor-pointer.col-5(
+          :src="banners.image"
+        )
   div.column.col-5
-    q-img.cursor-pointer(
-      src="/images/CHAVEIROS.png"
-      @click="openCategoryPage(168)"
+    template(
+      v-for="banners in bannersCarousel"
+      :key="banners"
     )
-    q-img.cursor-pointer.q-mt-lg.q-pt-sm(
-      src="/images/NECESSAIRES.png"
-      @click="openCategoryPage(150)"
-    )
+      template(
+        v-if="(banners.ordem === 2)"
+      )
+        q-img.cursor-pointer(
+          :src="banners.image"
+        )
+      template(
+        v-if="(banners.ordem === 3)"
+      )
+        q-img.cursor-pointer.q-mt-lg.q-pt-sm(
+          :src="banners.image"
+        )
 div.valentines.row.col
   template(
-      v-for="(item, index) in itemsOfApi"
-      :key="index"
+    v-for="banners in bannersCarousel"
+    :key="banners"
+  )
+    template(
+      v-if="(banners.ordem === 4)"
     )
-      template(v-if="item.orientacao === 'horizontal'")
-        template(
-          v-if="item.subsecoesEcommerce"
-        )
-          template(
-            v-for="subsec in item.subsecoesEcommerce"
-            :key="subsec"
-          )
-            q-img.cursor-pointer.col-10(
-            :src="subsec.banners[0].fotoWebp"
-          )
+      q-img.cursor-pointer.col-10(
+        :src="subsec.banners[0].fotoWebp"
+      )
 </template>
 
 <style scoped>

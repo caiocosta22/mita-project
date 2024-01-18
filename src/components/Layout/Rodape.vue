@@ -75,7 +75,6 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
   div.Institucional.column.col-2(style="padding-left: 4px;")
     p.principal Institucional
     p.secundario(@click="redirectToHTMLPage3") A empresa
-    p.secundario(@click="redirectToHTMLPage4") Sustentatabilidade
   div.MeusDados.column.col-2
     p.principal Minha conta
     a(href="#")
