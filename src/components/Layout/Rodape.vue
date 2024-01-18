@@ -185,15 +185,18 @@ div.rodape2.col.column
           p (00)00000-0000
         q-card-section
           p Atendimento: <br> Segunda à sexta, de 9h as 17h.
-div.text-black.justify-center.text-center.row(style="color: #000;text-align: center;font-family: Catamaran;font-size: 14px;font-style: normal;font-weight: 300;line-height: normal;")
-  p MITA C V A DE C LTDA.
-  p(v-if="infosLinks.street") &nbsp; | {{ infosLinks.street }}
-  p(v-if="infosLinks.number") , {{ infosLinks.number }}
-  p(v-if="infosLinks.district") , {{ infosLinks.district }}
-  p(v-if="infosLinks.city") , {{ infosLinks.city }}
-  p(v-if="infosLinks.state") , {{ infosLinks.state }}
-  p(v-if="infosLinks.zipcode") &nbsp; | CEP: &nbsp; {{ infosLinks.zipcode }}
-  p(v-if="infosLinks.cnpj") &nbsp; | CNPJ: &nbsp; {{ infosLinks.cnpj }}
+div.endereco
+  p(
+    style="margin:0"
+  ) MITA C V A DE C LTDA.
+  div.textoendereco
+    span(v-if="infosLinks.street") {{ infosLinks.street }}
+    span(v-if="infosLinks.number") , {{ infosLinks.number }}
+    span(v-if="infosLinks.district") , {{ infosLinks.district }}
+    span(v-if="infosLinks.city") , {{ infosLinks.city }}
+    span(v-if="infosLinks.state") , {{ infosLinks.state }}
+    span(v-if="infosLinks.zipcode") | CEP: {{ infosLinks.zipcode }}
+    span(v-if="infosLinks.cnpj") | CNPJ: {{ infosLinks.cnpj }}
 div.copyright
   a.row(
     style="text-align: center; align-items: center; margin: 0 auto"
@@ -240,6 +243,24 @@ a{
 }
 .copyright {
   display: flex;
+}
+.endereco {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 0;
+}
+.textoendereco {
+  width: 85%;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+  padding: 4px;
+}
+.textoendereco>p {
+  margin: 0;
 }
 @media screen and (min-width: 1025px) {
   .rodape2{
