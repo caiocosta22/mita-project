@@ -78,10 +78,10 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.secundario(@click="redirectToHTMLPage4") Sustentatabilidade
   div.MeusDados.column.col-2
     p.principal Minha conta
+    a(href="#")
+      p.secundario Login
     a(:href="linkcarrinho")
       p.secundario Meus pedidos
-    a(:href="linkcarrinho")
-      p.secundario Minha Sacola
   div.Suporte.column.col-2
     p.principal Ajuda e Suporte
     p.secundario(@click="redirectToHTMLPage2") Política de Entrega
@@ -159,23 +159,15 @@ div.rodape2.col.column
       q-card.listas
         q-card-section
           a.cursor-pointer(@click="redirectToHTMLPage3") A empresa
-        q-card-section
-          a.cursor-pointer(@click="redirectToHTMLPage2") Política de Entrega
-        q-card-section
-          a.cursor-pointer(@click="redirectToHTMLPage4") Sustentabilidade
-        q-card-section
-          a.cursor-pointer(@click="redirectToHTMLPage") Trocas e Devoluções
     q-expansion-item.listas(
       expand-separator
       label="Minha Conta"
     )
       q-card.listas
         q-card-section
-          a.cursor-pointer(href="#") Perfil
+          a.cursor-pointer(href="#") Login
         q-card-section
           a.cursor-pointer(:href="linkcarrinho") Meus pedidos
-        q-card-section
-          a.cursor-pointer(:href="linkcarrinho") Meu carrinho
     q-expansion-item.listas(
       expand-separator
       label="Ajuda e suporte"
@@ -236,7 +228,7 @@ a{
   font-style: normal;
   font-weight: 300;
   cursor: pointer;
-  line-height: 20px; /* 153.846% */
+  line-height: 20px;
 }
 .listas{
   box-shadow:none
