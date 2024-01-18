@@ -195,8 +195,8 @@ div.endereco
     span(v-if="infosLinks.district") , {{ infosLinks.district }}
     span(v-if="infosLinks.city") , {{ infosLinks.city }}
     span(v-if="infosLinks.state") , {{ infosLinks.state }}
-    span(v-if="infosLinks.zipcode") | CEP: {{ infosLinks.zipcode }}
-    span(v-if="infosLinks.cnpj") | CNPJ: {{ infosLinks.cnpj }}
+    span(v-if="infosLinks.zipcode")  , CEP : {{ infosLinks.zipcode }}
+    span(v-if="infosLinks.cnpj") , CNPJ : {{ infosLinks.cnpj }}
 div.copyright
   a.row(
     style="text-align: center; align-items: center; margin: 0 auto"
@@ -213,22 +213,22 @@ a{
   text-decoration: none;
 }
 *{
-  color:black
+  color:#333
 }
 .principal{
-  color: #000;
+  color: #333;
   font-family: Catamaran;
   font-size: 18px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
 }
 .secundario{
-  color: #000;
+  color: #333;
   font-family: Catamaran;
   font-size: 14px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   cursor: pointer;
   line-height: 20px;
 }
