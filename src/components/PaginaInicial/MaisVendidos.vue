@@ -76,7 +76,6 @@ function openProductPage (product) {
 onBeforeMount(async () => {
   await searchBestSellers();
 });
-console.log(itemsOfApi);
 </script>
 
 <template lang="pug">
