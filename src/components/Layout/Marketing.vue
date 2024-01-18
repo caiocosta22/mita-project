@@ -48,45 +48,48 @@ onBeforeMount(async () => {
 
 <template lang="pug">
 div.container
-  div.containerfoto.q-gutter-sm.q-pa-md(
+  div.interno(
     v-show="!itsLoading"
   )
-    template(
-      v-for="(banner, index) in bannersFim"
-      :key="index"
-    )
-      q-img.cursor-pointer.q-mr-sm(
-        :name="index"
-        :src="banner.fotoWebp"
-        @click="redirectPage(banner.link)"
+    div.grid.q-px-sm
+      template(
+        v-for="(banner, index) in bannersFim"
+        :key="index"
       )
+        div.q-mr-sm
+          q-img.cursor-pointer.foto(
+            :name="index"
+            :src="banner.fotoWebp"
+            @click="redirectPage(banner.link)"
+          )
 </template>
 
 <style scoped>
-.marketing{
+.container {
   display:flex;
-  flex-wrap:nowrap;
   justify-content: center;
   position: relative;
-  box-sizing: border-box;
   width: 100%;
 }
-.container{
-  display: flex;
-  width: 100%;
-  flex-wrap: nowrap;
-  position: relative;
-  box-sizing: border-box;
-  justify-content: center;
-}
-.containerfoto{
-  display: flex;
-  width: 86%;
+.interno {
+  width: 84%;
   margin: 0 auto;
-  flex-direction: row;
+  align-items: center;
 }
-.foto{
-  display: block;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.foto {
   max-width: 100%;
+  display: block;
+}
+@media screen and (max-width: 820px) {
+  .grid {
+    grid-template-columns: 1fr
+  }
+  .foto {
+    margin-bottom: 15px;
+  }
 }
 </style>
