@@ -143,11 +143,50 @@ template(
           :key="subsec"
         )
           h4 {{ subsec.titulo }}
-          div.grid
+          div.grid.q-px-sm
             template(
                 v-if="subsec.produtos"
               )
-                span -- sessão vertical em desenvolvimento --
+                template(
+                  v-for="produto in subsec.produtos"
+                  :key="produto"
+                )
+                  div.column.q-pr-md.q-pb-md(
+                    style="max-width: 360px"
+                  )
+                    q-img.cursor-pointer.foto(
+                      :src="produto.fotosServico[0].foto"
+                      @click="openProductPage(produto)"
+                    )
+                      template(
+                        v-if="produto.promocao"
+                      )
+                        div.tag {{ formatPercentage(produto.precoPromocional / produto.valor * 10) }}% OFF!
+                    div.row.justify-between.col.q-pt-sm(
+                      style="font-size:14px"
+                    )
+                      div.row(
+                        style="width:50%; display:flex; text-align:left"
+                      )
+                        span.text-black {{ produto.titulo }}
+                      template(
+                        v-if="produto.promocao"
+                      )
+                        div.column(
+                          style="width:50%; display:flex; text-align:right"
+                        )
+                          span.text-black(style="font-size: 14px;     text-decoration: line-through") {{ formatCurrency   (produto.valor) }}
+                          span.text-black(style="font-size: 14px;") {{    formatCurrency(produto.precoPromocional) }}
+                          span.text-black(style="font-size: 14px") ou {{    produto.coligada.numeroParcelas }}x de {{    formatCurrency(produto.valor / produto.coligada.  numeroParcelas) }}
+                        template(
+                          v-if="!produto.promocao"
+                        )
+                          div.column(
+                            style="width:50%; display:flex;  text-align:right"
+                          )
+                            span.text-black(
+                              style="font-size: 14px"
+                            ) {{ formatCurrency (produto.valor) }}
 </template>
 
 <style scoped>
@@ -196,6 +235,11 @@ h4{
   line-height: normal;
   padding-left: 5px;
   margin: 5px 0px;
+}
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 0 auto;
 }
 
 </style>
