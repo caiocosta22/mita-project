@@ -147,7 +147,7 @@ template(
           :key="subsec"
         )
           h4 {{ subsec.titulo }}
-          div.grid.q-px-sm
+          div.grid
             template(
                 v-if="subsec.produtos"
               )
@@ -240,23 +240,23 @@ h4{
   padding-left: 5px;
   margin: 5px 0px;
 }
-.grid{
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin: 0 auto;
+  padding: 0px 7px;
 }
 @media screen and (max-width: 1024px) {
-  .grid{
+  .grid {
     grid-template-columns: 1fr 1fr 1fr
   }
 }
 @media screen and (max-width: 768px) {
-.grid{
+  .grid {
     grid-template-columns: 1fr 1fr
   }
 }
 @media screen and (max-width: 480px) {
-.grid{
+  .grid {
     grid-template-columns: 1fr 1fr
   }
 }
