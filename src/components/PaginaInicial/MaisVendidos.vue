@@ -131,6 +131,23 @@ template(
                         span.text-black(style="font-size: 14px") {{ formatCurrency(produto.         valor) }}
             template(#addons)
               Navigation
+  div.container.column.col
+    template(
+      v-if="item.orientacao === 'vertical'"
+    )
+      template(
+        v-if="item.subsecoesEcommerce"
+      )
+        template(
+          v-for="subsec in item.subsecoesEcommerce"
+          :key="subsec"
+        )
+          h4 {{ subsec.titulo }}
+          div.grid
+            template(
+                v-if="subsec.produtos"
+              )
+                span -- sessão vertical em desenvolvimento --
 </template>
 
 <style scoped>
