@@ -59,8 +59,8 @@ function redirectToHTMLPage3 () {
   router.push(url);
 }
 
-function redirectToHTMLPage4 () {
-  const url = "/sustentabilidade/";
+function redirectToLogin () {
+  const url = "/login/";
   router.push(url);
 }
 
@@ -77,7 +77,7 @@ div.rodape.row.justify-center.col-10.q-pa-md.q-gutter-sm(style="flex-wrap:nowrap
     p.secundario(@click="redirectToHTMLPage3") A empresa
   div.MeusDados.column.col-2
     p.principal Minha conta
-    a(href="#")
+    a(@click="redirectToLogin")
       p.secundario Login
     a(:href="linkcarrinho")
       p.secundario Meus pedidos
