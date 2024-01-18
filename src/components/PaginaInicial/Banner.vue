@@ -5,6 +5,7 @@ import axios from "axios";
 const slide = ref(0);
 const itsLoading = ref(true);
 const autoplay = ref(true);
+const unico = ref(false);
 
 const bannersCarousel = ref([
   {
@@ -34,6 +35,9 @@ async function searchTopBanners () {
   try {
     const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/allEcommerce").then(e => e.data);
     if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
+    if (bannersCarousel.value.length === 1) {
+      unico.value = true;
+    }
   } catch (e) {
     console.error(e);
   }
@@ -44,7 +48,7 @@ onBeforeMount(async () => {
   await searchTopBanners();
   itsLoading.value = false;
 });
-
+console.log(bannersCarousel);
 </script>
 
 <template lang="pug">
@@ -59,6 +63,20 @@ div.banner
   template(
     v-else-if="!itsLoading"
   )
+    template(
+      v-if="unico"
+    )
+      template(
+        v-for="(banner, index) in bannersCarousel"
+        :key="index"
+      )
+        q-img.col.slide(
+          :name="index"
+          :src="banner.fotoWebp"
+        )
+    template(
+      v-if="!unico"
+    )
       q-carousel.cursor-pointer.col(
         v-model="slide"
         animated
