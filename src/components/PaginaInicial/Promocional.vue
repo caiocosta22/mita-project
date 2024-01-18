@@ -45,45 +45,48 @@ onBeforeMount(async () => {
 </script>
 
 <template lang="pug">
-div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
-  template(
-    v-for="banners in bannersCarousel"
-    :key="banners"
-  )
-    template(
-      v-if="(banners.ordem === 1)"
-    )
-      q-img.cursor-pointer.col-5(
-          :src="banners.image"
-        )
-  div.column.col-5
+template(
+  v-if="!itsLoading"
+)
+  div.row.promocional.q-gutter-sm.q-pt-md.col.q-pl-sm
     template(
       v-for="banners in bannersCarousel"
       :key="banners"
     )
       template(
-        v-if="(banners.ordem === 2)"
+        v-if="(banners.ordem === 1)"
       )
-        q-img.cursor-pointer(
-          :src="banners.image"
-        )
+        q-img.cursor-pointer.col-5(
+            :src="banners.image"
+          )
+    div.column.col-5
       template(
-        v-if="(banners.ordem === 3)"
+        v-for="banners in bannersCarousel"
+        :key="banners"
       )
-        q-img.cursor-pointer.q-mt-lg.q-pt-sm(
-          :src="banners.image"
+        template(
+          v-if="(banners.ordem === 2)"
         )
-div.valentines.row.col
-  template(
-    v-for="banners in bannersCarousel"
-    :key="banners"
-  )
+          q-img.cursor-pointer(
+            :src="banners.image"
+          )
+        template(
+          v-if="(banners.ordem === 3)"
+        )
+          q-img.cursor-pointer.q-mt-lg.q-pt-sm(
+            :src="banners.image"
+          )
+  div.valentines.row.col
     template(
-      v-if="(banners.ordem === 4)"
+      v-for="banners in bannersCarousel"
+      :key="banners"
     )
-      q-img.cursor-pointer.col-10(
-        :src="subsec.banners[0].fotoWebp"
+      template(
+        v-if="(banners.ordem === 4)"
       )
+        q-img.cursor-pointer.col-10(
+          :src="subsec.banners[0].fotoWebp"
+        )
 </template>
 
 <style scoped>
