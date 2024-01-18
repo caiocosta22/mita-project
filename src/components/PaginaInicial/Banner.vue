@@ -8,67 +8,41 @@ const autoplay = ref(true);
 
 const bannersCarousel = ref([
   {
-    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    fotoWebp: "/images/Banner.jpeg",
     id: 0,
     image: "",
     ordem: 0,
     posicionamento: "topo"
   },
   {
-    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    fotoWebp: "/images/Banner.jpeg",
     id: 0,
     image: "",
     ordem: 0,
     posicionamento: "topo"
   },
   {
-    fotoWebp: "/images/MITA-EXPERIENCE.png",
+    fotoWebp: "/images/Banner.jpeg",
     id: 0,
     image: "",
     ordem: 0,
     posicionamento: "topo"
   }
 ]);
-const bannersMobile = ref([{
-  foto: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/Banner.png",
-  fotoWebp: "https://portalvhdsjg19kbq1q36k1.blob.core.windows.net/mitaoficial/banner/Banner.png",
-  id: 103,
-  ordem: 1,
-  posicionamento: "topo",
-  status: true
-}]);
 
 async function searchTopBanners () {
   try {
     const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/allEcommerce").then(e => e.data);
-    bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-async function searchMobileBanners () {
-  try {
-    const banners = await axios.get("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/bannerService/all").then(e => e.data);
-    bannersMobile.value = banners.filter(banner => banner.posicionamento === "topo");
+    if (banners.length) bannersCarousel.value = banners.filter(banner => banner.posicionamento === "topo");
   } catch (e) {
     console.error(e);
   }
 }
 
 onBeforeMount(async () => {
-  if (window.innerWidth > 1024) {
-    itsLoading.value = true;
-    await searchTopBanners();
-    itsLoading.value = false;
-    await searchMobileBanners();
-  }
-  if (window.innerWidth <= 1024) {
-    itsLoading.value = true;
-    await searchMobileBanners();
-    itsLoading.value = false;
-    await searchTopBanners();
-  }
+  itsLoading.value = true;
+  await searchTopBanners();
+  itsLoading.value = false;
 });
 
 </script>
@@ -78,52 +52,31 @@ div.banner
   template(
     v-if="itsLoading"
   )
-    q-skeleton(
-      height="100%"
+    q-skeleton.col(
+      heigth="100%"
+      width="100%"
     )
   template(
     v-else-if="!itsLoading"
   )
-    q-carousel#full.cursor-pointer.col(
-      animated
-      v-model="slide"
-      infinite
-      swipeable
-      :autoplay="autoplay"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      spinner
-    )
-      template(
-        v-for="(banner, index) in bannersCarousel"
-        :key="index"
+      q-carousel.cursor-pointer.col(
+        v-model="slide"
+        animated
+        infinite
+        swipeable
+        :autoplay="autoplay"
+        transition-prev="slide-right"
+        transition-next="slide-left"
       )
-        q-carousel-slide.slide.col(
-          :name="index"
-          :img-src="banner.image"
-          spinner
+        template(
+          v-for="(banner, index) in bannersCarousel"
+          :key="index"
         )
-    q-carousel#mobile.cursor-pointer.col(
-      animated
-      v-model="slide"
-      infinite
-      swipeable
-      :autoplay="autoplay"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      spinner
-    )
-      template(
-        v-for="(banner, index) in bannersMobile"
-        :key="index"
-      )
-        q-carousel-slide.slide.col(
-          :name="index"
-          :img-src="banner.fotoWebp"
-          spinner
-        )
+          q-carousel-slide.slide.col(
+            :name="index"
+            :img-src="banner.fotoWebp"
+          )
   .efeitobanner
-
 </template>
 
 <style scoped>
