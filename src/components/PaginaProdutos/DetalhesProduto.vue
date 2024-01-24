@@ -31,6 +31,7 @@ const principalImg = ref(produto.value.fotosServico[0].foto);
 const variacao = ref(produto.value.variacoes);
 const customcor = ref(produto.value?.customizacao?.color);
 const customfamily = ref(produto.value?.customizacao?.font);
+const customvowel = ref(produto.value?.customizacao?.vowelFont);
 const customMarginleft = ref(produto.value?.customizacao?.marginLeft + "%");
 const customMargintop = ref(produto.value?.customizacao?.marginTop + "%");
 const customsize = ref(produto.value?.customizacao?.size + "px");
@@ -67,6 +68,18 @@ const copyLink = () => {
 const setGutterClass = () => {
   gutterClass.value = window.innerWidth >= 1150 ? "q-gutter-lg" : "";
 };
+
+const isVowel = char => "aeiouAEIOU".includes(char);
+
+const formattedText = computed(() => {
+  return text1.value.split("").map(char => {
+    if (isVowel(char)) {
+      return `<span style="font-family: ${customvowel.value};">${char}</span>`;
+    } else {
+      return `<span style="font-family: ${customfamily.value};">${char}</span>`;
+    }
+  }).join("");
+});
 
 const emitAddToCartEvent = () => {
   const addToCartEvent = new CustomEvent("addToCart", {
@@ -137,7 +150,6 @@ async function getFretes (dados) {
     };
     dadosFrete.value = await axios.post("https://elevarcommerce.com.br/freteapi/frete/calcularFretePequenos", json, {
       headers: {
-        // Overwrite Axios's automatically set Content-Type
         "Content-Type": "application/json"
       }
     }).then(e => e.data);
@@ -205,6 +217,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", setGutterClass);
 });
+
 </script>
 
 <template lang="pug">
@@ -248,8 +261,9 @@ div.container.q-pt-md.q-pb-sm
         )
           span.text-on-image(
             v-if="produto.customizacao"
-            :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontFamily: customfamily, fontSize: customsize, color: customcor}"
-          ) {{ text1 }}
+            v-html="formattedText",
+            :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontSize: customsize, color: customcor}"
+          )
     div.miniaturasmobile
       Carousel(v-bind="settings" :breakpoints="breakpoints")
         Slide.flex.q-pr-sm(
