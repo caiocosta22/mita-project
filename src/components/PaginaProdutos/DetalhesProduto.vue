@@ -430,6 +430,7 @@ div.container.q-pt-md.q-pb-sm
   width: 67.5%;
   padding-right: 30px;
   position: relative;
+  display: inline-block;
 }
 .foto {
   max-width: 210px;
@@ -461,6 +462,10 @@ div.container.q-pt-md.q-pb-sm
   box-shadow:none;
   user-select: none;
   cursor: default;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 .cep{
   color: #939598;
