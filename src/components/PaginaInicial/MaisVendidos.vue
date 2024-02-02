@@ -111,12 +111,12 @@ template(
                 )
                   q-img.cursor-pointer(
                     :src="produto.fotosServico[0].foto"
-                    style="display: block; max-width: 100%; ;"
+                    style="display: block; max-width: 100%; max-height: 400px ;"
                   )
                     template(
                       v-if="produto.promocao"
                     )
-                      div.tag {{ formatPercentage(produto.precoPromocional / produto.valor          * 10) }}% OFF!
+                      div.tag {{ formatPercentage(produto.precoPromocional / produto.valor * 10) }}% OFF!
                   div.row.justify-between.col.q-pt-sm(style="font-size:14px")
                     div.row(style="width:50%; display:flex; text-align:left")
                       span.text-black {{ produto.titulo }}
@@ -160,6 +160,7 @@ template(
                     q-img.cursor-pointer.foto(
                       :src="produto.fotosServico[0].foto"
                       @click="openProductPage(produto)"
+                      style="display: block; max-width: 100%; max-height: 400px ;"
                     )
                       template(
                         v-if="produto.promocao"
