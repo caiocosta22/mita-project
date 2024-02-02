@@ -399,7 +399,7 @@ div.container.q-pt-md.q-pb-sm
         )
           p.q-ma-none {{ frete.name }}
           p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
-          p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
+          p.q-ma-none.text-bold R$ {{ formatCurrency(frete.valor) }}
       div(
         v-if="usarSkeleton"
       )
