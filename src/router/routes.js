@@ -52,7 +52,7 @@ const routes = [
       },
       {
         path: "/login/usuario",
-        component: () => import("pages/Deslogar.vue")
+        component: () => import("pages/Usuario.vue")
       }
     ]
   },
