@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
 import infos from "src/components/PaginaLogin/Infos.vue";
+import pedidos from "src/components/PaginaLogin/Pedidos.vue";
+import enderecos from "src/components/PaginaLogin/Enderecos.vue";
 const router = useRouter();
 const $q = useQuasar();
 const show = ref("1");
@@ -83,12 +85,12 @@ q-page-container
           v-if="show === '2'"
         )
           div.teste
-            OI OI OI EU SOU O COMPONENTE 2
+            pedidos
         template(
           v-if="show === '3'"
         )
           div.teste
-            OI OI OI EU SOU O COMPONENTE 3
+            enderecos
 </template>
 
 <style scoped>
