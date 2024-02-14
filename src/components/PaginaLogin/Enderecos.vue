@@ -135,4 +135,15 @@ div.container
   font-size: 16px;
   margin-bottom: 5px;
 }
+@media screen and (max-width: 1150px) {
+  .interno {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.input {
+  width: 100%;
+  margin-left: 15px;
+}
+}
 </style>
