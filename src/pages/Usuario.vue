@@ -103,7 +103,7 @@ q-page-container
 .interno {
   display: flex;
   flex-direction: row;
-  width: 84%;
+  width: 50%;
   margin-top: 20px;
 }
 .titulo {
@@ -114,5 +114,6 @@ q-page-container
 .menus {
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
 }
 </style>
