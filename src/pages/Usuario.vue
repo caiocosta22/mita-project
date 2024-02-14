@@ -135,6 +135,7 @@ q-page-container
   }
   .menus{
     align-items: center;
+    width: 100%;
   }
 }
 </style>
