@@ -57,12 +57,6 @@ function redirectToRegisterPage () {
 onMounted(() => {
   if (loginSalvo && senhaSalva) {
     router.push("/login/usuario");
-    $q.notify({
-      color: "black",
-      textColor: "white",
-      icon: "check",
-      message: "Você já está logado."
-    });
   }
 });
 </script>
