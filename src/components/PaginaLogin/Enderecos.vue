@@ -108,7 +108,7 @@ div.container
     )
       span(
         style="color: #fff;"
-      ) CONFIRMAR
+      ) SALVAR
 </template>
 
 <style scoped>
