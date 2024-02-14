@@ -116,4 +116,25 @@ q-page-container
   flex-direction: column;
   margin-right: 15px;
 }
+@media screen and (max-width: 1150px) {
+  .conteudo {
+    width: 80%;
+  }
+  .interno {
+    width: 83%;
+  }
+}
+@media screen and (max-width: 660px) {
+  .conteudo {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .interno {
+    width: 83%;
+    flex-direction: column;
+  }
+  .menus{
+    align-items: center;
+  }
+}
 </style>

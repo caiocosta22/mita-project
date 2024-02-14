@@ -83,7 +83,7 @@ div.container
 }
 .input {
   display: flex;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   flex-direction: column;
   width: 45%;
   margin-left: 15px;
