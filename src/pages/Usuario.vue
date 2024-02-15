@@ -11,6 +11,7 @@ import enderecos from "src/components/PaginaLogin/Enderecos.vue";
 const router = useRouter();
 const $q = useQuasar();
 const id = $q.localStorage.getItem("idclient");
+const token = $q.localStorage.getItem("token");
 
 const show = ref("1");
 const datacliente = ref(
@@ -82,11 +83,13 @@ async function clearLocalStorage () {
 
 async function searchInfos () {
   try {
-    const data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getClienteEcommerce/${id}`).then(e => e.data);
-    if (data.length) {
-      datacliente.value = data;
-      console.log("INFORMACOES DO CLIENTE:", data);
-    }
+    const data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getClienteEcommerce/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(e => e.data);
+    datacliente.value = data;
+    console.log("INFORMACOES DO CLIENTE:", data);
   } catch (e) {
     console.error(e);
   }

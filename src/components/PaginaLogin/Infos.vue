@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
+import axios from "axios";
 
+const $q = useQuasar();
+const token = $q.localStorage.getItem("token");
 const props = defineProps({
   datacliente: {
     type: Object,
@@ -8,16 +12,39 @@ const props = defineProps({
     default: () => {}
   }
 });
-
 const cliente = computed(() => { return props.datacliente; });
 
-const nome = ref("");
-const cpf = ref("");
-const sobrenome = ref("");
-const nascimento = ref("");
-const telefone = ref("");
-const email = ref("");
+const nome = ref(cliente.value.nmCliente);
+const cpf = ref(cliente.value.nrCpfCnpj);
+const sobrenome = ref(cliente.value.sobrenome);
+const nascimento = ref(cliente.value.dataNascimento);
+const telefone = ref(cliente.value.celular);
+const email = ref(cliente.value.dsEmail);
 
+const corpocliente = ref(
+  {
+    idCliente: cliente.value.idCliente,
+    nmCliente: nome,
+    sobrenome,
+    dsEmail: cliente.value.dsEmail,
+    nrCpfCnpj: cliente.value.nrCpfCnpj,
+    dataNascimento: nascimento,
+    celular: telefone,
+    token
+  }
+);
+async function updateInfos () {
+  try {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/editEcommerce", corpocliente, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(e => e.data);
+    console.log(data.response);
+  } catch (e) {
+    console.error(e);
+  }
+}
 </script>
 
 <template lang="pug">
@@ -86,6 +113,7 @@ div.container
       q-btn(
         color="green"
         push
+        @click="updateInfos()"
       )
         span(
           style="color: #fff;"

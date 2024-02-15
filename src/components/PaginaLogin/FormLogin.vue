@@ -29,6 +29,7 @@ const envioLogin = async () => {
       $q.localStorage.set("senha", senha.value);
       $q.localStorage.set("nome", usuario.nmCliente);
       $q.localStorage.set("idclient", usuario.idCliente);
+      $q.localStorage.set("token", usuario.token);
       router.push("/");
     } else {
       $q.notify({
