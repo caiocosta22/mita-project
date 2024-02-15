@@ -16,6 +16,10 @@ const cidade = ref("");
 <template lang="pug">
 div.container
   div.interno
+    span.subtitulo(
+      style="font-size: 24px; margin-left: 15px;"
+    ) Endereço
+  div.interno
     div.input
       .subtitulo Nome do destinatário*
       q-input(

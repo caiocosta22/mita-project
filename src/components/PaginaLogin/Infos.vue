@@ -13,6 +13,10 @@ const email = ref("");
 <template lang="pug">
 div.container
   div.interno
+    span.subtitulo(
+      style="font-size: 24px; margin-left: 15px;"
+    ) Dados Pessoais
+  div.interno
     div.input
       .subtitulo Nome
       q-input(
