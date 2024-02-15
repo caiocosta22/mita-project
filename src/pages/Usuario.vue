@@ -1,13 +1,55 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
+import axios from "axios";
+
 import infos from "src/components/PaginaLogin/Infos.vue";
 import pedidos from "src/components/PaginaLogin/Pedidos.vue";
 import enderecos from "src/components/PaginaLogin/Enderecos.vue";
+
 const router = useRouter();
 const $q = useQuasar();
+const id = $q.localStorage.getItem("idclient");
+
 const show = ref("1");
+const datacliente = ref(
+  {
+    celular: "85997244223",
+    dataNascimento: "10012002",
+    dsEmail: "caioteste@teste.com",
+    endereco: {
+      bairro: "",
+      cep: "",
+      cidade: "",
+      complemento: "",
+      georeferencia: {
+        endereco: "",
+        id: 0,
+        latitude: 0,
+        longitude: 0
+      },
+      id: 0,
+      logradouro: "",
+      numero: 0,
+      uf: ""
+    },
+    foto: "",
+    idCliente: 1,
+    ieIsento: false,
+    limiteCredito: 0,
+    login: "",
+    nmCliente: "Caio",
+    nmRazao: "",
+    nrCpfCnpj: "123.456.789-32",
+    nrIe: "",
+    nrTelefone: "",
+    saldoAberto: 0,
+    saldoVencido: 0,
+    sobrenome: "Costa",
+    tipo: ""
+  }
+);
 const menus = ref([
   {
     menu: "Dados pessoais",
@@ -37,6 +79,22 @@ async function clearLocalStorage () {
   $q.localStorage.clear();
   redirectToLoginPage();
 }
+
+async function searchInfos () {
+  try {
+    const data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/getClienteEcommerce/${id}`).then(e => e.data);
+    if (data.length) {
+      datacliente.value = data;
+      console.log("INFORMACOES DO CLIENTE:", data);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onBeforeMount(async () => {
+  await searchInfos();
+});
 </script>
 
 <template lang="pug">
@@ -80,17 +138,17 @@ q-page-container
         template(
           v-if="show === '1'"
         )
-          infos
+          infos(
+            :datacliente="datacliente"
+          )
         template(
           v-if="show === '2'"
         )
-          div.teste
-            pedidos
+          pedidos
         template(
           v-if="show === '3'"
         )
-          div.teste
-            enderecos
+          enderecos
 </template>
 
 <style scoped>
