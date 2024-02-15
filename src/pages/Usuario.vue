@@ -163,7 +163,7 @@ q-page-container
 .interno {
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 83%;
   margin-top: 20px;
 }
 .titulo {

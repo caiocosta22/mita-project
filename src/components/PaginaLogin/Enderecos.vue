@@ -20,7 +20,7 @@ const referencia = ref("");
 const bairro = ref("");
 const estado = ref("");
 const cidade = ref("");
-const edicao = ref(false);
+const edicao = ref("1");
 
 </script>
 
@@ -29,14 +29,18 @@ div.container
   div.interno
     span.subtitulo#titulo Endereços
   template(
-    v-if="!edicao"
+    v-if="edicao==='1'"
   )
     div.interno
       div.conteudos
         div.column
           p.subtitulo Destinatário:
-          p.subtitulo Teste
-          p.subtitulo Teste
+          p.subtitulo(
+            style="font-weight: 300;"
+          ) Teste
+          p.subtitulo(
+            style="font-weight: 300;"
+          ) Teste
         div.botoes
           q-btn(
             color="white"
@@ -52,8 +56,16 @@ div.container
             span(
               style="color: #fff;"
             ) Deletar
+    div.interno
+      q-btn#end(
+        color="green"
+        @click="edicao='2'"
+      )
+        span(
+          style="color: #fff;"
+        ) ADICIONAR ENDEREÇO
   template(
-    v-if="edicao"
+    v-if="edicao==='2'"
   )
     div.interno
       div.input
@@ -142,12 +154,21 @@ div.container
         )
     div.input
       q-btn(
-        color="black"
+        color="green"
         push
       )
         span(
           style="color: #fff;"
         ) SALVAR
+      q-btn(
+        color="black"
+        push
+        style="margin-top: 15px;"
+        @click="edicao='1'"
+      )
+        span(
+          style="color: #fff"
+        ) Meus endereços
 </template>
 
 <style scoped>
@@ -192,6 +213,11 @@ div.container
   font-size: 24px;
   margin-left: 15px;
 }
+#end{
+  margin-left: 15px;
+  margin-top: 15px;
+  width: 180px;
+}
 @media screen and (max-width: 1150px) {
   .interno {
   flex-direction: column;
@@ -208,7 +234,6 @@ div.container
   align-items: start;
   margin-left: 15px;
 }
-
 }
 @media screen and (max-width: 769px) {
   .conteudos{
@@ -217,6 +242,11 @@ div.container
   }
   #titulo{
     margin-left: 0px;
+  }
+  #end{
+    margin-left: 0px;
+    margin-bottom: 15px;
+    width: 100%;
   }
 }
 </style>
