@@ -16,13 +16,13 @@ const show = ref("1");
 const datacliente = ref(
   {
     celular: "85997244223",
-    dataNascimento: "10012002",
+    dataNascimento: "10/01/2002",
     dsEmail: "caioteste@teste.com",
     endereco: {
-      bairro: "",
-      cep: "",
-      cidade: "",
-      complemento: "",
+      bairro: "teste1",
+      cep: "60710702",
+      cidade: "teste2",
+      complemento: "teste3",
       georeferencia: {
         endereco: "",
         id: 0,
@@ -30,9 +30,9 @@ const datacliente = ref(
         longitude: 0
       },
       id: 0,
-      logradouro: "",
-      numero: 0,
-      uf: ""
+      logradouro: "teste4",
+      numero: 2,
+      uf: "ce"
     },
     foto: "",
     idCliente: 1,
@@ -148,7 +148,9 @@ q-page-container
         template(
           v-if="show === '3'"
         )
-          enderecos
+          enderecos(
+            :datacliente="datacliente"
+          )
 </template>
 
 <style scoped>
@@ -182,7 +184,7 @@ q-page-container
     width: 83%;
   }
 }
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 769px) {
   .conteudo {
     width: 100%;
     margin-top: 20px;

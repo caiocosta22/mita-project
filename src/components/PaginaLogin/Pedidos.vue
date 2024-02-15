@@ -6,9 +6,8 @@ import { ref } from "vue";
 <template lang="pug">
 div.container
   div.interno
-    span.subtitulo(
-      style="font-size: 24px; margin-left: 15px;"
-    ) Pedidos
+    span.subtitulo#titulo Pedidos
+  div.interno
     div.input
       div.infos(
         style="background-color: rgba(100,100,100,0.1);"
@@ -29,7 +28,7 @@ div.container
           )
             span(
               style="color: #fff; font-weight: 500;"
-            ) Pedido recebido
+            ) Recebido
           a.subtitulo(
             style="font-weight: 300; cursor: pointer;"
           ) Repetir Pedido
@@ -85,7 +84,7 @@ div.container
   display: flex;
   margin-bottom: 30px;
   flex-direction: column;
-  width: 100%;
+  width: 700px;
   margin-left: 15px;
 }
 .subtitulo {
@@ -96,5 +95,17 @@ div.container
 }
 a.subtitulo{
   color: #a9a9a9;
+}
+#titulo {
+  font-size: 24px;
+  margin-left: 15px;
+}
+@media screen and (max-width: 1150px){
+  .input{
+    margin-left: 0px;
+  }
+  #titulo {
+    margin-left: 0px;
+  }
 }
 </style>
