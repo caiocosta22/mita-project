@@ -84,7 +84,7 @@ div.container
         )
     div.input
       q-btn(
-        color="black"
+        color="green"
         push
       )
         span(
