@@ -1,5 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
+import axios from "axios";
+
+const $q = useQuasar();
+
+const id = $q.localStorage.getItem("idclient");
+const token = $q.localStorage.getItem("token");
 
 const props = defineProps({
   dataaddress: {
@@ -21,6 +28,37 @@ const bairro = ref("");
 const estado = ref("");
 const cidade = ref("");
 const edicao = ref("1");
+
+const corpoendereco = ref({
+  bairro,
+  cep,
+  cidade,
+  complemento: referencia,
+  cpfDestinatario: cpf,
+  idCliente: id,
+  logradouro: endereco,
+  nomeDestinatario: nome,
+  numero,
+  uf: estado
+});
+
+async function postAddress () {
+  try {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (data.status === 200) {
+      console.log("ENDERECO ENVIADO");
+    } else {
+      console.log(data.status);
+      console.log(data.response);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 </script>
 
@@ -160,6 +198,7 @@ div.container
       q-btn(
         color="green"
         push
+        @click="postAddress()"
       )
         span(
           style="color: #fff;"
