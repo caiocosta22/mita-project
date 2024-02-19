@@ -50,74 +50,77 @@ async function updateInfos () {
 <template lang="pug">
 div.container
   template(
-    v-if="cliente"
+    v-if="!itsLoading"
   )
-    div.interno
-      span.subtitulo(
-        style="font-size: 24px; margin-left: 15px;"
-      ) Dados Pessoais
-    div.interno
+    template(
+      v-if="cliente"
+    )
+      div.interno
+        span.subtitulo(
+          style="font-size: 24px; margin-left: 15px;"
+        ) Dados Pessoais
+      div.interno
+        div.input
+          .subtitulo Nome
+          q-input(
+            outlined
+            color="black"
+            v-model="nome"
+            :placeholder="cliente.nmCliente"
+          )
+        div.input
+          .subtitulo Sobrenome
+          q-input(
+            outlined
+            color="black"
+            v-model="sobrenome"
+            :placeholder="cliente.sobrenome"
+          )
+        div.input
+          .subtitulo CPF
+          q-input(
+            outlined
+            color="black"
+            v-model="cpf"
+            :placeholder="cliente.nrCpfCnpj"
+            disable
+            style="background-color: rgba(100,100,100,0.1);"
+          )
+        div.input
+          .subtitulo Data Nascimento*
+          q-input(
+            outlined
+            color="black"
+            v-model="nascimento"
+            :placeholder="cliente.dataNascimento"
+          )
+        div.input
+          .subtitulo Telefone*
+          q-input(
+            outlined
+            color="black"
+            v-model="telefone"
+            :placeholder="cliente.celular"
+          )
+        div.input
+          .subtitulo E-Mail
+          q-input(
+            outlined
+            color="black"
+            v-model="email"
+            :placeholder="cliente.dsEmail"
+            disable
+            style="background-color: rgba(100,100,100,0.1);"
+          )
       div.input
-        .subtitulo Nome
-        q-input(
-          outlined
-          color="black"
-          v-model="nome"
-          :placeholder="cliente.nmCliente"
+        q-btn(
+          color="green"
+          push
+          @click="updateInfos()"
         )
-      div.input
-        .subtitulo Sobrenome
-        q-input(
-          outlined
-          color="black"
-          v-model="sobrenome"
-          :placeholder="cliente.sobrenome"
-        )
-      div.input
-        .subtitulo CPF
-        q-input(
-          outlined
-          color="black"
-          v-model="cpf"
-          :placeholder="cliente.nrCpfCnpj"
-          disable
-          style="background-color: rgba(100,100,100,0.1);"
-        )
-      div.input
-        .subtitulo Data Nascimento*
-        q-input(
-          outlined
-          color="black"
-          v-model="nascimento"
-          :placeholder="cliente.dataNascimento"
-        )
-      div.input
-        .subtitulo Telefone*
-        q-input(
-          outlined
-          color="black"
-          v-model="telefone"
-          :placeholder="cliente.celular"
-        )
-      div.input
-        .subtitulo E-Mail
-        q-input(
-          outlined
-          color="black"
-          v-model="email"
-          :placeholder="cliente.dsEmail"
-          disable
-          style="background-color: rgba(100,100,100,0.1);"
-        )
-    div.input
-      q-btn(
-        color="green"
-        push
-        @click="updateInfos()"
-      )
-        span(
-          style="color: #fff;"
-        ) SALVAR
+          span(
+            style="color: #fff;"
+          ) SALVAR
 </template>
 
 <style scoped>

@@ -13,6 +13,7 @@ const $q = useQuasar();
 const id = $q.localStorage.getItem("idclient");
 const token = $q.localStorage.getItem("token");
 
+const itsLoading = ref(true);
 const show = ref("1");
 const datacliente = ref(
   {
@@ -96,64 +97,70 @@ async function searchInfos () {
 }
 
 onBeforeMount(async () => {
+  itsLoading.value = true;
   await searchInfos();
+  itsLoading.value = false;
 });
 </script>
 
 <template lang="pug">
 q-page-container
   div.container
-    div.interno
-      div.menus
-        div.titulo
-          p(style="margin: 0;") MINHA CONTA
-          q-separator(
-            style="width: 150px;height: 2px; margin-bottom: 15px; margin-top: 15px;"
+    template(
+      v-if="!itsLoading"
+    )
+      div.interno
+        div.menus
+          template
+          div.titulo
+            p(style="margin: 0;") MINHA CONTA
+            q-separator(
+              style="width: 150px;height: 2px; margin-bottom: 15px; margin-top: 15px;"
+              color="black"
+            )
+          div.subtitulos(
+            v-for="menu in menus"
+            :key="menu"
+          )
+            q-btn.menu(
+              style="width: 150px;margin-bottom: 10px; text-align: left;"
+              push
+              @click="show=menu.id"
+            )
+              span(
+                style="text-align: left;"
+              ) {{ menu.menu }}
+          q-btn(
+            label="Deslogar"
             color="black"
-          )
-        div.subtitulos(
-          v-for="menu in menus"
-          :key="menu"
-        )
-          q-btn.menu(
-            style="width: 150px;margin-bottom: 10px; text-align: left;"
             push
-            @click="show=menu.id"
+            @click="clearLocalStorage()"
+            style="width: 150px;margin-bottom: 10px; text-align: left;"
           )
-            span(
-              style="text-align: left;"
-            ) {{ menu.menu }}
-        q-btn(
-          label="Deslogar"
-          color="black"
-          push
-          @click="clearLocalStorage()"
-          style="width: 150px;margin-bottom: 10px; text-align: left;"
-        )
-        q-btn(
-          label="Pagina Inicial"
-          color="black"
-          push
-          @click="redirectToHomePage"
-          style="width: 150px;margin-bottom: 10px; text-align: left;"
-        )
-      div.conteudo
-        template(
-          v-if="show === '1'"
-        )
-          infos(
-            :datacliente="datacliente"
+          q-btn(
+            label="Pagina Inicial"
+            color="black"
+            push
+            @click="redirectToHomePage"
+            style="width: 150px;margin-bottom: 10px; text-align: left;"
           )
-        template(
-          v-if="show === '2'"
-        )
-          pedidos
-        template(
-          v-if="show === '3'"
-        )
-          enderecos(
-            :datacliente="datacliente"
+        div.conteudo
+          template(
+            v-if="show === '1'"
           )
+            infos(
+              :datacliente="datacliente"
+            )
+          template(
+            v-if="show === '2'"
+          )
+            pedidos
+          template(
+            v-if="show === '3'"
+          )
+            enderecos(
+              :datacliente="datacliente"
+            )
 </template>
 
 <style scoped>
