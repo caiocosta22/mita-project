@@ -60,6 +60,35 @@ async function postAddress () {
   }
 }
 
+async function deleteAddress (id) {
+  try {
+    const data = await axios.get(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    location.reload();
+    if (data.status === 200) {
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Endereço deletado com sucesso!"
+      });
+    } else {
+      $q.notify({
+        color: "red",
+        textColor: "white",
+        icon: "alert",
+        message: "Erro ao deletar o endereço, tente recarregar a página."
+      });
+      console.log(data.status);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 </script>
 
 <template lang="pug">
@@ -69,6 +98,11 @@ div.container
   template(
     v-if="edicao==='1'"
   )
+    template(
+        v-if="dataaddress.length===0"
+      )
+        div.conteudos
+          p.subtitulo Ops! Nenhum endereço encontrado.
     template(
       v-for="address in dataaddress"
       :key="address"
@@ -94,6 +128,7 @@ div.container
             q-btn(
               color="black"
               style="width: 150px; margin-bottom: 15px;"
+              @click="deleteAddress(address.id)"
             )
               span(
                 style="color: #fff;"
