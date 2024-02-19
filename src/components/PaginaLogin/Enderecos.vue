@@ -2,14 +2,14 @@
 import { ref, computed } from "vue";
 
 const props = defineProps({
-  datacliente: {
+  dataaddress: {
     type: Object,
     required: true,
     default: () => {}
   }
 });
 
-const cliente = computed(() => { return props.datacliente; });
+const address = computed(() => { return props.dataaddress; });
 
 const nome = ref("");
 const cpf = ref("");
@@ -31,31 +31,35 @@ div.container
   template(
     v-if="edicao==='1'"
   )
-    div.interno
-      div.conteudos
-        div.column
-          p.subtitulo Destinatário:
-          p.subtitulo(
-            style="font-weight: 300;"
-          ) Teste
-          p.subtitulo(
-            style="font-weight: 300;"
-          ) Teste
-        div.botoes
-          q-btn(
-            color="white"
-            style="width: 150px; margin-bottom: 15px;"
-          )
-            span(
-              style="color: #000;"
-            ) Editar
-          q-btn(
-            color="black"
-            style="width: 150px; margin-bottom: 15px;"
-          )
-            span(
-              style="color: #fff;"
-            ) Deletar
+    template(
+      v-for="address in dataaddress"
+      :key="address"
+    )
+      div.interno
+        div.conteudos
+          div.column
+            p.subtitulo Destinatário: {{ address.nomeDestinatario }}
+            p.subtitulo(
+              style="font-weight: 300;"
+            ) {{ address.logradouro }}, {{ address.numero }}, {{ address.complemento }}
+            p.subtitulo(
+              style="font-weight: 300;"
+            ) {{ address.cidade }} - {{ address.uf }} - CEP: {{ address.cep }}
+          div.botoes
+            q-btn(
+              color="white"
+              style="width: 150px; margin-bottom: 15px;"
+            )
+              span(
+                style="color: #000;"
+              ) Editar
+            q-btn(
+              color="black"
+              style="width: 150px; margin-bottom: 15px;"
+            )
+              span(
+                style="color: #fff;"
+              ) Deletar
     div.interno
       q-btn#end(
         color="green"

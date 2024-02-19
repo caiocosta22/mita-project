@@ -52,6 +52,7 @@ const datacliente = ref(
     tipo: ""
   }
 );
+const dataaddress = ref("");
 const menus = ref([
   {
     menu: "Dados pessoais",
@@ -96,9 +97,26 @@ async function searchInfos () {
   }
 }
 
+async function searchAddress () {
+  try {
+    const data = await axios.get("https://mitaoficial.elevarloja.com.br/api/clienteEnderecoService/all/3", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(e => e.data);
+    dataaddress.value = data;
+    console.log("INFORMACOES DO ENDERECO:", data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 onBeforeMount(async () => {
   itsLoading.value = true;
-  await searchInfos();
+  await Promise.all([
+    searchInfos(),
+    searchAddress()
+  ]);
   itsLoading.value = false;
 });
 </script>
@@ -159,7 +177,7 @@ q-page-container
             v-if="show === '3'"
           )
             enderecos(
-              :datacliente="datacliente"
+              :dataaddress="dataaddress"
             )
 </template>
 
