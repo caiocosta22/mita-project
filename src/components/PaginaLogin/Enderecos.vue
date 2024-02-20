@@ -290,7 +290,8 @@ div.container
   margin-bottom: 5px;
 }
 .conteudos {
-  border: 1px solid rgba(0,0,0,0.5);
+  border: 1px solid rgba(3,3,3,0.2);
+  background-color: rgba(200,200,200,0.1);
   width: 700px;
   display: flex;
   justify-content: space-between;
