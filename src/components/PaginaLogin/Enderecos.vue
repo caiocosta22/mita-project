@@ -42,31 +42,29 @@ const corpoendereco = ref({
   uf: estado
 });
 
-const corpoendereco2 = ref({
-  bairro: "Centro",
-  cep: "6300227",
-  cidade: "Fortaleza",
-  complemento: "até 598/599",
-  cpfDestinatario: "12345678923",
-  idCliente: 3,
-  logradouro: "Rua 52",
-  nomeDestinatario: "Caio Costa Teste Final",
-  numero: "47",
-  uf: "CE"
-});
-
 async function postAddress () {
   try {
-    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco2.value, {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco.value, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
     if (data.status === 200) {
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Endereço adicionado com sucesso! atualizando a página."
+      });
       console.log("ENDERECO ENVIADO");
     } else {
+      $q.notify({
+        color: "red",
+        textColor: "white",
+        icon: "alert",
+        message: "Erro ao deletar o endereço, tente recarregar a página."
+      });
       console.log(data.status);
-      console.log(data.response);
     }
   } catch (e) {
     console.error(e);
@@ -80,14 +78,14 @@ async function deleteAddress (id) {
         Authorization: `Bearer ${token}`
       }
     });
-    location.reload();
     if (data.status === 200) {
       $q.notify({
         color: "green",
         textColor: "white",
         icon: "check",
-        message: "Endereço deletado com sucesso!"
+        message: "Endereço deletado com sucesso! atualizando a página."
       });
+      location.reload();
     } else {
       $q.notify({
         color: "red",
@@ -115,9 +113,7 @@ div.container
         v-if="dataaddress.length===0"
       )
         div.interno
-          div.conteudos(
-            style="background-color: rgba(100,100,100,0.1);"
-          )
+          div.conteudos
             p.subtitulo Ops! Nenhum endereço  encontrado.
     template(
       v-for="address in dataaddress"
