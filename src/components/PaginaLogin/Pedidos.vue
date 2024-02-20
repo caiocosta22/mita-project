@@ -222,7 +222,7 @@ div.container
                     )
                       p.subtitulo {{ item.descricao }}
                       p.subtitulo {{ formatCurrency (item. valor) }}
-                      p.subtitulo quantidade: {{ item.  qtdVendida }}
+                      p.subtitulo Quantidade: {{ item.  qtdVendida }}
     div.interno
       div.input
         q-btn(
