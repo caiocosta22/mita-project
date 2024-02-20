@@ -79,9 +79,7 @@ div.container
   )
     div.interno
       div.input
-        div.infos(
-          style="background-color: rgba(100,100,100,0.1);"
-        )
+        div.infos
           p.subtitulo Ops! Nenhum pedido encontrado.
   template(
     v-if="detalhes==='1'"
@@ -92,9 +90,7 @@ div.container
     )
       div.interno
         div.input
-          div.infos(
-            style="background-color: rgba(100,100,100,  0.1);"
-          )
+          div.infos
             div.column
               p.subtitulo Data do pedido
               p.subtitulo(
@@ -111,6 +107,7 @@ div.container
               )
                 q-btn(
                   color="blue"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
@@ -120,6 +117,7 @@ div.container
               )
                 q-btn(
                   color="red"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
@@ -129,12 +127,13 @@ div.container
               )
                 q-btn(
                   color="green"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
                   ) Recebido
               a.subtitulo(
-                style="font-weight: 300; cursor:  pointer;"
+                style="font-weight: 300; cursor:  pointer; margin-top: 2px;"
               ) Repetir Pedido
             div.column
               p.subtitulo N PEDIDO: {{ orders.id }}
@@ -177,9 +176,7 @@ div.container
       )
         div.interno
           div.input
-            div.infos(
-              style="background-color: rgba(100,100,100,  0.1); align-items: start;"
-            )
+            div.infos
               div.column
                 p.subtitulo Endereço
                 span {{ orders.endereco.logradouro }}, {{ orders.endereco.numero }}
@@ -197,15 +194,14 @@ div.container
                 span Frete: {{ formatCurrency(orders.valorFrete) }}
                 q-separator(color="black")
                 span.subtitulo Total: {{ formatCurrency(orders.valorFinal) }}
-            div.infos(
-              style="background-color: rgba(100,100,100,  0.1);"
-            )
+            div.infos
               p.subtitulo Status do Pedido {{ orders.id }}
               template(
                 v-if="orders.status==='aguardando'"
               )
                 q-btn(
                   color="blue"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
@@ -215,6 +211,7 @@ div.container
               )
                 q-btn(
                   color="red"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
@@ -224,6 +221,7 @@ div.container
               )
                 q-btn(
                   color="green"
+                  unelevated
                 )
                   span(
                     style="color: #fff;       font-weight: 500;"
@@ -265,8 +263,9 @@ div.container
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(0,0,0,0.5);
   padding: 15px;
+  border: 1px solid rgba(3,3,3,0.2);
+  background-color: rgba(200,200,200,0.1);
 }
 .container {
   display: flex;
@@ -292,7 +291,8 @@ div.container
   margin-bottom: 5px;
 }
 a.subtitulo{
-  color: #a9a9a9;
+  color: #000;
+  text-decoration: underline;
 }
 #titulo {
   font-size: 24px;
