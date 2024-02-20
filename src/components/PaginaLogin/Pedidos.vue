@@ -41,11 +41,23 @@ async function searchDetails (id) {
 }
 
 function formatCurrency (value) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2
-  });
+  // Converte a entrada para um número, se possível
+  const numericValue = Number(value);
+
+  if (isNaN(numericValue)) {
+    return value;
+  } else if (Number.isInteger(numericValue)) {
+    return numericValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  } else {
+    return numericValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2
+    });
+  }
 }
 </script>
 
@@ -177,7 +189,7 @@ div.container
             div.infos(
               style="background-color: rgba(100,100,100,  0.1);"
             )
-              p.subtitulo Status do Pedido
+              p.subtitulo Status do Pedido {{ orders.id }}
               template(
                 v-if="orders.status==='aguardando'"
               )
@@ -221,7 +233,7 @@ div.container
                       style="margin-left: 15px;"
                     )
                       p.subtitulo {{ item.descricao }}
-                      p.subtitulo {{ formatCurrency (item. valor) }}
+                      p.subtitulo {{ formatCurrency(item.valor) }}
                       p.subtitulo Quantidade: {{ item.  qtdVendida }}
     div.interno
       div.input
