@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 import axios from "axios";
 
@@ -13,8 +13,32 @@ const props = defineProps({
     default: () => {}
   }
 });
-
 const order = computed(() => { return props.dataorder; });
+
+const detalhes = ref("1");
+const idpedido = ref("");
+const datadetails = ref("");
+
+async function searchDetails (id) {
+  try {
+    const data = await axios.get(`https://mitaoficial.elevarloja.com.br/api/ecommerce/agendamentoExternoService/getPagamentoByIdAgendamento/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (data.status === 200) {
+      idpedido.value = id;
+      datadetails.value = data.data;
+      console.log("INFORMACOES DOS PEDIDOS:", datadetails.value);
+      detalhes.value = "2";
+    } else {
+      console.log(data.status);
+      console.log(data.response);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 function formatCurrency (value) {
   return value.toLocaleString("pt-BR", {
@@ -39,83 +63,168 @@ div.container
         )
           p.subtitulo Ops! Nenhum pedido encontrado.
   template(
-    v-for="orders in order"
-    :key="orders"
+    v-if="detalhes==='1'"
   )
+    template(
+      v-for="orders in order"
+      :key="orders"
+    )
+      div.interno
+        div.input
+          div.infos(
+            style="background-color: rgba(100,100,100,  0.1);"
+          )
+            div.column
+              p.subtitulo Data do pedido
+              p.subtitulo(
+                style="font-weight: 300;"
+              ) {{orders.dataPedido}}
+            div.column
+              p.subtitulo Total
+              p.subtitulo(
+                style="font-weight: 300;"
+              ) {{ formatCurrency(orders.valorFinal) }}
+            div.column
+              template(
+                v-if="orders.status==='aguardando'"
+              )
+                q-btn(
+                  color="blue"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) Aguardando
+              template(
+                v-if="orders.status==='cancelado'"
+              )
+                q-btn(
+                  color="red"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) cancelado
+              template(
+                v-if="orders.status==='recebido'"
+              )
+                q-btn(
+                  color="green"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) Recebido
+              a.subtitulo(
+                style="font-weight: 300; cursor:  pointer;"
+              ) Repetir Pedido
+            div.column
+              p.subtitulo N PEDIDO: {{ orders.id }}
+              a.subtitulo(
+                style="font-weight: 300; cursor:  pointer;"
+                @click="searchDetails(orders.id)"
+              ) Detalhes do pedido
+          div.infos
+            div.column
+              template(
+                v-for="item in orders.itemPedido"
+                :key="item"
+              )
+                div.flex.row
+                  div.produto
+                    q-img(
+                      :src="item.foto"
+                    )
+                  div.column(
+                    style="margin-left: 15px;"
+                  )
+                    p.subtitulo {{ item.descricao }}
+                    p.subtitulo {{ formatCurrency(item. valor) }}
+            q-btn(
+              color="black"
+              style="height: 50px; width: 300px;"
+            )
+              span(
+                style="color: #fff;font-weight: 500;"
+              ) Comprar novamente
+  template(
+    v-if="detalhes==='2'"
+  )
+    template(
+      v-for="orders in order"
+      :key="orders"
+    )
+      template(
+        v-if="orders.id = idpedido"
+      )
+        div.interno
+          div.input
+            div.infos(
+              style="background-color: rgba(100,100,100,  0.1);"
+            )
+              div.column
+                p.subtitulo Endereço
+                span {{ orders.endereco.logradouro }}, {{ orders.endereco.numero }}
+                span {{ orders.endereco.bairro }}
+                span {{ orders.endereco.cidade }}, {{ orders.endereco.uf }}
+                span {{ orders.endereco.cep }}
+              div.column
+                p.subtitulo Formas de Pagamento
+              div.column
+                p.subtitulo Resumo do Pedido
+            div.infos(
+              style="background-color: rgba(100,100,100,  0.1);"
+            )
+              p.subtitulo Status do Pedido
+              template(
+                v-if="orders.status==='aguardando'"
+              )
+                q-btn(
+                  color="blue"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) Aguardando
+              template(
+                v-if="orders.status==='cancelado'"
+              )
+                q-btn(
+                  color="red"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) cancelado
+              template(
+                v-if="orders.status==='recebido'"
+              )
+                q-btn(
+                  color="green"
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) Recebido
+            div.infos
+              div.column
+                p.subtitulo Produtos
+                template(
+                  v-for="item in orders.itemPedido"
+                  :key="item"
+                )
+                  div.flex.row
+                    div.produto
+                      q-img(
+                        :src="item.foto"
+                      )
+                    div.column(
+                      style="margin-left: 15px;"
+                    )
+                      p.subtitulo {{ item.descricao }}
+                      p.subtitulo {{ formatCurrency (item. valor) }}
+                      p.subtitulo quantidade: {{ item.  qtdVendida }}
     div.interno
       div.input
-        div.infos(
-          style="background-color: rgba(100,100,100,0.1);"
+        q-btn(
+          color="black"
+          @click="detalhes='1'"
         )
-          div.column
-            p.subtitulo Data do pedido
-            p.subtitulo(
-              style="font-weight: 300;"
-            ) {{orders.dataPedido}}
-          div.column
-            p.subtitulo Total
-            p.subtitulo(
-              style="font-weight: 300;"
-            ) {{ formatCurrency(orders.valorFinal) }}
-          div.column
-            template(
-              v-if="orders.status==='aguardando'"
-            )
-              q-btn(
-                color="blue"
-              )
-                span(
-                  style="color: #fff;     font-weight: 500;"
-                ) Aguardando
-            template(
-              v-if="orders.status==='cancelado'"
-            )
-              q-btn(
-                color="red"
-              )
-                span(
-                  style="color: #fff;     font-weight: 500;"
-                ) cancelado
-            template(
-              v-if="orders.status==='recebido'"
-            )
-              q-btn(
-                color="green"
-              )
-                span(
-                  style="color: #fff;     font-weight: 500;"
-                ) Recebido
-            a.subtitulo(
-              style="font-weight: 300; cursor: pointer;"
-            ) Repetir Pedido
-          div.column
-            p.subtitulo N PEDIDO: {{ orders.id }}
-            a.subtitulo(
-              style="font-weight: 300; cursor: pointer;"
-            ) Detalhes do pedido
-        div.infos
-          div.column
-            template(
-              v-for="item in orders.itemPedido"
-              :key="item"
-            )
-              div.flex.row
-                div.produto
-                  q-img(
-                    :src="item.foto"
-                  )
-                div.column(
-                  style="margin-left: 15px;"
-                )
-                  p.subtitulo {{ item.descricao }}
-                  p.subtitulo {{ formatCurrency(item.valor) }}
-          q-btn(
-            color="black"
-            style="height: 50px; width: 300px;"
-          )
-            span(
-              style="color: #fff;font-weight: 500;"
-            ) Comprar novamente
+          span Voltar para todos os pedidos
 </template>
 
 <style scoped>
