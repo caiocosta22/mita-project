@@ -167,8 +167,13 @@ div.container
                 span {{ orders.endereco.cep }}
               div.column
                 p.subtitulo Formas de Pagamento
+                span {{ datadetails.meioPagamento }}
               div.column
                 p.subtitulo Resumo do Pedido
+                span Subtotal: {{ formatCurrency(orders.valorInicial) }}
+                span Frete: {{ formatCurrency(orders.valorFrete) }}
+                q-separator(color="black")
+                span.subtitulo Total: {{ formatCurrency(orders.valorFinal) }}
             div.infos(
               style="background-color: rgba(100,100,100,  0.1);"
             )
