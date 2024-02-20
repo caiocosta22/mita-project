@@ -101,8 +101,9 @@ div.container
     template(
         v-if="dataaddress.length===0"
       )
-        div.conteudos
-          p.subtitulo Ops! Nenhum endereço encontrado.
+        div.interno
+          div.conteudos
+            p.subtitulo Ops! Nenhum endereço  encontrado.
     template(
       v-for="address in dataaddress"
       :key="address"
