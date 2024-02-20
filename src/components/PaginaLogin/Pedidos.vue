@@ -58,6 +58,16 @@ function formatCurrency (value) {
     });
   }
 }
+
+function formatarData (dataString) {
+  const data = new Date(dataString);
+
+  const dia = String(data.getDate()).padStart(2, "0");
+  const mes = String(data.getMonth() + 1).padStart(2, "0");
+  const ano = data.getFullYear();
+
+  return `${dia}/${mes}/${ano}`;
+}
 </script>
 
 <template lang="pug">
@@ -89,7 +99,7 @@ div.container
               p.subtitulo Data do pedido
               p.subtitulo(
                 style="font-weight: 300;"
-              ) {{orders.dataPedido}}
+              ) {{formatarData(orders.dataPedido)}}
             div.column
               p.subtitulo Total
               p.subtitulo(
