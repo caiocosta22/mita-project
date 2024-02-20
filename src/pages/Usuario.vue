@@ -52,6 +52,7 @@ const datacliente = ref(
     tipo: ""
   }
 );
+const dataorder = ref("");
 const dataaddress = ref("");
 const menus = ref([
   {
@@ -111,14 +112,31 @@ async function searchAddress () {
   }
 }
 
+async function searchOrders () {
+  try {
+    const data = await axios.get(`https://mitaoficial.elevarloja.com.br/api/ecommerce/agendamentoExternoService/historyPedido/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(e => e.data);
+    dataorder.value = data;
+    console.log("INFORMACOES DOS PEDIDOS:", data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 onBeforeMount(async () => {
   itsLoading.value = true;
   await Promise.all([
     searchInfos(),
-    searchAddress()
+    searchAddress(),
+    searchOrders()
   ]);
   itsLoading.value = false;
 });
+
+console.log(token);
 </script>
 
 <template lang="pug">
@@ -172,7 +190,9 @@ q-page-container
           template(
             v-if="show === '2'"
           )
-            pedidos
+            pedidos(
+              :dataorder="dataorder"
+            )
           template(
             v-if="show === '3'"
           )

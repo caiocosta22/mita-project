@@ -42,9 +42,22 @@ const corpoendereco = ref({
   uf: estado
 });
 
+const corpoendereco2 = ref({
+  bairro: "Centro",
+  cep: "6300227",
+  cidade: "Fortaleza",
+  complemento: "até 598/599",
+  cpfDestinatario: "12345678923",
+  idCliente: 3,
+  logradouro: "Rua 52",
+  nomeDestinatario: "Caio Costa Teste Final",
+  numero: "47",
+  uf: "CE"
+});
+
 async function postAddress () {
   try {
-    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco, {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco2.value, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -102,7 +115,9 @@ div.container
         v-if="dataaddress.length===0"
       )
         div.interno
-          div.conteudos
+          div.conteudos(
+            style="background-color: rgba(100,100,100,0.1);"
+          )
             p.subtitulo Ops! Nenhum endereço  encontrado.
     template(
       v-for="address in dataaddress"

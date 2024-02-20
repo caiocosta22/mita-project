@@ -1,60 +1,121 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useQuasar } from "quasar";
+import axios from "axios";
 
+const $q = useQuasar();
+const token = $q.localStorage.getItem("token");
+
+const props = defineProps({
+  dataorder: {
+    type: Object,
+    required: true,
+    default: () => {}
+  }
+});
+
+const order = computed(() => { return props.dataorder; });
+
+function formatCurrency (value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+  });
+}
 </script>
 
 <template lang="pug">
 div.container
   div.interno
     span.subtitulo#titulo Pedidos
-  div.interno
-    div.input
-      div.infos(
-        style="background-color: rgba(100,100,100,0.1);"
-      )
-        div.column
-          p.subtitulo Data do pedido
-          p.subtitulo(
-            style="font-weight: 300;"
-          ) 30 de Janeiro de 2024
-        div.column
-          p.subtitulo Total
-          p.subtitulo(
-            style="font-weight: 300;"
-          ) R$ 329,25
-        div.column
+  template(
+    v-if="dataorder.length===0"
+  )
+    div.interno
+      div.input
+        div.infos(
+          style="background-color: rgba(100,100,100,0.1);"
+        )
+          p.subtitulo Ops! Nenhum pedido encontrado.
+  template(
+    v-for="orders in order"
+    :key="orders"
+  )
+    div.interno
+      div.input
+        div.infos(
+          style="background-color: rgba(100,100,100,0.1);"
+        )
+          div.column
+            p.subtitulo Data do pedido
+            p.subtitulo(
+              style="font-weight: 300;"
+            ) {{orders.dataPedido}}
+          div.column
+            p.subtitulo Total
+            p.subtitulo(
+              style="font-weight: 300;"
+            ) {{ formatCurrency(orders.valorFinal) }}
+          div.column
+            template(
+              v-if="orders.status==='aguardando'"
+            )
+              q-btn(
+                color="blue"
+              )
+                span(
+                  style="color: #fff;     font-weight: 500;"
+                ) Aguardando
+            template(
+              v-if="orders.status==='cancelado'"
+            )
+              q-btn(
+                color="red"
+              )
+                span(
+                  style="color: #fff;     font-weight: 500;"
+                ) cancelado
+            template(
+              v-if="orders.status==='recebido'"
+            )
+              q-btn(
+                color="green"
+              )
+                span(
+                  style="color: #fff;     font-weight: 500;"
+                ) Recebido
+            a.subtitulo(
+              style="font-weight: 300; cursor: pointer;"
+            ) Repetir Pedido
+          div.column
+            p.subtitulo N PEDIDO: {{ orders.id }}
+            a.subtitulo(
+              style="font-weight: 300; cursor: pointer;"
+            ) Detalhes do pedido
+        div.infos
+          div.column
+            template(
+              v-for="item in orders.itemPedido"
+              :key="item"
+            )
+              div.flex.row
+                div.produto
+                  q-img(
+                    :src="item.foto"
+                  )
+                div.column(
+                  style="margin-left: 15px;"
+                )
+                  p.subtitulo {{ item.descricao }}
+                  p.subtitulo {{ formatCurrency(item.valor) }}
           q-btn(
-            color="green"
+            color="black"
+            style="height: 50px; width: 300px;"
           )
             span(
-              style="color: #fff; font-weight: 500;"
-            ) Recebido
-          a.subtitulo(
-            style="font-weight: 300; cursor: pointer;"
-          ) Repetir Pedido
-        div.column
-          p.subtitulo N PEDIDO: 341
-          a.subtitulo(
-            style="font-weight: 300; cursor: pointer;"
-          ) Detalhes do pedido
-      div.infos
-        div.flex.row
-          div.produto
-            q-img(
-              src="/images/js.png"
-            )
-          div.column(
-            style="margin-left: 15px;"
-          )
-            p.subtitulo Mascara
-            p.subtitulo R$ 329,25
-        q-btn(
-          color="black"
-          style="height: 50px; width: 300px;"
-        )
-          span(
-            style="color: #fff;font-weight: 500;"
-          ) Comprar novamente
+              style="color: #fff;font-weight: 500;"
+            ) Comprar novamente
 </template>
 
 <style scoped>
