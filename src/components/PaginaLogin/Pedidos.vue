@@ -41,7 +41,6 @@ async function searchDetails (id) {
 }
 
 function formatCurrency (value) {
-  // Converte a entrada para um número, se possível
   const numericValue = Number(value);
 
   if (isNaN(numericValue)) {
@@ -169,7 +168,7 @@ div.container
         div.interno
           div.input
             div.infos(
-              style="background-color: rgba(100,100,100,  0.1);"
+              style="background-color: rgba(100,100,100,  0.1); align-items: start;"
             )
               div.column
                 p.subtitulo Endereço
@@ -177,7 +176,9 @@ div.container
                 span {{ orders.endereco.bairro }}
                 span {{ orders.endereco.cidade }}, {{ orders.endereco.uf }}
                 span {{ orders.endereco.cep }}
-              div.column
+              div.column(
+                style="margin-right: 10px"
+              )
                 p.subtitulo Formas de Pagamento
                 span {{ datadetails.meioPagamento }}
               div.column
