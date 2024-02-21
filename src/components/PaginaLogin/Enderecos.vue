@@ -18,6 +18,7 @@ const props = defineProps({
 
 const address = computed(() => { return props.dataaddress; });
 
+const addressid = ref("");
 const nome = ref("");
 const cpf = ref("");
 const cep = ref("");
@@ -42,6 +43,36 @@ const corpoendereco = ref({
   uf: estado
 });
 
+const nomeEd = ref("");
+const cpfEd = ref("");
+const cepEd = ref("");
+const enderecoEd = ref("");
+const numeroEd = ref("");
+const referenciaEd = ref("");
+const bairroEd = ref("");
+const estadoEd = ref("");
+const cidadeEd = ref("");
+
+const corpoedicao = ref({
+  logradouro: enderecoEd,
+  numero: numeroEd,
+  bairro: bairroEd,
+  cidade: cidadeEd,
+  uf: estadoEd,
+  cep: cepEd,
+  complemento: referenciaEd,
+  nomeDestinatario: nomeEd,
+  cpfDestinatario: cpfEd,
+  idCliente: id,
+  id: addressid,
+  principal: false
+});
+
+function openEdit (id) {
+  addressid.value = id;
+  edicao.value = "3";
+}
+
 async function postAddress () {
   try {
     const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/addEcommerce", corpoendereco.value, {
@@ -64,6 +95,36 @@ async function postAddress () {
         textColor: "white",
         icon: "alert",
         message: "Erro ao deletar o endereço, tente recarregar a página."
+      });
+      console.log(data.status);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function editAddress () {
+  try {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteEnderecoService/edit", corpoedicao.value, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (data.status === 200) {
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Endereço editado com sucesso! atualizando a página."
+      });
+      location.reload();
+      console.log("ENDERECO EDITADO");
+    } else {
+      $q.notify({
+        color: "red",
+        textColor: "white",
+        icon: "alert",
+        message: "Erro ao editar o endereço, tente recarregar a página."
       });
       console.log(data.status);
     }
@@ -134,6 +195,7 @@ div.container
             q-btn(
               color="white"
               style="width: 150px; margin-bottom: 15px;"
+              @click="openEdit(address.id)"
             )
               span(
                 style="color: #000;"
@@ -260,6 +322,119 @@ div.container
         span(
           style="color: #fff"
         ) Meus endereços
+  template(
+    v-if="edicao==='3'"
+  )
+    template(
+      v-for="address in dataaddress"
+      :key="address"
+    )
+      template(
+        v-if="addressid = address.id"
+      )
+        div.interno
+          div.input
+            .subtitulo Nome do destinatário*
+            q-input(
+              outlined
+              color="black"
+              v-model="nomeEd"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo CPF*
+            q-input(
+              outlined
+              color="black"
+              v-model="cpfEd"
+              placeholder="Ex: 123.456.789-14"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo CEP*
+            q-input(
+              outlined
+              color="black"
+              v-model="cepEd"
+              placeholder="Ex: 60700-700"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo Endereço*
+            q-input(
+              outlined
+              color="black"
+              v-model="enderecoEd"
+              placeholder="Ex: Rua Exemplo"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo Número*
+            q-input(
+              outlined
+              color="black"
+              v-model="numeroEd"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo Ponto de referência
+            q-input(
+              outlined
+              color="black"
+              v-model="referenciaEd"
+            )
+          div.input
+            .subtitulo Bairro*
+            q-input(
+              outlined
+              color="black"
+              v-model="bairroEd"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo Estado*
+            q-input(
+              outlined
+              color="black"
+              v-model="estadoEd"
+              placeholder="Ex: CE"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+          div.input
+            .subtitulo Cidade*
+            q-input(
+              outlined
+              color="black"
+              v-model="cidadeEd"
+              placeholder="Ex: Fortaleza"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
+            )
+        div.input
+          q-btn(
+            color="green"
+            push
+            @click="editAddress()"
+          )
+            span(
+              style="color: #fff;"
+            ) SALVAR
+          q-btn(
+            color="black"
+            push
+            style="margin-top: 15px;"
+            @click="edicao='1'"
+          )
+            span(
+              style="color: #fff"
+            ) Meus endereços
 </template>
 
 <style scoped>
