@@ -258,6 +258,10 @@ div.container
   width: 100px;
   height: 100px;
 }
+q-img {
+  max-width: 100%;
+  display: block;
+}
 .infos {
   display: flex;
   flex-direction: row;
