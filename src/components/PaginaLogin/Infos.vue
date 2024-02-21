@@ -12,12 +12,31 @@ const props = defineProps({
     default: () => {}
   }
 });
+
 const cliente = computed(() => { return props.datacliente; });
+
+const formatarData = (data) => {
+  if (!data) return "";
+
+  const [ano, mes, dia] = data.split("-");
+  return `${dia}/${mes}/${ano}`;
+};
+
+const formatarDataInput = (event) => {
+  const input = event.target;
+  const value = input.value;
+
+  const cleanValue = value.replace(/\D/g, "");
+  const formattedValue = cleanValue.replace(/^(\d{2})(\d{2})(\d{4})$/, "$1/$2/$3");
+
+  input.value = formattedValue;
+  nascimento.value = formattedValue;
+};
 
 const nome = ref(cliente.value.nmCliente);
 const cpf = ref(cliente.value.nrCpfCnpj);
 const sobrenome = ref(cliente.value.sobrenome);
-const nascimento = ref(cliente.value.dataNascimento);
+const nascimento = ref(formatarData(cliente.value.dataNascimento));
 const telefone = ref(cliente.value.celular);
 const email = ref(cliente.value.dsEmail);
 
@@ -33,14 +52,31 @@ const corpocliente = ref(
     token
   }
 );
+
 async function updateInfos () {
   try {
-    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/editEcommerce", corpocliente, {
+    const data = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/clienteService/editEcommerce", corpocliente.value, {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(e => e.data);
-    console.log(data.response);
+    });
+    if (data.status === 200) {
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Informações atualizadas com sucesso! atualizando a página."
+      });
+      location.reload();
+      console.log("ENDERECO ENVIADO");
+    } else {
+      $q.notify({
+        color: "red",
+        textColor: "white",
+        icon: "alert",
+        message: "Erro ao atualizar informações, tente recarregar a página."
+      });
+    }
   } catch (e) {
     console.error(e);
   }
@@ -92,7 +128,7 @@ div.container
             outlined
             color="black"
             v-model="nascimento"
-            :placeholder="cliente.dataNascimento"
+            type="date"
           )
         div.input
           .subtitulo Telefone*

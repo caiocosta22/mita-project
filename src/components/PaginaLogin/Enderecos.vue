@@ -56,6 +56,7 @@ async function postAddress () {
         icon: "check",
         message: "Endereço adicionado com sucesso! atualizando a página."
       });
+      location.reload();
       console.log("ENDERECO ENVIADO");
     } else {
       $q.notify({

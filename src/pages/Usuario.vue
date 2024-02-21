@@ -100,7 +100,7 @@ async function searchInfos () {
 
 async function searchAddress () {
   try {
-    const data = await axios.get("https://mitaoficial.elevarloja.com.br/api/clienteEnderecoService/all/3", {
+    const data = await axios.get(`https://mitaoficial.elevarloja.com.br/api/clienteEnderecoService/all/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
