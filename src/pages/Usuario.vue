@@ -7,6 +7,7 @@ import axios from "axios";
 import infos from "src/components/PaginaLogin/Infos.vue";
 import pedidos from "src/components/PaginaLogin/Pedidos.vue";
 import enderecos from "src/components/PaginaLogin/Enderecos.vue";
+import pagamentos from "src/components/PaginaLogin/Pagamentos.vue";
 
 const router = useRouter();
 const $q = useQuasar();
@@ -54,6 +55,7 @@ const datacliente = ref(
 );
 const dataorder = ref("");
 const dataaddress = ref("");
+const datapayment = ref("");
 const menus = ref([
   {
     menu: "Dados pessoais",
@@ -66,6 +68,10 @@ const menus = ref([
   {
     menu: "Endereços",
     id: "3"
+  },
+  {
+    menu: "Pagamentos",
+    id: "4"
   }
 ]);
 
@@ -126,12 +132,27 @@ async function searchOrders () {
   }
 }
 
+async function searcPayments () {
+  try {
+    const data = await axios.post("https://mitaoficial.elevarcommerce.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/cartaoService/allSite", { idCliente: id }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(e => e.data);
+    datapayment.value = data;
+    console.log("INFORMACOES DOS CARTOES:", data.response);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 onBeforeMount(async () => {
   itsLoading.value = true;
   await Promise.all([
     searchInfos(),
     searchAddress(),
-    searchOrders()
+    searchOrders(),
+    searcPayments()
   ]);
   itsLoading.value = false;
 });
@@ -198,6 +219,12 @@ q-page-container
           )
             enderecos(
               :dataaddress="dataaddress"
+            )
+          template(
+            v-if="show === '4'"
+          )
+            pagamentos(
+              :datapayment="datapayment"
             )
 </template>
 
