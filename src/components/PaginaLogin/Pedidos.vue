@@ -1,10 +1,20 @@
 <script setup>
 import { computed, ref } from "vue";
-import { useQuasar } from "quasar";
+import { useQuasar, LocalStorage } from "quasar";
+import getCart from "src/helpers/getCart";
 import axios from "axios";
 
 const $q = useQuasar();
 const token = $q.localStorage.getItem("token");
+const idClient = LocalStorage.getItem("idclient"); ;
+let cartId = LocalStorage.getItem("cartIdBackend") || -1;
+
+const emitAddToCartEvent = () => {
+  const addToCartEvent = new CustomEvent("addToCart", {
+    detail: { quantity: LocalStorage.getItem("quantidadeCarrinho") }
+  });
+  window.dispatchEvent(addToCartEvent);
+};
 
 const props = defineProps({
   dataorder: {
@@ -18,6 +28,59 @@ const order = computed(() => { return props.dataorder; });
 const detalhes = ref("1");
 const idpedido = ref("");
 const datadetails = ref("");
+
+async function createCart (item, quantidade) {
+  try {
+    cartId = -1;
+    const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${idClient}`, {
+      quantity: quantidade,
+      productId: item
+    });
+    console.log(add);
+    const response = add.data;
+    if (add.status === 200) {
+      cartId = response.id;
+      LocalStorage.set("cartIdBackend", cartId);
+      await getCart();
+      emitAddToCartEvent();
+    }
+    if (add.response === "Nenhum carrinho válido encontrado") {
+      createCart(item, quantidade);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function addProductToCart (item, quantidade) {
+  try {
+    if (idClient) {
+      if (cartId === -1) {
+        await createCart(item, quantidade);
+      } else {
+        const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
+          quantity: quantidade,
+          productId: item
+        });
+        console.log(add);
+        if (add.status === 200) {
+          await getCart();
+          emitAddToCartEvent();
+        }
+      }
+    } else {
+      $q.notify({
+        color: "red-5",
+        textColor: "white",
+        icon: "warning",
+        message: "Erro ao adicionar item ao carrinho. Faça o Login na sua conta."
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    await createCart();
+  }
+};
 
 async function searchDetails (id) {
   try {
@@ -142,28 +205,34 @@ div.container
                 @click="searchDetails(orders.id)"
               ) Detalhes do pedido
           div.infos
-            div.column
+            div.column(
+              style="width:100%;"
+            )
               template(
                 v-for="item in orders.itemPedido"
                 :key="item"
               )
-                div.flex.row
-                  div.produto
-                    q-img(
-                      :src="item.foto"
+                div.infos#produto(
+                  style="  padding: 0px;border: 0px;background-color: rgba(200,200,200,0); width: 100%;"
+                )
+                  div.flex.row
+                    div.produto
+                      q-img(
+                        :src="item.foto"
+                      )
+                    div.column(
+                      style="margin-left: 15px;"
                     )
-                  div.column(
-                    style="margin-left: 15px;"
+                      p.subtitulo {{ item.descricao }}
+                      p.subtitulo {{ formatCurrency(item. valor) }}
+                  q-btn(
+                    color="black"
+                    style="height: 50px; width: 100px;"
+                    @click="addProductToCart(item.id,item.qtdVendida)"
                   )
-                    p.subtitulo {{ item.descricao }}
-                    p.subtitulo {{ formatCurrency(item. valor) }}
-            q-btn(
-              color="black"
-              style="height: 50px; width: 300px;"
-            )
-              span(
-                style="color: #fff;font-weight: 500;"
-              ) Comprar novamente
+                    span(
+                      style="color: #fff;font-weight: 500; font-size: 12px; line-height: 1.4;"
+                    ) Comprar <br> novamente
   template(
     v-if="detalhes==='2'"
   )
