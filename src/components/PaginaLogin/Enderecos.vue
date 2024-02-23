@@ -44,7 +44,7 @@ const corpoendereco = ref({
 });
 
 const nomeEd = ref("");
-const cpfEd = ref(formatarCPF(""));
+const cpfEd = ref(formatarCPF("cpf"));
 const cepEd = ref(formatarCEP(""));
 const enderecoEd = ref("");
 const numeroEd = ref("");
@@ -71,6 +71,24 @@ const corpoedicao = ref({
 function openEdit (id) {
   addressid.value = id;
   edicao.value = "3";
+
+  const addressToEdit = props.dataaddress.find(address => address.id === id);
+
+  if (addressToEdit) {
+    nomeEd.value = addressToEdit.nomeDestinatario;
+    cpfEd.value = addressToEdit.cpfDestinatario;
+    cepEd.value = addressToEdit.cep;
+    enderecoEd.value = addressToEdit.logradouro;
+    numeroEd.value = addressToEdit.numero;
+    referenciaEd.value = addressToEdit.complemento;
+    bairroEd.value = addressToEdit.bairro;
+    estadoEd.value = addressToEdit.uf;
+    cidadeEd.value = addressToEdit.cidade;
+    addressid.value = id;
+    edicao.value = "3";
+  } else {
+    console.error("Endereço não encontrado para edição");
+  }
 }
 
 function formatarCPF (cpf) {
