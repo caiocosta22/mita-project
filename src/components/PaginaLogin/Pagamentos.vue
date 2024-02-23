@@ -22,7 +22,7 @@ console.log(payment);
 const edicao = ref("1");
 const nome = ref();
 const cvv = ref();
-const cpf = ref();
+const cpf = ref(formatarCPF(""));
 const email = ref();
 const numero = ref();
 const validade = ref();
@@ -31,7 +31,7 @@ const complemento = ref();
 const bairro = ref();
 const cidade = ref();
 const estado = ref();
-const cep = ref();
+const cep = ref(formatarCEP(""));
 const numeroend = ref();
 
 const corpopayment = ref(
@@ -62,6 +62,25 @@ const corpopayment = ref(
     }
   }
 );
+
+function formatarCPF (cpf) {
+  const cpfLimpo = cpf.replace(/\D/g, "");
+
+  if (cpfLimpo.length !== 11) {
+    return "CPF inválido";
+  }
+  return cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+function formatarCEP (cep) {
+  const cepLimpo = cep.replace(/\D/g, "");
+
+  if (cepLimpo.length !== 8) {
+    return "CEP inválido";
+  }
+
+  return cepLimpo.replace(/(\d{5})(\d{3})/, "$1-$2");
+}
 
 async function postPayment () {
   try {
@@ -202,6 +221,7 @@ div.container
           outlined
           color="black"
           v-model="cpf"
+          mask="###.###.###-##"
           placeholder="CPF do titular"
           lazy-rules
           :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
@@ -225,6 +245,7 @@ div.container
           outlined
           color="black"
           v-model="cep"
+          mask="#####-###"
           placeholder="Ex: 60300-000"
         )
       div.input
@@ -285,6 +306,7 @@ div.container
           v-model="estado"
           placeholder="Ex: CE"
           lazy-rules
+          maxlength="2"
           :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
         )
     div.input
