@@ -22,22 +22,11 @@ const formatarData = (data) => {
   return `${dia}/${mes}/${ano}`;
 };
 
-const formatarDataInput = (event) => {
-  const input = event.target;
-  const value = input.value;
-
-  const cleanValue = value.replace(/\D/g, "");
-  const formattedValue = cleanValue.replace(/^(\d{2})(\d{2})(\d{4})$/, "$1/$2/$3");
-
-  input.value = formattedValue;
-  nascimento.value = formattedValue;
-};
-
 const nome = ref(cliente.value.nmCliente);
 const cpf = ref(cliente.value.nrCpfCnpj);
 const sobrenome = ref(cliente.value.sobrenome);
 const nascimento = ref(formatarData(cliente.value.dataNascimento));
-const telefone = ref(cliente.value.celular);
+const telefone = ref(formatarTelefone(cliente.value.celular));
 const email = ref(cliente.value.dsEmail);
 
 const corpocliente = ref(
@@ -52,6 +41,20 @@ const corpocliente = ref(
     token
   }
 );
+
+function formatarTelefone (numero) {
+  let numeroLimpo = numero.replace(/\D/g, "");
+
+  if (numeroLimpo.startsWith("55") && numeroLimpo.length === 13) {
+    numeroLimpo = numeroLimpo.substring(2);
+  }
+
+  if (numeroLimpo.length === 11) {
+    return numeroLimpo.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  } else {
+    return "Número de telefone inválido";
+  }
+}
 
 async function updateInfos () {
   try {
@@ -74,7 +77,7 @@ async function updateInfos () {
         color: "red",
         textColor: "white",
         icon: "alert",
-        message: "Erro ao atualizar informações, tente recarregar a página."
+        message: "Erro ao atualizar informações, tente recarregar a página ou verificar suas informações."
       });
     }
   } catch (e) {
@@ -120,6 +123,7 @@ div.container
             v-model="cpf"
             :placeholder="cliente.nrCpfCnpj"
             disable
+            mask="###.###.###-##"
             style="background-color: rgba(100,100,100,0.1);"
           )
         div.input
@@ -136,6 +140,7 @@ div.container
             outlined
             color="black"
             v-model="telefone"
+            mask="(##)#####-####"
             :placeholder="cliente.celular"
           )
         div.input
