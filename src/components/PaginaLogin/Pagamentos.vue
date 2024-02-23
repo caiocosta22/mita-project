@@ -132,19 +132,19 @@ div.container
     v-if="edicao==='1'"
   )
     template(
-        v-if="payment.length === 0"
-      )
-        div.interno
-          div.conteudos
-            p.subtitulo Ops! Nenhum método de pagamento encontrado.
-            q-btn(
-              color="green"
-              push
-              @click="edicao='2'"
-            )
-              span(
-                style="color: #fff;"
-              ) ADICIONAR
+      v-if="payment.length === 0"
+    )
+      div.interno
+        div.conteudos
+          p.subtitulo Ops! Nenhum método de pagamento encontrado.
+          q-btn(
+            color="green"
+            push
+            @click="edicao='2'"
+          )
+            span(
+              style="color: #fff;"
+            ) ADICIONAR
   template(
     v-if="edicao==='2'"
   )
