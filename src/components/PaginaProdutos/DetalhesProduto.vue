@@ -11,6 +11,7 @@ import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 const $q = useQuasar();
+const token = $q.localStorage.getItem("token");
 const quantidadeCarrinho = ref(LocalStorage.getItem("quantidadeCarrinho"));
 let cartId = LocalStorage.getItem("cartIdBackend") || -1;
 const idClient = LocalStorage.getItem("idclient");
@@ -64,7 +65,7 @@ const copyLink = () => {
     message: "Link Copiado para Área de transferência!"
   });
 };
-
+const FreteProprio = ref([]);
 const setGutterClass = () => {
   gutterClass.value = window.innerWidth >= 1150 ? "q-gutter-lg" : "";
 };
@@ -106,15 +107,70 @@ function onColorClick (colorId) {
 }
 
 function formatCurrency (value) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2
-  });
+  const numericValue = Number(value);
+
+  if (isNaN(numericValue)) {
+    return value;
+  } else if (Number.isInteger(numericValue)) {
+    return numericValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  } else {
+    return numericValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2
+    });
+  }
+}
+
+async function calcFreteProprio () {
+  try {
+    const searchCepDetails = cep.value.replace("-", "");
+    const bodyreq = {
+      tenant: "dev",
+      freeShippingCoupon: "0",
+      cep: searchCepDetails,
+      products: [
+        {
+          codigo: "multiloja-variacao",
+          fotosServico: null,
+          gerenciarE: true,
+          grupo: {
+            descricao: "SIMILARES",
+            id: 162
+          },
+          id: 4055,
+          porcentagemDesconto: 0,
+          possuiVariacao: false,
+          produtoPai: null,
+          promocao: false,
+          qtdEstoque: 80,
+          quantidadeAgendada: 1,
+          status: true,
+          valor: 60,
+          variacoes: [],
+          quantity: 1,
+          price: 60
+        }
+      ],
+      totalPrice: "60.00"
+    };
+    const dados = await axios.post("https://elevarcommerce.com.br/shipping/v1/getShippingsData", bodyreq, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(dados.data);
+  } catch (e) {
+    console.error("Erro ao calcular frete: ", e);
+  }
 }
 
 async function calcFrete () {
   try {
+    await calcFreteProprio();
     const searchCepDetails = cep.value.replace("-", "");
     if (searchCepDetails.length === 8) {
       const dados = await axios.get(`https://viacep.com.br/ws/${searchCepDetails}/json/`).then(e => e.data);
@@ -399,7 +455,16 @@ div.container.q-pt-md.q-pb-sm
         )
           p.q-ma-none {{ frete.name }}
           p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
-          p.q-ma-none.text-bold R$ {{ formatCurrency(frete.valor) }}
+          p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
+        q-btn.q-my-sm(
+          v-for="frete in FreteProprio"
+          style="width: 100%; vertical-align: baseline;"
+          :key="frete"
+          outlined
+        )
+          p.q-ma-none {{ frete[1].description }}
+          p.q-my-none.q-px-md receba em até {{ frete[1].deadline }} {{ frete.deadline === 1 ? "dia útil" : "dias úteis"  }}
+          p.q-ma-none.text-bold {{ formatCurrency(frete[1].price) }}
       div(
         v-if="usarSkeleton"
       )
