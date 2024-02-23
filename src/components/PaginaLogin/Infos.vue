@@ -70,7 +70,9 @@ async function updateInfos () {
         icon: "check",
         message: "Informações atualizadas com sucesso! atualizando a página."
       });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
       console.log("ENDERECO ENVIADO");
     } else {
       $q.notify({

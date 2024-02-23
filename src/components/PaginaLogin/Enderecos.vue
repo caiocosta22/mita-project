@@ -124,7 +124,9 @@ async function postAddress () {
         icon: "check",
         message: "Endereço adicionado com sucesso! atualizando a página."
       });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
       console.log("ENDERECO ENVIADO");
     } else {
       $q.notify({
@@ -154,7 +156,9 @@ async function editAddress () {
         icon: "check",
         message: "Endereço editado com sucesso! atualizando a página."
       });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
       console.log("ENDERECO EDITADO");
     } else {
       $q.notify({
@@ -178,12 +182,6 @@ async function deleteAddress (id) {
       }
     });
     if (data.status === 200) {
-      $q.notify({
-        color: "green",
-        textColor: "white",
-        icon: "check",
-        message: "Endereço deletado com sucesso! atualizando a página."
-      });
       location.reload();
     } else {
       $q.notify({

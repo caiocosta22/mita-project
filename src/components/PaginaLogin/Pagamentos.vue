@@ -77,7 +77,9 @@ async function postPayment () {
         icon: "check",
         message: "Endereço adicionado com sucesso! atualizando a página."
       });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
       console.log("ENDERECO ENVIADO");
     } else {
       $q.notify({
@@ -107,7 +109,9 @@ async function deletePayment (id) {
         icon: "check",
         message: "Endereço deletado com sucesso! atualizando a página."
       });
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } else {
       $q.notify({
         color: "red",

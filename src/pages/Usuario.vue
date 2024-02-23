@@ -203,29 +203,39 @@ q-page-container
           )
         div.conteudo
           template(
-            v-if="show === '1'"
+            v-if="itsLoading"
           )
-            infos(
-              :datacliente="datacliente"
+            q-skeleton(
+              width="100px"
+              height="900px"
             )
           template(
-            v-if="show === '2'"
+            v-if="!itsLoading"
           )
-            pedidos(
-              :dataorder="dataorder"
+            template(
+              v-if="show === '1'"
             )
-          template(
-            v-if="show === '3'"
-          )
-            enderecos(
-              :dataaddress="dataaddress"
+              infos(
+                :datacliente="datacliente"
+              )
+            template(
+              v-if="show === '2'"
             )
-          template(
-            v-if="show === '4'"
-          )
-            pagamentos(
-              :datapayment="datapayment"
+              pedidos(
+                :dataorder="dataorder"
+              )
+            template(
+              v-if="show === '3'"
             )
+              enderecos(
+                :dataaddress="dataaddress"
+              )
+            template(
+              v-if="show === '4'"
+            )
+              pagamentos(
+                :datapayment="datapayment"
+              )
 </template>
 
 <style scoped>
