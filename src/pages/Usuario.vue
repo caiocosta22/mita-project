@@ -240,6 +240,7 @@ q-page-container
   flex-direction: row;
   width: 83%;
   margin-top: 20px;
+  margin-bottom: 20vh;
 }
 .titulo {
   font-family: Catamaran;

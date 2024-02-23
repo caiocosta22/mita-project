@@ -20,8 +20,8 @@ const address = computed(() => { return props.dataaddress; });
 
 const addressid = ref("");
 const nome = ref("");
-const cpf = ref("");
-const cep = ref("");
+const cpf = ref(formatarCPF(""));
+const cep = ref(formatarCEP(""));
 const endereco = ref("");
 const numero = ref("");
 const referencia = ref("");
@@ -44,8 +44,8 @@ const corpoendereco = ref({
 });
 
 const nomeEd = ref("");
-const cpfEd = ref("");
-const cepEd = ref("");
+const cpfEd = ref(formatarCPF(""));
+const cepEd = ref(formatarCEP(""));
 const enderecoEd = ref("");
 const numeroEd = ref("");
 const referenciaEd = ref("");
@@ -71,6 +71,25 @@ const corpoedicao = ref({
 function openEdit (id) {
   addressid.value = id;
   edicao.value = "3";
+}
+
+function formatarCPF (cpf) {
+  const cpfLimpo = cpf.replace(/\D/g, "");
+
+  if (cpfLimpo.length !== 11) {
+    return "CPF inválido";
+  }
+  return cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+function formatarCEP (cep) {
+  const cepLimpo = cep.replace(/\D/g, "");
+
+  if (cepLimpo.length !== 8) {
+    return "CEP inválido";
+  }
+
+  return cepLimpo.replace(/(\d{5})(\d{3})/, "$1-$2");
 }
 
 async function postAddress () {
@@ -237,6 +256,7 @@ div.container
           v-model="cpf"
           placeholder="Ex: 123.456.789-14"
           lazy-rules
+          mask="###.###.###-##"
           :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
         )
       div.input
@@ -245,6 +265,7 @@ div.container
           outlined
           color="black"
           v-model="cep"
+          mask="#####-###"
           placeholder="Ex: 60700-700"
           lazy-rules
           :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
@@ -291,6 +312,7 @@ div.container
           color="black"
           v-model="estado"
           placeholder="Ex: CE"
+          maxlength="2"
           lazy-rules
           :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
         )
@@ -348,6 +370,7 @@ div.container
               outlined
               color="black"
               v-model="cpfEd"
+              mask="###.###.###-##"
               placeholder="Ex: 123.456.789-14"
               lazy-rules
               :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
@@ -358,6 +381,7 @@ div.container
               outlined
               color="black"
               v-model="cepEd"
+              mask="#####-###"
               placeholder="Ex: 60700-700"
               lazy-rules
               :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
@@ -404,6 +428,7 @@ div.container
               color="black"
               v-model="estadoEd"
               placeholder="Ex: CE"
+              maxlength="2"
               lazy-rules
               :rules="[ val => val && val.length > 0 ||   'campo   obrigatório']"
             )
