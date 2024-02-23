@@ -141,6 +141,7 @@ div.container
             color="black"
             v-model="telefone"
             mask="(##)#####-####"
+            hint="Ex: (85) 9 1234-1234"
             :placeholder="cliente.celular"
           )
         div.input
