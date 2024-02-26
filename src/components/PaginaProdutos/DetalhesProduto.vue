@@ -157,7 +157,7 @@ async function calcFreteProprio () {
           price: produto.value.valor
         }
       ],
-      totalPrice: "60.00"
+      totalPrice: produto.value.valor
     };
     const dados = await axios.post("https://elevarcommerce.com.br/shipping/v1/getShippingsData", bodyreq, {
       headers: {
@@ -165,7 +165,6 @@ async function calcFreteProprio () {
       }
     });
     FreteProprio.value = dados.data;
-    console.log(dados.data);
     LoadingFrete.value = false;
   } catch (e) {
     console.error("Erro ao calcular frete: ", e);
@@ -179,7 +178,6 @@ async function createCart () {
       quantity: qtdProduct.value,
       productId: produto.value.id
     });
-    console.log(add);
     const response = add.data;
     if (add.status === 200) {
       cartId = response.id;
@@ -202,7 +200,6 @@ async function addProductToCart () {
           quantity: qtdProduct.value,
           productId: produto.value.id
         });
-        console.log(add);
         if (add.status === 200) {
           await getCart();
           emitAddToCartEvent();
@@ -221,7 +218,6 @@ async function addProductToCart () {
     await createCart();
   }
 };
-console.log(produto);
 onMounted(() => {
   setGutterClass();
   window.addEventListener("resize", setGutterClass);
