@@ -59,13 +59,14 @@ const promoção = ref(promoçãoInicial);
 const preço = ref(preçoInicial);
 const preçoPromoção = ref(preçoPromoçãoInicial);
 const nomecor = ref("");
+const LoadingFrete = ref(false);
 const copyLink = () => {
   navigator.clipboard.writeText(window.location.href);
   $q.notify({
     message: "Link Copiado para Área de transferência!"
   });
 };
-const FreteProprio = ref([]);
+const FreteProprio = ref("");
 const setGutterClass = () => {
   gutterClass.value = window.innerWidth >= 1150 ? "q-gutter-lg" : "";
 };
@@ -127,6 +128,7 @@ function formatCurrency (value) {
 
 async function calcFreteProprio () {
   try {
+    LoadingFrete.value = true;
     const searchCepDetails = cep.value.replace("-", "");
     const bodyreq = {
       tenant: "dev",
@@ -134,25 +136,25 @@ async function calcFreteProprio () {
       cep: searchCepDetails,
       products: [
         {
-          codigo: "multiloja-variacao",
+          codigo: produto.value.codigo,
           fotosServico: null,
-          gerenciarE: true,
+          gerenciarE: produto.value.gerenciarE,
           grupo: {
-            descricao: "SIMILARES",
-            id: 162
+            descricao: produto.value.grupo.descricao,
+            id: produto.value.grupo.id
           },
-          id: 4055,
+          id: produto.value.id,
           porcentagemDesconto: 0,
-          possuiVariacao: false,
+          possuiVariacao: produto.value.possuiVariacao,
           produtoPai: null,
-          promocao: false,
-          qtdEstoque: 80,
-          quantidadeAgendada: 1,
-          status: true,
-          valor: 60,
-          variacoes: [],
+          promocao: produto.value.promocao,
+          qtdEstoque: produto.value.qtdEstoque,
+          quantidadeAgendada: produto.value.quantidadeAgendada,
+          status: produto.value.status,
+          valor: produto.value.valor,
+          variacoes: produto.value.variacoes,
           quantity: 1,
-          price: 60
+          price: produto.value.valor
         }
       ],
       totalPrice: "60.00"
@@ -162,56 +164,11 @@ async function calcFreteProprio () {
         Authorization: `Bearer ${token}`
       }
     });
+    FreteProprio.value = dados.data;
     console.log(dados.data);
+    LoadingFrete.value = false;
   } catch (e) {
     console.error("Erro ao calcular frete: ", e);
-  }
-}
-
-async function calcFrete () {
-  try {
-    await calcFreteProprio();
-    const searchCepDetails = cep.value.replace("-", "");
-    if (searchCepDetails.length === 8) {
-      const dados = await axios.get(`https://viacep.com.br/ws/${searchCepDetails}/json/`).then(e => e.data);
-      await getFretes(dados);
-    }
-  } catch (e) {
-    console.error("Erro ao calcular frete: ", e);
-  }
-}
-
-async function getFretes (dados) {
-  try {
-    usarSkeleton.value = true;
-    const json = {
-      valorTotal: null,
-      produtos: [
-        {
-          altura: 2,
-          largura: 2,
-          comprimento: 2,
-          peso: 2,
-          quantity: 1,
-          price: 161.42,
-          cepOrigem: "60425813",
-          cepDestino: dados.cep.replace("-", "")
-        }
-      ],
-      cliente: {
-        uf: dados.uf,
-        cidade: dados.localidade,
-        tenant: process.env.TENANT
-      }
-    };
-    dadosFrete.value = await axios.post("https://elevarcommerce.com.br/freteapi/frete/calcularFretePequenos", json, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(e => e.data);
-    usarSkeleton.value = false;
-  } catch (e) {
-    console.error(e);
   }
 }
 
@@ -264,7 +221,7 @@ async function addProductToCart () {
     await createCart();
   }
 };
-
+console.log(produto);
 onMounted(() => {
   setGutterClass();
   window.addEventListener("resize", setGutterClass);
@@ -434,44 +391,41 @@ div.container.q-pt-md.q-pb-sm
           v-model="cep"
           label="CEP"
           debounce="300"
-          @update:model-value="calcFrete()"
+          @update:model-value="calcFreteProprio()"
           max-length="8"
           mask="#####-###"
           color="black"
           style="width: 70%;"
         )
-          template(v-slot:append)
-            q-icon(name="search")
+          template(
+            v-slot:append
+          )
+            q-icon(
+              name="search"
+            )
       div.q-pt-sm
         a.cep(href="https://buscacepinter.correios.com.br/app/endereco/index.php?t") NÃO SEI MEU CEP
-      div(
-        v-if="!usarSkeleton && dadosFrete.length"
+      template(
+        v-if="!LoadingFrete"
       )
-        q-btn.q-my-sm(
-          v-for="frete in dadosFrete"
-          style="width: 100%; vertical-align: baseline;"
-          :key="frete"
-          outlined
-        )
-          p.q-ma-none {{ frete.name }}
-          p.q-my-none.q-px-md receba em até {{ frete.prazoEntrega }} {{ frete.prazoEntrega === 1 ? "dia útil" : "dias úteis"  }}
-          p.q-ma-none.text-bold {{ formatCurrency(frete.valor) }}
         q-btn.q-my-sm(
           v-for="frete in FreteProprio"
           style="width: 100%; vertical-align: baseline;"
           :key="frete"
           outlined
         )
-          p.q-ma-none {{ frete[1].description }}
-          p.q-my-none.q-px-md receba em até {{ frete[1].deadline }} {{ frete.deadline === 1 ? "dia útil" : "dias úteis"  }}
-          p.q-ma-none.text-bold {{ formatCurrency(frete[1].price) }}
-      div(
-        v-if="usarSkeleton"
+          p.q-ma-none {{ frete.description }}
+          p.q-my-none.q-px-md receba em até {{ frete.deadline }} {{ frete.deadline === 1 ? "dia útil" : "dias úteis"  }}
+          p.q-ma-none.text-bold {{ formatCurrency(frete.price) }}
+      template(
+        v-if="LoadingFrete"
       )
-        q-skeleton(
-          v-for="index in 3"
+        q-skeleton.q-my-sm(
+          v-for="index in 1"
+          style="width: 100%; vertical-align: baseline; text-align: center; align-items: center;"
           :key="index"
         )
+         span CALCULANDO FRETE
       q-btn.botao.q-pa-md.q-mt-md.text-bold(
         color="green"
         @click="addProductToCart()"
