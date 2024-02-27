@@ -262,6 +262,7 @@ div.container
                   ) Recebido
               a.subtitulo(
                 style="font-weight: 300; cursor:  pointer; margin-top: 2px;"
+                @click="addProductToCart(item.id,item.qtdVendida)"
               ) Repetir Pedido
             div.column
               p.subtitulo N PEDIDO: {{ orders.id }}
