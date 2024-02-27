@@ -66,7 +66,8 @@ function sendCart () {
       message: "Nenhum carrinho encontrado, tente adicionar produtos."
     });
   } else {
-    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
+    const carrinhoid = $q.localStorage.getItem("cartIdBackend") || -1;
+    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${carrinhoid}`;
   }
 }
 
