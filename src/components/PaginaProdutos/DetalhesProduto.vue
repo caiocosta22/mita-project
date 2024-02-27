@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useQuasar, LocalStorage } from "quasar";
 import axios from "axios";
-import getCart from "../../helpers/getCart.js";
+import getCart from "src/helpers/getCart";
 import InnerImageZoom from "vue-inner-image-zoom";
 import "vue-inner-image-zoom/lib/vue-inner-image-zoom.css";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
@@ -14,7 +14,7 @@ const $q = useQuasar();
 const token = $q.localStorage.getItem("token");
 const quantidadeCarrinho = ref(LocalStorage.getItem("quantidadeCarrinho"));
 let cartId = LocalStorage.getItem("cartIdBackend") || -1;
-const idClient = LocalStorage.getItem("idclient");
+const idClient = LocalStorage.getItem("idclient") || -1;
 
 const props = defineProps({
   product: {
@@ -51,6 +51,7 @@ const gutterClass = ref("");
 const usarSkeleton = ref(false);
 const qtdProduct = ref(1);
 const cep = ref();
+const itemQuantity = ref();
 const dadosFrete = ref([]);
 const text1 = ref("");
 const selectedColor = ref(null);
@@ -173,45 +174,98 @@ async function calcFreteProprio () {
 
 async function createCart () {
   try {
-    cartId = -1;
-    const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${idClient}`, {
-      quantity: qtdProduct.value,
+    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/-1/${idClient}`, {
+      quantity: 1,
       productId: produto.value.id
     });
-    const response = add.data;
-    if (add.status === 200) {
-      cartId = response.id;
+    if (response.status === 200) {
+      cartId = response.data.id;
       LocalStorage.set("cartIdBackend", cartId);
       await getCart();
       emitAddToCartEvent();
+      $q.notify({
+        color: "green",
+        textColor: "white",
+        icon: "check",
+        message: "Carrinho criado com sucesso."
+      });
+    } else {
+      console.log("Status da requisição, ", response.status);
+      console.log("Resposta da requisição, ", response.response);
     }
   } catch (error) {
     console.log(error);
   }
 }
 
+async function verifyItem () {
+  try {
+    const items = LocalStorage.getItem("itemsCarrinho");
+    const itemEncontrado = items.find(item => item.itemVenda.id === produto.value.id);
+    itemQuantity.value = itemEncontrado.quantity;
+    return !!itemEncontrado;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 async function addProductToCart () {
   try {
-    if (idClient) {
-      if (cartId === -1) {
-        await createCart();
-      } else {
+    if (cartId === -1) {
+      await createCart();
+    } else {
+      const itemExiste = await verifyItem();
+      if (!itemExiste) {
         const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
-          quantity: qtdProduct.value,
+          quantity: 1,
           productId: produto.value.id
         });
         if (add.status === 200) {
           await getCart();
           emitAddToCartEvent();
+          $q.notify({
+            color: "green",
+            textColor: "white",
+            icon: "check",
+            message: "Item adicionado com sucesso."
+          });
+          console.log("Resposta da requisicao sucedida, ", add.response);
+        } else {
+          console.log("Status da requisicao, ", add.status);
+          console.log("Resposta da requisicao, ", add.response);
+          $q.notify({
+            color: "red",
+            textColor: "white",
+            icon: "warning",
+            message: "Erro ao adicionar item. tente recarregar a página"
+          });
+        }
+      } else {
+        const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
+          productId: produto.value.id,
+          quantity: (itemQuantity.value + 1)
+        });
+        $q.notify({
+          color: "green",
+          textColor: "white",
+          icon: "check",
+          message: "Item já no carrinho, adicionando mais 1 unidade."
+        });
+        if (add.status === 200) {
+          await getCart();
+          emitAddToCartEvent();
+        } else {
+          $q.notify({
+            color: "green",
+            textColor: "white",
+            icon: "check",
+            message: "Falha ao atualizar item. Tente recarregar a página"
+          });
+          console.log("Status da atualizacao, ", add.status);
+          console.log("Resposta da atualizacao, ", add.response);
         }
       }
-    } else {
-      $q.notify({
-        color: "red-5",
-        textColor: "white",
-        icon: "warning",
-        message: "Erro ao adicionar item ao carrinho. Faça o Login na sua conta."
-      });
     }
   } catch (error) {
     console.log(error);

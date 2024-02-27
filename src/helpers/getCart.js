@@ -14,6 +14,7 @@ async function getCart () {
     quantidadeCarrinho = items.reduce((total, item) => total + item.quantity, quantidadeCarrinho);
 
     LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
+    LocalStorage.set("itemsCarrinho", items);
   } catch (err) {
     console.error("Erro no carrinho, ", err);
   }

@@ -118,7 +118,8 @@ async function searchCategories () {
 
 async function clearCart () {
   try {
-    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/clearCart/${cartId}`);
+    const idcarrinho = $q.localStorage.getItem("cartIdBackend");
+    const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/clearCart/${idcarrinho}`);
     if (response.status === 200) {
       const quantidadeCarrinho = 0;
       $q.localStorage.set("quantidadeCarrinho", quantidadeCarrinho);
