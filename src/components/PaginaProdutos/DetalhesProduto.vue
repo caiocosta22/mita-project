@@ -285,6 +285,7 @@ async function addProductToCart () {
     await createCart();
   }
 };
+
 onMounted(() => {
   setGutterClass();
   window.addEventListener("resize", setGutterClass);
