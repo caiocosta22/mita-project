@@ -14,6 +14,7 @@ const $q = useQuasar();
 const id = $q.localStorage.getItem("idclient");
 const token = $q.localStorage.getItem("token");
 
+const notification = ref(null);
 const itsLoading = ref(true);
 const show = ref("1");
 const datacliente = ref(

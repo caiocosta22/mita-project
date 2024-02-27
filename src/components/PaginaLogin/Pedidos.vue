@@ -260,10 +260,14 @@ div.container
                   span(
                     style="color: #fff;       font-weight: 500;"
                   ) Recebido
-              a.subtitulo(
-                style="font-weight: 300; cursor:  pointer; margin-top: 2px;"
-                @click="addProductToCart(item.id,item.qtdVendida)"
-              ) Repetir Pedido
+              template(
+                v-for="item in orders.itemPedido"
+                :key="item"
+              )
+                a.subtitulo(
+                  style="font-weight: 300; cursor:  pointer;  margin-top: 2px;"
+                  @click="addProductToCart(item.id,item.qtdVendida)"
+                ) Repetir Pedido
             div.column
               p.subtitulo N PEDIDO: {{ orders.id }}
               a.subtitulo(
