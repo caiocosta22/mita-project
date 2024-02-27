@@ -190,6 +190,12 @@ async function createCart () {
         message: "Carrinho criado com sucesso."
       });
     } else {
+      $q.notify({
+        color: "red",
+        textColor: "white",
+        icon: "warning",
+        message: "Erro ao criar carrinho, tente recarregar a página."
+      });
       console.log("Status da requisição, ", response.status);
       console.log("Resposta da requisição, ", response.response);
     }
@@ -212,6 +218,13 @@ async function verifyItem () {
 
 async function addProductToCart () {
   try {
+    $q.notify({
+      color: "blue",
+      textColor: "white",
+      icon: "loading",
+      spinner: true,
+      message: "Por favor, aguarde"
+    });
     if (cartId === -1) {
       await createCart();
     } else {
