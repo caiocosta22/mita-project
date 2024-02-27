@@ -282,7 +282,7 @@ div.container
                 )
                   div.flex.row
                     div.produto
-                      q-img(
+                      img(
                         :src="item.foto"
                       )
                     div.column(
@@ -392,9 +392,10 @@ div.container
   width: 100px;
   height: 100px;
 }
-q-img {
+img {
   max-width: 100%;
   display: block;
+  height: inherit;
 }
 .infos {
   display: flex;
