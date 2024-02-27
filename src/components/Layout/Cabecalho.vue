@@ -9,9 +9,8 @@ const $q = useQuasar();
 const router = useRouter();
 const route = useRoute();
 
-const loginSalvo = $q.localStorage.getItem("login");
-const senhaSalva = $q.localStorage.getItem("senha");
 const cartId = $q.localStorage.getItem("cartIdBackend");
+console.log("id do carrinho, ", cartId);
 
 const qtdProduto = ref($q.localStorage.getItem("quantidadeCarrinho"));
 
@@ -58,16 +57,16 @@ const handleScroll = () => {
   }
 };
 
-function checaLogin () {
-  if (loginSalvo && senhaSalva) {
-    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
-  } else {
+function sendCart () {
+  if (cartId == null) {
     $q.notify({
-      color: "red-5",
+      color: "red",
       textColor: "white",
       icon: "warning",
-      message: "Você não está logado, efetue o login."
+      message: "Nenhum carrinho encontrado, tente adicionar produtos."
     });
+  } else {
+    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${cartId}`;
   }
 }
 
@@ -186,7 +185,7 @@ div.container
         )
         span.col(:style = "{ color : corcabecalho }") Minha conta
       a.cursor-pointer.carrinho.row.q-gutter-sm(
-        @click="checaLogin"
+        @click="sendCart"
       )
         q-icon(
           :color="corcabecalho"

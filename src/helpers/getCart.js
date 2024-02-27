@@ -4,8 +4,8 @@ import { LocalStorage } from "quasar";
 async function getCart () {
   try {
     const cartId = LocalStorage.getItem("cartIdBackend") || -1;
-    const clientId = LocalStorage.getItem("idclient");
-    let quantidadeCarrinho = 0; // Resetando para 0 a cada chamada
+    const clientId = LocalStorage.getItem("idclient") || -1;
+    let quantidadeCarrinho = 0;
 
     const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${clientId}`);
 
@@ -15,7 +15,7 @@ async function getCart () {
 
     LocalStorage.set("quantidadeCarrinho", quantidadeCarrinho);
   } catch (err) {
-    console.error(err);
+    console.error("Erro no carrinho, ", err);
   }
 }
 
