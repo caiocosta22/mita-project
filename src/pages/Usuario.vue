@@ -168,7 +168,6 @@ q-page-container
     )
       div.interno
         div.menus
-          template
           div.titulo
             p(style="margin: 0;") MINHA CONTA
             q-separator(
@@ -236,9 +235,34 @@ q-page-container
               pagamentos(
                 :datapayment="datapayment"
               )
+    template(
+      v-if="itsLoading"
+    )
+      div.interno
+        div.menus
+          div.titulo
+            p(style="margin: 0;") MINHA CONTA
+            q-separator(
+              style="width: 150px;height: 2px; margin-bottom: 15px; margin-top: 15px;"
+              color="black"
+            )
+          div.subtitulos(
+            v-for="index in 6"
+            :key="index"
+          )
+            q-skeleton.q-mb-sm(
+              width="150px"
+              height="45px"
+            )
+        div.conteudo
+          q-skeleton.q-mb-sm.skeleton
 </template>
 
 <style scoped>
+.skeleton {
+  height: 400px;
+  width: 700px;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -269,15 +293,22 @@ q-page-container
   .interno {
     width: 83%;
   }
+  .skeleton {
+    width: 500px;
+  }
 }
 @media screen and (max-width: 769px) {
   .conteudo {
     width: 100%;
     margin-top: 20px;
   }
+  .skeleton {
+    width: 100%;
+  }
   .interno {
     width: 83%;
     flex-direction: column;
+    margin-bottom: 20px;
   }
   .menus{
     align-items: center;
