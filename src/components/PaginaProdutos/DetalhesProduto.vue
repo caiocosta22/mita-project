@@ -263,7 +263,7 @@ async function addProductToCart () {
           color: "green",
           textColor: "white",
           icon: "check",
-          message: "Item já no carrinho, adicionando mais 1 unidade."
+          message: "Item já no carrinho, adicionada mais 1 unidade."
         });
         if (add.status === 200) {
           await getCart();
