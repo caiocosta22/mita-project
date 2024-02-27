@@ -391,11 +391,12 @@ div.container
 .produto{
   width: 100px;
   height: 100px;
+  display: flex;
 }
 img {
   max-width: 100%;
   display: block;
-  height: inherit;
+  max-height: 100%;
 }
 .infos {
   display: flex;
