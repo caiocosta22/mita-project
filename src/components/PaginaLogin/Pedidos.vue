@@ -31,6 +31,14 @@ const datadetails = ref("");
 const produto = ref();
 const quantidadeproduto = ref();
 
+async function repetirPedido (id) {
+  try {
+    console.log(id);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function verifyItem () {
   try {
     const items = LocalStorage.getItem("itemsCarrinho");
