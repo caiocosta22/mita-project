@@ -261,13 +261,19 @@ div.container
                     style="color: #fff;       font-weight: 500;"
                   ) Recebido
               template(
-                v-for="item in orders.itemPedido"
-                :key="item"
+                v-if="orders.status !== 'recebido' && orders.status !== 'cancelado' && orders.status !== 'aguardando'"
               )
-                a.subtitulo(
-                  style="font-weight: 300; cursor:  pointer;  margin-top: 2px;"
-                  @click="addProductToCart(item.id,item.qtdVendida)"
-                ) Repetir Pedido
+                q-btn(
+                  color="black"
+                  unelevated
+                )
+                  span(
+                    style="color: #fff;       font-weight: 500;"
+                  ) {{ orders.status }}
+              a.subtitulo(
+                style="font-weight: 300; cursor:  pointer;  margin-top: 2px;"
+                @click="repetirPedido(orders.id)"
+              ) Repetir Pedido
             div.column
               p.subtitulo N PEDIDO: {{ orders.id }}
               a.subtitulo(
