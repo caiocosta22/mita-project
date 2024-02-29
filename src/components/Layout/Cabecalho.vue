@@ -58,7 +58,8 @@ const handleScroll = () => {
 };
 
 function sendCart () {
-  if (cartId == null) {
+  const idcarrinho = $q.localStorage.getItem("cartIdBackend");
+  if (idcarrinho == null) {
     $q.notify({
       color: "red",
       textColor: "white",
@@ -66,8 +67,7 @@ function sendCart () {
       message: "Nenhum carrinho encontrado, tente adicionar produtos."
     });
   } else {
-    const carrinhoid = $q.localStorage.getItem("cartIdBackend") || -1;
-    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${carrinhoid}`;
+    window.location.href = `https://mitaoficial.elevarone.com.br/checkout?idCart=${idcarrinho}`;
   }
 }
 
