@@ -51,7 +51,7 @@ const gutterClass = ref("");
 const usarSkeleton = ref(false);
 const qtdProduct = ref(1);
 const cep = ref();
-const itemQuantity = ref();
+const itemQuantity = ref(null);
 const dadosFrete = ref([]);
 const text1 = ref("");
 const selectedColor = ref(null);
@@ -208,7 +208,7 @@ async function verifyItem () {
   try {
     const items = LocalStorage.getItem("itemsCarrinho");
     const itemEncontrado = items.find(item => item.itemVenda.id === produto.value.id);
-    itemQuantity.value = itemEncontrado.quantity;
+    itemQuantity.value = itemEncontrado.quantity + 1;
     return !!itemEncontrado;
   } catch (error) {
     console.log(error);
@@ -255,10 +255,7 @@ async function addProductToCart () {
           });
         }
       } else {
-        const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/addCartItem/${cartId}`, {
-          productId: produto.value.id,
-          quantity: (itemQuantity.value + 1)
-        });
+        const add = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/updateCartItem/${cartId}/${produto.value.id}/${itemQuantity.value}`);
         $q.notify({
           color: "green",
           textColor: "white",
