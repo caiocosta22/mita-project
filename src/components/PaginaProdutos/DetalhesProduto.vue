@@ -36,6 +36,8 @@ const customvowel = ref(produto.value?.customizacao?.vowelFont);
 const customMarginleft = ref(produto.value?.customizacao?.marginLeft + "%");
 const customMargintop = ref(produto.value?.customizacao?.marginTop + "%");
 const customsize = ref(produto.value?.customizacao?.size + "px");
+const customrotate = ref(produto.value?.customizacao?.rotate || 0);
+const customtransform = ref(`translate(-50%, -50%) rotate(${customrotate.value}deg)`);
 const settings = ref({
   itemsToShow: 3.5,
   snapAlign: "start",
@@ -336,7 +338,7 @@ div.container.q-pt-md.q-pb-sm
           span.text-on-image(
             v-if="produto.customizacao"
             v-html="formattedText",
-            :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontSize: customsize, color: customcor}"
+            :style="{ marginLeft: customMarginleft, marginTop: customMargintop, fontSize: customsize, color: customcor, transform: customtransform }"
           )
     div.miniaturasmobile
       Carousel(v-bind="settings" :breakpoints="breakpoints")
@@ -558,7 +560,6 @@ div.container.q-pt-md.q-pb-sm
   cursor: default;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
 }
 .cep{
