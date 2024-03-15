@@ -135,7 +135,7 @@ async function searchOrders () {
 
 async function searcPayments () {
   try {
-    const data = await axios.post("https://mitaoficial.elevarcommerce.com.br/HandoverMetasWS/webapi/handover/portal/ecommerce/cartaoService/allSite", { idCliente: id }, {
+    const data = await axios.post("https://mitaoficial.elevarcommerce.com.br/api/portal/ecommerce/cartaoService/allSite", { idCliente: id }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
