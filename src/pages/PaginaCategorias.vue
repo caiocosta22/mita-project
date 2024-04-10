@@ -15,36 +15,70 @@ const bannerUrlCategorie = ref("");
 const itsLoading = ref(true);
 
 const pickedCategories = ref([
-  { id: route.params.categoria }
+  route.params.categoria
 ]);
 
 async function findProductsByCategory () {
+  const size = 12;
+  const from = (page.value - 1) * size;
+
+  const categories = getCategoriesBrand(pickedCategories.value, categoriesBase.value);
+
   try {
     itsLoading.value = true;
-    const products = await axios.post("https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/servicoService/filtro-produtoV2/-1", {
-      tiposServico: [],
-      gruposServico: pickedCategories.value,
-      marcas: [],
-      palavraChave: "",
-      page: page.value
-    }).then(e => e.data);
-    if (products.content.length) {
-      products.content = products.content.map(product => {
-        return {
-          ...product,
-          name: product.descricao,
-          image: product.fotosServico[0].foto,
-          tag: product.promocao
-            ? [
-              `De R$ ${product.valor}`,
-              `Por R$ ${product.precoPromocional}`
-            ] : [
-              `R$ ${product.valor}`
-            ]
-        };
-      });
-      items.value = products;
+
+    const body = {
+      from,
+      size,
+      query: {
+        bool: {
+          filter: [
+            { term: { status: true } },
+            {
+              bool: {
+                should: [
+                  { term: { deletado: false } },
+                  { bool: { must_not: { exists: { field: "deletado" } } } }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      sort: [{ id: { order: "desc" } }]
+    };
+
+    if (categories?.length) {
+      body.query.bool?.filter?.push({ terms: { "grupos.keyword": categories } });
     }
+
+    const response = await axios.post("https://elevarcommerce.com.br/elastic/search?tenant=mitaoficial", body).then(e => e.data);
+
+    const { hits } = response;
+    const { total, hits: content } = hits;
+    const { value: totalRows } = total;
+
+    let products = content.map(({ _source }) => _source);
+    products = products.map(product => {
+      return {
+        ...product,
+        name: product.descricao,
+        image: product.fotosServico[0].foto,
+        tag: product.promocao
+          ? [
+            `De R$ ${product.valor}`,
+            `Por R$ ${product.precoPromocional}`
+          ] : [
+            `R$ ${product.valor}`
+          ]
+      };
+    });
+
+    items.value = {
+      content: products,
+      totalRows,
+      currentPage: page.value
+    };
   } catch (e) {
     console.error("Erro ao buscar produtos da categoria: ", e);
   } finally {
@@ -59,10 +93,55 @@ async function searchCategories () {
       categoriesBase.value = data.map(row => {
         return { ...row, name: row.descricao, children: [...row.subCategoria], foto: row.fotoUrl };
       });
+
+      findProductsByCategory();
     }
   } catch (e) {
     console.error(e);
   }
+}
+
+function getCategoriesBrand (categories, grupos) {
+  const query = [];
+
+  for (const cat of categories) {
+    const { desc, subc } = findDescricaoById(parseInt(cat), grupos);
+
+    if (desc) {
+      query.push(desc);
+    }
+
+    if (subc && subc.length) {
+      subc.forEach((subcat) => {
+        query.push(subcat.descricao);
+      });
+    }
+  }
+
+  return query;
+}
+
+function findDescricaoById (id, categories) {
+  const result = findRecursive(id, categories);
+  return {
+    desc: result?.descricao || null,
+    subc: result?.subCategoria || null
+  };
+}
+
+function findRecursive (id, categorias) {
+  for (const categoria of categorias) {
+    if (categoria.id === id) {
+      return categoria;
+    }
+
+    const result = this.findRecursive(id, categoria.subCategoria);
+    if (result) {
+      return result;
+    }
+  }
+
+  return null;
 }
 
 watch(() => page.value, async () => {
@@ -75,7 +154,6 @@ watch(() => pickedCategories.value, async () => {
 
 onBeforeMount(async () => {
   await Promise.all([
-    findProductsByCategory(),
     searchCategories()
   ]);
 });

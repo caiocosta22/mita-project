@@ -10,8 +10,6 @@ const router = useRouter();
 const route = useRoute();
 
 const cartId = $q.localStorage.getItem("cartIdBackend");
-console.log("id do carrinho, ", cartId);
-
 const qtdProduto = ref($q.localStorage.getItem("quantidadeCarrinho"));
 
 const updateCartQuantity = (event) => {

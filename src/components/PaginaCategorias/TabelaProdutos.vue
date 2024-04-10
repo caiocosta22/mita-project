@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -121,7 +121,6 @@ function openProductPage (product) {
     router.push(url);
   }
 }
-console.log(props.items);
 </script>
 
 <template lang="pug">

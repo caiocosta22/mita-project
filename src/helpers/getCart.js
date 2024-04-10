@@ -9,7 +9,7 @@ async function getCart () {
 
     const response = await axios.post(`https://mitaoficial.elevarcommerceapi.com.br/HandoverMetasWS/webapi/handover/portal/cartService/getCart/${cartId}/${clientId}`);
 
-    const items = response.data.items || [];
+    const items = response.data?.items || [];
 
     quantidadeCarrinho = items.reduce((total, item) => total + item.quantity, quantidadeCarrinho);
 

@@ -26,7 +26,6 @@ async function searchProducts (id, page = 1, size = 12) {
           }
         },
         filter: [
-          { term: { tipo: "produto" } },
           { term: { status: true } },
           {
             bool: {
@@ -42,7 +41,7 @@ async function searchProducts (id, page = 1, size = 12) {
   };
 
   try {
-    const { data } = await axios.post("https://elevarcommerce.com.br/elastic/elastic/search?tenant=mitaoficial", body);
+    const { data } = await axios.post("https://elevarcommerce.com.br/elastic/search?tenant=mitaoficial", body);
     const { hits } = data;
     const { total, hits: content } = hits;
     const { value: totalRows } = total;
